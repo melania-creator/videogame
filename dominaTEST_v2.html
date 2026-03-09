@@ -605,26 +605,18 @@ html,body{
   <!-- ══ PANNELLO AFFARI ══ -->
   <div id="panel-affari" style="
     position:absolute;inset:0;z-index:60;
-    display:none;flex-direction:column;align-items:center;justify-content:center;
-    background:rgba(20,12,4,.92);">
+    display:none;
+    background:url('affari_bg.jpg') center/424px 760px no-repeat;">
     <!-- Tasto chiudi X -->
     <button onclick="closeAffari()" style="
-      position:absolute;top:18px;right:18px;
-      width:36px;height:36px;border-radius:50%;
-      background:rgba(201,168,76,.15);border:1.5px solid #C9A84C;
-      color:#C9A84C;font-size:18px;cursor:pointer;
-      display:flex;align-items:center;justify-content:center;">✕</button>
-    <div style="font-size:2.2rem;margin-bottom:12px;">💼</div>
-    <div style="font-family:'Cinzel',serif;color:#C9A84C;font-size:1.15rem;letter-spacing:.12em;margin-bottom:24px;">AFFARI</div>
-    <div style="color:#a08060;font-size:.85rem;letter-spacing:.08em;text-align:center;padding:0 32px;">
-      IN COSTRUZIONE
-    </div>
-    <!-- Decorazione pompeiana -->
-    <svg viewBox="0 0 200 20" width="180" style="margin-top:32px;opacity:.35">
-      <line x1="0" y1="10" x2="75" y2="10" stroke="#C9A84C" stroke-width="1"/>
-      <circle cx="100" cy="10" r="6" fill="none" stroke="#C9A84C" stroke-width="1"/>
-      <line x1="125" y1="10" x2="200" y2="10" stroke="#C9A84C" stroke-width="1"/>
-    </svg>
+      position:absolute;top:78px;right:10px;z-index:10;
+      width:30px;height:30px;border-radius:50%;
+      background:rgba(10,6,2,.6);border:1px solid rgba(201,168,76,.5);
+      cursor:pointer;display:flex;align-items:center;justify-content:center;">
+      <svg viewBox="0 0 14 14" width="12" height="12" fill="none">
+        <path d="M1 1L13 13M13 1L1 13" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
   </div>
 </div><!-- #hub -->
 
