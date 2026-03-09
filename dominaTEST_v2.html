@@ -588,7 +588,6 @@ const panels = {
 function showPanel(id){
   if(id === 'eumachia'){
     document.getElementById('panel-eumachia').style.display = 'flex';
-    document.getElementById('hud').style.zIndex = '70';
     return;
   }
   const p = panels[id];
@@ -601,7 +600,6 @@ function closePanel(){
 }
 function closeEumachia(){
   document.getElementById('panel-eumachia').style.display = 'none';
-  document.getElementById('hud').style.zIndex = '20';
 }
 
 function openImp() { document.getElementById('imp').classList.add('show'); }
