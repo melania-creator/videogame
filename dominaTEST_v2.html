@@ -625,21 +625,19 @@ html,body{
       background:transparent;border:2px solid rgba(201,168,76,.8);
       cursor:pointer;z-index:10;"></button>
 
-    <!-- Indicatore timer Gallia (sovrapposto al bottone, stesso left/top) -->
+    <!-- Indicatore timer Gallia (sovrapposto al bottone) -->
     <div id="gallia-timer" style="
       position:absolute;left:75px;top:130px;
-      width:44px;text-align:center;display:none;pointer-events:none;">
-      <svg viewBox="0 0 44 44" width="44" height="44" style="display:block;">
-        <circle cx="22" cy="22" r="18" fill="none" stroke="rgba(180,30,30,.3)" stroke-width="2"/>
-        <circle id="gallia-ring" cx="22" cy="22" r="18" fill="none"
-          stroke="#e03030" stroke-width="2"
-          stroke-dasharray="113.1" stroke-dashoffset="0"
-          stroke-linecap="round" transform="rotate(-90 22 22)"/>
-      </svg>
-      <div id="gallia-time-text" style="
-        font-family:'Cinzel',serif;color:#e03030;
-        font-size:.52rem;letter-spacing:.03em;
-        margin-top:-4px;text-shadow:0 0 6px rgba(220,40,40,.6);">10:00</div>
+      width:44px;height:44px;display:none;pointer-events:none;">
+      <div id="gallia-pie" style="
+        width:44px;height:44px;border-radius:50%;
+        background:conic-gradient(from -90deg,#e03030 0% 100%,rgba(20,5,5,.6) 0%);
+        position:relative;">
+        <div id="gallia-time-text" style="
+          position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+          font-family:'Cinzel',serif;color:#fff;font-size:.48rem;
+          letter-spacing:.03em;text-shadow:0 1px 3px rgba(0,0,0,.9);">10:00</div>
+      </div>
     </div>
 
     <!-- HISPANIA – bottone tondo solo bordo -->
@@ -652,18 +650,16 @@ html,body{
     <!-- Indicatore timer Hispania (sovrapposto al bottone) -->
     <div id="hispania-timer" style="
       position:absolute;left:5px;top:358px;
-      width:44px;text-align:center;display:none;pointer-events:none;">
-      <svg viewBox="0 0 44 44" width="44" height="44" style="display:block;">
-        <circle cx="22" cy="22" r="18" fill="none" stroke="rgba(180,30,30,.3)" stroke-width="2"/>
-        <circle id="hispania-ring" cx="22" cy="22" r="18" fill="none"
-          stroke="#e03030" stroke-width="2"
-          stroke-dasharray="113.1" stroke-dashoffset="0"
-          stroke-linecap="round" transform="rotate(-90 22 22)"/>
-      </svg>
-      <div id="hispania-time-text" style="
-        font-family:'Cinzel',serif;color:#e03030;
-        font-size:.52rem;letter-spacing:.03em;
-        margin-top:-4px;text-shadow:0 0 6px rgba(220,40,40,.6);">30:00</div>
+      width:44px;height:44px;display:none;pointer-events:none;">
+      <div id="hispania-pie" style="
+        width:44px;height:44px;border-radius:50%;
+        background:conic-gradient(from -90deg,#e03030 0% 100%,rgba(20,5,5,.6) 0%);
+        position:relative;">
+        <div id="hispania-time-text" style="
+          position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+          font-family:'Cinzel',serif;color:#fff;font-size:.48rem;
+          letter-spacing:.03em;text-shadow:0 1px 3px rgba(0,0,0,.9);">30:00</div>
+      </div>
     </div>
   </div>
 </div><!-- #hub -->
@@ -786,9 +782,9 @@ function updateGalliaDisplay(){
   const m = Math.floor(galliaSecondsLeft / 60);
   const s = galliaSecondsLeft % 60;
   document.getElementById('gallia-time-text').textContent = m + ':' + String(s).padStart(2,'0');
-  const progress = galliaSecondsLeft / GALLIA_DURATION;
-  const offset = 113.1 * (1 - progress);
-  document.getElementById('gallia-ring').setAttribute('stroke-dashoffset', offset);
+  const pct = Math.round(galliaSecondsLeft / GALLIA_DURATION * 100);
+  document.getElementById('gallia-pie').style.background =
+    `conic-gradient(from -90deg,#e03030 0% ${pct}%,rgba(20,5,5,.6) 0%)`;
 }
 
 // ── Hispania timer ──
@@ -822,9 +818,9 @@ function updateHispaniaDisplay(){
   const m = Math.floor(hispaniaSecondsLeft / 60);
   const s = hispaniaSecondsLeft % 60;
   document.getElementById('hispania-time-text').textContent = m + ':' + String(s).padStart(2,'0');
-  const progress = hispaniaSecondsLeft / HISPANIA_DURATION;
-  const offset = 113.1 * (1 - progress);
-  document.getElementById('hispania-ring').setAttribute('stroke-dashoffset', offset);
+  const pct = Math.round(hispaniaSecondsLeft / HISPANIA_DURATION * 100);
+  document.getElementById('hispania-pie').style.background =
+    `conic-gradient(from -90deg,#e03030 0% ${pct}%,rgba(20,5,5,.6) 0%)`;
 }
 
 function openLook(){
