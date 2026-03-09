@@ -459,14 +459,14 @@ html,body{
         background:transparent;border:none;cursor:pointer;
       "></button>
 
-      <!-- Overlay sblocco (visibile solo su look_02 bloccato) -->
+      <!-- Overlay sblocco (visibile su look bloccato) -->
       <div id="look-unlock-overlay" style="
         display:none;
         position:absolute;inset:0;
         align-items:center;justify-content:center;
         padding-bottom:120px;
       ">
-        <button onclick="unlockLook02()" style="
+        <button id="btn-unlock-look" onclick="unlockCurrentLook()" style="
           margin-top:260px;
           padding:10px 22px;
           background:rgba(10,6,2,.75);
@@ -600,9 +600,10 @@ snd.volume = 0.6;
 let den = 0;
 
 // ── Cambio Look ──
-const looks = ['eumachia_look_01.jpg', 'eumachia_look_02.jpg'];
+const looks = ['eumachia_look_01.jpg', 'eumachia_look_02.jpg', 'eumachia_look_03.jpg'];
 let lookIdx = 0;
 let look02Unlocked = false;
+let look03Unlocked = false;
 
 // Scala il game container se lo schermo è più piccolo
 function scaleGame(){
@@ -679,26 +680,45 @@ function prevLook(){
   updateLookPanel();
 }
 function updateLookPanel(){
-  const isLocked = lookIdx === 1 && !look02Unlocked;
-  const img = isLocked ? 'eumachia_look_02_locked.jpg' : looks[lookIdx];
+  const lockMap = {
+    1: { flag: ()=>look02Unlocked, lockedImg: 'eumachia_look_02_locked.jpg', cost: 100 },
+    2: { flag: ()=>look03Unlocked, lockedImg: 'eumachia_look_03_locked.jpg', cost: 200 },
+  };
+  const lock = lockMap[lookIdx];
+  const isLocked = lock && !lock.flag();
+  const img = isLocked ? lock.lockedImg : looks[lookIdx];
   document.getElementById('panel-look').style.background = "url('" + img + "') center top/424px 760px no-repeat";
+  // Visibilità prev/next
   document.getElementById('btn-prev-look').style.display = lookIdx > 0 ? 'block' : 'none';
-  document.getElementById('look-unlock-overlay').style.display = isLocked ? 'flex' : 'none';
-  // Posizione frecce: look_01 a metà-bassa, look_02+ in fondo (dove le frecce sono nell'immagine)
-  const arrowTop = lookIdx === 0 ? '540px' : '685px';
-  const arrowH   = lookIdx === 0 ? '80px'  : '65px';
+  document.getElementById('btn-next-look').style.display = lookIdx < looks.length - 1 ? 'block' : 'none';
+  // Overlay sblocco
+  const overlay = document.getElementById('look-unlock-overlay');
+  overlay.style.display = isLocked ? 'flex' : 'none';
+  if (isLocked) {
+    document.getElementById('btn-unlock-look').textContent = 'Sblocca · ' + lock.cost + ' ◈';
+  }
+  // Posizione frecce: varia per slide e stato locked/unlocked
+  let arrowTop, arrowH;
+  if (lookIdx === 0)                    { arrowTop = '540px'; arrowH = '80px'; }
+  else if (lookIdx === 1)               { arrowTop = '685px'; arrowH = '65px'; }
+  else if (lookIdx === 2 && isLocked)   { arrowTop = '555px'; arrowH = '60px'; }
+  else                                  { arrowTop = '690px'; arrowH = '55px'; }
   const prev = document.getElementById('btn-prev-look');
   const next = document.getElementById('btn-next-look');
   prev.style.top = arrowTop; prev.style.height = arrowH;
   next.style.top = arrowTop; next.style.height = arrowH;
 }
-function unlockLook02(){
-  if(den < 100){
-    alert('Denari insufficienti (servono 100 ◈)');
+function unlockCurrentLook(){
+  const costs = { 1: 100, 2: 200 };
+  const cost = costs[lookIdx];
+  if(!cost) return;
+  if(den < cost){
+    alert('Denari insufficienti (servono ' + cost + ' ◈)');
     return;
   }
-  addDen(-100);
-  look02Unlocked = true;
+  addDen(-cost);
+  if(lookIdx === 1) look02Unlocked = true;
+  if(lookIdx === 2) look03Unlocked = true;
   updateLookPanel();
 }
 
