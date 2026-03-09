@@ -620,25 +620,26 @@ html,body{
 
     <!-- GALLIA – bottone tondo solo bordo -->
     <button id="btn-gallia" onclick="clickGallia()" aria-label="Gallia" style="
-      position:absolute;left:33px;top:115px;
+      position:absolute;left:75px;top:130px;
       width:44px;height:44px;border-radius:50%;
       background:transparent;border:2px solid rgba(201,168,76,.8);
       cursor:pointer;z-index:10;"></button>
 
-    <!-- Indicatore timer Gallia -->
+    <!-- Indicatore timer Gallia (sovrapposto al bottone, stesso left/top) -->
     <div id="gallia-timer" style="
-      position:absolute;left:12px;top:167px;
-      width:80px;text-align:center;display:none;">
-      <svg viewBox="0 0 44 44" width="44" height="44" style="display:block;margin:0 auto;">
-        <circle cx="22" cy="22" r="18" fill="none" stroke="rgba(201,168,76,.2)" stroke-width="2"/>
+      position:absolute;left:75px;top:130px;
+      width:44px;text-align:center;display:none;pointer-events:none;">
+      <svg viewBox="0 0 44 44" width="44" height="44" style="display:block;">
+        <circle cx="22" cy="22" r="18" fill="none" stroke="rgba(180,30,30,.3)" stroke-width="2"/>
         <circle id="gallia-ring" cx="22" cy="22" r="18" fill="none"
-          stroke="#C9A84C" stroke-width="2"
+          stroke="#e03030" stroke-width="2"
           stroke-dasharray="113.1" stroke-dashoffset="0"
           stroke-linecap="round" transform="rotate(-90 22 22)"/>
       </svg>
       <div id="gallia-time-text" style="
-        font-family:'Cinzel',serif;color:#C9A84C;
-        font-size:.58rem;letter-spacing:.04em;margin-top:3px;">10:00</div>
+        font-family:'Cinzel',serif;color:#e03030;
+        font-size:.52rem;letter-spacing:.03em;
+        margin-top:-4px;text-shadow:0 0 6px rgba(220,40,40,.6);">10:00</div>
     </div>
   </div>
 </div><!-- #hub -->
