@@ -328,6 +328,11 @@ html,body{
       style="position:absolute;left:50px;top:225px;width:52px;height:52px;transform:translate(-50%,-50%);background:transparent;border:none;cursor:pointer;border-radius:50%;z-index:25;"
       onclick="showPanel('eumachia')" aria-label="Eumachia"></button>
 
+    <!-- Cantiere del Portico -->
+    <button id="btn-cantiere"
+      style="position:absolute;left:255px;top:210px;width:180px;height:100px;transform:translate(-50%,-50%);background:transparent;border:none;cursor:pointer;z-index:25;"
+      onclick="openCantiere()" aria-label="Cantiere del Portico"></button>
+
     <!-- Pensum -->
     <button id="btn-pen"
       style="position:absolute;left:50px;top:590px;width:52px;height:52px;transform:translate(-50%,-50%);background:transparent;border:none;cursor:pointer;border-radius:50%;z-index:25;"
@@ -639,6 +644,9 @@ function goHub(){
 }
 
 
+function openCantiere(){
+  // TODO: aprire scena cantiere del portico
+}
 const panels = {
   missioni: { ico: '📜', title: 'MISSIONI' },
   eumachia: { ico: '👑', title: 'EUMACHIA' },
