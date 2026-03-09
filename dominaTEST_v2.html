@@ -517,6 +517,12 @@ html,body{
           </button>
           <div class="imp-pct" id="mp">60%</div>
         </div>
+        <button id="btn-mtog" onclick="togM()" style="
+          margin-top:6px;padding:4px 10px;border-radius:20px;cursor:pointer;
+          background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.4);
+          font-family:'Cinzel',serif;font-size:.38rem;letter-spacing:1px;
+          color:#C9A84C;
+        ">ON</button>
       </div>
 
       <div class="imp-row-div"></div>
@@ -644,10 +650,20 @@ function closeEumachia(){
 function openImp() { document.getElementById('imp').classList.add('show'); }
 function closeImp(){ document.getElementById('imp').classList.remove('show'); }
 
+let mOn = true;
+function togM(){
+  mOn = !mOn;
+  if(mOn){ snd.play().catch(()=>{}); snd.muted = false; }
+  else { snd.muted = true; }
+  const btn = document.getElementById('btn-mtog');
+  btn.textContent = mOn ? 'ON' : 'OFF';
+  btn.style.background = mOn ? 'rgba(201,168,76,.15)' : 'rgba(80,60,40,.15)';
+  btn.style.color = mOn ? '#C9A84C' : 'rgba(201,168,76,.35)';
+}
 function chV(t, d){
   if(t==='m'){
     vM = Math.min(1, Math.max(0, vM + d));
-    snd.volume = vM;
+    if(!snd.muted) snd.volume = vM;
     document.getElementById('mf').style.width = (vM*100)+'%';
     document.getElementById('mp').textContent = Math.round(vM*100)+'%';
   } else {
