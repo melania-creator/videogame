@@ -699,16 +699,6 @@ function updateLookPanel(){
   if (isLocked) {
     document.getElementById('btn-unlock-look').textContent = 'Sblocca · ' + lock.cost + ' ◈';
   }
-  // Posizione frecce: varia per slide e stato locked/unlocked
-  let arrowTop, arrowH;
-  if (lookIdx === 0)                    { arrowTop = '540px'; arrowH = '80px'; }
-  else if (lookIdx === 1)               { arrowTop = '685px'; arrowH = '65px'; }
-  else if (lookIdx === 2 && isLocked)   { arrowTop = '555px'; arrowH = '60px'; }
-  else                                  { arrowTop = '690px'; arrowH = '55px'; }
-  const prev = document.getElementById('btn-prev-look');
-  const next = document.getElementById('btn-next-look');
-  prev.style.top = arrowTop; prev.style.height = arrowH;
-  next.style.top = arrowTop; next.style.height = arrowH;
 }
 function unlockCurrentLook(){
   const costs = { 1: 100, 2: 200 };
