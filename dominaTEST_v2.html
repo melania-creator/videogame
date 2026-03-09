@@ -604,7 +604,7 @@ html,body{
 <script>
 const snd = document.getElementById('snd');
 snd.volume = 0.6;
-let den = 0;
+let den = 0, tes = 0, vin = 0, lat = 0;
 
 // ── Cambio Look ──
 const looks = ['eumachia_look_01.jpg', 'eumachia_look_02.jpg', 'eumachia_look_03.jpg'];
@@ -634,6 +634,12 @@ function fade(cb){
 
 function goHub(){
   snd.play().catch(()=>{});
+  // Risorse iniziali
+  den = 300; tes = 10; vin = 10; lat = 10;
+  document.getElementById('vden').textContent = den;
+  document.getElementById('vtes').textContent = tes;
+  document.getElementById('vvin').textContent = vin;
+  document.getElementById('vlat').textContent = lat;
   fade(()=>{
     document.getElementById('bg-start').style.opacity = '0';
     document.getElementById('bg-hub').style.opacity   = '1';
