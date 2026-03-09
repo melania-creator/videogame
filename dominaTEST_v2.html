@@ -684,6 +684,13 @@ function updateLookPanel(){
   document.getElementById('panel-look').style.background = "url('" + img + "') center top/424px 760px no-repeat";
   document.getElementById('btn-prev-look').style.display = lookIdx > 0 ? 'block' : 'none';
   document.getElementById('look-unlock-overlay').style.display = isLocked ? 'flex' : 'none';
+  // Posizione frecce: look_01 a metà-bassa, look_02+ in fondo (dove le frecce sono nell'immagine)
+  const arrowTop = lookIdx === 0 ? '540px' : '685px';
+  const arrowH   = lookIdx === 0 ? '80px'  : '65px';
+  const prev = document.getElementById('btn-prev-look');
+  const next = document.getElementById('btn-next-look');
+  prev.style.top = arrowTop; prev.style.height = arrowH;
+  next.style.top = arrowTop; next.style.height = arrowH;
 }
 function unlockLook02(){
   if(den < 100){
