@@ -218,32 +218,7 @@ html,body{
 .imp-lbl{font-family:'Cinzel',serif;font-size:.62rem;font-weight:700;letter-spacing:2px;color:#E8C840}
 .imp-sub{font-family:'Cinzel',serif;font-size:.36rem;letter-spacing:1px;color:rgba(200,184,154,.42)}
 
-/* Slider */
-.imp-ctrl{display:flex;align-items:center;gap:7px;flex:1}
-.imp-pm{
-  width:28px;height:28px;border-radius:50%;flex-shrink:0;
-  background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.28);
-  cursor:pointer;display:flex;align-items:center;justify-content:center;
-  transition:all .15s;
-}
-.imp-pm:active{background:rgba(201,168,76,.28);transform:scale(.9)}
-.imp-trk{
-  flex:1;height:6px;position:relative;
-  background:rgba(255,255,255,.07);border:1px solid rgba(201,168,76,.18);border-radius:3px;
-}
-.imp-fill{
-  height:100%;border-radius:3px;
-  background:linear-gradient(90deg,#7A5010,#C9A84C,#E8D080);
-  transition:width .18s;position:relative;
-}
-.imp-knob{
-  position:absolute;right:-7px;top:50%;transform:translateY(-50%);
-  width:14px;height:14px;border-radius:50%;
-  background:radial-gradient(circle at 35% 35%,#F0D080,#C9A030);
-  border:1.5px solid rgba(255,255,255,.25);
-  box-shadow:0 2px 6px rgba(0,0,0,.6);
-}
-.imp-pct{font-family:'Cinzel',serif;font-size:.58rem;color:rgba(201,168,76,.6);min-width:28px;text-align:right}
+
 
 /* ══ DENARII POPUP ══ */
 @keyframes dpop{
@@ -505,22 +480,10 @@ html,body{
           <div class="imp-lbl">MUSICA</div>
           <div class="imp-sub">Sottofondo</div>
         </div>
-        <div class="imp-ctrl">
-          <button class="imp-pm" onclick="chV('m',-.1)">
-            <svg viewBox="0 0 14 14" width="12" height="12"><line x1="2" y1="7" x2="12" y2="7" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/></svg>
-          </button>
-          <div class="imp-trk">
-            <div class="imp-fill" id="mf" style="width:60%"><div class="imp-knob"></div></div>
-          </div>
-          <button class="imp-pm" onclick="chV('m',.1)">
-            <svg viewBox="0 0 14 14" width="12" height="12"><path d="M7 2v10M2 7h10" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/></svg>
-          </button>
-          <div class="imp-pct" id="mp">60%</div>
-        </div>
         <button id="btn-mtog" onclick="togM()" style="
-          margin-top:6px;padding:4px 10px;border-radius:20px;cursor:pointer;
+          padding:4px 14px;border-radius:20px;cursor:pointer;
           background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.4);
-          font-family:'Cinzel',serif;font-size:.38rem;letter-spacing:1px;
+          font-family:'Cinzel',serif;font-size:.42rem;letter-spacing:1px;
           color:#C9A84C;
         ">ON</button>
       </div>
@@ -543,18 +506,12 @@ html,body{
           <div class="imp-lbl">SUONI</div>
           <div class="imp-sub">Effetti sonori</div>
         </div>
-        <div class="imp-ctrl">
-          <button class="imp-pm" onclick="chV('s',-.1)">
-            <svg viewBox="0 0 14 14" width="12" height="12"><line x1="2" y1="7" x2="12" y2="7" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/></svg>
-          </button>
-          <div class="imp-trk">
-            <div class="imp-fill" id="sf" style="width:80%"><div class="imp-knob"></div></div>
-          </div>
-          <button class="imp-pm" onclick="chV('s',.1)">
-            <svg viewBox="0 0 14 14" width="12" height="12"><path d="M7 2v10M2 7h10" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/></svg>
-          </button>
-          <div class="imp-pct" id="sp">80%</div>
-        </div>
+        <button id="btn-stog" onclick="togS()" style="
+          padding:4px 14px;border-radius:20px;cursor:pointer;
+          background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.4);
+          font-family:'Cinzel',serif;font-size:.42rem;letter-spacing:1px;
+          color:#C9A84C;
+        ">ON</button>
       </div>
 
       <div class="imp-row-div"></div>
@@ -589,7 +546,7 @@ html,body{
 <script>
 const snd = document.getElementById('snd');
 snd.volume = 0.6;
-let vM = 0.6, vS = 0.8, den = 0;
+let den = 0;
 
 // Scala il game container se lo schermo è più piccolo
 function scaleGame(){
@@ -660,17 +617,13 @@ function togM(){
   btn.style.background = mOn ? 'rgba(201,168,76,.15)' : 'rgba(80,60,40,.15)';
   btn.style.color = mOn ? '#C9A84C' : 'rgba(201,168,76,.35)';
 }
-function chV(t, d){
-  if(t==='m'){
-    vM = Math.min(1, Math.max(0, vM + d));
-    if(!snd.muted) snd.volume = vM;
-    document.getElementById('mf').style.width = (vM*100)+'%';
-    document.getElementById('mp').textContent = Math.round(vM*100)+'%';
-  } else {
-    vS = Math.min(1, Math.max(0, vS + d));
-    document.getElementById('sf').style.width = (vS*100)+'%';
-    document.getElementById('sp').textContent = Math.round(vS*100)+'%';
-  }
+let sOn = true;
+function togS(){
+  sOn = !sOn;
+  const btn = document.getElementById('btn-stog');
+  btn.textContent = sOn ? 'ON' : 'OFF';
+  btn.style.background = sOn ? 'rgba(201,168,76,.15)' : 'rgba(80,60,40,.15)';
+  btn.style.color = sOn ? '#C9A84C' : 'rgba(201,168,76,.35)';
 }
 
 function addDen(n){
