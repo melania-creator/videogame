@@ -446,11 +446,37 @@ html,body{
         </svg>
       </button>
 
-      <!-- Freccia NEXT – bottone invisibile sovrapposto alle ">>" dell'immagine (basso destra) -->
-      <button onclick="nextLook()" aria-label="Prossimo outfit" style="
+      <!-- Freccia PREV – basso sinistra (nascosta sul look_01) -->
+      <button id="btn-prev-look" onclick="prevLook()" aria-label="Outfit precedente" style="
+        display:none;
+        position:absolute;left:20px;top:665px;width:110px;height:65px;
+        background:transparent;border:none;cursor:pointer;
+      "></button>
+
+      <!-- Freccia NEXT – basso destra -->
+      <button id="btn-next-look" onclick="nextLook()" aria-label="Prossimo outfit" style="
         position:absolute;left:290px;top:665px;width:110px;height:65px;
         background:transparent;border:none;cursor:pointer;
       "></button>
+
+      <!-- Overlay sblocco (visibile solo su look_02 bloccato) -->
+      <div id="look-unlock-overlay" style="
+        display:none;
+        position:absolute;inset:0;
+        align-items:center;justify-content:center;
+        padding-bottom:120px;
+      ">
+        <button onclick="unlockLook02()" style="
+          margin-top:260px;
+          padding:10px 22px;
+          background:rgba(10,6,2,.75);
+          border:1px solid #C9A84C;
+          border-radius:6px;
+          color:#C9A84C;
+          font-family:inherit;font-size:15px;
+          cursor:pointer;letter-spacing:.05em;
+        ">Sblocca · 100 ◈</button>
+      </div>
     </div>
 
     <!-- ══ PANNELLO IMPOSTAZIONI ══ -->
@@ -574,8 +600,9 @@ snd.volume = 0.6;
 let den = 0;
 
 // ── Cambio Look ──
-const looks = ['eumachia_look_01.jpg'];
+const looks = ['eumachia_look_01.jpg', 'eumachia_look_02.jpg'];
 let lookIdx = 0;
+let look02Unlocked = false;
 
 // Scala il game container se lo schermo è più piccolo
 function scaleGame(){
@@ -634,6 +661,8 @@ function closeEumachia(){
 }
 
 function openLook(){
+  lookIdx = 0;
+  updateLookPanel();
   document.getElementById('panel-look').style.display = 'flex';
   document.getElementById('hud').style.zIndex = '70';
 }
@@ -643,8 +672,27 @@ function closeLook(){
 }
 function nextLook(){
   lookIdx = (lookIdx + 1) % looks.length;
-  document.getElementById('panel-look').style.backgroundImage =
-    "url('" + looks[lookIdx] + "')";
+  updateLookPanel();
+}
+function prevLook(){
+  lookIdx = (lookIdx - 1 + looks.length) % looks.length;
+  updateLookPanel();
+}
+function updateLookPanel(){
+  const isLocked = lookIdx === 1 && !look02Unlocked;
+  const img = isLocked ? 'eumachia_look_02_locked.jpg' : looks[lookIdx];
+  document.getElementById('panel-look').style.backgroundImage = "url('" + img + "')";
+  document.getElementById('btn-prev-look').style.display = lookIdx > 0 ? 'block' : 'none';
+  document.getElementById('look-unlock-overlay').style.display = isLocked ? 'flex' : 'none';
+}
+function unlockLook02(){
+  if(den < 100){
+    alert('Denari insufficienti (servono 100 ◈)');
+    return;
+  }
+  addDen(-100);
+  look02Unlocked = true;
+  updateLookPanel();
 }
 
 function openImp() { document.getElementById('imp').classList.add('show'); }
