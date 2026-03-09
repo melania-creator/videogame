@@ -338,6 +338,11 @@ html,body{
       style="position:absolute;left:50px;top:590px;width:52px;height:52px;transform:translate(-50%,-50%);background:transparent;border:none;cursor:pointer;border-radius:50%;z-index:25;"
       onclick="showPanel('pensum')" aria-label="Pensum"></button>
 
+    <!-- Tavolo degli Affari -->
+    <button id="btn-aff"
+      style="position:absolute;left:175px;top:440px;width:170px;height:100px;transform:translate(-50%,-50%);background:transparent;border:none;cursor:pointer;z-index:25;"
+      onclick="openAffari()" aria-label="Tavolo degli Affari"></button>
+
 
     <!-- ══ PANEL GENERICO (Missioni / Eumachia / Pensum) ══ -->
     <div id="gen-panel" style="
@@ -596,7 +601,32 @@ html,body{
 
     </div><!-- #imp -->
 
-  </div><!-- #hub -->
+  
+  <!-- ══ PANNELLO AFFARI ══ -->
+  <div id="panel-affari" style="
+    position:absolute;inset:0;z-index:60;
+    display:none;flex-direction:column;align-items:center;justify-content:center;
+    background:rgba(20,12,4,.92);">
+    <!-- Tasto chiudi X -->
+    <button onclick="closeAffari()" style="
+      position:absolute;top:18px;right:18px;
+      width:36px;height:36px;border-radius:50%;
+      background:rgba(201,168,76,.15);border:1.5px solid #C9A84C;
+      color:#C9A84C;font-size:18px;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;">✕</button>
+    <div style="font-size:2.2rem;margin-bottom:12px;">💼</div>
+    <div style="font-family:'Cinzel',serif;color:#C9A84C;font-size:1.15rem;letter-spacing:.12em;margin-bottom:24px;">AFFARI</div>
+    <div style="color:#a08060;font-size:.85rem;letter-spacing:.08em;text-align:center;padding:0 32px;">
+      IN COSTRUZIONE
+    </div>
+    <!-- Decorazione pompeiana -->
+    <svg viewBox="0 0 200 20" width="180" style="margin-top:32px;opacity:.35">
+      <line x1="0" y1="10" x2="75" y2="10" stroke="#C9A84C" stroke-width="1"/>
+      <circle cx="100" cy="10" r="6" fill="none" stroke="#C9A84C" stroke-width="1"/>
+      <line x1="125" y1="10" x2="200" y2="10" stroke="#C9A84C" stroke-width="1"/>
+    </svg>
+  </div>
+</div><!-- #hub -->
 
   <div id="tov"></div>
 </div><!-- #game -->
@@ -674,6 +704,14 @@ function closePanel(){
 }
 function closeEumachia(){
   document.getElementById('panel-eumachia').style.display = 'none';
+  document.getElementById('hud').style.zIndex = '20';
+}
+function openAffari(){
+  document.getElementById('panel-affari').style.display = 'flex';
+  document.getElementById('hud').style.zIndex = '70';
+}
+function closeAffari(){
+  document.getElementById('panel-affari').style.display = 'none';
   document.getElementById('hud').style.zIndex = '20';
 }
 
