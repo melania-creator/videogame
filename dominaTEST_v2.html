@@ -415,6 +415,110 @@ html,body{
       </div>
     </div>
 
+
+    <!-- ══ PANEL EUMACHIA – GESTIONE PERSONAGGIO ══ -->
+    <div id="panel-eumachia" style="
+      position:absolute;inset:0;z-index:60;
+      display:none;flex-direction:column;
+      align-items:center;
+      background:transparent;
+    ">
+      <!-- Overlay scuro (sotto l'HUD reale) -->
+      <div style="
+        position:absolute;top:72px;left:0;right:0;bottom:0;
+        background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(5,2,1,.85) 55%);
+        pointer-events:none;
+      "></div>
+
+      <!-- Tasto chiudi X -->
+      <button onclick="closeEumachia()" style="
+        position:absolute;top:80px;right:16px;z-index:2;
+        width:32px;height:32px;border-radius:50%;
+        background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.22);
+        cursor:pointer;display:flex;align-items:center;justify-content:center;
+      ">
+        <svg viewBox="0 0 14 14" width="13" height="13" fill="none">
+          <path d="M1 1L13 13M13 1L1 13" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+      <!-- Titolo decorato -->
+      <div style="
+        position:relative;z-index:2;
+        margin-top:88px;width:calc(100% - 40px);
+        border:1.5px solid rgba(201,168,76,.55);
+        background:rgba(10,6,2,.78);
+        border-radius:6px;padding:8px 12px;text-align:center;
+        box-shadow:0 2px 18px rgba(0,0,0,.5),inset 0 0 30px rgba(201,168,76,.05);
+      ">
+        <div style="
+          font-family:'Cinzel Decorative',serif;font-size:.62rem;font-weight:700;
+          color:#F0D080;letter-spacing:3px;
+          text-shadow:0 0 14px rgba(201,168,76,.4);
+        ">GESTIONE PERSONAGGIO: EUMACHIA</div>
+      </div>
+
+      <!-- Tre bottoni azione -->
+      <div style="
+        position:relative;z-index:2;
+        display:flex;gap:12px;margin-top:22px;width:calc(100% - 40px);
+        justify-content:center;
+      ">
+        <!-- CAMBIO LOOK -->
+        <button onclick="alert('IN COSTRUZIONE')" style="
+          flex:1;max-width:104px;
+          background:rgba(10,6,2,.72);border:1.5px solid rgba(201,168,76,.4);
+          border-radius:10px;padding:14px 8px 10px;cursor:pointer;
+          display:flex;flex-direction:column;align-items:center;gap:8px;
+        ">
+          <svg viewBox="0 0 40 40" width="36" height="36" fill="none">
+            <rect x="6" y="6" width="28" height="30" rx="2" stroke="#C9A84C" stroke-width="1.5" fill="rgba(201,168,76,.08)"/>
+            <line x1="20" y1="6" x2="20" y2="36" stroke="#C9A84C" stroke-width="1"/>
+            <line x1="6" y1="16" x2="20" y2="16" stroke="#C9A84C" stroke-width=".8" opacity=".5"/>
+            <line x1="20" y1="16" x2="34" y2="16" stroke="#C9A84C" stroke-width=".8" opacity=".5"/>
+            <circle cx="17" cy="22" r="1.5" stroke="#C9A84C" stroke-width="1" fill="none"/>
+            <circle cx="23" cy="22" r="1.5" stroke="#C9A84C" stroke-width="1" fill="none"/>
+          </svg>
+          <span style="font-family:'Cinzel',serif;font-size:.42rem;letter-spacing:1.5px;color:#D9C68C;line-height:1.3;text-align:center;">CAMBIO<br>LOOK</span>
+        </button>
+
+        <!-- POPOLARITÀ -->
+        <button onclick="alert('IN COSTRUZIONE')" style="
+          flex:1;max-width:104px;
+          background:rgba(10,6,2,.72);border:1.5px solid rgba(201,168,76,.4);
+          border-radius:10px;padding:14px 8px 10px;cursor:pointer;
+          display:flex;flex-direction:column;align-items:center;gap:8px;
+        ">
+          <svg viewBox="0 0 40 40" width="36" height="36" fill="none">
+            <path d="M8 28 Q14 16 20 12 Q26 16 32 28" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+            <path d="M8 28 Q10 32 14 30" stroke="#C9A84C" stroke-width="1.3" fill="none"/>
+            <path d="M32 28 Q30 32 26 30" stroke="#C9A84C" stroke-width="1.3" fill="none"/>
+            <polygon points="20,8 21.5,13 26,13 22.5,16 24,21 20,18 16,21 17.5,16 14,13 18.5,13" stroke="#C9A84C" stroke-width="1" fill="rgba(201,168,76,.25)"/>
+          </svg>
+          <span style="font-family:'Cinzel',serif;font-size:.42rem;letter-spacing:1.5px;color:#D9C68C;line-height:1.3;text-align:center;">POPOLA-<br>RIT&#xC0;</span>
+        </button>
+
+        <!-- ANDAMENTO AFFARI -->
+        <button onclick="alert('IN COSTRUZIONE')" style="
+          flex:1;max-width:104px;
+          background:rgba(10,6,2,.72);border:1.5px solid rgba(201,168,76,.4);
+          border-radius:10px;padding:14px 8px 10px;cursor:pointer;
+          display:flex;flex-direction:column;align-items:center;gap:8px;
+        ">
+          <svg viewBox="0 0 40 40" width="36" height="36" fill="none">
+            <line x1="20" y1="8" x2="20" y2="32" stroke="#C9A84C" stroke-width="1.5"/>
+            <line x1="12" y1="16" x2="28" y2="16" stroke="#C9A84C" stroke-width="1.5"/>
+            <path d="M12 16 Q10 22 14 24 Q18 22 12 16" stroke="#C9A84C" stroke-width="1" fill="rgba(201,168,76,.15)"/>
+            <path d="M28 16 Q30 22 26 24 Q22 22 28 16" stroke="#C9A84C" stroke-width="1" fill="rgba(201,168,76,.08)"/>
+            <line x1="14" y1="32" x2="26" y2="32" stroke="#C9A84C" stroke-width="1.5"/>
+            <path d="M31 27 L34 21 L37 27" stroke="#4CAF50" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+            <line x1="34" y1="21" x2="34" y2="33" stroke="#4CAF50" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+          <span style="font-family:'Cinzel',serif;font-size:.42rem;letter-spacing:1.5px;color:#D9C68C;line-height:1.3;text-align:center;">ANDAMENTO<br>AFFARI</span>
+        </button>
+      </div>
+    </div>
+
     <!-- ══ PANNELLO IMPOSTAZIONI ══ -->
     <div id="imp">
       <button id="imp-x" onclick="closeImp()">
@@ -585,6 +689,11 @@ const panels = {
   pensum:   { ico: '📚', title: 'PENSUM' },
 };
 function showPanel(id){
+  if(id === 'eumachia'){
+    document.getElementById('panel-eumachia').style.display = 'flex';
+    document.getElementById('hud').style.zIndex = '70';
+    return;
+  }
   const p = panels[id];
   document.getElementById('gen-ico').textContent   = p.ico;
   document.getElementById('gen-title').textContent = p.title;
@@ -592,6 +701,10 @@ function showPanel(id){
 }
 function closePanel(){
   document.getElementById('gen-panel').style.display = 'none';
+}
+function closeEumachia(){
+  document.getElementById('panel-eumachia').style.display = 'none';
+  document.getElementById('hud').style.zIndex = '20';
 }
 
 function openImp() { document.getElementById('imp').classList.add('show'); }
