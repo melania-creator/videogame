@@ -510,13 +510,13 @@ html,body{
       "></button>
 
       <!-- POPOLARITÀ – bottone invisibile -->
-      <button onclick="alert('IN COSTRUZIONE')" aria-label="Popolarità" style="
+      <button onclick="openPopolarity()" aria-label="Popolarità" style="
         position:absolute;left:145px;top:100px;width:138px;height:120px;
         background:transparent;border:none;cursor:pointer;
       "></button>
 
       <!-- ANDAMENTO AFFARI – bottone invisibile -->
-      <button onclick="alert('IN COSTRUZIONE')" aria-label="Andamento Affari" style="
+      <button onclick="openAndamentoAffari()" aria-label="Andamento Affari" style="
         position:absolute;left:280px;top:105px;width:140px;height:115px;
         background:transparent;border:none;cursor:pointer;
       "></button>
@@ -905,6 +905,106 @@ html,body{
       background:rgba(10,4,2,.55);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:1px 6px;white-space:nowrap;">+10 🧱</div>
   </div>
 
+  <!-- ══ PANNELLO POPOLARITÀ ══ -->
+  <div id="panel-popolarita" style="
+    position:absolute;inset:0;z-index:72;display:none;
+    background:rgba(5,2,1,0.92);align-items:center;justify-content:center;flex-direction:column;">
+    <button onclick="closePopolarity()" style="
+      position:absolute;top:86px;right:10px;z-index:10;
+      width:30px;height:30px;border-radius:50%;
+      background:rgba(10,6,2,.6);border:1px solid rgba(201,168,76,.5);
+      cursor:pointer;display:flex;align-items:center;justify-content:center;">
+      <svg viewBox="0 0 14 14" width="12" height="12" fill="none">
+        <path d="M1 1L13 13M13 1L1 13" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <div style="
+      width:320px;background:linear-gradient(180deg,#1a0f04 0%,#120a02 100%);
+      border:1px solid rgba(201,168,76,.45);border-radius:8px;
+      padding:22px 24px;display:flex;flex-direction:column;gap:14px;
+      box-shadow:0 4px 24px rgba(0,0,0,.7);">
+      <div style="text-align:center;font-family:'Cinzel',serif;color:#C9A84C;font-size:.85rem;letter-spacing:2px;">
+        POPOLARITÀ
+      </div>
+      <div style="height:1px;background:rgba(201,168,76,.3);"></div>
+      <div id="pop-valore" style="text-align:center;font-family:'Cinzel',serif;font-size:1.6rem;color:#fff;"></div>
+      <div id="pop-fase-label" style="text-align:center;font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:1.5px;padding:4px 12px;border-radius:20px;"></div>
+      <div style="height:8px;border-radius:4px;background:rgba(255,255,255,.1);overflow:hidden;position:relative;">
+        <div id="pop-barra" style="height:100%;border-radius:4px;transition:width .4s;"></div>
+      </div>
+      <div style="height:1px;background:rgba(201,168,76,.3);"></div>
+      <div id="pop-desc" style="font-family:'Cinzel',serif;font-size:.6rem;color:rgba(201,168,76,.75);line-height:1.7;text-align:center;"></div>
+    </div>
+  </div>
+
+  <!-- ══ PANNELLO ANDAMENTO AFFARI ══ -->
+  <div id="panel-andamento" style="
+    position:absolute;inset:0;z-index:72;display:none;
+    background:rgba(5,2,1,0.92);align-items:center;justify-content:center;flex-direction:column;">
+    <button onclick="closeAndamentoAffari()" style="
+      position:absolute;top:86px;right:10px;z-index:10;
+      width:30px;height:30px;border-radius:50%;
+      background:rgba(10,6,2,.6);border:1px solid rgba(201,168,76,.5);
+      cursor:pointer;display:flex;align-items:center;justify-content:center;">
+      <svg viewBox="0 0 14 14" width="12" height="12" fill="none">
+        <path d="M1 1L13 13M13 1L1 13" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <div style="
+      width:320px;background:linear-gradient(180deg,#1a0f04 0%,#120a02 100%);
+      border:1px solid rgba(201,168,76,.45);border-radius:8px;
+      padding:22px 24px;display:flex;flex-direction:column;gap:12px;
+      box-shadow:0 4px 24px rgba(0,0,0,.7);">
+      <div style="text-align:center;font-family:'Cinzel',serif;color:#C9A84C;font-size:.85rem;letter-spacing:2px;">
+        ANDAMENTO AFFARI
+      </div>
+      <div style="height:1px;background:rgba(201,168,76,.3);"></div>
+      <div id="and-gallia" style="font-family:'Cinzel',serif;font-size:.65rem;color:rgba(255,255,255,.85);
+        display:flex;justify-content:space-between;align-items:center;"></div>
+      <div style="height:1px;background:rgba(201,168,76,.15);"></div>
+      <div id="and-hispania" style="font-family:'Cinzel',serif;font-size:.65rem;color:rgba(255,255,255,.85);
+        display:flex;justify-content:space-between;align-items:center;"></div>
+      <div style="height:1px;background:rgba(201,168,76,.15);"></div>
+      <div id="and-africa" style="font-family:'Cinzel',serif;font-size:.65rem;color:rgba(255,255,255,.85);
+        display:flex;justify-content:space-between;align-items:center;"></div>
+      <div style="height:1px;background:rgba(201,168,76,.3);"></div>
+      <div style="text-align:center;font-family:'Cinzel',serif;font-size:.55rem;color:rgba(201,168,76,.5);">
+        Totale denari accumulati da rotte attive
+      </div>
+      <div id="and-totale" style="text-align:center;font-family:'Cinzel',serif;font-size:1.1rem;color:#C9A84C;"></div>
+    </div>
+  </div>
+
+  <!-- ══ PANNELLO MAGISTER ══ -->
+  <div id="panel-magister" style="
+    position:absolute;inset:0;z-index:72;display:none;
+    background:rgba(5,2,1,0.92);align-items:center;justify-content:center;flex-direction:column;">
+    <button onclick="closeMagister()" style="
+      position:absolute;top:86px;right:10px;z-index:10;
+      width:30px;height:30px;border-radius:50%;
+      background:rgba(10,6,2,.6);border:1px solid rgba(201,168,76,.5);
+      cursor:pointer;display:flex;align-items:center;justify-content:center;">
+      <svg viewBox="0 0 14 14" width="12" height="12" fill="none">
+        <path d="M1 1L13 13M13 1L1 13" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <div style="
+      width:280px;background:linear-gradient(180deg,#1a0f04 0%,#120a02 100%);
+      border:1px solid rgba(201,168,76,.45);border-radius:8px;
+      padding:28px 24px;display:flex;flex-direction:column;gap:16px;align-items:center;
+      box-shadow:0 4px 24px rgba(0,0,0,.7);">
+      <div style="font-size:2.2rem;">⚖️</div>
+      <div style="text-align:center;font-family:'Cinzel',serif;color:#C9A84C;font-size:.85rem;letter-spacing:2px;">
+        MAGISTER
+      </div>
+      <div style="height:1px;background:rgba(201,168,76,.3);width:100%;"></div>
+      <div style="font-family:'Cinzel',serif;font-size:.65rem;color:rgba(201,168,76,.75);line-height:1.8;text-align:center;">
+        Il Magister della corporazione è<br>in arrivo.<br><br>
+        Prossimamente potrai consultarlo<br>per missioni speciali e consigli.
+      </div>
+    </div>
+  </div>
+
   <div id="tov"></div>
 </div><!-- #game -->
 
@@ -1010,7 +1110,12 @@ function openGiardino(){
   document.getElementById('hud').style.zIndex = '70';
 }
 function openMagister(){
-  // IN COSTRUZIONE
+  document.getElementById('panel-magister').style.display = 'flex';
+  document.getElementById('hud').style.zIndex = '75';
+}
+function closeMagister(){
+  document.getElementById('panel-magister').style.display = 'none';
+  document.getElementById('hud').style.zIndex = '70';
 }
 function openDuovirus(){
   document.getElementById('panel-duoviro').style.display = 'block';
@@ -1422,6 +1527,65 @@ function unlockCurrentLook(){
 function openImp() { document.getElementById('imp').classList.add('show'); }
 function closeImp(){ document.getElementById('imp').classList.remove('show'); }
 
+// ── Popolarità info ──
+function openPopolarity(){
+  const pct = popXP % 100;
+  const fase = popXP >= 100 ? 'rosso' : 'verde';
+  document.getElementById('pop-valore').textContent = popXP + ' / 199';
+  const lbl = document.getElementById('pop-fase-label');
+  if(fase === 'verde'){
+    lbl.textContent = 'FASE VERDE · Stabilità';
+    lbl.style.background = 'rgba(30,100,30,.35)';
+    lbl.style.color = '#7ecb7e';
+    lbl.style.border = '1px solid rgba(80,180,80,.4)';
+  } else {
+    lbl.textContent = 'FASE ROSSA · Tensione';
+    lbl.style.background = 'rgba(120,20,20,.35)';
+    lbl.style.color = '#e07070';
+    lbl.style.border = '1px solid rgba(200,60,60,.4)';
+  }
+  const barra = document.getElementById('pop-barra');
+  barra.style.width = pct + '%';
+  barra.style.background = fase === 'verde'
+    ? 'linear-gradient(90deg,#3a8a3a,#7ecb7e)'
+    : 'linear-gradient(90deg,#8a2020,#e07070)';
+  document.getElementById('pop-desc').textContent = fase === 'verde'
+    ? 'Il popolo di Pompei ti sostiene. La Concordia regna nella corporazione e nella città.'
+    : 'La tensione cresce tra i fullones. Completa incarichi del Duoviro per ristabilire l\'ordine.';
+  document.getElementById('panel-popolarita').style.display = 'flex';
+  document.getElementById('hud').style.zIndex = '75';
+}
+function closePopolarity(){
+  document.getElementById('panel-popolarita').style.display = 'none';
+  document.getElementById('hud').style.zIndex = '70';
+}
+
+// ── Andamento Affari ──
+function openAndamentoAffari(){
+  function statoRotta(interval, secondsLeft, duration, reward, label, costo){
+    if(interval){
+      const m = Math.floor(secondsLeft/60);
+      const s = secondsLeft % 60;
+      return `<span>${label}</span><span style="color:#C9A84C;">${m}:${String(s).padStart(2,'0')} · +${reward} 🪙</span>`;
+    }
+    return `<span>${label}</span><span style="color:rgba(201,168,76,.4);">In attesa (${costo})</span>`;
+  }
+  document.getElementById('and-gallia').innerHTML =
+    statoRotta(galliaInterval, galliaSecondsLeft, GALLIA_DURATION, 10, 'Gallia', '5 🍷');
+  document.getElementById('and-hispania').innerHTML =
+    statoRotta(hispaniaInterval, hispaniaSecondsLeft, HISPANIA_DURATION, 50, 'Hispania', '10 🧱');
+  document.getElementById('and-africa').innerHTML =
+    statoRotta(africaInterval, africaSecondsLeft, AFRICA_DURATION, 150, 'Africa', '10 🍷 + 10 🧱');
+  const attive = (galliaInterval ? 1 : 0) + (hispaniaInterval ? 1 : 0) + (africaInterval ? 1 : 0);
+  document.getElementById('and-totale').textContent = attive + ' / 3 rotte attive';
+  document.getElementById('panel-andamento').style.display = 'flex';
+  document.getElementById('hud').style.zIndex = '75';
+}
+function closeAndamentoAffari(){
+  document.getElementById('panel-andamento').style.display = 'none';
+  document.getElementById('hud').style.zIndex = '70';
+}
+
 let mOn = true;
 function togM(){
   mOn = !mOn;
@@ -1524,7 +1688,7 @@ function collectFullVino(){
   const r = document.getElementById('full-vino-ready');
   r.style.display = 'none'; r.classList.remove('prod-ready');
   const btn = document.getElementById('btn-full-vino');
-  btn.style.opacity = '0'; btn.style.cursor = 'pointer';
+  btn.style.opacity = '1'; btn.style.cursor = 'pointer';
   addVin(2);
 }
 
@@ -1562,7 +1726,7 @@ function collectFullTessuti(){
   const r = document.getElementById('full-tessuti-ready');
   r.style.display = 'none'; r.classList.remove('prod-ready');
   const btn = document.getElementById('btn-full-tessuti');
-  btn.style.opacity = '0'; btn.style.cursor = 'pointer';
+  btn.style.opacity = '1'; btn.style.cursor = 'pointer';
   addTes(2);
 }
 
@@ -1612,7 +1776,8 @@ function addDen(n){
   const r = el.getBoundingClientRect();
   const d = document.createElement('div');
   d.className = 'dpop';
-  d.textContent = '+'+n+' 🪙';
+  if(n === 0) return;
+  d.textContent = (n > 0 ? '+' : '') + n + ' 🪙';
   d.style.left = r.left+'px';
   d.style.top  = r.top+'px';
   document.body.appendChild(d);
