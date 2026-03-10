@@ -768,6 +768,12 @@ html,body{
     display:none;">
     <!-- Sfondo -->
     <div style="position:absolute;inset:0;background:url('bg_duoviro.jpg') top left/424px 760px no-repeat;z-index:0;"></div>
+    <!-- Bottone RISOLVI PROBLEMA -->
+    <button onclick="risolviProblema()" aria-label="Risolvi Problema" style="
+      position:absolute;left:212px;top:710px;width:220px;height:50px;
+      transform:translate(-50%,-50%);background:transparent;border:none;
+      cursor:pointer;z-index:10;"></button>
+
     <!-- Tasto chiudi X -->
     <button onclick="closeDuoviro()" style="
       position:absolute;top:6px;right:10px;z-index:10;
@@ -890,6 +896,9 @@ function openMagister(){
 function openDuovirus(){
   document.getElementById('panel-duoviro').style.display = 'block';
   document.getElementById('hud').style.zIndex = '70';
+}
+function risolviProblema(){
+  // IN COSTRUZIONE
 }
 function closeDuoviro(){
   document.getElementById('panel-duoviro').style.display = 'none';
