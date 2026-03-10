@@ -864,7 +864,7 @@ html,body{
     <!-- Label reward vino -->
     <div style="position:absolute;left:212px;top:162px;transform:translateX(-50%);pointer-events:none;z-index:9;
       font-family:'Cinzel',serif;font-size:.55rem;color:#FFE566;text-shadow:0 1px 4px rgba(0,0,0,.9);
-      background:rgba(10,4,2,.55);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:1px 6px;white-space:nowrap;">+10 🍷</div>
+      background:rgba(10,4,2,.55);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:1px 6px;white-space:nowrap;">+2 🍷</div>
 
     <!-- ── TESSUTI ── -->
     <button id="btn-full-tessuti" onclick="clickFullTessuti()"
@@ -883,7 +883,7 @@ html,body{
     <!-- Label reward tessuti -->
     <div style="position:absolute;left:212px;top:385px;transform:translateX(-50%);pointer-events:none;z-index:9;
       font-family:'Cinzel',serif;font-size:.55rem;color:#FFE566;text-shadow:0 1px 4px rgba(0,0,0,.9);
-      background:rgba(10,4,2,.55);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:1px 6px;white-space:nowrap;">+10 🧶</div>
+      background:rgba(10,4,2,.55);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:1px 6px;white-space:nowrap;">+2 🧶</div>
 
     <!-- ── LATERIZI ── -->
     <button id="btn-full-laterizi" onclick="clickFullLaterizi()"
@@ -902,7 +902,7 @@ html,body{
     <!-- Label reward laterizi -->
     <div style="position:absolute;left:212px;top:588px;transform:translateX(-50%);pointer-events:none;z-index:9;
       font-family:'Cinzel',serif;font-size:.55rem;color:#FFE566;text-shadow:0 1px 4px rgba(0,0,0,.9);
-      background:rgba(10,4,2,.55);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:1px 6px;white-space:nowrap;">+20 🧱</div>
+      background:rgba(10,4,2,.55);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:1px 6px;white-space:nowrap;">+10 🧱</div>
   </div>
 
   <div id="tov"></div>
@@ -1525,7 +1525,7 @@ function collectFullVino(){
   r.style.display = 'none'; r.classList.remove('prod-ready');
   const btn = document.getElementById('btn-full-vino');
   btn.style.opacity = '0'; btn.style.cursor = 'pointer';
-  addVin(10);
+  addVin(2);
 }
 
 // ── TESSUTI ──
@@ -1563,7 +1563,7 @@ function collectFullTessuti(){
   r.style.display = 'none'; r.classList.remove('prod-ready');
   const btn = document.getElementById('btn-full-tessuti');
   btn.style.opacity = '0'; btn.style.cursor = 'pointer';
-  addTes(10);
+  addTes(2);
 }
 
 // ── LATERIZI ──
@@ -1601,7 +1601,7 @@ function collectFullLaterizi(){
   r.style.display = 'none'; r.classList.remove('prod-ready');
   const btn = document.getElementById('btn-full-laterizi');
   btn.style.opacity = '0'; btn.style.cursor = 'pointer';
-  addLat(20);
+  addLat(10);
 }
 
 function addDen(n){
