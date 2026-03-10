@@ -661,6 +661,28 @@ html,body{
           letter-spacing:.03em;text-shadow:0 1px 3px rgba(0,0,0,.9);">30:00</div>
       </div>
     </div>
+
+    <!-- AFRICA – bottone tondo solo bordo -->
+    <button id="btn-africa" onclick="clickAfrica()" aria-label="Africa" style="
+      position:absolute;left:85px;top:550px;
+      width:44px;height:44px;border-radius:50%;
+      background:transparent;border:2px solid rgba(201,168,76,.8);
+      cursor:pointer;z-index:10;"></button>
+
+    <!-- Indicatore timer Africa (sovrapposto al bottone) -->
+    <div id="africa-timer" style="
+      position:absolute;left:85px;top:550px;
+      width:44px;height:44px;display:none;pointer-events:none;">
+      <div id="africa-pie" style="
+        width:44px;height:44px;border-radius:50%;
+        background:conic-gradient(from -90deg,#e03030 0% 100%,rgba(20,5,5,.6) 0%);
+        position:relative;">
+        <div id="africa-time-text" style="
+          position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+          font-family:'Cinzel',serif;color:#fff;font-size:.48rem;
+          letter-spacing:.03em;text-shadow:0 1px 3px rgba(0,0,0,.9);">60:00</div>
+      </div>
+    </div>
   </div>
 </div><!-- #hub -->
 
@@ -758,6 +780,9 @@ let galliaSecondsLeft = 0;
 
 function clickGallia(){
   if(galliaInterval) return; // già in corso
+  if(vin < 5){ alert('Vino insufficiente (servono 5 🍷)'); return; }
+  vin -= 5;
+  document.getElementById('vvin').textContent = vin;
   galliaSecondsLeft = GALLIA_DURATION;
   const btn = document.getElementById('btn-gallia');
   btn.style.opacity = '0.4';
@@ -794,6 +819,9 @@ let hispaniaSecondsLeft = 0;
 
 function clickHispania(){
   if(hispaniaInterval) return;
+  if(lat < 10){ alert('Laterizi insufficienti (servono 10 🧱)'); return; }
+  lat -= 10;
+  document.getElementById('vlat').textContent = lat;
   hispaniaSecondsLeft = HISPANIA_DURATION;
   const btn = document.getElementById('btn-hispania');
   btn.style.opacity = '0.4';
@@ -820,6 +848,48 @@ function updateHispaniaDisplay(){
   document.getElementById('hispania-time-text').textContent = m + ':' + String(s).padStart(2,'0');
   const pct = Math.round(hispaniaSecondsLeft / HISPANIA_DURATION * 100);
   document.getElementById('hispania-pie').style.background =
+    `conic-gradient(from -90deg,#e03030 0% ${pct}%,rgba(20,5,5,.6) 0%)`;
+}
+
+// ── Africa timer ──
+const AFRICA_DURATION = 3600; // 60 minuti in secondi
+let africaInterval = null;
+let africaSecondsLeft = 0;
+
+function clickAfrica(){
+  if(africaInterval) return;
+  if(vin < 10){ alert('Vino insufficiente (servono 10 🍷)'); return; }
+  if(lat < 10){ alert('Laterizi insufficienti (servono 10 🧱)'); return; }
+  vin -= 10;
+  lat -= 10;
+  document.getElementById('vvin').textContent = vin;
+  document.getElementById('vlat').textContent = lat;
+  africaSecondsLeft = AFRICA_DURATION;
+  const btn = document.getElementById('btn-africa');
+  btn.style.opacity = '0.4';
+  btn.style.cursor = 'default';
+  document.getElementById('africa-timer').style.display = 'block';
+  updateAfricaDisplay();
+  africaInterval = setInterval(()=>{
+    africaSecondsLeft--;
+    updateAfricaDisplay();
+    if(africaSecondsLeft <= 0){
+      clearInterval(africaInterval);
+      africaInterval = null;
+      addDen(150);
+      btn.style.opacity = '1';
+      btn.style.cursor = 'pointer';
+      document.getElementById('africa-timer').style.display = 'none';
+    }
+  }, 1000);
+}
+
+function updateAfricaDisplay(){
+  const m = Math.floor(africaSecondsLeft / 60);
+  const s = africaSecondsLeft % 60;
+  document.getElementById('africa-time-text').textContent = m + ':' + String(s).padStart(2,'0');
+  const pct = Math.round(africaSecondsLeft / AFRICA_DURATION * 100);
+  document.getElementById('africa-pie').style.background =
     `conic-gradient(from -90deg,#e03030 0% ${pct}%,rgba(20,5,5,.6) 0%)`;
 }
 
