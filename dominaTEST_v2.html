@@ -1001,8 +1001,15 @@ const duoviroLivello1 = [
 
 let duoviroStep = 0; // 0-9, indice problema corrente
 let duoviroCompletato = false;
+// blocca l'accesso in attesa di pagamento regalia
+// 'none' | 'meta' (dopo q5, 10 tessili) | 'fine' (dopo q10, 20 tessili)
+let duoviroAttesaRegalia = 'none';
 
 function risolviProblema(){
+  if(duoviroAttesaRegalia !== 'none'){
+    mostraDuoviroPopup('regalia');
+    return;
+  }
   if(duoviroCompletato){
     mostraDuoviroPopup('completato');
     return;
@@ -1039,10 +1046,31 @@ function mostraDuoviroPopup(fase){
       <div id="dpop-feedback" class="dpop-feedback"></div>
       <button class="dpop-btn-chiudi" onclick="chiudiDuoviroPopup()">✕</button>
     `;
+  } else if(fase === 'regalia'){
+    const costo = duoviroAttesaRegalia === 'fine' ? 20 : 10;
+    const titolo = duoviroAttesaRegalia === 'fine'
+      ? 'Regalia per il Livello Successivo'
+      : 'Regalia per Continuare';
+    const desc = duoviroAttesaRegalia === 'fine'
+      ? `Hai completato il primo blocco di 10 problemi. Per accedere al Livello 2 occorrono <strong>${costo} Tessili</strong> da offrire al Duoviro.`
+      : `Hai superato 5 problemi. Per affrontare i prossimi 5 occorrono <strong>${costo} Tessili</strong> da offrire al Duoviro.`;
+    const hasTessili = tes >= costo;
+    pop.innerHTML = `
+      <div class="dpop-orn"></div>
+      <div class="dpop-livello">${titolo}</div>
+      <div class="dpop-orn"></div>
+      <p class="dpop-testo">${desc}</p>
+      <p class="dpop-testo" style="font-size:.72rem;color:#7a5a10;">Tessili disponibili: ${tes}</p>
+      <div class="dpop-orn"></div>
+      ${hasTessili
+        ? `<button class="dpop-btn-main" onclick="pagaRegalia()">Offri ${costo} Tessili</button>`
+        : `<p class="dpop-testo" style="color:#cc2200;font-size:.72rem;">Tessili insufficienti!</p>`}
+      <button class="dpop-btn-chiudi" onclick="chiudiDuoviroPopup()">✕</button>
+    `;
   } else if(fase === 'completato'){
     pop.innerHTML = `
       <div class="dpop-orn"></div>
-      <div class="dpop-livello" style="color:#C9A84C;font-size:1.1rem;">🏛 Livello 1 Completato! 🏛</div>
+      <div class="dpop-livello" style="color:#C9A84C;font-size:1.1rem;">Livello 1 Completato!</div>
       <div class="dpop-orn"></div>
       <p class="dpop-testo">Hai risolto tutti i problemi della comunità con saggezza e cultura. Il Duoviro ti onora!</p>
       <div class="dpop-orn"></div>
@@ -1063,7 +1091,14 @@ function rispondiDuoviro(idx){
     setTimeout(()=>{
       chiudiDuoviroPopup();
       duoviroStep++;
-      if(duoviroStep >= 10) duoviroCompletato = true;
+      if(duoviroStep === 5){
+        // metà livello: richiedi 10 tessili
+        duoviroAttesaRegalia = 'meta';
+      } else if(duoviroStep >= 10){
+        // fine livello: richiedi 20 tessili per il prossimo livello
+        duoviroAttesaRegalia = 'fine';
+        duoviroCompletato = true;
+      }
     }, 900);
   } else {
     fb.textContent = 'Sbagliato!';
@@ -1072,6 +1107,31 @@ function rispondiDuoviro(idx){
       fb.textContent = '';
       fb.className = 'dpop-feedback';
     }, 900);
+  }
+}
+
+function pagaRegalia(){
+  const costo = duoviroAttesaRegalia === 'fine' ? 20 : 10;
+  if(tes < costo){ mostraDuoviroPopup('regalia'); return; }
+  tes -= costo;
+  document.getElementById('vtes').textContent = tes;
+  duoviroAttesaRegalia = 'none';
+  if(duoviroCompletato){
+    chiudiDuoviroPopup();
+    // livello 2 non ancora caricato
+    const popWrap = document.getElementById('duoviro-popup');
+    const pop = document.getElementById('duoviro-popup-inner');
+    pop.innerHTML = `
+      <div class="dpop-orn"></div>
+      <div class="dpop-livello" style="color:#C9A84C;">Livello 2 — In Arrivo!</div>
+      <div class="dpop-orn"></div>
+      <p class="dpop-testo">Il Duoviro ti ringrazia per la generosità. Il prossimo livello sarà presto disponibile.</p>
+      <div class="dpop-orn"></div>
+      <button class="dpop-btn-chiudi" onclick="chiudiDuoviroPopup()">✕</button>
+    `;
+    popWrap.style.display = 'flex';
+  } else {
+    chiudiDuoviroPopup();
   }
 }
 
