@@ -130,9 +130,12 @@ html,body{
 .hpol-fill{
   height:100%;width:0%;
   border-radius:8px;
-  background:linear-gradient(180deg,#7A9CC8 0%,#5578A8 50%,#3D5F8A 100%);
-  transition:width .6s;
+  background:linear-gradient(180deg,#5DBB63 0%,#3A9940 50%,#236B28 100%);
+  transition:width .6s, background .6s;
   position:relative;
+}
+.hpol-fill.red{
+  background:linear-gradient(180deg,#E05050 0%,#C02020 50%,#8B0000 100%);
 }
 /* Tacca marker */
 .hpol-fill::after{
@@ -722,6 +725,20 @@ html,body{
 const snd = document.getElementById('snd');
 snd.volume = 0.6;
 let den = 0, tes = 0, vin = 0, lat = 0;
+let popXP = 0; // 0-199, si azzera ogni 200 (0-99=verde, 100-199=rosso)
+
+function addPopXP(n){
+  popXP += n;
+  if(popXP >= 200) popXP = 0;
+  const fill = document.getElementById('hpol-f');
+  const pct = popXP % 100;
+  fill.style.width = pct + '%';
+  if(popXP >= 100){
+    fill.classList.add('red');
+  } else {
+    fill.classList.remove('red');
+  }
+}
 
 // ── Cambio Look ──
 const looks = ['eumachia_look_01.jpg', 'eumachia_look_02.jpg', 'eumachia_look_03.jpg'];
@@ -833,6 +850,7 @@ function clickGallia(){
       clearInterval(galliaInterval);
       galliaInterval = null;
       addDen(10);
+      addPopXP(1);
       btn.style.opacity = '1';
       btn.style.cursor = 'pointer';
       document.getElementById('gallia-timer').style.display = 'none';
@@ -872,6 +890,7 @@ function clickHispania(){
       clearInterval(hispaniaInterval);
       hispaniaInterval = null;
       addDen(50);
+      addPopXP(2);
       btn.style.opacity = '1';
       btn.style.cursor = 'pointer';
       document.getElementById('hispania-timer').style.display = 'none';
@@ -914,6 +933,7 @@ function clickAfrica(){
       clearInterval(africaInterval);
       africaInterval = null;
       addDen(150);
+      addPopXP(5);
       btn.style.opacity = '1';
       btn.style.cursor = 'pointer';
       document.getElementById('africa-timer').style.display = 'none';
