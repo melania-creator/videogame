@@ -855,7 +855,7 @@ html,body{
     <!-- Timer vino -->
     <div id="full-vino-timer" style="position:absolute;left:212px;top:127px;width:70px;height:70px;transform:translate(-50%,-50%);display:none;pointer-events:none;z-index:11;">
       <div id="full-vino-pie" style="width:70px;height:70px;border-radius:50%;background:conic-gradient(from -90deg,#8B1A1A 0% 100%,rgba(20,5,5,.7) 0%);position:relative;">
-        <div id="full-vino-text" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;color:#fff;font-size:.5rem;letter-spacing:.03em;text-shadow:0 1px 3px rgba(0,0,0,.9);">10:00</div>
+        <div id="full-vino-text" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;color:#fff;font-size:.5rem;letter-spacing:.03em;text-shadow:0 1px 3px rgba(0,0,0,.9);">5:00</div>
       </div>
     </div>
     <!-- Pronto vino -->
@@ -874,7 +874,7 @@ html,body{
     <!-- Timer tessuti -->
     <div id="full-tessuti-timer" style="position:absolute;left:212px;top:350px;width:70px;height:70px;transform:translate(-50%,-50%);display:none;pointer-events:none;z-index:11;">
       <div id="full-tessuti-pie" style="width:70px;height:70px;border-radius:50%;background:conic-gradient(from -90deg,#7a5c2e 0% 100%,rgba(20,10,5,.7) 0%);position:relative;">
-        <div id="full-tessuti-text" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;color:#fff;font-size:.5rem;letter-spacing:.03em;text-shadow:0 1px 3px rgba(0,0,0,.9);">20:00</div>
+        <div id="full-tessuti-text" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;color:#fff;font-size:.5rem;letter-spacing:.03em;text-shadow:0 1px 3px rgba(0,0,0,.9);">10:00</div>
       </div>
     </div>
     <!-- Pronto tessuti -->
@@ -893,7 +893,7 @@ html,body{
     <!-- Timer laterizi -->
     <div id="full-laterizi-timer" style="position:absolute;left:212px;top:553px;width:70px;height:70px;transform:translate(-50%,-50%);display:none;pointer-events:none;z-index:11;">
       <div id="full-laterizi-pie" style="width:70px;height:70px;border-radius:50%;background:conic-gradient(from -90deg,#b05a20 0% 100%,rgba(20,10,5,.7) 0%);position:relative;">
-        <div id="full-laterizi-text" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;color:#fff;font-size:.5rem;letter-spacing:.03em;text-shadow:0 1px 3px rgba(0,0,0,.9);">5:00</div>
+        <div id="full-laterizi-text" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;color:#fff;font-size:.5rem;letter-spacing:.03em;text-shadow:0 1px 3px rgba(0,0,0,.9);">2:00</div>
       </div>
     </div>
     <!-- Pronto laterizi -->
@@ -1442,9 +1442,9 @@ function togS(){
 }
 
 // ══ FULLONICA – Produzione ══
-const FULL_VINO_DURATION     = 600;   // 10 min
-const FULL_TESSUTI_DURATION  = 1200;  // 20 min
-const FULL_LATERIZI_DURATION = 300;   // 5 min
+const FULL_VINO_DURATION     = 300;   // 5 min
+const FULL_TESSUTI_DURATION  = 600;   // 10 min
+const FULL_LATERIZI_DURATION = 120;   // 2 min
 
 let fullVinoInterval = null,     fullVinoSecondsLeft = 0,     fullVinoReady = false;
 let fullTessutiInterval = null,  fullTessutiSecondsLeft = 0,  fullTessutiReady = false;
