@@ -241,6 +241,8 @@ html,body{
 }
 @keyframes denF{0%{transform:scale(1)}30%{transform:scale(1.4);color:#FFD700}100%{transform:scale(1)}}
 .denF{animation:denF .45s ease}
+@keyframes bounce-prod{0%,100%{transform:translate(-50%,-50%) scale(1)}40%{transform:translate(-50%,-65%) scale(1.18)}70%{transform:translate(-50%,-44%) scale(.94)}}
+.prod-ready{animation:bounce-prod .75s ease infinite;cursor:pointer;}
 
 /* ── POPUP RISORSE ── */
 #res-popup{
@@ -845,21 +847,50 @@ html,body{
         <path d="M1 1L13 13M13 1L1 13" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
       </svg>
     </button>
-    <!-- Tasto Vino (1° fascia, centro ~127px) -->
-    <button id="btn-full-vino"
+    <!-- ── VINO ── -->
+    <button id="btn-full-vino" onclick="clickFullVino()"
       style="position:absolute;left:212px;top:127px;width:70px;height:70px;transform:translate(-50%,-50%);
       background:transparent;border:none;cursor:pointer;z-index:10;opacity:0;"
-      aria-label="Vino">Vino</button>
-    <!-- Tasto Tessuti (2° fascia, centro ~380px) -->
-    <button id="btn-full-tessuti"
+      aria-label="Vino"></button>
+    <!-- Timer vino -->
+    <div id="full-vino-timer" style="position:absolute;left:212px;top:127px;width:70px;height:70px;transform:translate(-50%,-50%);display:none;pointer-events:none;z-index:11;">
+      <div id="full-vino-pie" style="width:70px;height:70px;border-radius:50%;background:conic-gradient(from -90deg,#8B1A1A 0% 100%,rgba(20,5,5,.7) 0%);position:relative;">
+        <div id="full-vino-text" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;color:#fff;font-size:.5rem;letter-spacing:.03em;text-shadow:0 1px 3px rgba(0,0,0,.9);">10:00</div>
+      </div>
+    </div>
+    <!-- Pronto vino -->
+    <div id="full-vino-ready" onclick="collectFullVino()"
+      style="position:absolute;left:212px;top:127px;width:60px;height:60px;transform:translate(-50%,-50%);display:none;z-index:12;font-size:2.2rem;line-height:1;text-align:center;">🍷</div>
+
+    <!-- ── TESSUTI ── -->
+    <button id="btn-full-tessuti" onclick="clickFullTessuti()"
       style="position:absolute;left:212px;top:350px;width:70px;height:70px;transform:translate(-50%,-50%);
       background:transparent;border:none;cursor:pointer;z-index:10;opacity:0;"
-      aria-label="Tessuti">Tessuti</button>
-    <!-- Tasto Laterizi (3° fascia, centro ~633px) -->
-    <button id="btn-full-laterizi"
+      aria-label="Tessuti"></button>
+    <!-- Timer tessuti -->
+    <div id="full-tessuti-timer" style="position:absolute;left:212px;top:350px;width:70px;height:70px;transform:translate(-50%,-50%);display:none;pointer-events:none;z-index:11;">
+      <div id="full-tessuti-pie" style="width:70px;height:70px;border-radius:50%;background:conic-gradient(from -90deg,#7a5c2e 0% 100%,rgba(20,10,5,.7) 0%);position:relative;">
+        <div id="full-tessuti-text" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;color:#fff;font-size:.5rem;letter-spacing:.03em;text-shadow:0 1px 3px rgba(0,0,0,.9);">20:00</div>
+      </div>
+    </div>
+    <!-- Pronto tessuti -->
+    <div id="full-tessuti-ready" onclick="collectFullTessuti()"
+      style="position:absolute;left:212px;top:350px;width:60px;height:60px;transform:translate(-50%,-50%);display:none;z-index:12;font-size:2.2rem;line-height:1;text-align:center;">🧶</div>
+
+    <!-- ── LATERIZI ── -->
+    <button id="btn-full-laterizi" onclick="clickFullLaterizi()"
       style="position:absolute;left:212px;top:553px;width:70px;height:70px;transform:translate(-50%,-50%);
       background:transparent;border:none;cursor:pointer;z-index:10;opacity:0;"
-      aria-label="Laterizi">Laterizi</button>
+      aria-label="Laterizi"></button>
+    <!-- Timer laterizi -->
+    <div id="full-laterizi-timer" style="position:absolute;left:212px;top:553px;width:70px;height:70px;transform:translate(-50%,-50%);display:none;pointer-events:none;z-index:11;">
+      <div id="full-laterizi-pie" style="width:70px;height:70px;border-radius:50%;background:conic-gradient(from -90deg,#b05a20 0% 100%,rgba(20,10,5,.7) 0%);position:relative;">
+        <div id="full-laterizi-text" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;color:#fff;font-size:.5rem;letter-spacing:.03em;text-shadow:0 1px 3px rgba(0,0,0,.9);">5:00</div>
+      </div>
+    </div>
+    <!-- Pronto laterizi -->
+    <div id="full-laterizi-ready" onclick="collectFullLaterizi()"
+      style="position:absolute;left:212px;top:553px;width:60px;height:60px;transform:translate(-50%,-50%);display:none;z-index:12;font-size:2.2rem;line-height:1;text-align:center;">🧱</div>
   </div>
 
   <div id="tov"></div>
@@ -1396,6 +1427,169 @@ function togS(){
   btn.textContent = sOn ? 'ON' : 'OFF';
   btn.style.background = sOn ? 'rgba(201,168,76,.15)' : 'rgba(80,60,40,.15)';
   btn.style.color = sOn ? '#C9A84C' : 'rgba(201,168,76,.35)';
+}
+
+// ══ FULLONICA – Produzione ══
+const FULL_VINO_DURATION     = 600;   // 10 min
+const FULL_TESSUTI_DURATION  = 1200;  // 20 min
+const FULL_LATERIZI_DURATION = 300;   // 5 min
+
+let fullVinoInterval = null,     fullVinoSecondsLeft = 0,     fullVinoReady = false;
+let fullTessutiInterval = null,  fullTessutiSecondsLeft = 0,  fullTessutiReady = false;
+let fullLaterziInterval = null,  fullLaterziSecondsLeft = 0,  fullLaterziReady = false;
+
+function addVin(n){
+  vin += n;
+  const el = document.getElementById('vvin');
+  el.textContent = vin;
+  el.classList.remove('denF'); void el.offsetWidth; el.classList.add('denF');
+  const r = el.getBoundingClientRect();
+  const d = document.createElement('div');
+  d.className = 'dpop';
+  d.textContent = '+'+n+' 🍷';
+  d.style.left = r.left+'px'; d.style.top = r.top+'px';
+  document.body.appendChild(d);
+  setTimeout(()=>d.remove(), 1300);
+}
+function addLat(n){
+  lat += n;
+  const el = document.getElementById('vlat');
+  el.textContent = lat;
+  el.classList.remove('denF'); void el.offsetWidth; el.classList.add('denF');
+  const r = el.getBoundingClientRect();
+  const d = document.createElement('div');
+  d.className = 'dpop';
+  d.textContent = '+'+n+' 🧱';
+  d.style.left = r.left+'px'; d.style.top = r.top+'px';
+  document.body.appendChild(d);
+  setTimeout(()=>d.remove(), 1300);
+}
+function addTes(n){
+  tes += n;
+  const el = document.getElementById('vtes');
+  el.textContent = tes;
+  el.classList.remove('denF'); void el.offsetWidth; el.classList.add('denF');
+  const r = el.getBoundingClientRect();
+  const d = document.createElement('div');
+  d.className = 'dpop';
+  d.textContent = '+'+n+' 🧶';
+  d.style.left = r.left+'px'; d.style.top = r.top+'px';
+  document.body.appendChild(d);
+  setTimeout(()=>d.remove(), 1300);
+}
+
+// ── VINO ──
+function clickFullVino(){
+  if(fullVinoInterval || fullVinoReady) return;
+  const btn = document.getElementById('btn-full-vino');
+  btn.style.opacity = '0'; btn.style.cursor = 'default';
+  fullVinoSecondsLeft = FULL_VINO_DURATION;
+  document.getElementById('full-vino-timer').style.display = 'block';
+  updateFullVinoDisplay();
+  fullVinoInterval = setInterval(()=>{
+    fullVinoSecondsLeft--;
+    updateFullVinoDisplay();
+    if(fullVinoSecondsLeft <= 0){
+      clearInterval(fullVinoInterval); fullVinoInterval = null;
+      fullVinoReady = true;
+      document.getElementById('full-vino-timer').style.display = 'none';
+      const r = document.getElementById('full-vino-ready');
+      r.style.display = 'block'; r.classList.add('prod-ready');
+    }
+  }, 1000);
+}
+function updateFullVinoDisplay(){
+  const m = Math.floor(fullVinoSecondsLeft/60);
+  const s = fullVinoSecondsLeft % 60;
+  document.getElementById('full-vino-text').textContent = m+':'+String(s).padStart(2,'0');
+  const pct = Math.round(fullVinoSecondsLeft/FULL_VINO_DURATION*100);
+  document.getElementById('full-vino-pie').style.background =
+    `conic-gradient(from -90deg,#8B1A1A 0% ${pct}%,rgba(20,5,5,.7) 0%)`;
+}
+function collectFullVino(){
+  if(!fullVinoReady) return;
+  fullVinoReady = false;
+  const r = document.getElementById('full-vino-ready');
+  r.style.display = 'none'; r.classList.remove('prod-ready');
+  const btn = document.getElementById('btn-full-vino');
+  btn.style.opacity = '0'; btn.style.cursor = 'pointer';
+  addVin(10);
+}
+
+// ── TESSUTI ──
+function clickFullTessuti(){
+  if(fullTessutiInterval || fullTessutiReady) return;
+  const btn = document.getElementById('btn-full-tessuti');
+  btn.style.opacity = '0'; btn.style.cursor = 'default';
+  fullTessutiSecondsLeft = FULL_TESSUTI_DURATION;
+  document.getElementById('full-tessuti-timer').style.display = 'block';
+  updateFullTessutiDisplay();
+  fullTessutiInterval = setInterval(()=>{
+    fullTessutiSecondsLeft--;
+    updateFullTessutiDisplay();
+    if(fullTessutiSecondsLeft <= 0){
+      clearInterval(fullTessutiInterval); fullTessutiInterval = null;
+      fullTessutiReady = true;
+      document.getElementById('full-tessuti-timer').style.display = 'none';
+      const r = document.getElementById('full-tessuti-ready');
+      r.style.display = 'block'; r.classList.add('prod-ready');
+    }
+  }, 1000);
+}
+function updateFullTessutiDisplay(){
+  const m = Math.floor(fullTessutiSecondsLeft/60);
+  const s = fullTessutiSecondsLeft % 60;
+  document.getElementById('full-tessuti-text').textContent = m+':'+String(s).padStart(2,'0');
+  const pct = Math.round(fullTessutiSecondsLeft/FULL_TESSUTI_DURATION*100);
+  document.getElementById('full-tessuti-pie').style.background =
+    `conic-gradient(from -90deg,#7a5c2e 0% ${pct}%,rgba(20,10,5,.7) 0%)`;
+}
+function collectFullTessuti(){
+  if(!fullTessutiReady) return;
+  fullTessutiReady = false;
+  const r = document.getElementById('full-tessuti-ready');
+  r.style.display = 'none'; r.classList.remove('prod-ready');
+  const btn = document.getElementById('btn-full-tessuti');
+  btn.style.opacity = '0'; btn.style.cursor = 'pointer';
+  addTes(10);
+}
+
+// ── LATERIZI ──
+function clickFullLaterizi(){
+  if(fullLaterziInterval || fullLaterziReady) return;
+  const btn = document.getElementById('btn-full-laterizi');
+  btn.style.opacity = '0'; btn.style.cursor = 'default';
+  fullLaterziSecondsLeft = FULL_LATERIZI_DURATION;
+  document.getElementById('full-laterizi-timer').style.display = 'block';
+  updateFullLaterziDisplay();
+  fullLaterziInterval = setInterval(()=>{
+    fullLaterziSecondsLeft--;
+    updateFullLaterziDisplay();
+    if(fullLaterziSecondsLeft <= 0){
+      clearInterval(fullLaterziInterval); fullLaterziInterval = null;
+      fullLaterziReady = true;
+      document.getElementById('full-laterizi-timer').style.display = 'none';
+      const r = document.getElementById('full-laterizi-ready');
+      r.style.display = 'block'; r.classList.add('prod-ready');
+    }
+  }, 1000);
+}
+function updateFullLaterziDisplay(){
+  const m = Math.floor(fullLaterziSecondsLeft/60);
+  const s = fullLaterziSecondsLeft % 60;
+  document.getElementById('full-laterizi-text').textContent = m+':'+String(s).padStart(2,'0');
+  const pct = Math.round(fullLaterziSecondsLeft/FULL_LATERIZI_DURATION*100);
+  document.getElementById('full-laterizi-pie').style.background =
+    `conic-gradient(from -90deg,#b05a20 0% ${pct}%,rgba(20,10,5,.7) 0%)`;
+}
+function collectFullLaterizi(){
+  if(!fullLaterziReady) return;
+  fullLaterziReady = false;
+  const r = document.getElementById('full-laterizi-ready');
+  r.style.display = 'none'; r.classList.remove('prod-ready');
+  const btn = document.getElementById('btn-full-laterizi');
+  btn.style.opacity = '0'; btn.style.cursor = 'pointer';
+  addLat(20);
 }
 
 function addDen(n){
