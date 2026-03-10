@@ -267,6 +267,37 @@ html,body{
   opacity:.8;
 }
 #res-popup-close:hover{opacity:1;}
+
+/* ── Popup Pergamena Duoviro ── */
+.dpop-orn{width:90%;height:2px;background:linear-gradient(90deg,transparent,#8B6914,transparent);}
+.dpop-livello{font-family:'Cinzel Decorative',serif;font-size:.78rem;color:#5a3a00;text-align:center;letter-spacing:.05em;}
+.dpop-testo{font-family:'Cinzel',serif;font-size:.78rem;color:#3a2000;text-align:center;line-height:1.5;padding:0 4px;}
+.dpop-btn-main{
+  font-family:'Cinzel',serif;font-size:.8rem;font-weight:700;
+  background:linear-gradient(180deg,#c9a84c,#8B6914);
+  color:#fff8e7;border:2px solid #5a3a00;border-radius:4px;
+  padding:8px 22px;cursor:pointer;letter-spacing:.05em;
+  box-shadow:0 2px 6px rgba(0,0,0,.3);
+}
+.dpop-btn-main:active{transform:scale(.97);}
+.dpop-risposte{display:flex;flex-direction:column;gap:6px;width:100%;}
+.dpop-risposta{
+  font-family:'Cinzel',serif;font-size:.73rem;
+  background:rgba(139,105,20,.12);border:1px solid #8B6914;
+  color:#3a2000;border-radius:4px;padding:7px 10px;
+  cursor:pointer;text-align:left;
+}
+.dpop-risposta:active{background:rgba(139,105,20,.3);}
+.dpop-feedback{font-family:'Cinzel',serif;font-size:.85rem;font-weight:700;min-height:1.2em;text-align:center;}
+.dpop-feedback.corretto{color:#2a7a2a;}
+.dpop-feedback.errato{color:#cc2200;}
+.dpop-btn-chiudi{
+  position:absolute;top:8px;right:10px;
+  width:26px;height:26px;border-radius:50%;
+  background:rgba(139,105,20,.2);border:1px solid #8B6914;
+  color:#5a3a00;font-size:.85rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+}
 </style>
 </head>
 <body>
@@ -774,6 +805,13 @@ html,body{
       transform:translate(-50%,-50%);background:transparent;border:none;
       cursor:pointer;z-index:10;"></button>
 
+    <!-- Popup Pergamena Duoviro -->
+    <div id="duoviro-popup" style="display:none;position:absolute;inset:0;z-index:20;align-items:center;justify-content:center;background:rgba(0,0,0,0.55);">
+      <div id="duoviro-popup-inner" style="position:relative;width:340px;min-height:200px;background:linear-gradient(180deg,#f0d9a0 0%,#e8c97a 15%,#f5e6c8 50%,#e8c97a 85%,#f0d9a0 100%);border-radius:8px;border:3px solid #8B6914;box-shadow:0 4px 24px rgba(0,0,0,0.5),inset 0 0 30px rgba(139,105,20,0.15);padding:24px 20px 20px;display:flex;flex-direction:column;align-items:center;gap:10px;">
+        <!-- contenuto iniettato da JS -->
+      </div>
+    </div>
+
     <!-- Tasto chiudi X -->
     <button onclick="closeDuoviro()" style="
       position:absolute;top:6px;right:10px;z-index:10;
@@ -897,8 +935,148 @@ function openDuovirus(){
   document.getElementById('panel-duoviro').style.display = 'block';
   document.getElementById('hud').style.zIndex = '70';
 }
+// ── Dati Duoviro Livello 1 ──
+const duoviroLivello1 = [
+  {
+    problema: "Richiesta di più ombra per le riunioni dei fullones.",
+    quesito: "Eumachia, tu cerchi la Concordia. Ma chi è il poeta che, celebrando le origini di Roma nell'Eneide, ha reso Enea l'emblema della Pietas cara al nostro Imperatore Augusto?",
+    risposte: ["Ovidio","Virgilio","Orazio","Catullo"],
+    corretta: 1
+  },
+  {
+    problema: "Le orce della fullonica perdono acqua.",
+    quesito: "L'acqua è la linfa di Roma. Sotto quale imperatore della dinastia Giulio-Claudia fu completato l'imponente Acquedotto Claudio, che porta l'acqua freschissima a Roma?",
+    risposte: ["Tiberio","Caligola","Claudio","Augusto"],
+    corretta: 2
+  },
+  {
+    problema: "Regolamentazione del traffico di carri durante le ore di mercato.",
+    quesito: "Il Foro è il cuore politico. Augusto si vantava di aver trovato una Roma di mattoni e di averla lasciata di quale materiale prezioso?",
+    risposte: ["Oro","Bronzo","Travertino","Marmo"],
+    corretta: 3
+  },
+  {
+    problema: "Dispute sul bollo di fabbrica della famiglia Eumachii.",
+    quesito: "La tua famiglia commercia con la Gallia. Quale celebre generale romano, capostipite ideale della dinastia Giulio-Claudia, completò la conquista della Gallia e scrisse il De Bello Gallico?",
+    risposte: ["Pompeo Magno","Giulio Cesare","Marc'Antonio","Silla"],
+    corretta: 1
+  },
+  {
+    problema: "Accumulo di scarti tessili in Via dell'Abbondanza.",
+    quesito: "I fullones usano l'urina per pulire le vesti. Ma qual è il termine latino corretto per la tunica indossata dai cittadini romani maschi, che la tua corporazione sgrassa con tanta cura?",
+    risposte: ["Stola","Pallio","Toga","Subligaculum"],
+    corretta: 2
+  },
+  {
+    problema: "Richiesta di più lucerne per i turni serali dei lavandai.",
+    quesito: "La sicurezza richiede ordine. Chi fu il primo Imperatore romano, che stabilì la Pax Romana e organizzò i Vigiles per la sicurezza urbana?",
+    risposte: ["Giulio Cesare","Augusto","Tiberio","Nerone"],
+    corretta: 1
+  },
+  {
+    problema: "Gestione dell'urina raccolta per la sgrassatura dei tessuti.",
+    quesito: "La luce della conoscenza! Quale grande filosofo stoico fu il precettore dell'Imperatore Nerone prima di cadere in disgrazia?",
+    risposte: ["Seneca","Epitteto","Marco Aurelio","Cicerone"],
+    corretta: 0
+  },
+  {
+    problema: "Danneggiati dal trasporto pesante di laterizi.",
+    quesito: "Le strade di Pompei sono antiche. Ma sai in quale anno, durante il regno di Nerone, un terribile terremoto danneggiò gravemente la nostra città, anni prima dell'eruzione?",
+    risposte: ["79 d.C.","64 d.C.","62 d.C.","54 d.C."],
+    corretta: 2
+  },
+  {
+    problema: "Guardie contro i piccoli furti di stoffe.",
+    quesito: "Venere è la nostra protettrice. Ma quale Imperatore Giulio-Claudio, noto per le sue follie, si proclamò una divinità vivente e cercò di nominare il suo cavallo senatore?",
+    risposte: ["Tiberio","Claudio","Nerone","Caligola"],
+    corretta: 3
+  },
+  {
+    problema: "Indicazioni più chiare per la sede della corporazione.",
+    quesito: "La chiarezza è virtù dei Romani. In quale celebre opera Ovidio descrive l'arte della seduzione, un testo che l'austero Augusto considerava scandaloso?",
+    risposte: ["Le Metamorfosi","Ars Amatoria","I Tristia","Gli Amores"],
+    corretta: 1
+  }
+];
+
+let duoviroStep = 0; // 0-9, indice problema corrente
+let duoviroCompletato = false;
+
 function risolviProblema(){
-  // IN COSTRUZIONE
+  if(duoviroCompletato){
+    mostraDuoviroPopup('completato');
+    return;
+  }
+  mostraDuoviroPopup('problema');
+}
+
+function mostraDuoviroPopup(fase){
+  const popWrap = document.getElementById('duoviro-popup');
+  const pop = document.getElementById('duoviro-popup-inner');
+  const d = duoviroLivello1[duoviroStep];
+
+  if(fase === 'problema'){
+    pop.innerHTML = `
+      <div class="dpop-orn"></div>
+      <div class="dpop-livello">Problema Comunitario — Livello ${duoviroStep+1}/10</div>
+      <div class="dpop-orn"></div>
+      <p class="dpop-testo">${d.problema}</p>
+      <div class="dpop-orn"></div>
+      <button class="dpop-btn-main" onclick="mostraDuoviroPopup('quesito')">Aiuta Duoviro</button>
+      <button class="dpop-btn-chiudi" onclick="chiudiDuoviroPopup()">✕</button>
+    `;
+  } else if(fase === 'quesito'){
+    const lettere = ['A','B','C','D'];
+    const btns = d.risposte.map((r,i) => `
+      <button class="dpop-risposta" onclick="rispondiDuoviro(${i})">${lettere[i]}. ${r}</button>
+    `).join('');
+    pop.innerHTML = `
+      <div class="dpop-orn"></div>
+      <div class="dpop-livello">Quesito del Duoviro — ${duoviroStep+1}/10</div>
+      <div class="dpop-orn"></div>
+      <p class="dpop-testo">${d.quesito}</p>
+      <div class="dpop-risposte">${btns}</div>
+      <div id="dpop-feedback" class="dpop-feedback"></div>
+      <button class="dpop-btn-chiudi" onclick="chiudiDuoviroPopup()">✕</button>
+    `;
+  } else if(fase === 'completato'){
+    pop.innerHTML = `
+      <div class="dpop-orn"></div>
+      <div class="dpop-livello" style="color:#C9A84C;font-size:1.1rem;">🏛 Livello 1 Completato! 🏛</div>
+      <div class="dpop-orn"></div>
+      <p class="dpop-testo">Hai risolto tutti i problemi della comunità con saggezza e cultura. Il Duoviro ti onora!</p>
+      <div class="dpop-orn"></div>
+      <button class="dpop-btn-chiudi" onclick="chiudiDuoviroPopup()">✕</button>
+    `;
+  }
+
+  popWrap.style.display = 'flex';
+}
+
+function rispondiDuoviro(idx){
+  const d = duoviroLivello1[duoviroStep];
+  const fb = document.getElementById('dpop-feedback');
+  if(idx === d.corretta){
+    fb.textContent = 'Esatto!';
+    fb.className = 'dpop-feedback corretto';
+    addPopXP(2);
+    setTimeout(()=>{
+      chiudiDuoviroPopup();
+      duoviroStep++;
+      if(duoviroStep >= 10) duoviroCompletato = true;
+    }, 900);
+  } else {
+    fb.textContent = 'Sbagliato!';
+    fb.className = 'dpop-feedback errato';
+    setTimeout(()=>{
+      fb.textContent = '';
+      fb.className = 'dpop-feedback';
+    }, 900);
+  }
+}
+
+function chiudiDuoviroPopup(){
+  document.getElementById('duoviro-popup').style.display = 'none';
 }
 function closeDuoviro(){
   document.getElementById('panel-duoviro').style.display = 'none';
