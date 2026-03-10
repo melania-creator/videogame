@@ -58,13 +58,8 @@ html,body{
   background:transparent;border:none;cursor:pointer;
   border-radius:10px;z-index:15;
 }
-/* Anello pulsante dorato per indicare che è cliccabile */
 #btn-play::after{
-  content:'';position:absolute;inset:-3px;
-  border-radius:12px;
-  border:2px solid rgba(201,168,76,.6);
-  animation:glow 2.5s ease-in-out infinite;
-  pointer-events:none;
+  display:none;
 }
 @keyframes glow{
   0%,100%{opacity:.3;box-shadow:0 0 0 rgba(201,168,76,0)}
