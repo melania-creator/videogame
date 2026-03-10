@@ -74,6 +74,14 @@ html,body{
 }
 #hub.show{opacity:1;pointer-events:all}
 
+/* ══ GIARDINO DEGLI INCONTRI ══ */
+#bg-giardino{background-image:url('bg_giardino.jpg');opacity:0;pointer-events:none;z-index:10;}
+#panel-giardino{
+  position:absolute;inset:0;z-index:11;
+  display:none;flex-direction:column;
+  align-items:center;justify-content:flex-start;
+}
+
 /* ── HUD barra risorse ── */
 #hud{
   position:absolute;top:0;left:0;right:0;
@@ -280,6 +288,7 @@ html,body{
   <!-- SFONDI -->
   <div class="bg" id="bg-start"></div>
   <div class="bg" id="bg-hub"></div>
+  <div class="bg" id="bg-giardino"></div>
 
   <!-- ══ START ══ -->
   <div id="start">
@@ -723,6 +732,24 @@ html,body{
   </div>
 </div><!-- #hub -->
 
+  <!-- ══ PANNELLO GIARDINO DEGLI INCONTRI ══ -->
+  <div id="panel-giardino" style="
+    position:absolute;inset:0;z-index:60;
+    display:none;">
+    <!-- Sfondo -->
+    <div style="position:absolute;inset:0;background:url('bg_giardino.jpg') center/424px 760px no-repeat;z-index:0;"></div>
+    <!-- Tasto chiudi X -->
+    <button onclick="closeGiardino()" style="
+      position:absolute;top:78px;right:10px;z-index:10;
+      width:30px;height:30px;border-radius:50%;
+      background:rgba(10,6,2,.6);border:1px solid rgba(201,168,76,.5);
+      cursor:pointer;display:flex;align-items:center;justify-content:center;">
+      <svg viewBox="0 0 14 14" width="12" height="12" fill="none">
+        <path d="M1 1L13 13M13 1L1 13" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
   <div id="tov"></div>
 </div><!-- #game -->
 
@@ -824,7 +851,12 @@ function closeEumachia(){
   document.getElementById('hud').style.zIndex = '20';
 }
 function openGiardino(){
-  // IN COSTRUZIONE
+  document.getElementById('panel-giardino').style.display = 'block';
+  document.getElementById('hud').style.zIndex = '70';
+}
+function closeGiardino(){
+  document.getElementById('panel-giardino').style.display = 'none';
+  document.getElementById('hud').style.zIndex = '';
 }
 
 function openAffari(){
