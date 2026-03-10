@@ -230,6 +230,32 @@ html,body{
 }
 @keyframes denF{0%{transform:scale(1)}30%{transform:scale(1.4);color:#FFD700}100%{transform:scale(1)}}
 .denF{animation:denF .45s ease}
+
+/* ── POPUP RISORSE ── */
+#res-popup{
+  display:none;position:absolute;inset:0;z-index:999;
+  align-items:center;justify-content:center;
+  background:rgba(0,0,0,.55);
+}
+#res-popup.show{display:flex;}
+#res-popup-box{
+  position:relative;
+  background:linear-gradient(160deg,#2a0a0a,#1a0505);
+  border:2px solid #8B1A1A;border-radius:12px;
+  padding:28px 24px 22px;
+  max-width:280px;width:80%;
+  text-align:center;
+  font-family:'Cinzel',serif;color:#f5e6d0;
+  box-shadow:0 0 30px rgba(139,26,26,.6);
+}
+#res-popup-msg{font-size:.85rem;line-height:1.5;letter-spacing:.04em;}
+#res-popup-close{
+  position:absolute;top:8px;right:10px;
+  background:none;border:none;color:#f5e6d0;
+  font-size:1.1rem;cursor:pointer;line-height:1;
+  opacity:.8;
+}
+#res-popup-close:hover{opacity:1;}
 </style>
 </head>
 <body>
@@ -239,6 +265,14 @@ html,body{
 </audio>
 
 <div id="game">
+
+  <!-- POPUP RISORSE INSUFFICIENTI -->
+  <div id="res-popup">
+    <div id="res-popup-box">
+      <button id="res-popup-close" onclick="closeResPopup()">✕</button>
+      <div id="res-popup-msg"></div>
+    </div>
+  </div>
 
   <!-- SFONDI -->
   <div class="bg" id="bg-start"></div>
@@ -715,6 +749,14 @@ function fade(cb){
   setTimeout(()=>{ cb(); o.classList.remove('on'); }, 320);
 }
 
+function showResPopup(msg){
+  document.getElementById('res-popup-msg').textContent = msg;
+  document.getElementById('res-popup').classList.add('show');
+}
+function closeResPopup(){
+  document.getElementById('res-popup').classList.remove('show');
+}
+
 function goHub(){
   snd.play().catch(()=>{});
   // Risorse iniziali
@@ -775,7 +817,7 @@ let galliaSecondsLeft = 0;
 
 function clickGallia(){
   if(galliaInterval) return; // già in corso
-  if(vin < 5){ alert('Vino insufficiente (servono 5 🍷)'); return; }
+  if(vin < 5){ showResPopup('Vino insufficiente (servono 5 🍷)'); return; }
   vin -= 5;
   document.getElementById('vvin').textContent = vin;
   galliaSecondsLeft = GALLIA_DURATION;
@@ -814,7 +856,7 @@ let hispaniaSecondsLeft = 0;
 
 function clickHispania(){
   if(hispaniaInterval) return;
-  if(lat < 10){ alert('Laterizi insufficienti (servono 10 🧱)'); return; }
+  if(lat < 10){ showResPopup('Laterizi insufficienti (servono 10 🧱)'); return; }
   lat -= 10;
   document.getElementById('vlat').textContent = lat;
   hispaniaSecondsLeft = HISPANIA_DURATION;
@@ -853,8 +895,8 @@ let africaSecondsLeft = 0;
 
 function clickAfrica(){
   if(africaInterval) return;
-  if(vin < 10){ alert('Vino insufficiente (servono 10 🍷)'); return; }
-  if(lat < 10){ alert('Laterizi insufficienti (servono 10 🧱)'); return; }
+  if(vin < 10){ showResPopup('Vino insufficiente (servono 10 🍷)'); return; }
+  if(lat < 10){ showResPopup('Laterizi insufficienti (servono 10 🧱)'); return; }
   vin -= 10;
   lat -= 10;
   document.getElementById('vvin').textContent = vin;
@@ -930,7 +972,7 @@ function unlockCurrentLook(){
   const cost = costs[lookIdx];
   if(!cost) return;
   if(den < cost){
-    alert('Denari insufficienti (servono ' + cost + ' ◈)');
+    showResPopup('Denari insufficienti (servono ' + cost + ' ◈)');
     return;
   }
   addDen(-cost);
