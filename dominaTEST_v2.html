@@ -762,6 +762,24 @@ html,body{
     </button>
   </div>
 
+  <!-- ══ PANNELLO DUOVIRO ══ -->
+  <div id="panel-duoviro" style="
+    position:absolute;top:72px;left:0;right:0;bottom:0;z-index:65;
+    display:none;">
+    <!-- Sfondo -->
+    <div style="position:absolute;inset:0;background:url('bg_duoviro.jpg') top left/424px 760px no-repeat;z-index:0;"></div>
+    <!-- Tasto chiudi X -->
+    <button onclick="closeDuoviro()" style="
+      position:absolute;top:6px;right:10px;z-index:10;
+      width:30px;height:30px;border-radius:50%;
+      background:rgba(10,6,2,.6);border:1px solid rgba(201,168,76,.5);
+      cursor:pointer;display:flex;align-items:center;justify-content:center;">
+      <svg viewBox="0 0 14 14" width="12" height="12" fill="none">
+        <path d="M1 1L13 13M13 1L1 13" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
   <div id="tov"></div>
 </div><!-- #game -->
 
@@ -870,7 +888,12 @@ function openMagister(){
   // IN COSTRUZIONE
 }
 function openDuovirus(){
-  // IN COSTRUZIONE
+  document.getElementById('panel-duoviro').style.display = 'block';
+  document.getElementById('hud').style.zIndex = '70';
+}
+function closeDuoviro(){
+  document.getElementById('panel-duoviro').style.display = 'none';
+  document.getElementById('hud').style.zIndex = '70';
 }
 function closeGiardino(){
   document.getElementById('panel-giardino').style.display = 'none';
