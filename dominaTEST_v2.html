@@ -375,6 +375,11 @@ html,body{
       style="position:absolute;left:175px;top:440px;width:170px;height:100px;transform:translate(-50%,-50%);background:transparent;border:none;cursor:pointer;z-index:25;"
       onclick="openAffari()" aria-label="Tavolo degli Affari"></button>
 
+    <!-- Giardino degli Incontri -->
+    <button id="btn-giardino"
+      style="position:absolute;left:212px;top:680px;width:200px;height:100px;transform:translate(-50%,-50%);background:transparent;border:none;cursor:pointer;z-index:25;"
+      onclick="openGiardino()" aria-label="Giardino degli Incontri"></button>
+
 
     <!-- ══ PANEL GENERICO (Missioni / Eumachia / Pensum) ══ -->
     <div id="gen-panel" style="
@@ -818,6 +823,10 @@ function closeEumachia(){
   document.getElementById('panel-eumachia').style.display = 'none';
   document.getElementById('hud').style.zIndex = '20';
 }
+function openGiardino(){
+  // IN COSTRUZIONE
+}
+
 function openAffari(){
   document.getElementById('panel-affari').style.display = 'flex';
   document.getElementById('hud').style.zIndex = '70';
