@@ -738,6 +738,18 @@ html,body{
     display:none;">
     <!-- Sfondo -->
     <div style="position:absolute;inset:0;background:url('bg_giardino.jpg') top left/424px 760px no-repeat;z-index:0;"></div>
+    <!-- Bottone MAGISTER -->
+    <button id="btn-magister" onclick="openMagister()" aria-label="Magister" style="
+      position:absolute;left:115px;top:183px;width:100px;height:100px;
+      transform:translate(-50%,-50%);background:transparent;border:none;
+      cursor:pointer;border-radius:50%;z-index:10;"></button>
+
+    <!-- Bottone DUOVIRUS -->
+    <button id="btn-duovirus" onclick="openDuovirus()" aria-label="Duovirus" style="
+      position:absolute;left:272px;top:168px;width:100px;height:100px;
+      transform:translate(-50%,-50%);background:transparent;border:none;
+      cursor:pointer;border-radius:50%;z-index:10;"></button>
+
     <!-- Tasto chiudi X -->
     <button onclick="closeGiardino()" style="
       position:absolute;top:6px;right:10px;z-index:10;
@@ -853,6 +865,12 @@ function closeEumachia(){
 function openGiardino(){
   document.getElementById('panel-giardino').style.display = 'block';
   document.getElementById('hud').style.zIndex = '70';
+}
+function openMagister(){
+  // IN COSTRUZIONE
+}
+function openDuovirus(){
+  // IN COSTRUZIONE
 }
 function closeGiardino(){
   document.getElementById('panel-giardino').style.display = 'none';
