@@ -420,6 +420,11 @@ html,body{
       style="position:absolute;left:212px;top:680px;width:200px;height:100px;transform:translate(-50%,-50%);background:transparent;border:none;cursor:pointer;z-index:25;"
       onclick="openGiardino()" aria-label="Giardino degli Incontri"></button>
 
+    <!-- Fullonica -->
+    <button id="btn-fullonica"
+      style="position:absolute;left:212px;top:370px;width:160px;height:90px;transform:translate(-50%,-50%);background:transparent;border:none;cursor:pointer;z-index:25;"
+      onclick="openFullonica()" aria-label="Fullonica"></button>
+
 
     <!-- ══ PANEL GENERICO (Missioni / Eumachia / Pensum) ══ -->
     <div id="gen-panel" style="
@@ -824,6 +829,26 @@ html,body{
     </button>
   </div>
 
+  <!-- ══ PANNELLO FULLONICA ══ -->
+  <div id="panel-fullonica" style="
+    position:absolute;top:72px;left:0;right:0;bottom:0;z-index:65;
+    display:none;">
+    <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(10,6,2,0.85);">
+      <p style="font-family:'Cinzel',serif;color:#C9A84C;font-size:1rem;letter-spacing:.1em;">Fullonica</p>
+      <p style="font-family:'Cinzel',serif;color:#e8d5a0;font-size:.78rem;margin-top:8px;">In costruzione…</p>
+    </div>
+    <!-- Tasto chiudi X -->
+    <button onclick="closeFullonica()" style="
+      position:absolute;top:6px;right:10px;z-index:10;
+      width:30px;height:30px;border-radius:50%;
+      background:rgba(10,6,2,.6);border:1px solid rgba(201,168,76,.5);
+      cursor:pointer;display:flex;align-items:center;justify-content:center;">
+      <svg viewBox="0 0 14 14" width="12" height="12" fill="none">
+        <path d="M1 1L13 13M13 1L1 13" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
   <div id="tov"></div>
 </div><!-- #game -->
 
@@ -1144,6 +1169,14 @@ function closeDuoviro(){
 }
 function closeGiardino(){
   document.getElementById('panel-giardino').style.display = 'none';
+  document.getElementById('hud').style.zIndex = '';
+}
+function openFullonica(){
+  document.getElementById('panel-fullonica').style.display = 'block';
+  document.getElementById('hud').style.zIndex = '70';
+}
+function closeFullonica(){
+  document.getElementById('panel-fullonica').style.display = 'none';
   document.getElementById('hud').style.zIndex = '';
 }
 
