@@ -861,6 +861,21 @@ html,body{
          già disegnato nell'immagine.
          Regola left/top/width/height per allinearlo al pulsante dell'immagine. -->
     <div id="cant-intro" style="position:absolute;inset:0;z-index:15;">
+      <!-- Avviso costo laterizi -->
+      <div style="
+        position:absolute;
+        left:50%;top:580px;
+        transform:translateX(-50%);
+        background:rgba(5,2,1,.82);
+        border:1px solid rgba(201,168,76,.55);
+        border-radius:8px;
+        padding:7px 16px;
+        white-space:nowrap;
+        pointer-events:none;">
+        <span style="font-family:'Cinzel',serif;font-size:12px;color:#C9A84C;letter-spacing:.5px;">
+          Costo avvio: 10 🧱 Laterizi
+        </span>
+      </div>
       <button onclick="avviaCantiere()"
         aria-label="Avvio Lavori"
         style="
