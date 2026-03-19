@@ -853,7 +853,23 @@ html,body{
     display:none;flex-direction:column;align-items:center;justify-content:flex-start;">
 
     <!-- Sfondo cantiere -->
-    <div id="cant-bg" style="position:absolute;inset:0;background:url('cantiere_bg.jpg') top left/424px 760px no-repeat;z-index:0;"></div>
+    <div id="cant-bg" style="position:absolute;inset:0;background:url('bg_cantiere.png') top left/424px 760px no-repeat;z-index:0;"></div>
+
+    <!-- Schermata intro: sfondo visibile + pulsante Avvia -->
+    <div id="cant-intro" style="
+      position:absolute;inset:0;z-index:15;
+      display:flex;align-items:flex-end;justify-content:center;
+      padding-bottom:60px;">
+      <button onclick="avviaCantiere()" style="
+        padding:16px 48px;
+        background:linear-gradient(135deg,#8B6914,#C9A84C,#8B6914);
+        border:none;border-radius:4px;cursor:pointer;
+        font-family:'Cinzel',serif;color:#0A0600;font-size:16px;font-weight:700;
+        letter-spacing:2px;text-transform:uppercase;
+        box-shadow:0 4px 20px rgba(0,0,0,.6);">
+        AVVIA CANTIERE
+      </button>
+    </div>
 
     <!-- Overlay scuro per oggetti -->
     <div id="cant-overlay" style="position:absolute;inset:0;z-index:1;pointer-events:none;"></div>
@@ -1231,6 +1247,17 @@ let cantTotalStages = CANT_STAGES.length;
 function openCantiere(){
   cantStage = 0;
   document.getElementById('panel-cantiere').style.display = 'flex';
+  // Mostra intro con pulsante Avvia, HUD e lista nascosti
+  document.getElementById('cant-intro').style.display  = 'flex';
+  document.getElementById('cant-hud').style.display    = 'none';
+  document.getElementById('cant-list').style.display   = 'none';
+  document.getElementById('cant-objects').innerHTML    = '';
+  document.getElementById('cant-result').style.display = 'none';
+}
+function avviaCantiere(){
+  document.getElementById('cant-intro').style.display = 'none';
+  document.getElementById('cant-hud').style.display   = 'flex';
+  document.getElementById('cant-list').style.display  = 'flex';
   startCantStage();
 }
 function closeCantiere(){
