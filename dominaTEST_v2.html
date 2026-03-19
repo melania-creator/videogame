@@ -877,8 +877,8 @@ html,body{
     <!-- Overlay scuro per oggetti -->
     <div id="cant-overlay" style="position:absolute;inset:0;z-index:1;pointer-events:none;"></div>
 
-    <!-- Oggetti cliccabili (generati via JS) -->
-    <div id="cant-objects" style="position:absolute;inset:0;z-index:5;"></div>
+    <!-- Oggetti cliccabili (generati via JS) – clic sullo sfondo = penalità -->
+    <div id="cant-objects" style="position:absolute;inset:0;z-index:5;" onclick="onCantBgClick(event)"></div>
 
     <!-- HUD cantiere -->
     <div id="cant-hud" style="
@@ -917,7 +917,8 @@ html,body{
     <div id="cant-feedback" style="
       position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
       z-index:20;pointer-events:none;
-      font-family:'Cinzel',serif;font-size:26px;font-weight:700;
+      font-family:'Cinzel',serif;font-size:38px;font-weight:700;
+      text-shadow:0 2px 12px rgba(0,0,0,.9);
       opacity:0;transition:opacity .2s;"></div>
 
     <!-- Schermata risultato -->
@@ -1210,11 +1211,11 @@ const CANT_STAGES = [
 // posizione/dimensione nell'area di gioco (relativa a 424×760).
 // Puoi espandere questo array con i tuoi asset reali.
 const CANT_OBJECT_POOL = [
-  { id:'epigrafe',   nome:'Epigrafe',    img:'hidden_epigrafe.png',   x:375, y:310, w:50, h:55 },
-  { id:'architetto', nome:'Architetto',  img:'hidden_architetto.png', x:155, y:460, w:15, h:15 },
-  { id:'tavolo',     nome:'Tavolo',       img:'hidden_tavolo.png',     x:235, y:390, w:15, h:15 },
-  { id:'clessidra',  nome:'Clessidra',    img:'hidden_clessidra.png',  x:310, y:500, w:30, h:30 },
-  { id:'anfore',     nome:'Anfore',       img:'hidden_anfore.png',     x:395, y:590, w:15, h:15 },
+  { id:'epigrafe',   nome:'Epigrafe',    img:'hidden_epigrafe.png',   x:375, y:310, w:50, h:50 },
+  { id:'architetto', nome:'Architetto',  img:'hidden_architetto.png', x:155, y:460, w:50, h:50 },
+  { id:'tavolo',     nome:'Tavolo',       img:'hidden_tavolo.png',     x:235, y:390, w:50, h:50 },
+  { id:'clessidra',  nome:'Clessidra',    img:'hidden_clessidra.png',  x:310, y:500, w:50, h:50 },
+  { id:'anfore',     nome:'Anfore',       img:'hidden_anfore.png',     x:395, y:590, w:50, h:50 },
 ];
 
 // ── Stato partita ───────────────────────────────────────
@@ -1382,7 +1383,7 @@ function renderCantObjects(){
       btn.appendChild(img);
     }
 
-    btn.addEventListener('click', () => onCantClick(i));
+    btn.addEventListener('click', (e) => { e.stopPropagation(); onCantClick(i); });
     container.appendChild(btn);
   });
 }
@@ -1422,12 +1423,34 @@ function renderCantNames(){
   });
 }
 
+// ── Clic sullo sfondo (zona vuota) – penalità ───────────
+function onCantBgClick(e){
+  if(!cantRunning) return;
+  // Se il clic è arrivato da un bottone oggetto, ignoralo (gestito da onCantClick)
+  if(e.target !== e.currentTarget) return;
+  cantApplyPenalty();
+}
+
+// ── Penalità -2 secondi ──────────────────────────────────
+function cantApplyPenalty(){
+  showCantFeedback('-2s ✗', '#e05040');
+  cantTimeLeft = Math.max(0, cantTimeLeft - 2);
+  const timerEl = document.getElementById('cant-timer');
+  timerEl.textContent = cantTimeLeft;
+  timerEl.style.color = '#e05040';
+  setTimeout(()=>{ if(cantRunning) timerEl.style.color = cantTimeLeft <= 10 ? '#e05040' : '#C9A84C'; }, 600);
+  const panel = document.getElementById('panel-cantiere');
+  panel.style.animation = 'none';
+  void panel.offsetWidth;
+  panel.style.animation = 'cantShake .3s ease';
+  if(cantTimeLeft <= 0) cantGameOver();
+}
+
 // ── Clic su un oggetto ──────────────────────────────────
 function onCantClick(idx){
   if(!cantRunning) return;
   if(idx === cantTarget){
-    // ✅ Corretto
-    showCantFeedback('✓', '#5ecb6e');
+    // ✅ Corretto – nessuna variazione al timer
     // Rimuovi l'oggetto dalla scena con animazione
     const btn = document.getElementById('cant-obj-' + cantObjects[idx].id);
     const imgLayer = document.getElementById('cant-img-' + cantObjects[idx].id);
@@ -1445,31 +1468,25 @@ function onCantClick(idx){
     if(cantFound >= cantObjects.length) cantVittoria();
   } else {
     // ❌ Sbagliato – penalità -2 secondi
-    showCantFeedback('-2s ✗', '#e05040');
-    cantTimeLeft = Math.max(0, cantTimeLeft - 2);
-    document.getElementById('cant-timer').textContent = cantTimeLeft;
-    document.getElementById('cant-timer').style.color = '#e05040';
-    // Shake sul pannello
-    const panel = document.getElementById('panel-cantiere');
-    panel.style.animation = 'none';
-    void panel.offsetWidth;
-    panel.style.animation = 'cantShake .3s ease';
-    if(cantTimeLeft <= 0) cantGameOver();
+    cantApplyPenalty();
   }
 }
 
 // ── Feedback visivo ─────────────────────────────────────
+let _cantFbTimer = null;
 function showCantFeedback(txt, color){
+  if(_cantFbTimer){ clearTimeout(_cantFbTimer); _cantFbTimer = null; }
   const el = document.getElementById('cant-feedback');
   el.textContent = txt;
   el.style.color = color;
   el.style.opacity = '1';
-  el.style.transform = 'translate(-50%,-50%) scale(1.2)';
-  el.style.transition = 'opacity .1s, transform .1s';
-  setTimeout(()=>{
+  el.style.transform = 'translate(-50%,-50%) scale(1.3)';
+  el.style.transition = 'opacity .05s, transform .05s';
+  _cantFbTimer = setTimeout(()=>{
     el.style.opacity = '0';
     el.style.transform = 'translate(-50%,-50%) scale(1)';
-  }, 600);
+    _cantFbTimer = null;
+  }, 700);
 }
 
 // ── Aggiorna barra progressione ─────────────────────────
