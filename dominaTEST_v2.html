@@ -888,7 +888,7 @@ html,body{
       display:flex;flex-direction:column;gap:6px;">
       <!-- Riga 1: stage e timer -->
       <div style="display:flex;justify-content:space-between;align-items:center;">
-        <span style="font-family:'Cinzel',serif;color:#C9A84C;font-size:13px;letter-spacing:1px;" id="cant-stage-label">STAGE 1 / 5</span>
+        <span style="font-family:'Cinzel',serif;color:#C9A84C;font-size:13px;letter-spacing:1px;" id="cant-stage-label">STAGE 1 / 1</span>
         <div style="display:flex;align-items:center;gap:6px;">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#C9A84C" stroke-width="1.5"/><path d="M7 4v3.5l2 2" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/></svg>
           <span id="cant-timer" style="font-family:'Cinzel',serif;color:#C9A84C;font-size:16px;font-weight:700;">60</span>
@@ -1202,11 +1202,7 @@ function goHub(){
 
 // ── Definizione Stage ──────────────────────────────────
 const CANT_STAGES = [
-  { stage:1, count:5,  time:60, reward:30  },
-  { stage:2, count:8,  time:55, reward:50  },
-  { stage:3, count:12, time:50, reward:75  },
-  { stage:4, count:16, time:45, reward:110 },
-  { stage:5, count:20, time:40, reward:150 },
+  { stage:1, time:60, reward:30 },
 ];
 
 // ── Pool di oggetti disponibili ─────────────────────────
