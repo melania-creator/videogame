@@ -1210,7 +1210,7 @@ const CANT_STAGES = [
 // posizione/dimensione nell'area di gioco (relativa a 424×760).
 // Puoi espandere questo array con i tuoi asset reali.
 const CANT_OBJECT_POOL = [
-  { id:'clessidra', nome:'Clessidra',  img:'hidden_clessidra.png', x:265, y:465, w:45, h:60 },
+  { id:'clessidra', nome:'Clessidra',  img:'hidden_clessidra.png', x:265, y:465, w:80, h:80, fullCanvas:true },
   { id:'epigrafe',  nome:'Epigrafe',   img:'hidden_epigrafe.png',  x:375, y:310, w:50, h:55 },
 ];
 
@@ -1292,23 +1292,34 @@ function renderCantPreview(){
   const container = document.getElementById('cant-objects');
   container.innerHTML = '';
   CANT_OBJECT_POOL.forEach(obj => {
-    const div = document.createElement('div');
-    div.style.cssText = [
-      'position:absolute',
-      'left:' + obj.x + 'px',
-      'top:' + obj.y + 'px',
-      'width:' + obj.w + 'px',
-      'height:' + obj.h + 'px',
-      'transform:translate(-50%,-50%)',
-      'pointer-events:none',
-      'z-index:5',
-    ].join(';');
-    const img = document.createElement('img');
-    img.src = obj.img;
-    img.alt = obj.nome;
-    img.style.cssText = 'width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,.7));';
-    div.appendChild(img);
-    container.appendChild(div);
+    if(obj.fullCanvas){
+      const div = document.createElement('div');
+      div.style.cssText = 'position:absolute;left:0;top:0;width:424px;height:760px;pointer-events:none;z-index:4;';
+      const img = document.createElement('img');
+      img.src = obj.img;
+      img.alt = obj.nome;
+      img.style.cssText = 'width:100%;height:100%;object-fit:contain;';
+      div.appendChild(img);
+      container.appendChild(div);
+    } else {
+      const div = document.createElement('div');
+      div.style.cssText = [
+        'position:absolute',
+        'left:' + obj.x + 'px',
+        'top:' + obj.y + 'px',
+        'width:' + obj.w + 'px',
+        'height:' + obj.h + 'px',
+        'transform:translate(-50%,-50%)',
+        'pointer-events:none',
+        'z-index:5',
+      ].join(';');
+      const img = document.createElement('img');
+      img.src = obj.img;
+      img.alt = obj.nome;
+      img.style.cssText = 'width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,.7));';
+      div.appendChild(img);
+      container.appendChild(div);
+    }
   });
 }
 
@@ -1335,26 +1346,38 @@ function renderCantObjects(){
     ].join(';');
     btn.setAttribute('aria-label', obj.nome);
 
-    // Immagine oggetto (con fallback colorato se PNG mancante)
-    const img = document.createElement('img');
-    img.src = obj.img;
-    img.alt = obj.nome;
-    img.style.cssText = 'width:100%;height:100%;object-fit:contain;pointer-events:none;filter:drop-shadow(0 2px 4px rgba(0,0,0,.7));';
-    img.onerror = function(){
-      // Fallback: cerchio dorato con iniziale
-      this.style.display='none';
-      btn.style.background='rgba(201,168,76,.25)';
-      btn.style.border='2px solid rgba(201,168,76,.6)';
-      btn.style.borderRadius='6px';
-      btn.style.color='#C9A84C';
-      btn.style.fontFamily='Cinzel,serif';
-      btn.style.fontSize='10px';
-      btn.style.display='flex';
-      btn.style.alignItems='center';
-      btn.style.justifyContent='center';
-      btn.textContent = obj.nome.slice(0,3).toUpperCase();
-    };
-    btn.appendChild(img);
+    if(obj.fullCanvas){
+      // Immagine a tutta canvas come layer separato
+      const imgLayer = document.createElement('div');
+      imgLayer.id = 'cant-img-' + obj.id;
+      imgLayer.style.cssText = 'position:absolute;left:0;top:0;width:424px;height:760px;pointer-events:none;z-index:4;';
+      const imgEl = document.createElement('img');
+      imgEl.src = obj.img;
+      imgEl.alt = obj.nome;
+      imgEl.style.cssText = 'width:100%;height:100%;object-fit:contain;';
+      imgLayer.appendChild(imgEl);
+      container.appendChild(imgLayer);
+    } else {
+      // Immagine normale dentro il bottone
+      const img = document.createElement('img');
+      img.src = obj.img;
+      img.alt = obj.nome;
+      img.style.cssText = 'width:100%;height:100%;object-fit:contain;pointer-events:none;filter:drop-shadow(0 2px 4px rgba(0,0,0,.7));';
+      img.onerror = function(){
+        this.style.display='none';
+        btn.style.background='rgba(201,168,76,.25)';
+        btn.style.border='2px solid rgba(201,168,76,.6)';
+        btn.style.borderRadius='6px';
+        btn.style.color='#C9A84C';
+        btn.style.fontFamily='Cinzel,serif';
+        btn.style.fontSize='10px';
+        btn.style.display='flex';
+        btn.style.alignItems='center';
+        btn.style.justifyContent='center';
+        btn.textContent = obj.nome.slice(0,3).toUpperCase();
+      };
+      btn.appendChild(img);
+    }
 
     btn.addEventListener('click', () => onCantClick(i));
     container.appendChild(btn);
@@ -1404,12 +1427,13 @@ function onCantClick(idx){
     showCantFeedback('✓', '#5ecb6e');
     // Rimuovi l'oggetto dalla scena con animazione
     const btn = document.getElementById('cant-obj-' + cantObjects[idx].id);
+    const imgLayer = document.getElementById('cant-img-' + cantObjects[idx].id);
     if(btn){
       btn.style.transition = 'transform .3s, opacity .3s';
       btn.style.transform = 'translate(-50%,-50%) scale(1.4)';
       btn.style.opacity = '0';
       btn.style.pointerEvents = 'none';
-      setTimeout(()=>btn.remove(), 350);
+      setTimeout(()=>{ btn.remove(); if(imgLayer) imgLayer.remove(); }, 350);
     }
     cantFound++;
     cantTarget++;
