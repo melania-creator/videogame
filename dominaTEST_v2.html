@@ -899,20 +899,20 @@ html,body{
     <div id="cant-hud" style="
       position:absolute;top:0;left:0;right:0;z-index:10;
       background:linear-gradient(180deg,rgba(5,2,1,.92) 70%,transparent);
-      padding:10px 16px 18px;
+      padding:10px 52px 18px 16px;
       display:flex;flex-direction:column;gap:6px;">
-      <!-- Riga 1: stage e timer -->
-      <div style="display:flex;justify-content:space-between;align-items:center;">
-        <span style="font-family:'Cinzel',serif;color:#C9A84C;font-size:13px;letter-spacing:1px;" id="cant-stage-label">STAGE 1 / 1</span>
-        <div style="display:flex;align-items:center;gap:6px;">
+      <!-- Riga 1: stage e timer (timer centrato) -->
+      <div style="display:flex;align-items:center;position:relative;">
+        <span style="font-family:'Cinzel',serif;color:#C9A84C;font-size:13px;letter-spacing:1px;flex:1;" id="cant-stage-label">STAGE 1 / 1</span>
+        <div style="position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:6px;">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#C9A84C" stroke-width="1.5"/><path d="M7 4v3.5l2 2" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/></svg>
           <span id="cant-timer" style="font-family:'Cinzel',serif;color:#C9A84C;font-size:16px;font-weight:700;">60</span>
         </div>
       </div>
       <!-- Riga 2: barra progressione oggetti -->
       <div style="display:flex;align-items:center;gap:8px;">
-        <div style="flex:1;height:4px;background:rgba(201,168,76,.2);border-radius:2px;">
-          <div id="cant-prog-bar" style="height:4px;background:#C9A84C;border-radius:2px;width:0%;transition:width .3s;"></div>
+        <div style="flex:1;height:5px;background:rgba(201,168,76,.2);border-radius:3px;">
+          <div id="cant-prog-bar" style="height:5px;background:#C9A84C;border-radius:3px;width:0%;transition:width .3s;"></div>
         </div>
         <span id="cant-prog-text" style="font-family:'Cinzel',serif;color:#C9A84C;font-size:11px;white-space:nowrap;">0 / 5</span>
       </div>
@@ -1292,6 +1292,8 @@ function startCantStage(){
   const cfg = CANT_STAGES[cantStage];
   cantFound   = 0;
   cantTarget  = 0;
+  document.getElementById('cant-hud').style.display  = 'flex';
+  document.getElementById('cant-list').style.display = 'flex';
   cantRunning = true;
 
   // Oggetti specifici dello stage
