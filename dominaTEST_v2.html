@@ -1258,9 +1258,8 @@ function startCantStage(){
   cantTarget  = 0;
   cantRunning = true;
 
-  // Scegli oggetti casuali (senza ripetizioni) per questo stage
-  const shuffled = [...CANT_OBJECT_POOL].sort(()=>Math.random()-.5);
-  cantObjects = shuffled.slice(0, cfg.count);
+  // Tutti gli oggetti del pool devono essere trovati
+  cantObjects = [...CANT_OBJECT_POOL];
 
   // Aggiorna HUD
   document.getElementById('cant-stage-label').textContent =
