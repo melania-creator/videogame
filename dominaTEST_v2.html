@@ -243,6 +243,7 @@ html,body{
 .denF{animation:denF .45s ease}
 @keyframes bounce-prod{0%,100%{transform:translate(-50%,-50%) scale(1)}40%{transform:translate(-50%,-65%) scale(1.18)}70%{transform:translate(-50%,-44%) scale(.94)}}
 .prod-ready{animation:bounce-prod .75s ease infinite;cursor:pointer;}
+@keyframes cantShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
 
 /* ── POPUP RISORSE ── */
 #res-popup{
@@ -846,6 +847,88 @@ html,body{
     </button>
   </div>
 
+  <!-- ══ PANNELLO CANTIERE ══ -->
+  <div id="panel-cantiere" style="
+    position:absolute;top:0;left:0;right:0;bottom:0;z-index:70;
+    display:none;flex-direction:column;align-items:center;justify-content:flex-start;">
+
+    <!-- Sfondo cantiere -->
+    <div id="cant-bg" style="position:absolute;inset:0;background:url('cantiere_bg.jpg') top left/424px 760px no-repeat;z-index:0;"></div>
+
+    <!-- Overlay scuro per oggetti -->
+    <div id="cant-overlay" style="position:absolute;inset:0;z-index:1;pointer-events:none;"></div>
+
+    <!-- Oggetti cliccabili (generati via JS) -->
+    <div id="cant-objects" style="position:absolute;inset:0;z-index:5;"></div>
+
+    <!-- HUD cantiere -->
+    <div id="cant-hud" style="
+      position:absolute;top:0;left:0;right:0;z-index:10;
+      background:linear-gradient(180deg,rgba(5,2,1,.92) 70%,transparent);
+      padding:10px 16px 18px;
+      display:flex;flex-direction:column;gap:6px;">
+      <!-- Riga 1: stage e timer -->
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-family:'Cinzel',serif;color:#C9A84C;font-size:13px;letter-spacing:1px;" id="cant-stage-label">STAGE 1 / 5</span>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#C9A84C" stroke-width="1.5"/><path d="M7 4v3.5l2 2" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <span id="cant-timer" style="font-family:'Cinzel',serif;color:#C9A84C;font-size:16px;font-weight:700;">60</span>
+        </div>
+      </div>
+      <!-- Riga 2: barra progressione oggetti -->
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="flex:1;height:4px;background:rgba(201,168,76,.2);border-radius:2px;">
+          <div id="cant-prog-bar" style="height:4px;background:#C9A84C;border-radius:2px;width:0%;transition:width .3s;"></div>
+        </div>
+        <span id="cant-prog-text" style="font-family:'Cinzel',serif;color:#C9A84C;font-size:11px;white-space:nowrap;">0 / 5</span>
+      </div>
+    </div>
+
+    <!-- Lista oggetti da trovare (in basso) -->
+    <div id="cant-list" style="
+      position:absolute;bottom:0;left:0;right:0;z-index:10;
+      background:linear-gradient(0deg,rgba(5,2,1,.95) 70%,transparent);
+      padding:18px 16px 16px;
+      display:flex;flex-direction:column;gap:6px;">
+      <span style="font-family:'Cinzel',serif;color:rgba(201,168,76,.6);font-size:10px;letter-spacing:2px;text-transform:uppercase;">Trova:</span>
+      <div id="cant-names" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
+    </div>
+
+    <!-- Feedback popup (clic giusto / sbagliato) -->
+    <div id="cant-feedback" style="
+      position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+      z-index:20;pointer-events:none;
+      font-family:'Cinzel',serif;font-size:26px;font-weight:700;
+      opacity:0;transition:opacity .2s;"></div>
+
+    <!-- Schermata risultato -->
+    <div id="cant-result" style="
+      position:absolute;inset:0;z-index:30;
+      background:linear-gradient(160deg,rgba(5,2,1,.97),rgba(14,7,2,.99));
+      display:none;flex-direction:column;align-items:center;justify-content:center;
+      gap:16px;padding:40px 28px;">
+      <div id="cant-result-ico" style="font-size:52px;">🏛️</div>
+      <div id="cant-result-title" style="font-family:'Cinzel Decorative',serif;color:#C9A84C;font-size:22px;text-align:center;letter-spacing:2px;"></div>
+      <div id="cant-result-msg" style="font-family:'Cinzel',serif;color:rgba(201,168,76,.8);font-size:14px;text-align:center;line-height:1.6;"></div>
+      <button id="cant-result-btn" onclick="cantResultAction()"
+        style="margin-top:12px;padding:14px 36px;
+        background:linear-gradient(135deg,#8B6914,#C9A84C,#8B6914);
+        border:none;border-radius:4px;cursor:pointer;
+        font-family:'Cinzel',serif;color:#0A0600;font-size:14px;font-weight:700;letter-spacing:1px;"></button>
+    </div>
+
+    <!-- Tasto chiudi X -->
+    <button onclick="closeCantiere()" id="cant-close-btn" style="
+      position:absolute;top:10px;right:12px;z-index:40;
+      width:30px;height:30px;border-radius:50%;
+      background:rgba(10,6,2,.6);border:1px solid rgba(201,168,76,.5);
+      cursor:pointer;display:flex;align-items:center;justify-content:center;">
+      <svg viewBox="0 0 14 14" width="12" height="12" fill="none">
+        <path d="M1 1L13 13M13 1L1 13" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
   <!-- ══ PANNELLO FULLONICA ══ -->
   <div id="panel-fullonica" style="
     position:absolute;top:72px;left:0;right:0;bottom:0;z-index:65;
@@ -1094,8 +1177,302 @@ function goHub(){
 }
 
 
+/* ══════════════════════════════════════════════════════
+   CANTIERE DEL PORTICO – Mini-gioco "Trova l'Oggetto"
+   ══════════════════════════════════════════════════════ */
+
+// ── Definizione Stage ──────────────────────────────────
+const CANT_STAGES = [
+  { stage:1, count:5,  time:60, reward:30  },
+  { stage:2, count:8,  time:55, reward:50  },
+  { stage:3, count:12, time:50, reward:75  },
+  { stage:4, count:16, time:45, reward:110 },
+  { stage:5, count:20, time:40, reward:150 },
+];
+
+// ── Pool di oggetti disponibili ─────────────────────────
+// Ogni oggetto ha: id, nome (italiano), file immagine PNG, e
+// posizione/dimensione nell'area di gioco (relativa a 424×760).
+// Puoi espandere questo array con i tuoi asset reali.
+const CANT_OBJECT_POOL = [
+  { id:'mattone',   nome:'Mattone',    img:'cant/mattone.png',    x:60,  y:200, w:50, h:35 },
+  { id:'secchio',   nome:'Secchio',    img:'cant/secchio.png',    x:130, y:310, w:45, h:55 },
+  { id:'piccone',   nome:'Piccone',    img:'cant/piccone.png',    x:200, y:250, w:60, h:35 },
+  { id:'corda',     nome:'Corda',      img:'cant/corda.png',      x:290, y:380, w:55, h:40 },
+  { id:'sacco',     nome:'Sacco',      img:'cant/sacco.png',      x:80,  y:450, w:55, h:65 },
+  { id:'colonna',   nome:'Colonna',    img:'cant/colonna.png',    x:350, y:200, w:40, h:80 },
+  { id:'cesello',   nome:'Cesello',    img:'cant/cesello.png',    x:170, y:500, w:45, h:30 },
+  { id:'anfora',    nome:'Anfora',     img:'cant/anfora.png',     x:310, y:480, w:40, h:65 },
+  { id:'martello',  nome:'Martello',   img:'cant/martello.png',   x:240, y:350, w:55, h:35 },
+  { id:'scalpello', nome:'Scalpello',  img:'cant/scalpello.png',  x:100, y:560, w:40, h:30 },
+  { id:'carrucola', nome:'Carrucola',  img:'cant/carrucola.png',  x:360, y:300, w:50, h:50 },
+  { id:'tegola',    nome:'Tegola',     img:'cant/tegola.png',     x:50,  y:320, w:60, h:30 },
+  { id:'calce',     nome:'Calce',      img:'cant/calce.png',      x:280, y:550, w:55, h:55 },
+  { id:'leva',      nome:'Leva',       img:'cant/leva.png',       x:150, y:420, w:70, h:25 },
+  { id:'pietra',    nome:'Pietra',     img:'cant/pietra.png',     x:220, y:460, w:55, h:45 },
+  { id:'carriola',  nome:'Carriola',   img:'cant/carriola.png',   x:70,  y:500, w:70, h:50 },
+  { id:'fune',      nome:'Fune',       img:'cant/fune.png',       x:320, y:240, w:60, h:20 },
+  { id:'scudo',     nome:'Scudo da muratore', img:'cant/scudo.png', x:380, y:420, w:45, h:55 },
+  { id:'spatola',   nome:'Spatola',    img:'cant/spatola.png',    x:190, y:580, w:40, h:30 },
+  { id:'vanga',     nome:'Vanga',      img:'cant/vanga.png',      x:110, y:380, w:35, h:70 },
+];
+
+// ── Stato partita ───────────────────────────────────────
+let cantStage       = 0;   // indice in CANT_STAGES (0-4)
+let cantObjects     = [];  // oggetti attivi in questo stage
+let cantFound       = 0;   // quanti trovati finora
+let cantTarget      = 0;   // indice corrente nell'elenco (oggetto da trovare ora)
+let cantTimeLeft    = 0;
+let cantTimerID     = null;
+let cantRunning     = false;
+let cantTotalStages = CANT_STAGES.length;
+
+// ── Apri/Chiudi ────────────────────────────────────────
 function openCantiere(){
-  // TODO: aprire scena cantiere del portico
+  cantStage = 0;
+  document.getElementById('panel-cantiere').style.display = 'flex';
+  startCantStage();
+}
+function closeCantiere(){
+  stopCantTimer();
+  document.getElementById('panel-cantiere').style.display = 'none';
+  document.getElementById('cant-result').style.display = 'none';
+}
+
+// ── Avvia uno stage ────────────────────────────────────
+function startCantStage(){
+  const cfg = CANT_STAGES[cantStage];
+  cantFound   = 0;
+  cantTarget  = 0;
+  cantRunning = true;
+
+  // Scegli oggetti casuali (senza ripetizioni) per questo stage
+  const shuffled = [...CANT_OBJECT_POOL].sort(()=>Math.random()-.5);
+  cantObjects = shuffled.slice(0, cfg.count);
+
+  // Aggiorna HUD
+  document.getElementById('cant-stage-label').textContent =
+    'STAGE ' + cfg.stage + ' / ' + cantTotalStages;
+  updateCantProgress();
+  renderCantObjects();
+  renderCantNames();
+
+  // Timer
+  cantTimeLeft = cfg.time;
+  document.getElementById('cant-timer').textContent = cantTimeLeft;
+  document.getElementById('cant-timer').style.color = '#C9A84C';
+  stopCantTimer();
+  cantTimerID = setInterval(tickCantTimer, 1000);
+
+  // Nascondi result screen
+  document.getElementById('cant-result').style.display = 'none';
+  document.getElementById('cant-close-btn').style.display = 'flex';
+}
+
+// ── Tick timer ─────────────────────────────────────────
+function tickCantTimer(){
+  if(!cantRunning) return;
+  cantTimeLeft--;
+  const el = document.getElementById('cant-timer');
+  el.textContent = cantTimeLeft;
+  el.style.color = cantTimeLeft <= 10 ? '#e05040' : '#C9A84C';
+  if(cantTimeLeft <= 0) cantGameOver();
+}
+function stopCantTimer(){ clearInterval(cantTimerID); cantTimerID = null; }
+
+// ── Render oggetti nella scena ──────────────────────────
+function renderCantObjects(){
+  const container = document.getElementById('cant-objects');
+  container.innerHTML = '';
+  cantObjects.forEach((obj, i) => {
+    const btn = document.createElement('button');
+    btn.id = 'cant-obj-' + obj.id;
+    btn.dataset.idx = i;
+    btn.style.cssText = [
+      'position:absolute',
+      'left:' + obj.x + 'px',
+      'top:' + obj.y + 'px',
+      'width:' + obj.w + 'px',
+      'height:' + obj.h + 'px',
+      'transform:translate(-50%,-50%)',
+      'background:transparent',
+      'border:none',
+      'cursor:pointer',
+      'z-index:5',
+      'padding:0',
+    ].join(';');
+    btn.setAttribute('aria-label', obj.nome);
+
+    // Immagine oggetto (con fallback colorato se PNG mancante)
+    const img = document.createElement('img');
+    img.src = obj.img;
+    img.alt = obj.nome;
+    img.style.cssText = 'width:100%;height:100%;object-fit:contain;pointer-events:none;filter:drop-shadow(0 2px 4px rgba(0,0,0,.7));';
+    img.onerror = function(){
+      // Fallback: cerchio dorato con iniziale
+      this.style.display='none';
+      btn.style.background='rgba(201,168,76,.25)';
+      btn.style.border='2px solid rgba(201,168,76,.6)';
+      btn.style.borderRadius='6px';
+      btn.style.color='#C9A84C';
+      btn.style.fontFamily='Cinzel,serif';
+      btn.style.fontSize='10px';
+      btn.style.display='flex';
+      btn.style.alignItems='center';
+      btn.style.justifyContent='center';
+      btn.textContent = obj.nome.slice(0,3).toUpperCase();
+    };
+    btn.appendChild(img);
+
+    btn.addEventListener('click', () => onCantClick(i));
+    container.appendChild(btn);
+  });
+}
+
+// ── Render lista nomi ───────────────────────────────────
+function renderCantNames(){
+  const box = document.getElementById('cant-names');
+  box.innerHTML = '';
+  cantObjects.forEach((obj, i) => {
+    const span = document.createElement('span');
+    span.id = 'cant-name-' + i;
+    span.textContent = obj.nome;
+    span.style.cssText = [
+      'font-family:Cinzel,serif',
+      'font-size:12px',
+      'padding:4px 10px',
+      'border-radius:3px',
+      'transition:all .3s',
+    ].join(';');
+    if(i < cantTarget){
+      // già trovato
+      span.style.color = 'rgba(201,168,76,.35)';
+      span.style.textDecoration = 'line-through';
+      span.style.background = 'transparent';
+    } else if(i === cantTarget){
+      // da trovare ora
+      span.style.color = '#C9A84C';
+      span.style.background = 'rgba(201,168,76,.15)';
+      span.style.border = '1px solid rgba(201,168,76,.4)';
+      span.style.fontWeight = '700';
+    } else {
+      // prossimi
+      span.style.color = 'rgba(201,168,76,.5)';
+      span.style.border = '1px solid transparent';
+    }
+    box.appendChild(span);
+  });
+}
+
+// ── Clic su un oggetto ──────────────────────────────────
+function onCantClick(idx){
+  if(!cantRunning) return;
+  if(idx === cantTarget){
+    // ✅ Corretto
+    showCantFeedback('✓', '#5ecb6e');
+    // Rimuovi l'oggetto dalla scena con animazione
+    const btn = document.getElementById('cant-obj-' + cantObjects[idx].id);
+    if(btn){
+      btn.style.transition = 'transform .3s, opacity .3s';
+      btn.style.transform = 'translate(-50%,-50%) scale(1.4)';
+      btn.style.opacity = '0';
+      btn.style.pointerEvents = 'none';
+      setTimeout(()=>btn.remove(), 350);
+    }
+    cantFound++;
+    cantTarget++;
+    updateCantProgress();
+    renderCantNames();
+    if(cantFound >= cantObjects.length) cantVittoria();
+  } else {
+    // ❌ Sbagliato – penalità -2 secondi
+    showCantFeedback('-2s ✗', '#e05040');
+    cantTimeLeft = Math.max(0, cantTimeLeft - 2);
+    document.getElementById('cant-timer').textContent = cantTimeLeft;
+    document.getElementById('cant-timer').style.color = '#e05040';
+    // Shake sul pannello
+    const panel = document.getElementById('panel-cantiere');
+    panel.style.animation = 'none';
+    void panel.offsetWidth;
+    panel.style.animation = 'cantShake .3s ease';
+    if(cantTimeLeft <= 0) cantGameOver();
+  }
+}
+
+// ── Feedback visivo ─────────────────────────────────────
+function showCantFeedback(txt, color){
+  const el = document.getElementById('cant-feedback');
+  el.textContent = txt;
+  el.style.color = color;
+  el.style.opacity = '1';
+  el.style.transform = 'translate(-50%,-50%) scale(1.2)';
+  el.style.transition = 'opacity .1s, transform .1s';
+  setTimeout(()=>{
+    el.style.opacity = '0';
+    el.style.transform = 'translate(-50%,-50%) scale(1)';
+  }, 600);
+}
+
+// ── Aggiorna barra progressione ─────────────────────────
+function updateCantProgress(){
+  const total = cantObjects.length;
+  const pct   = total > 0 ? (cantFound / total) * 100 : 0;
+  document.getElementById('cant-prog-bar').style.width = pct + '%';
+  document.getElementById('cant-prog-text').textContent = cantFound + ' / ' + total;
+}
+
+// ── Vittoria stage ──────────────────────────────────────
+function cantVittoria(){
+  cantRunning = false;
+  stopCantTimer();
+  const cfg = CANT_STAGES[cantStage];
+  const isLast = cantStage >= cantTotalStages - 1;
+
+  const res = document.getElementById('cant-result');
+  document.getElementById('cant-result-ico').textContent   = isLast ? '🏆' : '⬆️';
+  document.getElementById('cant-result-title').textContent = isLast ? 'LAVORI COMPLETATI!' : 'STAGE SUPERATO!';
+  document.getElementById('cant-result-msg').innerHTML =
+    (isLast
+      ? 'Hai completato tutti gli stage del Cantiere del Portico!'
+      : 'Avanza allo stage ' + (cfg.stage + 1) + '!')
+    + '<br><br><span style="color:#C9A84C;font-size:18px;">+' + cfg.reward + ' 🪙 Denarii</span>';
+  document.getElementById('cant-result-btn').textContent = isLast ? 'TORNA AL FORO' : 'STAGE SUCCESSIVO →';
+  res.style.display = 'flex';
+
+  addDen(cfg.reward);
+}
+
+// ── Game Over ───────────────────────────────────────────
+function cantGameOver(){
+  cantRunning = false;
+  stopCantTimer();
+
+  const res = document.getElementById('cant-result');
+  document.getElementById('cant-result-ico').textContent   = '⏳';
+  document.getElementById('cant-result-title').textContent = 'TEMPO SCADUTO';
+  document.getElementById('cant-result-msg').innerHTML =
+    'Il sole è tramontato sul cantiere.<br>Hai trovato <strong style="color:#C9A84C;">' +
+    cantFound + ' / ' + cantObjects.length + '</strong> oggetti.';
+  document.getElementById('cant-result-btn').textContent = 'RIPROVA';
+  res.style.display = 'flex';
+}
+
+// ── Azione bottone risultato ────────────────────────────
+function cantResultAction(){
+  const isLast = cantStage >= cantTotalStages - 1;
+  const wasVittoria = document.getElementById('cant-result-title').textContent !== 'TEMPO SCADUTO';
+
+  if(!wasVittoria){
+    // Riprova: stesso stage
+    startCantStage();
+  } else if(isLast){
+    // Torna al foro
+    closeCantiere();
+  } else {
+    // Stage successivo
+    cantStage++;
+    startCantStage();
+  }
 }
 const panels = {
   missioni: { ico: '📜', title: 'MISSIONI' },
