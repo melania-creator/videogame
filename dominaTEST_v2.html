@@ -1203,20 +1203,30 @@ function goHub(){
 
 // ── Definizione Stage ──────────────────────────────────
 const CANT_STAGES = [
-  { stage:1, time:60, reward:30 },
+  {
+    stage:1, time:60, reward:30, bg:'bg_cantiere.png',
+    objects: [
+      { id:'epigrafe',   nome:'Epigrafe',    img:'hidden_epigrafe.png',   x:375, y:310, w:50, h:50 },
+      { id:'architetto', nome:'Architetto',  img:'hidden_architetto.png', x:155, y:460, w:50, h:50 },
+      { id:'tavolo',     nome:'Tavolo',       img:'hidden_tavolo.png',     x:235, y:390, w:50, h:50 },
+      { id:'clessidra',  nome:'Clessidra',    img:'hidden_clessidra.png',  x:310, y:500, w:50, h:50 },
+      { id:'anfore',     nome:'Anfore',       img:'hidden_anfore.png',     x:395, y:590, w:50, h:50 },
+    ]
+  },
+  {
+    stage:2, time:90, reward:50, bg:'bg_cantiere2.png',
+    objects: [
+      { id:'epigrafe',   nome:'Epigrafe',    img:'hidden_epigrafe.png',   x:375, y:310, w:50, h:50 },
+      { id:'architetto', nome:'Architetto',  img:'hidden_architetto.png', x:155, y:460, w:50, h:50 },
+      { id:'tavolo',     nome:'Tavolo',       img:'hidden_tavolo.png',     x:235, y:390, w:50, h:50 },
+      { id:'anfore',     nome:'Anfore',       img:'hidden_anfore.png',     x:395, y:590, w:50, h:50 },
+      // ── 4 nuovi oggetti da aggiungere ──
+    ]
+  },
 ];
 
-// ── Pool di oggetti disponibili ─────────────────────────
-// Ogni oggetto ha: id, nome (italiano), file immagine PNG, e
-// posizione/dimensione nell'area di gioco (relativa a 424×760).
-// Puoi espandere questo array con i tuoi asset reali.
-const CANT_OBJECT_POOL = [
-  { id:'epigrafe',   nome:'Epigrafe',    img:'hidden_epigrafe.png',   x:375, y:310, w:50, h:50 },
-  { id:'architetto', nome:'Architetto',  img:'hidden_architetto.png', x:155, y:460, w:50, h:50 },
-  { id:'tavolo',     nome:'Tavolo',       img:'hidden_tavolo.png',     x:235, y:390, w:50, h:50 },
-  { id:'clessidra',  nome:'Clessidra',    img:'hidden_clessidra.png',  x:310, y:500, w:50, h:50 },
-  { id:'anfore',     nome:'Anfore',       img:'hidden_anfore.png',     x:395, y:590, w:50, h:50 },
-];
+// ── Pool di oggetti Stage 1 (riferimento per preview intro) ──────────────
+const CANT_OBJECT_POOL = CANT_STAGES[0].objects;
 
 // ── Stato partita ───────────────────────────────────────
 let cantStage       = 0;   // indice in CANT_STAGES (0-4)
@@ -1258,8 +1268,12 @@ function startCantStage(){
   cantTarget  = 0;
   cantRunning = true;
 
-  // Tutti gli oggetti del pool devono essere trovati
-  cantObjects = [...CANT_OBJECT_POOL];
+  // Oggetti specifici dello stage
+  cantObjects = [...cfg.objects];
+
+  // Aggiorna sfondo
+  document.getElementById('cant-bg').style.background =
+    "url('" + cfg.bg + "') top left/424px 760px no-repeat";
 
   // Aggiorna HUD
   document.getElementById('cant-stage-label').textContent =
