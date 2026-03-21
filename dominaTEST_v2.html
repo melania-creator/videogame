@@ -2032,8 +2032,8 @@ function prevLook(){
 }
 function updateLookPanel(){
   const lockMap = {
-    1: { flag: ()=>look02Unlocked, lockedImg: 'eumachia_look_02_locked.jpg', cost: 100 },
-    2: { flag: ()=>look03Unlocked, lockedImg: 'eumachia_look_03_locked.jpg', cost: 200 },
+    1: { flag: ()=>look02Unlocked, lockedImg: 'eumachia_look_02_locked.jpg', cost: 300 },
+    2: { flag: ()=>look03Unlocked, lockedImg: 'eumachia_look_03_locked.jpg', cost: 500 },
   };
   const lock = lockMap[lookIdx];
   const isLocked = lock && !lock.flag();
@@ -2050,7 +2050,7 @@ function updateLookPanel(){
   }
 }
 function unlockCurrentLook(){
-  const costs = { 1: 100, 2: 200 };
+  const costs = { 1: 300, 2: 500 };
   const cost = costs[lookIdx];
   if(!cost) return;
   if(den < cost){
