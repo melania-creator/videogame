@@ -269,6 +269,84 @@ html,body{
 }
 #res-popup-close:hover{opacity:1;}
 
+/* ══ INTRO PERGAMENA ══ */
+#intro-pergamena{
+  display:none;position:absolute;inset:0;z-index:995;
+  align-items:center;justify-content:center;
+  background:rgba(3,1,0,.86);
+}
+#intro-pergamena.show{display:flex;}
+#intro-skip{
+  position:absolute;top:14px;right:14px;
+  background:rgba(0,0,0,.45);border:1px solid rgba(201,168,76,.35);border-radius:4px;
+  font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.1em;
+  color:rgba(201,168,76,.7);padding:5px 12px;cursor:pointer;z-index:2;
+  transition:color .15s,border-color .15s;
+}
+#intro-skip:hover{color:#C9A84C;border-color:#C9A84C;}
+.perg-box{
+  position:relative;width:372px;
+  background:
+    radial-gradient(ellipse at 12% 18%,rgba(215,170,75,.2) 0%,transparent 48%),
+    radial-gradient(ellipse at 88% 80%,rgba(158,108,32,.15) 0%,transparent 48%),
+    linear-gradient(172deg,#f7ecd4 0%,#eeddbe 22%,#e7d4a2 58%,#efdfc4 88%,#f6ecce 100%);
+  border:2px solid #8a6210;border-radius:3px;
+  box-shadow:0 0 0 5px rgba(201,168,76,.12),0 20px 55px rgba(0,0,0,.9),inset 0 0 80px rgba(155,106,28,.07);
+  overflow:hidden;
+}
+.perg-roll{
+  background:linear-gradient(90deg,#3a2408 0%,#7a5010 16%,#c09028 40%,#ddb438 50%,#c09028 60%,#7a5010 84%,#3a2408 100%);
+  height:24px;display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.perg-roll-txt{
+  font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:.3em;
+  color:#f6e9c2;text-shadow:0 1px 3px rgba(0,0,0,.6);
+}
+.perg-inner-border{
+  margin:0 10px;
+  border-left:1px solid rgba(138,98,16,.22);
+  border-right:1px solid rgba(138,98,16,.22);
+}
+.perg-body{padding:18px 22px 12px;}
+.perg-lead{
+  font-family:'Cinzel Decorative',serif;font-weight:700;
+  font-size:.6rem;letter-spacing:.15em;color:#6a3c0a;
+  text-align:center;margin-bottom:14px;
+}
+.perg-text{
+  font-family:'Cinzel',serif;font-size:.67rem;
+  color:#2b1906;line-height:1.8;letter-spacing:.015em;
+}
+.perg-text p{margin-bottom:10px;}
+.perg-text p:last-child{margin-bottom:0;}
+.perg-em{color:#6a3c0a;letter-spacing:.04em;}
+.perg-text strong{color:#4e2808;font-weight:700;letter-spacing:.03em;}
+.perg-sep{
+  margin:0 22px;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(138,98,16,.28) 25%,rgba(201,168,76,.38) 50%,rgba(138,98,16,.28) 75%,transparent);
+}
+.perg-footer{
+  padding:11px 22px 13px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.perg-btn{
+  background:none;border:1px solid rgba(100,60,10,.45);border-radius:3px;
+  font-family:'Cinzel',serif;font-size:.54rem;letter-spacing:.08em;
+  color:#6a3c0a;padding:6px 13px;cursor:pointer;
+  transition:background .15s;
+}
+.perg-btn:hover{background:rgba(100,60,10,.1);}
+.perg-btn:disabled{opacity:.2;cursor:default;pointer-events:none;}
+.perg-btn.gold{
+  background:linear-gradient(160deg,#9a7218,#6a4a0c);
+  border-color:#c8a028;color:#f6e9c2;
+  box-shadow:0 2px 10px rgba(0,0,0,.45);
+}
+.perg-btn.gold:hover{background:linear-gradient(160deg,#aa8228,#7a5a1c);}
+#perg-page-ind{
+  font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.2em;color:#8a6210;
+}
+
 /* ── Popup Pergamena Duoviro ── */
 .dpop-orn{width:90%;height:2px;background:linear-gradient(90deg,transparent,#8B6914,transparent);}
 .dpop-livello{font-family:'Cinzel Decorative',serif;font-size:.78rem;color:#5a3a00;text-align:center;letter-spacing:.05em;}
@@ -314,6 +392,38 @@ html,body{
     <div id="res-popup-box">
       <button id="res-popup-close" onclick="closeResPopup()">✕</button>
       <div id="res-popup-msg"></div>
+    </div>
+  </div>
+
+  <!-- ══ INTRO PERGAMENA ══ -->
+  <div id="intro-pergamena">
+    <button id="intro-skip" onclick="closeIntroPergamena()">SALTA ✕</button>
+    <div class="perg-box">
+      <!-- ornamento superiore -->
+      <div class="perg-roll">
+        <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><polygon points="6,1 11,9 1,9" fill="#f6e9c2" opacity=".75"/></svg>
+        <span class="perg-roll-txt">DOMINA · EUMACHIA DI POMPEI</span>
+        <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><polygon points="6,1 11,9 1,9" fill="#f6e9c2" opacity=".75"/></svg>
+      </div>
+      <!-- contenuto -->
+      <div class="perg-inner-border">
+        <div class="perg-body">
+          <div class="perg-lead" id="perg-lead"></div>
+          <div class="perg-text" id="perg-text"></div>
+        </div>
+        <div class="perg-sep"></div>
+        <div class="perg-footer">
+          <button class="perg-btn" id="perg-prev" onclick="pergPrev()">◄ INDIETRO</button>
+          <span id="perg-page-ind">I / II</span>
+          <button class="perg-btn" id="perg-next" onclick="pergNext()">AVANTI ►</button>
+        </div>
+      </div>
+      <!-- ornamento inferiore -->
+      <div class="perg-roll">
+        <svg width="55" height="6" viewBox="0 0 55 6"><line x1="0" y1="3" x2="55" y2="3" stroke="#f6e9c2" stroke-width="1" stroke-dasharray="3,3" opacity=".55"/></svg>
+        <svg width="8" height="8" viewBox="0 0 8 8"><rect x="2" y="2" width="4" height="4" fill="#f6e9c2" opacity=".65" transform="rotate(45 4 4)"/></svg>
+        <svg width="55" height="6" viewBox="0 0 55 6"><line x1="0" y1="3" x2="55" y2="3" stroke="#f6e9c2" stroke-width="1" stroke-dasharray="3,3" opacity=".55"/></svg>
+      </div>
     </div>
   </div>
 
@@ -1252,6 +1362,48 @@ function closeResPopup(){
   document.getElementById('res-popup').classList.remove('show');
 }
 
+// ── Intro Pergamena ──────────────────────────────────
+const INTRO_PAGES = [
+  {
+    lead: 'I · POMPEI, ANNO XIV D.C.',
+    html: '<p>Anno 14 d.C. Pompei, Campania.</p><p>Sei Eumachia. Sacerdotessa pubblica di Venere, erede di una delle famiglie più antiche della città, e donna di potere in un\'epoca in cui il potere si costruisce pietra su pietra — e denario su denario.</p><p>Tuo marito è morto. Tuo figlio Numistrio Frontone ha l\'età giusta, il nome giusto e il sangue giusto per diventare <strong>Duoviro di Pompei</strong> — uno dei due magistrati che governano la città. Ma un nome non basta. Ci vuole il popolo.</p>'
+  },
+  {
+    lead: 'II · LA TUA CITTÀ',
+    html: '<p>La gente di Pompei ti conosce. I <span class="perg-em">fullones</span> — i lavandai, i tintori, i tessitori — lavorano sotto la tua protezione. I mercanti che portano vino dalla Gallia e stoffe dall\'Africa passano per le tue mani. Il cantiere del nuovo portico nel Foro porta il tuo nome.</p><p>Ogni scelta che fai in questa città si trasforma in reputazione. E la reputazione si trasforma in voti.</p>'
+  }
+];
+let pergPage = 0;
+
+function showIntroPergamena(){
+  pergPage = 0;
+  _updatePerg();
+  document.getElementById('intro-pergamena').classList.add('show');
+}
+function _updatePerg(){
+  const p     = INTRO_PAGES[pergPage];
+  const total = INTRO_PAGES.length;
+  const toRom = n => ['I','II','III','IV','V'][n - 1] || String(n);
+  document.getElementById('perg-lead').textContent  = p.lead;
+  document.getElementById('perg-text').innerHTML    = p.html;
+  document.getElementById('perg-prev').disabled     = pergPage === 0;
+  document.getElementById('perg-page-ind').textContent = toRom(pergPage + 1) + ' / ' + toRom(total);
+  const isLast  = pergPage === total - 1;
+  const nextBtn = document.getElementById('perg-next');
+  nextBtn.textContent = isLast ? 'INIZIA ✦' : 'AVANTI ►';
+  nextBtn.classList.toggle('gold', isLast);
+}
+function pergPrev(){
+  if(pergPage > 0){ pergPage--; _updatePerg(); }
+}
+function pergNext(){
+  if(pergPage < INTRO_PAGES.length - 1){ pergPage++; _updatePerg(); }
+  else { closeIntroPergamena(); }
+}
+function closeIntroPergamena(){
+  document.getElementById('intro-pergamena').classList.remove('show');
+}
+
 function goHub(){
   if(mOn){ snd.play().catch(()=>{}); } else { snd.muted = true; }
   const hasSave = loadGame();
@@ -1269,6 +1421,7 @@ function goHub(){
     document.getElementById('bg-hub').style.pointerEvents = 'all';
     document.getElementById('start').style.display = 'none';
     document.getElementById('hub').classList.add('show');
+    if(!hasSave) showIntroPergamena();
   });
   setInterval(saveGame, 10000);
 }
