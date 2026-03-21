@@ -1283,6 +1283,7 @@ function openCantiere(){
   cantStage  = 0;
   cantS1Paid = false;
   cantS2Paid = false;
+  document.getElementById('hud').style.zIndex = '75';
   document.getElementById('panel-cantiere').style.display = 'flex';
   // Mostra intro con pulsante Avvia, HUD e lista nascosti
   document.getElementById('cant-intro').style.display  = 'flex';
@@ -1309,6 +1310,7 @@ function closeCantiere(){
   stopCantTimer();
   document.getElementById('panel-cantiere').style.display = 'none';
   document.getElementById('cant-result').style.display = 'none';
+  document.getElementById('hud').style.zIndex = '80';
 }
 
 // ── Avvia uno stage ────────────────────────────────────
@@ -2064,8 +2066,14 @@ function unlockCurrentLook(){
   updateLookPanel();
 }
 
-function openImp() { document.getElementById('imp').classList.add('show'); }
-function closeImp(){ document.getElementById('imp').classList.remove('show'); }
+function openImp() {
+  document.getElementById('imp').classList.add('show');
+  document.getElementById('hud').style.zIndex = '55';
+}
+function closeImp(){
+  document.getElementById('imp').classList.remove('show');
+  document.getElementById('hud').style.zIndex = '80';
+}
 
 // ── Popolarità info ──
 function openPopolarity(){
