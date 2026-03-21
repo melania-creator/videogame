@@ -2237,6 +2237,13 @@ function avviaCantiere(){
 function chiudiCantAlertAvvio(){
   document.getElementById('cant-alert-avvio').style.display = 'none';
   document.getElementById('cant-intro').style.display = 'none';
+  if(cantStage === 3){
+    // Stage 4: nessun hidden, lancia direttamente la celebrazione milestone
+    addDen(CANT_STAGES[3].reward);
+    document.getElementById('cant-milestone-reward').textContent = '+' + CANT_STAGES[3].reward + ' 🪙 Denarii';
+    _triggerMilestoneCelebration();
+    return;
+  }
   document.getElementById('cant-hud').style.display   = 'flex';
   document.getElementById('cant-list').style.display  = 'flex';
   startCantStage();
@@ -2306,6 +2313,7 @@ function renderCantPreview(){
   const container = document.getElementById('cant-objects');
   container.innerHTML = '';
   CANT_OBJECT_POOL.forEach(obj => {
+    if(cantStage === 3) return; // stage 4: nessun hidden
     if((cantStage === 1 || cantStage === 2) && obj.id === 'clessidra') return;
     if(obj.fullCanvas){
       const div = document.createElement('div');
