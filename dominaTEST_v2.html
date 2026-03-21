@@ -3501,15 +3501,19 @@ function rispondiDuoviro(idx){
     fb.className = 'dpop-feedback corretto';
     addPopXP(2);
     setTimeout(()=>{
-      chiudiDuoviroPopup();
       duoviroStep++;
       if(duoviroStep === 5){
         // metà livello: richiedi 10 tessili
         duoviroAttesaRegalia = 'meta';
+        mostraDuoviroPopup('regalia');
       } else if(duoviroStep >= 10){
         // fine livello: richiedi 20 tessili per il prossimo livello
         duoviroAttesaRegalia = 'fine';
         duoviroCompletato = true;
+        mostraDuoviroPopup('regalia');
+      } else {
+        // prossimo problema nello stesso popup
+        mostraDuoviroPopup('problema');
       }
     }, 900);
   } else {
@@ -3550,7 +3554,8 @@ function pagaRegalia(){
     `;
     popWrap.style.display = 'flex';
   } else {
-    chiudiDuoviroPopup();
+    // avvia automaticamente il secondo blocco di 5 domande
+    mostraDuoviroPopup('problema');
   }
 }
 
