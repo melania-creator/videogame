@@ -1563,10 +1563,17 @@ function pergNext(){
   if(pergPage < INTRO_PAGES.length - 1){ pergPage++; _updatePerg(); }
   else { closeIntroPergamena(); }
 }
+let missioniBlinkPending = false;
+function syncMissioniBlink(){
+  const hubVisible = [...document.querySelectorAll('[id^="panel-"]')]
+    .every(el => el.style.display === 'none' || el.style.display === '');
+  document.getElementById('btn-mis').classList.toggle('missioni-blink', missioniBlinkPending && hubVisible);
+}
 function closeIntroPergamena(){
   document.getElementById('intro-pergamena').classList.remove('show');
   // Prima volta: fa lampeggiare il bottone Missioni come guida al tutorial
-  document.getElementById('btn-mis').classList.add('missioni-blink');
+  missioniBlinkPending = true;
+  syncMissioniBlink();
 }
 
 function goHub(){
@@ -1589,6 +1596,7 @@ function goHub(){
     showIntroPergamena();
   });
   setInterval(saveGame, 10000);
+  setInterval(syncMissioniBlink, 300);
 }
 
 
@@ -2045,7 +2053,8 @@ function closePanel(){
   document.getElementById('hud').style.zIndex = '';
 }
 function showMissioni(){
-  document.getElementById('btn-mis').classList.remove('missioni-blink');
+  missioniBlinkPending = false;
+  syncMissioniBlink();
   document.getElementById('panel-missioni').style.display = 'flex';
   document.getElementById('hud').style.zIndex = '70';
 }
