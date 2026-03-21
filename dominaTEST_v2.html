@@ -1586,7 +1586,7 @@ function goHub(){
     document.getElementById('bg-hub').style.pointerEvents = 'all';
     document.getElementById('start').style.display = 'none';
     document.getElementById('hub').classList.add('show');
-    if(!hasSave) showIntroPergamena();
+    showIntroPergamena();
   });
   setInterval(saveGame, 10000);
 }
@@ -2057,14 +2057,10 @@ function closeEumachia(){
   document.getElementById('panel-eumachia').style.display = 'none';
   document.getElementById('hud').style.zIndex = '20';
 }
-let giardinoPergVista = false;
 function openGiardino(){
   document.getElementById('panel-giardino').style.display = 'block';
   document.getElementById('hud').style.zIndex = '70';
-  if(!giardinoPergVista){
-    giardinoPergVista = true;
-    document.getElementById('giardino-pergamena').style.display = 'flex';
-  }
+  document.getElementById('giardino-pergamena').style.display = 'flex';
 }
 function closeGiardinoPergamena(){
   document.getElementById('giardino-pergamena').style.display = 'none';
@@ -2708,8 +2704,7 @@ function saveGame(){
     hispaniaEndTime: hispaniaInterval ? now + hispaniaSecondsLeft * 1000 : null,
     africaEndTime:   africaInterval   ? now + africaSecondsLeft   * 1000 : null,
     duoviroStep, duoviroCompletato, duoviroAttesaRegalia,
-    cantStage, cantS1Paid, cantS2Paid,
-    giardinoPergVista
+    cantStage, cantS1Paid, cantS2Paid
   };
   localStorage.setItem('dominaSave', JSON.stringify(state));
 }
@@ -2885,7 +2880,6 @@ function loadGame(){
     cantStage  = s.cantStage  ?? 0;
     cantS1Paid = s.cantS1Paid ?? false;
     cantS2Paid = s.cantS2Paid ?? false;
-    giardinoPergVista = s.giardinoPergVista ?? false;
 
     // Duoviro
     duoviroStep           = s.duoviroStep           ?? 0;
