@@ -2237,6 +2237,7 @@ function rispondiDuoviro(idx){
   const d = duoviroLivello1[duoviroStep];
   const fb = document.getElementById('dpop-feedback');
   if(idx === d.corretta){
+    playFx('correct');
     fb.textContent = 'Esatto!';
     fb.className = 'dpop-feedback corretto';
     addPopXP(2);
@@ -2253,6 +2254,7 @@ function rispondiDuoviro(idx){
       }
     }, 900);
   } else {
+    playFx('wrong');
     fb.textContent = 'Sbagliato!';
     fb.className = 'dpop-feedback errato';
     setTimeout(()=>{
@@ -2550,6 +2552,34 @@ function togS(){
   btn.style.color = sOn ? '#C9A84C' : 'rgba(201,168,76,.35)';
 }
 
+let _audioCtx = null;
+function _getAudioCtx(){
+  if(!_audioCtx) _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return _audioCtx;
+}
+function playFx(type){
+  if(!sOn) return;
+  try {
+    const ctx = _getAudioCtx();
+    const sounds = {
+      correct: [{f:523,t:0,d:0.10,v:0.28},{f:659,t:0.09,d:0.18,v:0.22}],
+      wrong:   [{f:220,t:0,d:0.10,v:0.28},{f:175,t:0.09,d:0.20,v:0.22}],
+      collect: [{f:880,t:0,d:0.08,v:0.25},{f:1046,t:0.07,d:0.15,v:0.20}]
+    };
+    (sounds[type]||[]).forEach(({f,t,d,v})=>{
+      const osc  = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.frequency.value = f;
+      osc.type = type === 'wrong' ? 'sawtooth' : 'sine';
+      gain.gain.setValueAtTime(v, ctx.currentTime + t);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + t + d);
+      osc.start(ctx.currentTime + t);
+      osc.stop(ctx.currentTime + t + d + 0.05);
+    });
+  } catch(e){}
+}
+
 // ══ FULLONICA – Produzione ══
 const FULL_VINO_DURATION     = 180;   // 3 min
 const FULL_TESSUTI_DURATION  = 300;   // 5 min
@@ -2623,6 +2653,7 @@ function collectFullVino(){
   r.style.display = 'none'; r.classList.remove('prod-ready');
   const btn = document.getElementById('btn-full-vino');
   btn.style.opacity = '1'; btn.style.cursor = 'pointer';
+  playFx('collect');
   addVin(5);
   updateFullonicaBlink();
   saveGame();
@@ -2652,6 +2683,7 @@ function collectFullTessuti(){
   r.style.display = 'none'; r.classList.remove('prod-ready');
   const btn = document.getElementById('btn-full-tessuti');
   btn.style.opacity = '1'; btn.style.cursor = 'pointer';
+  playFx('collect');
   addTes(5);
   updateFullonicaBlink();
   saveGame();
@@ -2678,6 +2710,7 @@ function collectFullLaterizi(){
   r.style.display = 'none'; r.classList.remove('prod-ready');
   const btn = document.getElementById('btn-full-laterizi');
   btn.style.opacity = '1'; btn.style.cursor = 'pointer';
+  playFx('collect');
   addLat(10);
   updateFullonicaBlink();
   saveGame();
