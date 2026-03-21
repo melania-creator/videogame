@@ -382,6 +382,56 @@ html,body{
   color:#5a3a00;font-size:.85rem;cursor:pointer;
   display:flex;align-items:center;justify-content:center;
 }
+/* ── Magister Intro Pergamena ── */
+#magister-intro-perg{
+  display:none;position:absolute;inset:0;z-index:30;
+  align-items:center;justify-content:center;
+  background:rgba(3,1,0,.82);
+}
+#magister-intro-perg.show{display:flex;}
+#magister-intro-perg .mperg-box{
+  position:relative;width:340px;
+  background:
+    radial-gradient(ellipse at 12% 18%,rgba(215,170,75,.2) 0%,transparent 48%),
+    radial-gradient(ellipse at 88% 80%,rgba(158,108,32,.15) 0%,transparent 48%),
+    linear-gradient(172deg,#f7ecd4 0%,#eeddbe 22%,#e7d4a2 58%,#efdfc4 88%,#f6ecce 100%);
+  border:2px solid #8a6210;border-radius:3px;
+  box-shadow:0 0 0 5px rgba(201,168,76,.12),0 20px 55px rgba(0,0,0,.9),inset 0 0 80px rgba(155,106,28,.07);
+  overflow:hidden;
+}
+#magister-intro-perg .mperg-roll{
+  background:linear-gradient(90deg,#3a2408 0%,#7a5010 16%,#c09028 40%,#ddb438 50%,#c09028 60%,#7a5010 84%,#3a2408 100%);
+  height:22px;display:flex;align-items:center;justify-content:center;
+  font-family:'Cinzel',serif;font-size:.42rem;letter-spacing:.3em;color:#f6e9c2;
+  text-shadow:0 1px 3px rgba(0,0,0,.6);
+}
+#magister-intro-perg .mperg-body{padding:16px 20px 8px;}
+#magister-intro-perg .mperg-title{
+  font-family:'Cinzel Decorative',serif;font-weight:700;
+  font-size:.65rem;letter-spacing:.15em;color:#6a3c0a;
+  text-align:center;margin-bottom:12px;
+}
+#magister-intro-perg .mperg-text{
+  font-family:'Cinzel',serif;font-size:.63rem;
+  color:#2b1906;line-height:1.75;letter-spacing:.015em;
+}
+#magister-intro-perg .mperg-sep{
+  margin:10px 20px;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(138,98,16,.28) 25%,rgba(201,168,76,.38) 50%,rgba(138,98,16,.28) 75%,transparent);
+}
+#magister-intro-perg .mperg-footer{
+  padding:10px 20px 14px;display:flex;justify-content:center;
+}
+#magister-intro-perg .mperg-btn{
+  background:linear-gradient(160deg,#9a7218,#6a4a0c);
+  border:1px solid #c8a028;border-radius:3px;
+  font-family:'Cinzel',serif;font-size:.6rem;font-weight:700;letter-spacing:.1em;
+  color:#f6e9c2;padding:9px 28px;cursor:pointer;
+  box-shadow:0 2px 10px rgba(0,0,0,.45);
+  transition:background .15s;
+}
+#magister-intro-perg .mperg-btn:hover{background:linear-gradient(160deg,#aa8228,#7a5a1c);}
+
 /* ── Scrollbar Missioni ── */
 .missioni-scroll::-webkit-scrollbar{width:5px;}
 .missioni-scroll::-webkit-scrollbar-track{background:rgba(201,168,76,.06);border-radius:4px;}
@@ -1623,6 +1673,27 @@ html,body{
   <div id="panel-magister" style="
     position:absolute;inset:0;z-index:72;display:none;
     background:rgba(5,2,1,0.92);">
+
+    <!-- ── Intro Pergamena Magister ── -->
+    <div id="magister-intro-perg">
+      <div class="mperg-box">
+        <div class="mperg-roll">✦ &nbsp; IL MAGISTER DEI FULLONES &nbsp; ✦</div>
+        <div class="mperg-body">
+          <div class="mperg-title">Come comportarsi</div>
+          <div class="mperg-text">
+            <p>Il <strong>Magister</strong> è il capo dei <em>fullones</em> — i lavandai e tintori che tingono, lavano e tessono le stoffe sotto la tua protezione. Un uomo esigente, abituato a chi conosce il mestiere.</p>
+            <p>Per guadagnare la sua stima devi superare la <strong>Memoria delle Stoffe</strong>: ti mostrerà carte coperte con gli strumenti del suo arte — lana, porpora, tino, fuoco — e dovrai abbinare ogni coppia nascosta.</p>
+            <p>Ci sono <strong>3 livelli</strong> di difficoltà crescente. Completa ognuno per sbloccare nuove ricompense e dimostrare che conosci davvero il lavoro dei tuoi fullones.</p>
+          </div>
+        </div>
+        <div class="mperg-sep"></div>
+        <div class="mperg-footer">
+          <button class="mperg-btn" onclick="chiudiMagisterIntroPerg()">Incontra il Magister</button>
+        </div>
+        <div class="mperg-roll"></div>
+      </div>
+    </div>
+
     <button onclick="closeMagister()" style="
       position:absolute;top:86px;right:10px;z-index:10;
       width:30px;height:30px;border-radius:50%;
@@ -2431,6 +2502,15 @@ function closeGiardinoPergamena(){
 function openMagister(){
   document.getElementById('panel-magister').style.display = 'block';
   document.getElementById('hud').style.zIndex = '75';
+  const allDone = memoriaLivDone.every(v => v);
+  if(!allDone){
+    document.getElementById('magister-intro-perg').classList.add('show');
+  } else {
+    startMemoria(memoriaLiv);
+  }
+}
+function chiudiMagisterIntroPerg(){
+  document.getElementById('magister-intro-perg').classList.remove('show');
   startMemoria(memoriaLiv);
 }
 function closeMagister(){
