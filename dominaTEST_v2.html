@@ -429,6 +429,43 @@ html,body{
     </div>
   </div>
 
+  <!-- ══ GIARDINO PERGAMENA ══ -->
+  <div id="giardino-pergamena" style="
+    display:none;position:absolute;inset:0;z-index:995;
+    align-items:center;justify-content:center;
+    background:rgba(3,1,0,.86);">
+    <button id="giardino-skip" onclick="closeGiardinoPergamena()" style="
+      position:absolute;top:14px;right:14px;
+      background:rgba(0,0,0,.45);border:1px solid rgba(201,168,76,.35);border-radius:4px;
+      font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.1em;
+      color:rgba(201,168,76,.7);padding:5px 12px;cursor:pointer;z-index:2;">SALTA ✕</button>
+    <div class="perg-box">
+      <div class="perg-roll">
+        <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><polygon points="6,1 11,9 1,9" fill="#f6e9c2" opacity=".75"/></svg>
+        <span class="perg-roll-txt">IL DUOVIRO</span>
+        <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><polygon points="6,1 11,9 1,9" fill="#f6e9c2" opacity=".75"/></svg>
+      </div>
+      <div class="perg-inner-border">
+        <div class="perg-body">
+          <div class="perg-lead">NUMISTRIO FRONTONE</div>
+          <div class="perg-text">
+            <p>Numistrio Frontone non si candida da solo. Sei <em style="font-style:normal;color:#6a3c0a;">tu</em> che costruisci la sua campagna — con ogni rotta completata, ogni portico alzato, ogni tessuto consegnato.</p>
+            <p>La sua elezione non è un evento casuale: è la conseguenza di tutto quello che fai.</p>
+          </div>
+        </div>
+        <div class="perg-sep"></div>
+        <div class="perg-footer" style="justify-content:flex-end;">
+          <button class="perg-btn gold" onclick="closeGiardinoPergamena()">CONTINUA ✦</button>
+        </div>
+      </div>
+      <div class="perg-roll">
+        <svg width="55" height="6" viewBox="0 0 55 6"><line x1="0" y1="3" x2="55" y2="3" stroke="#f6e9c2" stroke-width="1" stroke-dasharray="3,3" opacity=".55"/></svg>
+        <svg width="8" height="8" viewBox="0 0 8 8"><rect x="2" y="2" width="4" height="4" fill="#f6e9c2" opacity=".65" transform="rotate(45 4 4)"/></svg>
+        <svg width="55" height="6" viewBox="0 0 55 6"><line x1="0" y1="3" x2="55" y2="3" stroke="#f6e9c2" stroke-width="1" stroke-dasharray="3,3" opacity=".55"/></svg>
+      </div>
+    </div>
+  </div>
+
   <!-- SFONDI -->
   <div class="bg" id="bg-start"></div>
   <div class="bg" id="bg-hub"></div>
@@ -2017,9 +2054,18 @@ function closeEumachia(){
   document.getElementById('panel-eumachia').style.display = 'none';
   document.getElementById('hud').style.zIndex = '20';
 }
+let giardinoPergVista = false;
 function openGiardino(){
   document.getElementById('panel-giardino').style.display = 'block';
   document.getElementById('hud').style.zIndex = '70';
+  if(!giardinoPergVista){
+    giardinoPergVista = true;
+    document.getElementById('giardino-pergamena').style.display = 'flex';
+  }
+}
+function closeGiardinoPergamena(){
+  document.getElementById('giardino-pergamena').style.display = 'none';
+  saveGame();
 }
 function openMagister(){
   document.getElementById('panel-magister').style.display = 'flex';
@@ -2659,7 +2705,8 @@ function saveGame(){
     hispaniaEndTime: hispaniaInterval ? now + hispaniaSecondsLeft * 1000 : null,
     africaEndTime:   africaInterval   ? now + africaSecondsLeft   * 1000 : null,
     duoviroStep, duoviroCompletato, duoviroAttesaRegalia,
-    cantStage, cantS1Paid, cantS2Paid
+    cantStage, cantS1Paid, cantS2Paid,
+    giardinoPergVista
   };
   localStorage.setItem('dominaSave', JSON.stringify(state));
 }
@@ -2835,6 +2882,7 @@ function loadGame(){
     cantStage  = s.cantStage  ?? 0;
     cantS1Paid = s.cantS1Paid ?? false;
     cantS2Paid = s.cantS2Paid ?? false;
+    giardinoPergVista = s.giardinoPergVista ?? false;
 
     // Duoviro
     duoviroStep           = s.duoviroStep           ?? 0;
