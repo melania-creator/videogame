@@ -4153,8 +4153,7 @@ function loadGame(){
     const now = Date.now();
 
     // Risorse
-    den = s.den ?? 300; tes = s.tes ?? 10; vin = s.vin ?? 10; lat = s.lat ?? 200;
-    if(lat < 200) lat = 200; // DEV: garantisce abbastanza laterizi per test stage 1-3
+    den = s.den ?? 300; tes = s.tes ?? 10; vin = s.vin ?? 10; lat = s.lat ?? 10; // DEV: garantisce abbastanza laterizi per test stage 1-3
     popXP = s.popXP ?? 0;
 
     // Rotte completate offline: aggiungi risorse direttamente
