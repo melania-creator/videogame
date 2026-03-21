@@ -708,10 +708,11 @@ html,body{
       background:linear-gradient(160deg,rgba(5,2,1,.97),rgba(14,7,2,.99));
     ">
       <button style="
-        position:absolute;top:16px;right:16px;
+        position:absolute;top:82px;right:16px;
         width:32px;height:32px;border-radius:50%;
         background:rgba(10,6,2,.6);border:1px solid rgba(201,168,76,.5);
         cursor:pointer;display:flex;align-items:center;justify-content:center;
+        z-index:5;
       " onclick="closePanel()">
         <svg viewBox="0 0 14 14" width="13" height="13" fill="none">
           <path d="M1 1L13 13M13 1L1 13" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
@@ -2037,9 +2038,11 @@ function showPanel(id){
   document.getElementById('gen-ico').textContent   = p.ico;
   document.getElementById('gen-title').textContent = p.title;
   document.getElementById('gen-panel').style.display = 'flex';
+  document.getElementById('hud').style.zIndex = '70';
 }
 function closePanel(){
   document.getElementById('gen-panel').style.display = 'none';
+  document.getElementById('hud').style.zIndex = '';
 }
 function showMissioni(){
   document.getElementById('btn-mis').classList.remove('missioni-blink');
