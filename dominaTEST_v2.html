@@ -628,10 +628,10 @@ html,body{
         </div>
         <button id="btn-mtog" onclick="togM()" style="
           padding:4px 14px;border-radius:20px;cursor:pointer;
-          background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.4);
+          background:rgba(80,60,40,.15);border:1px solid rgba(201,168,76,.4);
           font-family:'Cinzel',serif;font-size:.42rem;letter-spacing:1px;
-          color:#C9A84C;
-        ">ON</button>
+          color:rgba(201,168,76,.35);
+        ">OFF</button>
       </div>
 
       <div class="imp-row-div"></div>
@@ -1198,7 +1198,7 @@ function closeResPopup(){
 }
 
 function goHub(){
-  snd.play().catch(()=>{});
+  if(mOn){ snd.play().catch(()=>{}); } else { snd.muted = true; }
   // Risorse iniziali
   den = 300; tes = 10; vin = 10; lat = 10;
   document.getElementById('vden').textContent = den;
@@ -2132,7 +2132,7 @@ function closeAndamentoAffari(){
   document.getElementById('hud').style.zIndex = '70';
 }
 
-let mOn = true;
+let mOn = false;
 function togM(){
   mOn = !mOn;
   if(mOn){ snd.play().catch(()=>{}); snd.muted = false; }
