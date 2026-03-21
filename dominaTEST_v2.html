@@ -240,6 +240,9 @@ html,body{
 @keyframes bounce-prod{0%,100%{transform:translate(-50%,-50%) scale(1)}40%{transform:translate(-50%,-65%) scale(1.18)}70%{transform:translate(-50%,-44%) scale(.94)}}
 .prod-ready{animation:bounce-prod .75s ease infinite;cursor:pointer;}
 @keyframes cantShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+@keyframes cantFlash{0%{opacity:0}15%{opacity:1}100%{opacity:0}}
+@keyframes cantDust{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.2)}}
+@keyframes cantBgReveal{0%{filter:brightness(0) saturate(0)}40%{filter:brightness(1.3) saturate(1.4)}100%{filter:brightness(1) saturate(1)}}
 @keyframes fullonicaBlink{0%,100%{box-shadow:0 0 0 0 rgba(255,200,80,0)}50%{box-shadow:0 0 14px 6px rgba(255,200,80,0.75)}}
 .fullonica-blink{animation:fullonicaBlink 1s ease-in-out infinite;border-radius:8px;}
 @keyframes missioniBlink{0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,0)}50%{box-shadow:0 0 20px 9px rgba(201,168,76,.85)}}
@@ -2250,15 +2253,111 @@ function cantResultAction(){
   } else {
     cantStage++;
     saveGame();
-    // Se passa da stage 1 a stage 2, mostra il popup di avanzamento
+    // Se passa da stage 1 a stage 2: effetti + popup avanzamento
     if(cantStage === 1){
       document.getElementById('cant-hud').style.display  = 'none';
       document.getElementById('cant-list').style.display = 'none';
-      document.getElementById('cant-avanzamento-popup').style.display = 'flex';
+      _triggerStage2Transition();
     } else {
       _mostraIntroStage();
     }
   }
+}
+
+// ── Transizione visiva+sonora → Stage 2 ────────────────
+function _triggerStage2Transition(){
+  const panel = document.getElementById('panel-cantiere');
+  const bg    = document.getElementById('cant-bg');
+
+  // 1. Cambia subito lo sfondo
+  bg.style.background = "url('bg_cantiere2.png') top left/424px 760px no-repeat";
+  bg.style.animation  = 'cantBgReveal 1.1s ease-out forwards';
+  setTimeout(()=>{ bg.style.animation=''; }, 1200);
+
+  // 2. Shake del pannello
+  panel.style.animation = 'cantShake .55s ease-out';
+  setTimeout(()=>{ panel.style.animation=''; }, 600);
+
+  // 3. Flash dorato
+  const flash = document.createElement('div');
+  flash.style.cssText = 'position:absolute;inset:0;z-index:55;pointer-events:none;'
+    + 'background:radial-gradient(ellipse at 50% 60%,rgba(255,220,100,.75) 0%,rgba(201,168,76,.3) 45%,transparent 70%);'
+    + 'animation:cantFlash 1s ease-out forwards;';
+  panel.appendChild(flash);
+  setTimeout(()=>{ flash.remove(); }, 1050);
+
+  // 4. Particelle polvere/detriti
+  const colors = ['rgba(201,168,76,.7)','rgba(180,140,60,.6)','rgba(140,110,50,.5)','rgba(220,200,150,.5)'];
+  for(let i=0;i<24;i++){
+    const p = document.createElement('div');
+    const cx = 60 + Math.random()*300;
+    const cy = 250 + Math.random()*350;
+    const dx = (Math.random()-0.5)*160;
+    const dy = -(30 + Math.random()*130);
+    const sz = 3 + Math.random()*7;
+    const dur = (.4 + Math.random()*.5).toFixed(2);
+    const col = colors[Math.floor(Math.random()*colors.length)];
+    p.style.cssText = `position:absolute;left:${cx}px;top:${cy}px;`
+      +`width:${sz}px;height:${sz}px;border-radius:50%;`
+      +`background:${col};pointer-events:none;z-index:52;`
+      +`--dx:${dx}px;--dy:${dy}px;`
+      +`animation:cantDust ${dur}s ease-out forwards;`;
+    panel.appendChild(p);
+    setTimeout(()=>{ p.remove(); }, dur*1000+150);
+  }
+
+  // 5. Suono costruzione via Web Audio API
+  _playCantStage2Sound();
+
+  // 6. Dopo gli effetti → mostra popup avanzamento
+  setTimeout(()=>{
+    document.getElementById('cant-avanzamento-popup').style.display = 'flex';
+  }, 750);
+}
+
+function _playCantStage2Sound(){
+  try {
+    const ctx = new (window.AudioContext||window.webkitAudioContext)();
+
+    // Colpo sordo (impatto pietre)
+    const thud = ctx.createOscillator();
+    const gThud = ctx.createGain();
+    thud.connect(gThud); gThud.connect(ctx.destination);
+    thud.frequency.setValueAtTime(100, ctx.currentTime);
+    thud.frequency.exponentialRampToValueAtTime(28, ctx.currentTime+.45);
+    gThud.gain.setValueAtTime(.8, ctx.currentTime);
+    gThud.gain.exponentialRampToValueAtTime(.001, ctx.currentTime+.5);
+    thud.start(); thud.stop(ctx.currentTime+.5);
+
+    // Rumore detriti (noise filtrato)
+    const bufLen = ctx.sampleRate*.7;
+    const buf = ctx.createBuffer(1,bufLen,ctx.sampleRate);
+    const data = buf.getChannelData(0);
+    for(let i=0;i<bufLen;i++) data[i]=(Math.random()*2-1)*Math.pow(1-i/bufLen,1.8);
+    const noise = ctx.createBufferSource();
+    const bpf   = ctx.createBiquadFilter();
+    const gNoise= ctx.createGain();
+    bpf.type='bandpass'; bpf.frequency.value=900; bpf.Q.value=.6;
+    noise.buffer=buf;
+    noise.connect(bpf); bpf.connect(gNoise); gNoise.connect(ctx.destination);
+    gNoise.gain.setValueAtTime(.35, ctx.currentTime+.08);
+    gNoise.gain.exponentialRampToValueAtTime(.001, ctx.currentTime+.75);
+    noise.start(ctx.currentTime+.08);
+
+    // Accordo ascendente (avanzamento lavori)
+    [[220,.32,.9],[330,.42,1.0],[440,.52,1.1]].forEach(([freq,delay,end])=>{
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.type='sine';
+      o.frequency.value=freq;
+      g.gain.setValueAtTime(0, ctx.currentTime+delay);
+      g.gain.linearRampToValueAtTime(.18, ctx.currentTime+delay+.1);
+      g.gain.exponentialRampToValueAtTime(.001, ctx.currentTime+end+.5);
+      o.start(ctx.currentTime+delay);
+      o.stop(ctx.currentTime+end+.6);
+    });
+  } catch(e){}
 }
 
 // Chiamata dal popup avanzamento → porta all'intro di stage 2
