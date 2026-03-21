@@ -682,6 +682,28 @@ html,body{
         </svg>
       </div>
 
+      <div class="imp-row-div"></div>
+
+      <!-- NUOVA PARTITA -->
+      <div class="imp-row">
+        <div class="imp-ico">
+          <svg viewBox="0 0 40 40" width="30" height="30" fill="none">
+            <path d="M10 20 A10 10 0 1 1 20 30" stroke="rgba(200,80,80,.7)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <polyline points="8,14 10,20 16,18" stroke="rgba(200,80,80,.7)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </div>
+        <div class="imp-info">
+          <div class="imp-lbl" style="color:rgba(200,80,80,.8)">NUOVA PARTITA</div>
+          <div class="imp-sub">Cancella il progresso</div>
+        </div>
+        <button onclick="newGame()" style="
+          padding:4px 14px;border-radius:20px;cursor:pointer;
+          background:rgba(180,40,40,.15);border:1px solid rgba(200,80,80,.4);
+          font-family:'Cinzel',serif;font-size:.42rem;letter-spacing:1px;
+          color:rgba(220,100,100,.9);
+        ">RESET</button>
+      </div>
+
     </div><!-- #imp -->
 
   
@@ -870,7 +892,7 @@ html,body{
         padding:7px 16px;
         white-space:nowrap;
         pointer-events:none;">
-        <span style="font-family:'Cinzel',serif;font-size:12px;color:#C9A84C;letter-spacing:.5px;">
+        <span id="cant-cost-text" style="font-family:'Cinzel',serif;font-size:12px;color:#C9A84C;letter-spacing:.5px;">
           Costo avvio: 10 🧱 Laterizi
         </span>
       </div>
@@ -1199,12 +1221,15 @@ function closeResPopup(){
 
 function goHub(){
   if(mOn){ snd.play().catch(()=>{}); } else { snd.muted = true; }
-  // Risorse iniziali
-  den = 300; tes = 10; vin = 10; lat = 10;
-  document.getElementById('vden').textContent = den;
-  document.getElementById('vtes').textContent = tes;
-  document.getElementById('vvin').textContent = vin;
-  document.getElementById('vlat').textContent = lat;
+  const hasSave = loadGame();
+  if(!hasSave){
+    // Risorse iniziali
+    den = 300; tes = 10; vin = 10; lat = 10;
+    document.getElementById('vden').textContent = den;
+    document.getElementById('vtes').textContent = tes;
+    document.getElementById('vvin').textContent = vin;
+    document.getElementById('vlat').textContent = lat;
+  }
   fade(()=>{
     document.getElementById('bg-start').style.opacity = '0';
     document.getElementById('bg-hub').style.opacity   = '1';
@@ -1212,6 +1237,7 @@ function goHub(){
     document.getElementById('start').style.display = 'none';
     document.getElementById('hub').classList.add('show');
   });
+  setInterval(saveGame, 10000);
 }
 
 
@@ -1266,9 +1292,7 @@ function syncCantLifebar(){
 }
 
 function openCantiere(){
-  cantStage  = 0;
-  cantS1Paid = false;
-  cantS2Paid = false;
+  // Non resettare cantStage: il giocatore riprende dallo stage già sbloccato
   // Alza #hub sopra panel-cantiere (z:70) così #hud rimane visibile
   document.getElementById('hub').style.zIndex = '80';
   document.getElementById('hub').style.pointerEvents = 'none';
@@ -1279,16 +1303,30 @@ function openCantiere(){
   document.getElementById('cant-hud').style.display    = 'none';
   document.getElementById('cant-list').style.display   = 'none';
   document.getElementById('cant-result').style.display = 'none';
+  // Aggiorna testo costo in base allo stage corrente
+  const costEl = document.getElementById('cant-cost-text');
+  if(costEl){
+    if(cantStage === 0 && !cantS1Paid)      costEl.textContent = 'Costo avvio: 10 🧱 Laterizi';
+    else if(cantStage === 1 && !cantS2Paid) costEl.textContent = 'Costo avvio: 30 🧱 Laterizi';
+    else                                    costEl.textContent = 'Stage ' + (cantStage + 1) + ' – già sbloccato';
+  }
   syncCantLifebar();
   renderCantPreview();
 }
 function avviaCantiere(){
-  // Costo d'accesso Stage 1: 10 laterizi (solo al primo avvio)
-  if(!cantS1Paid){
+  // Costo d'accesso: 10 lat Stage 1, 30 lat Stage 2
+  if(cantStage === 0 && !cantS1Paid){
     if(lat < 10){ showResPopup('Laterizi insufficienti (servono 10 🧱 per avviare il cantiere)'); return; }
     lat -= 10;
     document.getElementById('vlat').textContent = lat;
     cantS1Paid = true;
+    saveGame();
+  } else if(cantStage === 1 && !cantS2Paid){
+    if(lat < 30){ showResPopup('Laterizi insufficienti (servono 30 🧱 per accedere al Cantiere 2)'); return; }
+    lat -= 30;
+    document.getElementById('vlat').textContent = lat;
+    cantS2Paid = true;
+    saveGame();
   }
   document.getElementById('cant-intro').style.display = 'none';
   document.getElementById('cant-hud').style.display   = 'flex';
@@ -1607,14 +1645,8 @@ function cantResultAction(){
     // Torna al foro
     closeCantiere();
   } else {
-    // Stage successivo – costo accesso Stage 2: 20 laterizi (una sola volta)
-    if(!cantS2Paid){
-      if(lat < 20){ showResPopup('Laterizi insufficienti (servono 20 🧱 per accedere al Cantiere 2)'); return; }
-      lat -= 20;
-      document.getElementById('vlat').textContent = lat;
-      cantS2Paid = true;
-    }
     cantStage++;
+    saveGame();
     startCantStage();
   }
 }
@@ -1896,29 +1928,12 @@ let galliaInterval = null;
 let galliaSecondsLeft = 0;
 
 function clickGallia(){
-  if(galliaInterval) return; // già in corso
+  if(galliaInterval) return;
   if(vin < 5){ showResPopup('Vino insufficiente (servono 5 🍷)'); return; }
   vin -= 5;
   document.getElementById('vvin').textContent = vin;
-  galliaSecondsLeft = GALLIA_DURATION;
-  const btn = document.getElementById('btn-gallia');
-  btn.style.opacity = '0.4';
-  btn.style.cursor = 'default';
-  document.getElementById('gallia-timer').style.display = 'block';
-  updateGalliaDisplay();
-  galliaInterval = setInterval(()=>{
-    galliaSecondsLeft--;
-    updateGalliaDisplay();
-    if(galliaSecondsLeft <= 0){
-      clearInterval(galliaInterval);
-      galliaInterval = null;
-      addDen(10);
-      addPopXP(1);
-      btn.style.opacity = '1';
-      btn.style.cursor = 'pointer';
-      document.getElementById('gallia-timer').style.display = 'none';
-    }
-  }, 1000);
+  resumeGalliaTimer(GALLIA_DURATION);
+  saveGame();
 }
 
 function updateGalliaDisplay(){
@@ -1940,25 +1955,8 @@ function clickHispania(){
   if(lat < 10){ showResPopup('Laterizi insufficienti (servono 10 🧱)'); return; }
   lat -= 10;
   document.getElementById('vlat').textContent = lat;
-  hispaniaSecondsLeft = HISPANIA_DURATION;
-  const btn = document.getElementById('btn-hispania');
-  btn.style.opacity = '0.4';
-  btn.style.cursor = 'default';
-  document.getElementById('hispania-timer').style.display = 'block';
-  updateHispaniaDisplay();
-  hispaniaInterval = setInterval(()=>{
-    hispaniaSecondsLeft--;
-    updateHispaniaDisplay();
-    if(hispaniaSecondsLeft <= 0){
-      clearInterval(hispaniaInterval);
-      hispaniaInterval = null;
-      addDen(50);
-      addPopXP(2);
-      btn.style.opacity = '1';
-      btn.style.cursor = 'pointer';
-      document.getElementById('hispania-timer').style.display = 'none';
-    }
-  }, 1000);
+  resumeHispaniaTimer(HISPANIA_DURATION);
+  saveGame();
 }
 
 function updateHispaniaDisplay(){
@@ -1983,25 +1981,8 @@ function clickAfrica(){
   lat -= 10;
   document.getElementById('vvin').textContent = vin;
   document.getElementById('vlat').textContent = lat;
-  africaSecondsLeft = AFRICA_DURATION;
-  const btn = document.getElementById('btn-africa');
-  btn.style.opacity = '0.4';
-  btn.style.cursor = 'default';
-  document.getElementById('africa-timer').style.display = 'block';
-  updateAfricaDisplay();
-  africaInterval = setInterval(()=>{
-    africaSecondsLeft--;
-    updateAfricaDisplay();
-    if(africaSecondsLeft <= 0){
-      clearInterval(africaInterval);
-      africaInterval = null;
-      addDen(150);
-      addPopXP(5);
-      btn.style.opacity = '1';
-      btn.style.cursor = 'pointer';
-      document.getElementById('africa-timer').style.display = 'none';
-    }
-  }, 1000);
+  resumeAfricaTimer(AFRICA_DURATION);
+  saveGame();
 }
 
 function updateAfricaDisplay(){
@@ -2203,23 +2184,8 @@ function addTes(n){
 // ── VINO ──
 function clickFullVino(){
   if(fullVinoInterval || fullVinoReady) return;
-  const btn = document.getElementById('btn-full-vino');
-  btn.style.opacity = '0'; btn.style.cursor = 'default';
-  fullVinoSecondsLeft = FULL_VINO_DURATION;
-  document.getElementById('full-vino-timer').style.display = 'block';
-  updateFullVinoDisplay();
-  fullVinoInterval = setInterval(()=>{
-    fullVinoSecondsLeft--;
-    updateFullVinoDisplay();
-    if(fullVinoSecondsLeft <= 0){
-      clearInterval(fullVinoInterval); fullVinoInterval = null;
-      fullVinoReady = true;
-      document.getElementById('full-vino-timer').style.display = 'none';
-      const r = document.getElementById('full-vino-ready');
-      r.style.display = 'block'; r.classList.add('prod-ready');
-      updateFullonicaBlink();
-    }
-  }, 1000);
+  resumeFullVinoTimer(FULL_VINO_DURATION);
+  saveGame();
 }
 function updateFullVinoDisplay(){
   const m = Math.floor(fullVinoSecondsLeft/60);
@@ -2238,28 +2204,14 @@ function collectFullVino(){
   btn.style.opacity = '1'; btn.style.cursor = 'pointer';
   addVin(2);
   updateFullonicaBlink();
+  saveGame();
 }
 
 // ── TESSUTI ──
 function clickFullTessuti(){
   if(fullTessutiInterval || fullTessutiReady) return;
-  const btn = document.getElementById('btn-full-tessuti');
-  btn.style.opacity = '0'; btn.style.cursor = 'default';
-  fullTessutiSecondsLeft = FULL_TESSUTI_DURATION;
-  document.getElementById('full-tessuti-timer').style.display = 'block';
-  updateFullTessutiDisplay();
-  fullTessutiInterval = setInterval(()=>{
-    fullTessutiSecondsLeft--;
-    updateFullTessutiDisplay();
-    if(fullTessutiSecondsLeft <= 0){
-      clearInterval(fullTessutiInterval); fullTessutiInterval = null;
-      fullTessutiReady = true;
-      document.getElementById('full-tessuti-timer').style.display = 'none';
-      const r = document.getElementById('full-tessuti-ready');
-      r.style.display = 'block'; r.classList.add('prod-ready');
-      updateFullonicaBlink();
-    }
-  }, 1000);
+  resumeFullTessutiTimer(FULL_TESSUTI_DURATION);
+  saveGame();
 }
 function updateFullTessutiDisplay(){
   const m = Math.floor(fullTessutiSecondsLeft/60);
@@ -2278,28 +2230,14 @@ function collectFullTessuti(){
   btn.style.opacity = '1'; btn.style.cursor = 'pointer';
   addTes(2);
   updateFullonicaBlink();
+  saveGame();
 }
 
 // ── LATERIZI ──
 function clickFullLaterizi(){
   if(fullLaterziInterval || fullLaterziReady) return;
-  const btn = document.getElementById('btn-full-laterizi');
-  btn.style.opacity = '0'; btn.style.cursor = 'default';
-  fullLaterziSecondsLeft = FULL_LATERIZI_DURATION;
-  document.getElementById('full-laterizi-timer').style.display = 'block';
-  updateFullLaterziDisplay();
-  fullLaterziInterval = setInterval(()=>{
-    fullLaterziSecondsLeft--;
-    updateFullLaterziDisplay();
-    if(fullLaterziSecondsLeft <= 0){
-      clearInterval(fullLaterziInterval); fullLaterziInterval = null;
-      fullLaterziReady = true;
-      document.getElementById('full-laterizi-timer').style.display = 'none';
-      const r = document.getElementById('full-laterizi-ready');
-      r.style.display = 'block'; r.classList.add('prod-ready');
-      updateFullonicaBlink();
-    }
-  }, 1000);
+  resumeFullLaterziTimer(FULL_LATERIZI_DURATION);
+  saveGame();
 }
 function updateFullLaterziDisplay(){
   const m = Math.floor(fullLaterziSecondsLeft/60);
@@ -2315,9 +2253,10 @@ function collectFullLaterizi(){
   const r = document.getElementById('full-laterizi-ready');
   r.style.display = 'none'; r.classList.remove('prod-ready');
   const btn = document.getElementById('btn-full-laterizi');
-  btn.style.opacity = '0'; btn.style.cursor = 'pointer';
+  btn.style.opacity = '1'; btn.style.cursor = 'pointer';
   addLat(10);
   updateFullonicaBlink();
+  saveGame();
 }
 
 function addDen(n){
@@ -2334,6 +2273,255 @@ function addDen(n){
   d.style.top  = r.top+'px';
   document.body.appendChild(d);
   setTimeout(()=>d.remove(), 1300);
+}
+
+// ══════════════════════════════════════════════════════
+//   SISTEMA DI SALVATAGGIO (localStorage)
+// ══════════════════════════════════════════════════════
+
+function saveGame(){
+  const now = Date.now();
+  const state = {
+    v: 1,
+    den, tes, vin, lat, popXP,
+    lookIdx, look02Unlocked, look03Unlocked,
+    fullVinoEndTime:    fullVinoInterval    ? now + fullVinoSecondsLeft    * 1000 : null,
+    fullVinoReady,
+    fullTessutiEndTime: fullTessutiInterval ? now + fullTessutiSecondsLeft * 1000 : null,
+    fullTessutiReady,
+    fullLaterziEndTime: fullLaterziInterval ? now + fullLaterziSecondsLeft * 1000 : null,
+    fullLaterziReady,
+    galliaEndTime:   galliaInterval   ? now + galliaSecondsLeft   * 1000 : null,
+    hispaniaEndTime: hispaniaInterval ? now + hispaniaSecondsLeft * 1000 : null,
+    africaEndTime:   africaInterval   ? now + africaSecondsLeft   * 1000 : null,
+    duoviroStep, duoviroCompletato, duoviroAttesaRegalia,
+    cantStage, cantS1Paid, cantS2Paid
+  };
+  localStorage.setItem('dominaSave', JSON.stringify(state));
+}
+
+// ── Resume helpers ──────────────────────────────────────
+
+function resumeFullVinoTimer(sec){
+  const btn = document.getElementById('btn-full-vino');
+  btn.style.opacity = '0'; btn.style.cursor = 'default';
+  fullVinoSecondsLeft = sec;
+  document.getElementById('full-vino-timer').style.display = 'block';
+  updateFullVinoDisplay();
+  fullVinoInterval = setInterval(()=>{
+    fullVinoSecondsLeft--;
+    updateFullVinoDisplay();
+    if(fullVinoSecondsLeft <= 0){
+      clearInterval(fullVinoInterval); fullVinoInterval = null;
+      fullVinoReady = true;
+      document.getElementById('full-vino-timer').style.display = 'none';
+      const r = document.getElementById('full-vino-ready');
+      r.style.display = 'block'; r.classList.add('prod-ready');
+      updateFullonicaBlink();
+      saveGame();
+    }
+  }, 1000);
+}
+
+function resumeFullTessutiTimer(sec){
+  const btn = document.getElementById('btn-full-tessuti');
+  btn.style.opacity = '0'; btn.style.cursor = 'default';
+  fullTessutiSecondsLeft = sec;
+  document.getElementById('full-tessuti-timer').style.display = 'block';
+  updateFullTessutiDisplay();
+  fullTessutiInterval = setInterval(()=>{
+    fullTessutiSecondsLeft--;
+    updateFullTessutiDisplay();
+    if(fullTessutiSecondsLeft <= 0){
+      clearInterval(fullTessutiInterval); fullTessutiInterval = null;
+      fullTessutiReady = true;
+      document.getElementById('full-tessuti-timer').style.display = 'none';
+      const r = document.getElementById('full-tessuti-ready');
+      r.style.display = 'block'; r.classList.add('prod-ready');
+      updateFullonicaBlink();
+      saveGame();
+    }
+  }, 1000);
+}
+
+function resumeFullLaterziTimer(sec){
+  const btn = document.getElementById('btn-full-laterizi');
+  btn.style.opacity = '0'; btn.style.cursor = 'default';
+  fullLaterziSecondsLeft = sec;
+  document.getElementById('full-laterizi-timer').style.display = 'block';
+  updateFullLaterziDisplay();
+  fullLaterziInterval = setInterval(()=>{
+    fullLaterziSecondsLeft--;
+    updateFullLaterziDisplay();
+    if(fullLaterziSecondsLeft <= 0){
+      clearInterval(fullLaterziInterval); fullLaterziInterval = null;
+      fullLaterziReady = true;
+      document.getElementById('full-laterizi-timer').style.display = 'none';
+      const r = document.getElementById('full-laterizi-ready');
+      r.style.display = 'block'; r.classList.add('prod-ready');
+      updateFullonicaBlink();
+      saveGame();
+    }
+  }, 1000);
+}
+
+function resumeGalliaTimer(sec){
+  const btn = document.getElementById('btn-gallia');
+  btn.style.opacity = '0.4'; btn.style.cursor = 'default';
+  galliaSecondsLeft = sec;
+  document.getElementById('gallia-timer').style.display = 'block';
+  updateGalliaDisplay();
+  galliaInterval = setInterval(()=>{
+    galliaSecondsLeft--;
+    updateGalliaDisplay();
+    if(galliaSecondsLeft <= 0){
+      clearInterval(galliaInterval); galliaInterval = null;
+      addDen(10); addPopXP(1);
+      btn.style.opacity = '1'; btn.style.cursor = 'pointer';
+      document.getElementById('gallia-timer').style.display = 'none';
+      saveGame();
+    }
+  }, 1000);
+}
+
+function resumeHispaniaTimer(sec){
+  const btn = document.getElementById('btn-hispania');
+  btn.style.opacity = '0.4'; btn.style.cursor = 'default';
+  hispaniaSecondsLeft = sec;
+  document.getElementById('hispania-timer').style.display = 'block';
+  updateHispaniaDisplay();
+  hispaniaInterval = setInterval(()=>{
+    hispaniaSecondsLeft--;
+    updateHispaniaDisplay();
+    if(hispaniaSecondsLeft <= 0){
+      clearInterval(hispaniaInterval); hispaniaInterval = null;
+      addDen(50); addPopXP(2);
+      btn.style.opacity = '1'; btn.style.cursor = 'pointer';
+      document.getElementById('hispania-timer').style.display = 'none';
+      saveGame();
+    }
+  }, 1000);
+}
+
+function resumeAfricaTimer(sec){
+  const btn = document.getElementById('btn-africa');
+  btn.style.opacity = '0.4'; btn.style.cursor = 'default';
+  africaSecondsLeft = sec;
+  document.getElementById('africa-timer').style.display = 'block';
+  updateAfricaDisplay();
+  africaInterval = setInterval(()=>{
+    africaSecondsLeft--;
+    updateAfricaDisplay();
+    if(africaSecondsLeft <= 0){
+      clearInterval(africaInterval); africaInterval = null;
+      addDen(150); addPopXP(5);
+      btn.style.opacity = '1'; btn.style.cursor = 'pointer';
+      document.getElementById('africa-timer').style.display = 'none';
+      saveGame();
+    }
+  }, 1000);
+}
+
+// ── Load ────────────────────────────────────────────────
+
+function loadGame(){
+  const raw = localStorage.getItem('dominaSave');
+  if(!raw) return false;
+  try {
+    const s = JSON.parse(raw);
+    if(!s || s.v !== 1) return false;
+    const now = Date.now();
+
+    // Risorse
+    den = s.den ?? 300; tes = s.tes ?? 10; vin = s.vin ?? 10; lat = s.lat ?? 10;
+    popXP = s.popXP ?? 0;
+
+    // Rotte completate offline: aggiungi risorse direttamente
+    if(s.galliaEndTime   && now > s.galliaEndTime)  { den += 10;  popXP = Math.min(199, popXP + 1); }
+    if(s.hispaniaEndTime && now > s.hispaniaEndTime){ den += 50;  popXP = Math.min(199, popXP + 2); }
+    if(s.africaEndTime   && now > s.africaEndTime)  { den += 150; popXP = Math.min(199, popXP + 5); }
+
+    // Aggiorna display risorse
+    document.getElementById('vden').textContent = den;
+    document.getElementById('vtes').textContent = tes;
+    document.getElementById('vvin').textContent = vin;
+    document.getElementById('vlat').textContent = lat;
+
+    // Barra popolarità
+    { const pct = popXP % 100; const isRed = popXP >= 100;
+      ['hpol-f','cant-hpol-f'].forEach(id => {
+        const el = document.getElementById(id); if(!el) return;
+        el.style.width = pct + '%';
+        el.style.background = isRed
+          ? 'linear-gradient(180deg,#E05050 0%,#C02020 50%,#8B0000 100%)'
+          : 'linear-gradient(180deg,#5DBB63 0%,#3A9940 50%,#236B28 100%)';
+      });
+    }
+
+    // Look
+    lookIdx = s.lookIdx ?? 0;
+    look02Unlocked = s.look02Unlocked ?? false;
+    look03Unlocked = s.look03Unlocked ?? false;
+
+    // Cantiere
+    cantStage  = s.cantStage  ?? 0;
+    cantS1Paid = s.cantS1Paid ?? false;
+    cantS2Paid = s.cantS2Paid ?? false;
+
+    // Duoviro
+    duoviroStep           = s.duoviroStep           ?? 0;
+    duoviroCompletato     = s.duoviroCompletato     ?? false;
+    duoviroAttesaRegalia  = s.duoviroAttesaRegalia  ?? 'none';
+
+    // ── Fullonica ──
+    function _setFullReady(btnId, readyId){
+      document.getElementById(btnId).style.opacity = '0';
+      document.getElementById(btnId).style.cursor  = 'default';
+      const r = document.getElementById(readyId);
+      r.style.display = 'block'; r.classList.add('prod-ready');
+    }
+    if(s.fullVinoReady){
+      fullVinoReady = true; _setFullReady('btn-full-vino','full-vino-ready');
+    } else if(s.fullVinoEndTime){
+      const sec = Math.round((s.fullVinoEndTime - now) / 1000);
+      if(sec > 0){ resumeFullVinoTimer(sec); }
+      else { fullVinoReady = true; _setFullReady('btn-full-vino','full-vino-ready'); }
+    }
+    if(s.fullTessutiReady){
+      fullTessutiReady = true; _setFullReady('btn-full-tessuti','full-tessuti-ready');
+    } else if(s.fullTessutiEndTime){
+      const sec = Math.round((s.fullTessutiEndTime - now) / 1000);
+      if(sec > 0){ resumeFullTessutiTimer(sec); }
+      else { fullTessutiReady = true; _setFullReady('btn-full-tessuti','full-tessuti-ready'); }
+    }
+    if(s.fullLaterziReady){
+      fullLaterziReady = true; _setFullReady('btn-full-laterizi','full-laterizi-ready');
+    } else if(s.fullLaterziEndTime){
+      const sec = Math.round((s.fullLaterziEndTime - now) / 1000);
+      if(sec > 0){ resumeFullLaterziTimer(sec); }
+      else { fullLaterziReady = true; _setFullReady('btn-full-laterizi','full-laterizi-ready'); }
+    }
+    updateFullonicaBlink();
+
+    // ── Rotte ancora in corso ──
+    if(s.galliaEndTime && now <= s.galliaEndTime)
+      resumeGalliaTimer(Math.round((s.galliaEndTime - now) / 1000));
+    if(s.hispaniaEndTime && now <= s.hispaniaEndTime)
+      resumeHispaniaTimer(Math.round((s.hispaniaEndTime - now) / 1000));
+    if(s.africaEndTime && now <= s.africaEndTime)
+      resumeAfricaTimer(Math.round((s.africaEndTime - now) / 1000));
+
+    return true;
+  } catch(e){
+    console.warn('Errore caricamento salvataggio:', e);
+    return false;
+  }
+}
+
+function newGame(){
+  if(!confirm('Sei sicura? Tutto il progresso verrà cancellato.')) return;
+  localStorage.removeItem('dominaSave');
+  location.reload();
 }
 </script>
 </body>
