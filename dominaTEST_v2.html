@@ -2292,6 +2292,40 @@ function cantVittoria(){
   res.style.display = 'flex';
 
   addDen(cfg.reward);
+  _playCantVittoriaSound(isLast);
+}
+
+function _playCantVittoriaSound(isFinal){
+  try {
+    const ctx = new (window.AudioContext||window.webkitAudioContext)();
+    // Fanfara trionfale: sequenza di note ascendenti
+    const notes = isFinal
+      ? [[392,.00],[523,.18],[659,.36],[784,.54],[1047,.72],[784,.96],[1047,1.14]]
+      : [[392,.00],[523,.15],[659,.30],[784,.45]];
+    notes.forEach(([freq, delay]) => {
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.type = 'triangle';
+      o.frequency.value = freq;
+      g.gain.setValueAtTime(0, ctx.currentTime + delay);
+      g.gain.linearRampToValueAtTime(.28, ctx.currentTime + delay + .06);
+      g.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + delay + .28);
+      o.start(ctx.currentTime + delay);
+      o.stop(ctx.currentTime + delay + .3);
+    });
+    // Colpo di campana finale
+    const bell = ctx.createOscillator();
+    const bg   = ctx.createGain();
+    bell.connect(bg); bg.connect(ctx.destination);
+    bell.type = 'sine';
+    bell.frequency.setValueAtTime(isFinal ? 1175 : 880, ctx.currentTime + (isFinal ? 1.3 : .6));
+    bell.frequency.exponentialRampToValueAtTime(isFinal ? 600 : 440, ctx.currentTime + (isFinal ? 2.2 : 1.1));
+    bg.gain.setValueAtTime(.35, ctx.currentTime + (isFinal ? 1.3 : .6));
+    bg.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + (isFinal ? 2.5 : 1.3));
+    bell.start(ctx.currentTime + (isFinal ? 1.3 : .6));
+    bell.stop(ctx.currentTime + (isFinal ? 2.6 : 1.4));
+  } catch(e){}
 }
 
 // ── Game Over ───────────────────────────────────────────
