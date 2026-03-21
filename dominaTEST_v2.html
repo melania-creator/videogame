@@ -529,6 +529,31 @@ html,body{
     </div>
   </div>
 
+  <!-- ══ NUMISTRIO LIVELLO 2 — SBLOCCO CARRIERA ══ -->
+  <div id="numistrio2-popup" style="display:none;position:absolute;inset:0;z-index:1000;align-items:center;justify-content:center;background:rgba(3,1,0,.88);">
+    <div class="perg-box" style="width:360px;">
+      <div class="perg-roll">
+        <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><polygon points="6,1 11,9 1,9" fill="#f6e9c2" opacity=".75"/></svg>
+        <span class="perg-roll-txt">CARRIERA · NUMISTRIO FRONTONE</span>
+        <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><polygon points="6,1 11,9 1,9" fill="#f6e9c2" opacity=".75"/></svg>
+      </div>
+      <div class="perg-inner-border">
+        <div class="perg-body">
+          <div class="perg-lead">Livello II — La Via verso il Duoviro</div>
+          <div class="perg-text">
+            <p>La popolarità di <strong>Numistrio Frontone</strong> si è diffusa per tutta Pompei. Il suo nome risuona nei fori, nelle fulloniche e tra i commercianti del porto.</p>
+            <p>È giunto il momento di affinare la sua arte della parola. La <em class="perg-em">Schola Rhetorica di Marco Epidio</em> — la più rinomata della città — apre le proprie porte a Numistrio.</p>
+            <p>Solo chi sa parlare al popolo con eloquenza conquista la carica di <strong>Duoviro</strong>. Prepara la sua voce.</p>
+          </div>
+        </div>
+        <div class="perg-sep"></div>
+        <div class="perg-footer" style="justify-content:center;gap:12px;">
+          <button class="perg-btn gold" onclick="chiudiNumistrio2Popup()">Accedi all'Accademia →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ══ INTRO PERGAMENA ══ -->
   <div id="intro-pergamena">
     <button id="intro-skip" onclick="closeIntroPergamena()">SALTA ✕</button>
@@ -1932,6 +1957,7 @@ let den = 0, tes = 0, vin = 0, lat = 0;
 let popXP = 0; // 0-199, si azzera ogni 200 (0-99=verde, 100-199=rosso)
 let hispaniaUnlocked = false;
 let africaUnlocked   = false;
+let numistrio2Unlocked = false; // sblocco Livello 2 carriera al primo passaggio verde→rosso
 
 // ── Memoria delle Stoffe (Magister) ──
 const MEMORIA_SIMBOLI = [
@@ -1969,6 +1995,12 @@ function addPopXP(n){
     africaUnlocked = true;
     updateAffariLocks();
     showResPopup('🔓 Rotta Africa sbloccata! (60 min · 10 🍷 + 10 🧱 → +100 ◈)');
+  }
+  if(!numistrio2Unlocked && popXP >= 100){
+    numistrio2Unlocked = true;
+    setTimeout(() => {
+      document.getElementById('numistrio2-popup').style.display = 'flex';
+    }, 500);
   }
   if(popXP >= 200) popXP = 0;
   const pct = popXP % 100;
@@ -3561,6 +3593,9 @@ function pagaRegalia(){
 
 function chiudiDuoviroPopup(){
   document.getElementById('duoviro-popup').style.display = 'none';
+}
+function chiudiNumistrio2Popup(){
+  document.getElementById('numistrio2-popup').style.display = 'none';
 }
 function closeDuoviro(){
   document.getElementById('panel-duoviro').style.display = 'none';
