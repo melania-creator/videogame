@@ -745,6 +745,16 @@ html,body{
       </div>
     </div>
 
+    <!-- HISPANIA – overlay blocco -->
+    <div id="hispania-lock" style="
+      position:absolute;left:12px;top:350px;
+      width:58px;height:58px;border-radius:50%;
+      background:rgba(8,4,2,.82);border:2px solid rgba(201,168,76,.35);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      pointer-events:none;z-index:12;gap:1px;">
+      <span style="font-size:1rem;line-height:1;">🔒</span>
+      <span style="font-family:'Cinzel',serif;font-size:.37rem;color:#C9A84C;text-align:center;line-height:1.2;">50<br>pop</span>
+    </div>
     <!-- HISPANIA – bottone tondo solo bordo -->
     <button id="btn-hispania" onclick="clickHispania()" aria-label="Hispania" style="
       position:absolute;left:12px;top:350px;
@@ -767,6 +777,16 @@ html,body{
       </div>
     </div>
 
+    <!-- AFRICA – overlay blocco -->
+    <div id="africa-lock" style="
+      position:absolute;left:77px;top:542px;
+      width:58px;height:58px;border-radius:50%;
+      background:rgba(8,4,2,.82);border:2px solid rgba(201,168,76,.35);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      pointer-events:none;z-index:12;gap:1px;">
+      <span style="font-size:1rem;line-height:1;">🔒</span>
+      <span style="font-family:'Cinzel',serif;font-size:.37rem;color:#C9A84C;text-align:center;line-height:1.2;">100<br>pop</span>
+    </div>
     <!-- AFRICA – bottone tondo solo bordo -->
     <button id="btn-africa" onclick="clickAfrica()" aria-label="Africa" style="
       position:absolute;left:77px;top:542px;
@@ -1166,9 +1186,22 @@ const snd = document.getElementById('snd');
 snd.volume = 0.6;
 let den = 0, tes = 0, vin = 0, lat = 0;
 let popXP = 0; // 0-199, si azzera ogni 200 (0-99=verde, 100-199=rosso)
+let hispaniaUnlocked = false;
+let africaUnlocked   = false;
 
 function addPopXP(n){
   popXP += n;
+  // Sblocchi rotte basati sulla popolarità (prima del reset)
+  if(!hispaniaUnlocked && popXP >= 50){
+    hispaniaUnlocked = true;
+    updateAffariLocks();
+    showResPopup('🔓 Rotta Hispania sbloccata! (30 min · 10 🧱 → +40 ◈)');
+  }
+  if(!africaUnlocked && popXP >= 100){
+    africaUnlocked = true;
+    updateAffariLocks();
+    showResPopup('🔓 Rotta Africa sbloccata! (60 min · 10 🍷 + 10 🧱 → +100 ◈)');
+  }
   if(popXP >= 200) popXP = 0;
   const pct = popXP % 100;
   const isRed = popXP >= 100;
@@ -1931,9 +1964,20 @@ function closeFullonica(){
   document.getElementById('hud').style.zIndex = '';
 }
 
+function updateAffariLocks(){
+  const hLock = document.getElementById('hispania-lock');
+  const aLock = document.getElementById('africa-lock');
+  const btnH  = document.getElementById('btn-hispania');
+  const btnA  = document.getElementById('btn-africa');
+  if(hLock) hLock.style.display = hispaniaUnlocked ? 'none' : 'flex';
+  if(btnH)  { btnH.style.opacity = hispaniaUnlocked ? '1' : '0.25'; btnH.style.pointerEvents = hispaniaUnlocked ? 'auto' : 'none'; }
+  if(aLock) aLock.style.display = africaUnlocked ? 'none' : 'flex';
+  if(btnA)  { btnA.style.opacity = africaUnlocked ? '1' : '0.25'; btnA.style.pointerEvents = africaUnlocked ? 'auto' : 'none'; }
+}
 function openAffari(){
   document.getElementById('panel-affari').style.display = 'flex';
   document.getElementById('hud').style.zIndex = '70';
+  updateAffariLocks();
 }
 function closeAffari(){
   document.getElementById('panel-affari').style.display = 'none';
@@ -1970,6 +2014,7 @@ let hispaniaSecondsLeft = 0;
 
 function clickHispania(){
   if(hispaniaInterval) return;
+  if(!hispaniaUnlocked){ showResPopup('Rotta bloccata. Raggiungi 50 di Popolarità per sbloccarla.'); return; }
   if(lat < 10){ showResPopup('Laterizi insufficienti (servono 10 🧱)'); return; }
   lat -= 10;
   document.getElementById('vlat').textContent = lat;
@@ -1993,6 +2038,7 @@ let africaSecondsLeft = 0;
 
 function clickAfrica(){
   if(africaInterval) return;
+  if(!africaUnlocked){ showResPopup('Rotta bloccata. Raggiungi 100 di Popolarità per sbloccarla.'); return; }
   if(vin < 10){ showResPopup('Vino insufficiente (servono 10 🍷)'); return; }
   if(lat < 10){ showResPopup('Laterizi insufficienti (servono 10 🧱)'); return; }
   vin -= 10;
@@ -2308,6 +2354,7 @@ function saveGame(){
   const state = {
     v: 1,
     den, tes, vin, lat, popXP,
+    hispaniaUnlocked, africaUnlocked,
     lookIdx, look02Unlocked, look03Unlocked,
     fullVinoEndTime:    fullVinoInterval    ? now + fullVinoSecondsLeft    * 1000 : null,
     fullVinoReady,
@@ -2400,7 +2447,7 @@ function resumeGalliaTimer(sec){
     updateGalliaDisplay();
     if(galliaSecondsLeft <= 0){
       clearInterval(galliaInterval); galliaInterval = null;
-      addDen(10); addPopXP(1);
+      addDen(10); addPopXP(5);
       btn.style.opacity = '1'; btn.style.cursor = 'pointer';
       document.getElementById('gallia-timer').style.display = 'none';
       saveGame();
@@ -2419,7 +2466,7 @@ function resumeHispaniaTimer(sec){
     updateHispaniaDisplay();
     if(hispaniaSecondsLeft <= 0){
       clearInterval(hispaniaInterval); hispaniaInterval = null;
-      addDen(50); addPopXP(2);
+      addDen(40); addPopXP(10);
       btn.style.opacity = '1'; btn.style.cursor = 'pointer';
       document.getElementById('hispania-timer').style.display = 'none';
       saveGame();
@@ -2438,7 +2485,7 @@ function resumeAfricaTimer(sec){
     updateAfricaDisplay();
     if(africaSecondsLeft <= 0){
       clearInterval(africaInterval); africaInterval = null;
-      addDen(150); addPopXP(5);
+      addDen(100); addPopXP(20);
       btn.style.opacity = '1'; btn.style.cursor = 'pointer';
       document.getElementById('africa-timer').style.display = 'none';
       saveGame();
@@ -2461,9 +2508,9 @@ function loadGame(){
     popXP = s.popXP ?? 0;
 
     // Rotte completate offline: aggiungi risorse direttamente
-    if(s.galliaEndTime   && now > s.galliaEndTime)  { den += 10;  popXP = Math.min(199, popXP + 1); }
-    if(s.hispaniaEndTime && now > s.hispaniaEndTime){ den += 50;  popXP = Math.min(199, popXP + 2); }
-    if(s.africaEndTime   && now > s.africaEndTime)  { den += 150; popXP = Math.min(199, popXP + 5); }
+    if(s.galliaEndTime   && now > s.galliaEndTime)  { den += 10;  popXP = Math.min(199, popXP + 5);  }
+    if(s.hispaniaEndTime && now > s.hispaniaEndTime){ den += 40;  popXP = Math.min(199, popXP + 10); }
+    if(s.africaEndTime   && now > s.africaEndTime)  { den += 100; popXP = Math.min(199, popXP + 20); }
 
     // Aggiorna display risorse
     document.getElementById('vden').textContent = den;
@@ -2481,6 +2528,10 @@ function loadGame(){
           : 'linear-gradient(180deg,#5DBB63 0%,#3A9940 50%,#236B28 100%)';
       });
     }
+
+    // Rotte sbloccate
+    hispaniaUnlocked = s.hispaniaUnlocked ?? (popXP >= 50);
+    africaUnlocked   = s.africaUnlocked   ?? (popXP >= 100);
 
     // Look
     lookIdx = s.lookIdx ?? 0;
@@ -2535,6 +2586,7 @@ function loadGame(){
     if(s.africaEndTime && now <= s.africaEndTime)
       resumeAfricaTimer(Math.round((s.africaEndTime - now) / 1000));
 
+    updateAffariLocks();
     return true;
   } catch(e){
     console.warn('Errore caricamento salvataggio:', e);
