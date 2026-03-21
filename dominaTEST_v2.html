@@ -1017,7 +1017,7 @@ html,body{
     <!-- Label reward vino -->
     <div style="position:absolute;left:212px;top:162px;transform:translateX(-50%);pointer-events:none;z-index:9;
       font-family:'Cinzel',serif;font-size:.55rem;color:#FFE566;text-shadow:0 1px 4px rgba(0,0,0,.9);
-      background:rgba(10,4,2,.55);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:1px 6px;white-space:nowrap;">+2 🍷</div>
+      background:rgba(10,4,2,.55);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:1px 6px;white-space:nowrap;">2 🧱 → +5 🍷</div>
 
     <!-- ── TESSUTI ── -->
     <button id="btn-full-tessuti" onclick="clickFullTessuti()"
@@ -1036,7 +1036,7 @@ html,body{
     <!-- Label reward tessuti -->
     <div style="position:absolute;left:212px;top:385px;transform:translateX(-50%);pointer-events:none;z-index:9;
       font-family:'Cinzel',serif;font-size:.55rem;color:#FFE566;text-shadow:0 1px 4px rgba(0,0,0,.9);
-      background:rgba(10,4,2,.55);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:1px 6px;white-space:nowrap;">+2 🧶</div>
+      background:rgba(10,4,2,.55);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:1px 6px;white-space:nowrap;">2 🍷 → +5 🧶</div>
 
     <!-- ── LATERIZI ── -->
     <button id="btn-full-laterizi" onclick="clickFullLaterizi()"
@@ -2202,6 +2202,9 @@ function addTes(n){
 // ── VINO ──
 function clickFullVino(){
   if(fullVinoInterval || fullVinoReady) return;
+  if(lat < 2){ showResPopup('Laterizi insufficienti (servono 2 🧱 per produrre Vino)'); return; }
+  lat -= 2;
+  document.getElementById('vlat').textContent = lat;
   resumeFullVinoTimer(FULL_VINO_DURATION);
   saveGame();
 }
@@ -2228,6 +2231,9 @@ function collectFullVino(){
 // ── TESSUTI ──
 function clickFullTessuti(){
   if(fullTessutiInterval || fullTessutiReady) return;
+  if(vin < 2){ showResPopup('Vino insufficiente (servono 2 🍷 per produrre Tessuti)'); return; }
+  vin -= 2;
+  document.getElementById('vvin').textContent = vin;
   resumeFullTessutiTimer(FULL_TESSUTI_DURATION);
   saveGame();
 }
