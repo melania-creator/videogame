@@ -379,6 +379,63 @@ html,body{
   color:#5a3a00;font-size:.85rem;cursor:pointer;
   display:flex;align-items:center;justify-content:center;
 }
+/* ── Scrollbar Missioni ── */
+.missioni-scroll::-webkit-scrollbar{width:5px;}
+.missioni-scroll::-webkit-scrollbar-track{background:rgba(201,168,76,.06);border-radius:4px;}
+.missioni-scroll::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#c9a84c,#8B6914);border-radius:4px;border:1px solid rgba(139,105,20,.3);}
+.missioni-scroll::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#ddb83c,#9a7824);}
+.missioni-scroll{scrollbar-width:thin;scrollbar-color:#8B6914 rgba(201,168,76,.08);}
+
+/* ── Duoviro Intro Pergamena ── */
+#duoviro-intro-perg{
+  display:none;position:absolute;inset:0;z-index:30;
+  align-items:center;justify-content:center;
+  background:rgba(3,1,0,.82);
+}
+#duoviro-intro-perg.show{display:flex;}
+#duoviro-intro-perg .dperg-box{
+  position:relative;width:340px;
+  background:
+    radial-gradient(ellipse at 12% 18%,rgba(215,170,75,.2) 0%,transparent 48%),
+    radial-gradient(ellipse at 88% 80%,rgba(158,108,32,.15) 0%,transparent 48%),
+    linear-gradient(172deg,#f7ecd4 0%,#eeddbe 22%,#e7d4a2 58%,#efdfc4 88%,#f6ecce 100%);
+  border:2px solid #8a6210;border-radius:3px;
+  box-shadow:0 0 0 5px rgba(201,168,76,.12),0 20px 55px rgba(0,0,0,.9),inset 0 0 80px rgba(155,106,28,.07);
+  overflow:hidden;
+}
+#duoviro-intro-perg .dperg-roll{
+  background:linear-gradient(90deg,#3a2408 0%,#7a5010 16%,#c09028 40%,#ddb438 50%,#c09028 60%,#7a5010 84%,#3a2408 100%);
+  height:22px;display:flex;align-items:center;justify-content:center;
+  font-family:'Cinzel',serif;font-size:.42rem;letter-spacing:.3em;color:#f6e9c2;
+  text-shadow:0 1px 3px rgba(0,0,0,.6);
+}
+#duoviro-intro-perg .dperg-body{padding:16px 20px 10px;}
+#duoviro-intro-perg .dperg-title{
+  font-family:'Cinzel Decorative',serif;font-weight:700;
+  font-size:.65rem;letter-spacing:.15em;color:#6a3c0a;
+  text-align:center;margin-bottom:12px;
+}
+#duoviro-intro-perg .dperg-text{
+  font-family:'Cinzel',serif;font-size:.63rem;
+  color:#2b1906;line-height:1.75;letter-spacing:.015em;
+}
+#duoviro-intro-perg .dperg-sep{
+  margin:10px 20px;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(138,98,16,.28) 25%,rgba(201,168,76,.38) 50%,rgba(138,98,16,.28) 75%,transparent);
+}
+#duoviro-intro-perg .dperg-footer{
+  padding:10px 20px 14px;display:flex;justify-content:center;
+}
+#duoviro-intro-perg .dperg-btn-start{
+  background:linear-gradient(160deg,#9a7218,#6a4a0c);
+  border:1px solid #c8a028;border-radius:3px;
+  font-family:'Cinzel',serif;font-size:.6rem;font-weight:700;letter-spacing:.1em;
+  color:#f6e9c2;padding:9px 28px;cursor:pointer;
+  box-shadow:0 2px 10px rgba(0,0,0,.45);
+  transition:background .15s;
+}
+#duoviro-intro-perg .dperg-btn-start:hover{background:linear-gradient(160deg,#aa8228,#7a5a1c);}
+
 /* ── Memoria delle Stoffe (Magister) ── */
 .mag-tab{width:44px;height:30px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.4);border-radius:4px;color:#C9A84C;font-family:'Cinzel',serif;font-size:.72rem;cursor:pointer;transition:background .2s;}
 .mag-tab:hover{background:rgba(201,168,76,.25);}
@@ -612,7 +669,7 @@ html,body{
         </button>
       </div>
       <!-- Contenuto scrollabile -->
-      <div style="flex:1;overflow-y:auto;padding:16px 18px 28px;display:flex;flex-direction:column;gap:18px;-webkit-overflow-scrolling:touch;">
+      <div class="missioni-scroll" style="flex:1;overflow-y:auto;padding:16px 18px 28px;display:flex;flex-direction:column;gap:18px;-webkit-overflow-scrolling:touch;">
 
         <!-- LE RISORSE -->
         <div>
@@ -1160,6 +1217,25 @@ html,body{
     <div id="duoviro-popup" style="display:none;position:absolute;inset:0;z-index:20;align-items:center;justify-content:center;background:rgba(0,0,0,0.55);">
       <div id="duoviro-popup-inner" style="position:relative;width:340px;min-height:200px;background:linear-gradient(180deg,#f0d9a0 0%,#e8c97a 15%,#f5e6c8 50%,#e8c97a 85%,#f0d9a0 100%);border-radius:8px;border:3px solid #8B6914;box-shadow:0 4px 24px rgba(0,0,0,0.5),inset 0 0 30px rgba(139,105,20,0.15);padding:24px 20px 20px;display:flex;flex-direction:column;align-items:center;gap:10px;">
         <!-- contenuto iniettato da JS -->
+      </div>
+    </div>
+
+    <!-- ── Intro Pergamena Duoviro ── -->
+    <div id="duoviro-intro-perg">
+      <div class="dperg-box">
+        <div class="dperg-roll">✦ &nbsp; UDIENZA CON IL DUOVIRO &nbsp; ✦</div>
+        <div class="dperg-body">
+          <div class="dperg-title">Come comportarsi</div>
+          <div class="dperg-text">
+            <p>Il <strong>Duoviro</strong> è uno dei due magistrati che governano Pompei. Per guadagnare la sua fiducia devi dimostrargli la tua cultura e il tuo senno.</p>
+            <p>Tocca <strong>Risolvi Problemi</strong> per affrontare le <strong>10 questioni</strong> che gravano sulla città, una alla volta. A ogni problema il Duoviro ti porrà un <strong>quesito</strong> di cultura romana: scegli la risposta giusta.</p>
+            <p>Dopo la <strong>5ª</strong> e la <strong>10ª</strong> risposta corretta potrai offrire una <strong>Regalia</strong> in tessuti per ottenere onori e ricompense.</p>
+          </div>
+        </div>
+        <div class="dperg-sep"></div>
+        <div class="dperg-footer">
+          <button class="dperg-btn-start" onclick="chiudiDuoviroIntroPerg()">Presentati al Duoviro</button>
+        </div>
       </div>
     </div>
 
@@ -2282,6 +2358,12 @@ function _updateMagTabs(){
 function openDuovirus(){
   document.getElementById('panel-duoviro').style.display = 'block';
   document.getElementById('hud').style.zIndex = '70';
+  if(!duoviroCompletato){
+    document.getElementById('duoviro-intro-perg').classList.add('show');
+  }
+}
+function chiudiDuoviroIntroPerg(){
+  document.getElementById('duoviro-intro-perg').classList.remove('show');
 }
 // ── Dati Duoviro Livello 1 ──
 const duoviroLivello1 = [
