@@ -240,6 +240,8 @@ html,body{
 @keyframes bounce-prod{0%,100%{transform:translate(-50%,-50%) scale(1)}40%{transform:translate(-50%,-65%) scale(1.18)}70%{transform:translate(-50%,-44%) scale(.94)}}
 .prod-ready{animation:bounce-prod .75s ease infinite;cursor:pointer;}
 @keyframes cantShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+@keyframes fullonicaBlink{0%,100%{box-shadow:0 0 0 0 rgba(255,200,80,0)}50%{box-shadow:0 0 14px 6px rgba(255,200,80,0.75)}}
+.fullonica-blink{animation:fullonicaBlink 1s ease-in-out infinite;border-radius:8px;}
 
 /* ── POPUP RISORSE ── */
 #res-popup{
@@ -1866,6 +1868,10 @@ function closeGiardino(){
   document.getElementById('panel-giardino').style.display = 'none';
   document.getElementById('hud').style.zIndex = '';
 }
+function updateFullonicaBlink(){
+  const hasReady = fullVinoReady || fullTessutiReady || fullLaterziReady;
+  document.getElementById('btn-fullonica').classList.toggle('fullonica-blink', hasReady);
+}
 function openFullonica(){
   document.getElementById('panel-fullonica').style.display = 'block';
   document.getElementById('hud').style.zIndex = '70';
@@ -2211,6 +2217,7 @@ function clickFullVino(){
       document.getElementById('full-vino-timer').style.display = 'none';
       const r = document.getElementById('full-vino-ready');
       r.style.display = 'block'; r.classList.add('prod-ready');
+      updateFullonicaBlink();
     }
   }, 1000);
 }
@@ -2230,6 +2237,7 @@ function collectFullVino(){
   const btn = document.getElementById('btn-full-vino');
   btn.style.opacity = '1'; btn.style.cursor = 'pointer';
   addVin(2);
+  updateFullonicaBlink();
 }
 
 // ── TESSUTI ──
@@ -2249,6 +2257,7 @@ function clickFullTessuti(){
       document.getElementById('full-tessuti-timer').style.display = 'none';
       const r = document.getElementById('full-tessuti-ready');
       r.style.display = 'block'; r.classList.add('prod-ready');
+      updateFullonicaBlink();
     }
   }, 1000);
 }
@@ -2268,6 +2277,7 @@ function collectFullTessuti(){
   const btn = document.getElementById('btn-full-tessuti');
   btn.style.opacity = '1'; btn.style.cursor = 'pointer';
   addTes(2);
+  updateFullonicaBlink();
 }
 
 // ── LATERIZI ──
@@ -2287,6 +2297,7 @@ function clickFullLaterizi(){
       document.getElementById('full-laterizi-timer').style.display = 'none';
       const r = document.getElementById('full-laterizi-ready');
       r.style.display = 'block'; r.classList.add('prod-ready');
+      updateFullonicaBlink();
     }
   }, 1000);
 }
@@ -2306,6 +2317,7 @@ function collectFullLaterizi(){
   const btn = document.getElementById('btn-full-laterizi');
   btn.style.opacity = '0'; btn.style.cursor = 'pointer';
   addLat(10);
+  updateFullonicaBlink();
 }
 
 function addDen(n){
