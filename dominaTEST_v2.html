@@ -2098,7 +2098,7 @@ function goHub(){
 // ── Definizione Stage ──────────────────────────────────
 const CANT_STAGES = [
   {
-    stage:1, time:60, reward:30, bg:'bg_cantiere.png',
+    stage:1, time:60, reward:30, popReward:15, bg:'bg_cantiere.png',
     objects: [
       { id:'epigrafe',   nome:'Epigrafe',    img:'hidden_epigrafe.png',   x:377, y:310, w:60, h:60 },
       { id:'architetto', nome:'Architetto',  img:'hidden_architetto.png', x:155, y:460, w:60, h:60 },
@@ -2108,7 +2108,7 @@ const CANT_STAGES = [
     ]
   },
   {
-    stage:2, time:120, reward:50, bg:'bg_cantiere2.png',
+    stage:2, time:120, reward:50, popReward:20, bg:'bg_cantiere2.png',
     objects: [
       { id:'anfore',       nome:'Anfore',        img:'hidden_anfore.png',       x:395, y:590, w:60, h:60 },
       { id:'architetto',   nome:'Architetto',    img:'hidden_architetto.png',   x:155, y:460, w:60, h:60 },
@@ -2120,7 +2120,7 @@ const CANT_STAGES = [
     ]
   },
   {
-    stage:3, time:150, reward:70, bg:'bg_cantiere3.png',
+    stage:3, time:150, reward:70, popReward:25, bg:'bg_cantiere3.png',
     objects: [
       { id:'bloccomarmo',  nome:'Blocco di Marmo', img:'hidden_blocco di marmo.png', x:320, y:420, w:60, h:60 },
       { id:'colonnaalta',  nome:'Colonna Alta',    img:'hidden_colonna alta.png',    x:212, y:153, w:72, h:72 },
@@ -2134,7 +2134,7 @@ const CANT_STAGES = [
     ]
   },
   {
-    stage:4, time:180, reward:120, bg:'bg_cantiere4.png',
+    stage:4, time:180, reward:120, popReward:40, bg:'bg_cantiere4.png',
     objects: [
       // Oggetti da definire – aggiornare con gli hidden definitivi dello stage 4
     ]
@@ -2530,6 +2530,7 @@ function cantVittoria(){
   // Stage 4: celebrazione milestone speciale
   if(isMilestone){
     addDen(cfg.reward);
+    addPopXP(cfg.popReward);
     document.getElementById('cant-milestone-reward').textContent = '+' + cfg.reward + ' 🪙 Denarii';
     _triggerMilestoneCelebration();
     return;
@@ -2542,11 +2543,12 @@ function cantVittoria(){
     (isLast
       ? 'Hai completato tutti gli stage del Cantiere del Portico!'
       : 'Avanza allo stage ' + (cfg.stage + 1) + '!')
-    + '<br><br><span style="color:#C9A84C;font-size:18px;">+' + cfg.reward + ' 🪙 Denarii</span>';
+    + '<br><br><span style="color:#C9A84C;font-size:18px;">+' + cfg.reward + ' 🪙 Denarii &nbsp;·&nbsp; +' + cfg.popReward + ' Popolarità</span>';
   document.getElementById('cant-result-btn').textContent = isLast ? 'TORNA AL FORO' : 'STAGE SUCCESSIVO →';
   res.style.display = 'flex';
 
   addDen(cfg.reward);
+  addPopXP(cfg.popReward);
   _playCantVittoriaSound(isLast);
 }
 
