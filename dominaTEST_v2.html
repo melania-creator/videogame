@@ -1291,6 +1291,38 @@ html,body{
           border:none;
           cursor:pointer;">
       </button>
+      <!-- Alert "Costruisci Pavimento" -->
+      <div id="cant-alert-avvio" style="
+        display:none;position:absolute;inset:0;z-index:25;
+        align-items:center;justify-content:center;
+        background:rgba(3,1,0,.78);">
+        <div style="
+          position:relative;width:260px;
+          background:linear-gradient(160deg,rgba(10,6,2,.97),rgba(20,12,4,.99));
+          border:1px solid rgba(201,168,76,.55);border-radius:6px;
+          box-shadow:0 0 0 1px rgba(201,168,76,.12),0 12px 40px rgba(0,0,0,.85);
+          padding:28px 24px 20px;text-align:center;">
+          <!-- Icona -->
+          <div style="font-size:2rem;margin-bottom:10px;">🪨</div>
+          <!-- Testo -->
+          <div style="font-family:'Cinzel Decorative',serif;font-size:.75rem;font-weight:700;
+            color:#C9A84C;letter-spacing:.12em;line-height:1.5;margin-bottom:20px;">
+            COSTRUISCI<br>PAVIMENTO
+          </div>
+          <!-- Linea -->
+          <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.35),transparent);margin-bottom:16px;"></div>
+          <!-- Bottone chiudi -->
+          <button onclick="chiudiCantAlertAvvio()" style="
+            background:linear-gradient(160deg,#9a7218,#6a4a0c);
+            border:1px solid #c8a028;border-radius:3px;
+            font-family:'Cinzel',serif;font-size:.58rem;font-weight:700;letter-spacing:.1em;
+            color:#f6e9c2;padding:8px 24px;cursor:pointer;
+            box-shadow:0 2px 8px rgba(0,0,0,.4);">
+            Inizia ›
+          </button>
+        </div>
+      </div>
+
       <!-- DEV: pulsante reset test visibile solo durante sviluppo -->
       <button onclick="devResetGame()" title="Dev Reset: riporta al primo avvio" style="
         position:absolute;bottom:10px;right:10px;
@@ -1888,6 +1920,11 @@ function avviaCantiere(){
     cantS2Paid = true;
     saveGame();
   }
+  // Mostra alert "Costruisci Pavimento" prima di avviare
+  document.getElementById('cant-alert-avvio').style.display = 'flex';
+}
+function chiudiCantAlertAvvio(){
+  document.getElementById('cant-alert-avvio').style.display = 'none';
   document.getElementById('cant-intro').style.display = 'none';
   document.getElementById('cant-hud').style.display   = 'flex';
   document.getElementById('cant-list').style.display  = 'flex';
