@@ -1305,7 +1305,8 @@ function closeCantiere(){
   // Ripristina #hub allo stato normale
   document.getElementById('hub').style.zIndex = '';
   document.getElementById('hub').style.pointerEvents = '';
-  document.getElementById('bg-hub').style.opacity = '';
+  document.getElementById('bg-hub').style.opacity = '1';
+  document.getElementById('bg-hub').style.pointerEvents = 'all';
 }
 
 // ── Avvia uno stage ────────────────────────────────────
