@@ -1541,7 +1541,7 @@ html,body{
           <!-- Icona -->
           <div style="font-size:2.4rem;margin-bottom:10px;">🧱</div>
           <!-- Titolo principale -->
-          <div style="font-family:'Cinzel Decorative',serif;font-size:.85rem;font-weight:700;color:#4e2808;letter-spacing:.08em;margin-bottom:14px;">MURI PERIMETRALI</div>
+          <div style="font-family:'Cinzel Decorative',serif;font-size:.85rem;font-weight:700;color:#4e2808;letter-spacing:.08em;margin-bottom:14px;">MURA PERIMETRALI COMPLETATE</div>
           <!-- Linea decorativa -->
           <div style="height:1px;margin:0 10px 14px;background:linear-gradient(90deg,transparent,rgba(138,98,16,.28) 25%,rgba(201,168,76,.38) 50%,rgba(138,98,16,.28) 75%,transparent);"></div>
           <!-- Testo -->
@@ -2086,9 +2086,12 @@ function avviaCantiere(){
   const alertIco   = document.getElementById('cant-alert-ico');
   const alertTitle = document.getElementById('cant-alert-title');
   if(alertIco && alertTitle){
-    if(cantStage === 2){
+    if(cantStage === 1){
       alertIco.textContent   = '🧱';
-      alertTitle.innerHTML   = 'COSTRUISCI<br>MURI PERIMETRALI';
+      alertTitle.innerHTML   = 'COSTRUISCI<br>MURA PERIMETRALI';
+    } else if(cantStage === 2){
+      alertIco.textContent   = '🪨';
+      alertTitle.innerHTML   = 'COMPLETA L\'OPERA<br>CON MARMI PREGIATI';
     } else {
       alertIco.textContent   = '🪨';
       alertTitle.innerHTML   = 'COSTRUISCI<br>PAVIMENTO';
