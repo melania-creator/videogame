@@ -1297,12 +1297,17 @@ function openCantiere(){
   document.getElementById('hub').style.zIndex = '80';
   document.getElementById('hub').style.pointerEvents = 'none';
   document.getElementById('bg-hub').style.opacity = '0';
+  // Nasconde il lampeggio della fullonica che trasparisce dal hub
+  document.getElementById('btn-fullonica').classList.remove('fullonica-blink');
   document.getElementById('panel-cantiere').style.display = 'flex';
   // Mostra intro con pulsante Avvia, HUD e lista nascosti
   document.getElementById('cant-intro').style.display  = 'flex';
   document.getElementById('cant-hud').style.display    = 'none';
   document.getElementById('cant-list').style.display   = 'none';
   document.getElementById('cant-result').style.display = 'none';
+  // Aggiorna sfondo in base allo stage corrente
+  document.getElementById('cant-bg').style.background =
+    "url('" + CANT_STAGES[cantStage].bg + "') top left/424px 760px no-repeat";
   // Aggiorna testo costo in base allo stage corrente
   const costEl = document.getElementById('cant-cost-text');
   if(costEl){
@@ -1342,6 +1347,8 @@ function closeCantiere(){
   document.getElementById('hub').style.pointerEvents = '';
   document.getElementById('bg-hub').style.opacity = '1';
   document.getElementById('bg-hub').style.pointerEvents = 'all';
+  // Ripristina stato lampeggio fullonica
+  updateFullonicaBlink();
 }
 
 // ── Avvia uno stage ────────────────────────────────────
@@ -1647,7 +1654,18 @@ function cantResultAction(){
   } else {
     cantStage++;
     saveGame();
-    startCantStage();
+    // Mostra l'intro screen con lo sfondo del nuovo stage (es. bg_cantiere2)
+    document.getElementById('cant-intro').style.display  = 'flex';
+    document.getElementById('cant-hud').style.display    = 'none';
+    document.getElementById('cant-list').style.display   = 'none';
+    document.getElementById('cant-bg').style.background =
+      "url('" + CANT_STAGES[cantStage].bg + "') top left/424px 760px no-repeat";
+    const costEl = document.getElementById('cant-cost-text');
+    if(costEl){
+      if(cantStage === 1 && !cantS2Paid) costEl.textContent = 'Costo avvio: 30 🧱 Laterizi';
+      else                               costEl.textContent = 'Stage ' + (cantStage + 1) + ' – già sbloccato';
+    }
+    renderCantPreview();
   }
 }
 const panels = {
