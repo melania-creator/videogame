@@ -1463,7 +1463,7 @@ let hispaniaUnlocked = false;
 let africaUnlocked   = false;
 
 function addPopXP(n){
-  popXP += n;
+  popXP = Math.max(0, popXP + n);
   // Sblocchi rotte basati sulla popolarità (prima del reset)
   if(!hispaniaUnlocked && popXP >= 50){
     hispaniaUnlocked = true;
@@ -1644,6 +1644,7 @@ let cantRunning     = false;
 let cantTotalStages = CANT_STAGES.length;
 let cantS1Paid      = false; // costo stage 1 già pagato in questa sessione
 let cantS2Paid      = false; // costo stage 2 già pagato in questa sessione
+let cantWrongCount  = 0;    // errori clic sbagliati (penalità pop ogni 3)
 
 // ── Apri/Chiudi ────────────────────────────────────────
 function syncCantLifebar(){
@@ -1713,8 +1714,9 @@ function closeCantiere(){
 // ── Avvia uno stage ────────────────────────────────────
 function startCantStage(){
   const cfg = CANT_STAGES[cantStage];
-  cantFound   = 0;
-  cantTarget  = 0;
+  cantFound       = 0;
+  cantTarget      = 0;
+  cantWrongCount  = 0;
   document.getElementById('cant-hud').style.display  = 'flex';
   document.getElementById('cant-list').style.display = 'flex';
   cantRunning = true;
@@ -1896,9 +1898,12 @@ function onCantBgClick(e){
   cantApplyPenalty();
 }
 
-// ── Penalità -2 secondi ──────────────────────────────────
+// ── Penalità -2 secondi + ogni 3 errori -1 Popolarità ───
 function cantApplyPenalty(){
-  showCantFeedback('-2s ✗', '#e05040');
+  cantWrongCount++;
+  const popPenalty = cantWrongCount % 3 === 0;
+  showCantFeedback(popPenalty ? '-2s ✗  -1 Pop' : '-2s ✗', '#e05040');
+  if(popPenalty) addPopXP(-1);
   cantTimeLeft = Math.max(0, cantTimeLeft - 2);
   const timerEl = document.getElementById('cant-timer');
   timerEl.textContent = cantTimeLeft;
@@ -2153,6 +2158,7 @@ const duoviroLivello1 = [
 
 let duoviroStep = 0; // 0-9, indice problema corrente
 let duoviroCompletato = false;
+let duoviroConsecWrong = 0; // errori consecutivi quiz
 // blocca l'accesso in attesa di pagamento regalia
 // 'none' | 'meta' (dopo q5, 10 tessili) | 'fine' (dopo q10, 20 tessili)
 let duoviroAttesaRegalia = 'none';
@@ -2238,6 +2244,7 @@ function rispondiDuoviro(idx){
   const fb = document.getElementById('dpop-feedback');
   if(idx === d.corretta){
     playFx('correct');
+    duoviroConsecWrong = 0;
     fb.textContent = 'Esatto!';
     fb.className = 'dpop-feedback corretto';
     addPopXP(2);
@@ -2255,7 +2262,13 @@ function rispondiDuoviro(idx){
     }, 900);
   } else {
     playFx('wrong');
-    fb.textContent = 'Sbagliato!';
+    duoviroConsecWrong++;
+    if(duoviroConsecWrong >= 2){
+      addPopXP(-1);
+      fb.textContent = 'Sbagliato! -1 Popolarità';
+    } else {
+      fb.textContent = 'Sbagliato!';
+    }
     fb.className = 'dpop-feedback errato';
     setTimeout(()=>{
       fb.textContent = '';
