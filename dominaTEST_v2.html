@@ -243,6 +243,9 @@ html,body{
 @keyframes cantFlash{0%{opacity:0}15%{opacity:1}100%{opacity:0}}
 @keyframes cantDust{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.2)}}
 @keyframes cantBgReveal{0%{filter:brightness(0) saturate(0)}40%{filter:brightness(1.3) saturate(1.4)}100%{filter:brightness(1) saturate(1)}}
+@keyframes cantMilestoneBar{0%,100%{opacity:.7}50%{opacity:1}}
+@keyframes cantStar{0%{opacity:0;transform:translateY(0) scale(0)}20%{opacity:1;transform:translateY(-20px) scale(1)}100%{opacity:0;transform:translateY(var(--sy)) scale(.3)}}
+@keyframes cantConfetti{0%{opacity:1;transform:translateY(0) rotate(0deg)}100%{opacity:0;transform:translateY(var(--cy)) rotate(var(--cr))}}
 @keyframes fullonicaBlink{0%,100%{box-shadow:0 0 0 0 rgba(255,200,80,0)}50%{box-shadow:0 0 14px 6px rgba(255,200,80,0.75)}}
 .fullonica-blink{animation:fullonicaBlink 1s ease-in-out infinite;border-radius:8px;}
 @keyframes missioniBlink{0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,0)}50%{box-shadow:0 0 20px 9px rgba(201,168,76,.85)}}
@@ -1579,6 +1582,127 @@ html,body{
       </div>
     </div>
 
+    <!-- ── Popup Avanzamento Stage 3→4 (Il Compimento) ── -->
+    <div id="cant-avanzamento-popup-s4" style="
+      display:none;position:absolute;inset:0;z-index:35;
+      align-items:center;justify-content:center;
+      background:rgba(3,1,0,.85);">
+      <div style="
+        position:relative;width:320px;
+        background:
+          radial-gradient(ellipse at 12% 18%,rgba(215,170,75,.2) 0%,transparent 48%),
+          radial-gradient(ellipse at 88% 80%,rgba(158,108,32,.15) 0%,transparent 48%),
+          linear-gradient(172deg,#f7ecd4 0%,#eeddbe 22%,#e7d4a2 58%,#efdfc4 88%,#f6ecce 100%);
+        border:2px solid #8a6210;border-radius:3px;
+        box-shadow:0 0 0 5px rgba(201,168,76,.12),0 20px 55px rgba(0,0,0,.9),inset 0 0 80px rgba(155,106,28,.07);
+        overflow:hidden;">
+        <div style="
+          background:linear-gradient(90deg,#3a2408 0%,#7a5010 16%,#c09028 40%,#ddb438 50%,#c09028 60%,#7a5010 84%,#3a2408 100%);
+          height:22px;display:flex;align-items:center;justify-content:center;
+          font-family:'Cinzel',serif;font-size:.4rem;letter-spacing:.3em;color:#f6e9c2;
+          text-shadow:0 1px 3px rgba(0,0,0,.6);">
+          ✦ &nbsp; RAPPORTO DEI LAVORI &nbsp; ✦
+        </div>
+        <div style="padding:18px 22px 8px;text-align:center;">
+          <div style="font-family:'Cinzel Decorative',serif;font-weight:700;font-size:.55rem;letter-spacing:.12em;color:#6a3c0a;margin-bottom:14px;">STATO DI AVANZAMENTO LAVORI</div>
+          <div style="font-size:2.4rem;margin-bottom:10px;">🏛️</div>
+          <div style="font-family:'Cinzel Decorative',serif;font-size:.85rem;font-weight:700;color:#4e2808;letter-spacing:.08em;margin-bottom:14px;">IL COMPIMENTO DEL PORTICO</div>
+          <div style="height:1px;margin:0 10px 14px;background:linear-gradient(90deg,transparent,rgba(138,98,16,.28) 25%,rgba(201,168,76,.38) 50%,rgba(138,98,16,.28) 75%,transparent);"></div>
+          <div style="font-family:'Cinzel',serif;font-size:.62rem;color:#2b1906;line-height:1.75;margin-bottom:16px;">
+            Le mura si ergono su marmi pregiati.<br>
+            L'opera si avvicina al suo compimento.<br>
+            <span style="color:#6a3c0a;font-style:italic;">Il Portico di Eumachia prende forma eterna.</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:16px;padding:0 8px;">
+            <div style="flex:1;height:6px;background:rgba(138,98,16,.18);border-radius:4px;overflow:hidden;">
+              <div style="width:100%;height:100%;background:linear-gradient(90deg,#8a6210,#c9a84c);border-radius:4px;"></div>
+            </div>
+            <span style="font-family:'Cinzel',serif;font-size:.52rem;color:#6a3c0a;white-space:nowrap;">III / IV</span>
+          </div>
+        </div>
+        <div style="height:1px;margin:0 22px;background:linear-gradient(90deg,transparent,rgba(138,98,16,.28) 25%,rgba(201,168,76,.38) 50%,rgba(138,98,16,.28) 75%,transparent);"></div>
+        <div style="padding:12px 22px 16px;display:flex;justify-content:center;">
+          <button onclick="proseguiStage4()" style="
+            background:linear-gradient(160deg,#9a7218,#6a4a0c);
+            border:1px solid #c8a028;border-radius:3px;
+            font-family:'Cinzel',serif;font-size:.58rem;font-weight:700;letter-spacing:.1em;
+            color:#f6e9c2;padding:9px 26px;cursor:pointer;
+            box-shadow:0 2px 10px rgba(0,0,0,.45);">
+            Porta a Termine l'Opera →
+          </button>
+        </div>
+        <div style="
+          background:linear-gradient(90deg,#3a2408 0%,#7a5010 16%,#c09028 40%,#ddb438 50%,#c09028 60%,#7a5010 84%,#3a2408 100%);
+          height:22px;">
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Popup Milestone: Primo Traguardo ── -->
+    <div id="cant-milestone-popup" style="
+      display:none;position:absolute;inset:0;z-index:60;
+      align-items:center;justify-content:center;
+      background:rgba(3,1,0,.92);">
+      <!-- Stelle decorative animate -->
+      <div id="cant-milestone-stars" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;"></div>
+      <div style="
+        position:relative;width:340px;z-index:1;
+        background:
+          radial-gradient(ellipse at 50% 10%,rgba(255,200,80,.18) 0%,transparent 55%),
+          radial-gradient(ellipse at 12% 85%,rgba(215,170,75,.15) 0%,transparent 45%),
+          radial-gradient(ellipse at 88% 80%,rgba(158,108,32,.12) 0%,transparent 45%),
+          linear-gradient(172deg,#fdf5e0 0%,#f5e8c0 20%,#eeddb0 55%,#f5e8c8 85%,#fdf5e0 100%);
+        border:2px solid #b8880a;border-radius:4px;
+        box-shadow:0 0 0 6px rgba(201,168,76,.18),0 0 0 8px rgba(201,168,76,.08),0 24px 70px rgba(0,0,0,.95),inset 0 0 100px rgba(200,160,50,.08);
+        overflow:hidden;">
+        <!-- Rotolo superiore dorato -->
+        <div style="
+          background:linear-gradient(90deg,#2a1608 0%,#6a4010 14%,#b08020 38%,#ddb438 50%,#b08020 62%,#6a4010 86%,#2a1608 100%);
+          height:26px;display:flex;align-items:center;justify-content:center;
+          font-family:'Cinzel',serif;font-size:.42rem;letter-spacing:.35em;color:#fff8dc;
+          text-shadow:0 1px 4px rgba(0,0,0,.7);">
+          ✦ &nbsp; RAPPORTO DEI LAVORI &nbsp; ✦
+        </div>
+        <!-- Corpo -->
+        <div style="padding:22px 26px 10px;text-align:center;">
+          <div style="font-size:3.2rem;margin-bottom:6px;filter:drop-shadow(0 0 12px rgba(255,200,60,.6));">🏆</div>
+          <div style="font-family:'Cinzel Decorative',serif;font-weight:700;font-size:.5rem;letter-spacing:.2em;color:#8a5a08;margin-bottom:10px;">PRIMO TRAGUARDO RAGGIUNTO</div>
+          <div style="font-family:'Cinzel Decorative',serif;font-size:1rem;font-weight:700;color:#4e2400;letter-spacing:.06em;margin-bottom:6px;line-height:1.3;">IL PORTICO<br>È COMPLETATO</div>
+          <div style="height:2px;margin:12px 10px;background:linear-gradient(90deg,transparent,#c9a84c 20%,#f0d060 50%,#c9a84c 80%,transparent);border-radius:2px;"></div>
+          <div style="font-family:'Cinzel',serif;font-size:.63rem;color:#3a1e06;line-height:1.8;margin-bottom:8px;">
+            La prima area del Portico di Eumachia<br>è stata costruita nel suo massimo splendore.<br>
+            <span style="color:#7a4a0a;font-style:italic;">Pompei non dimenticherà il tuo nome.</span>
+          </div>
+          <div style="font-family:'Cinzel',serif;font-size:.55rem;color:rgba(80,40,10,.6);line-height:1.6;margin-bottom:14px;font-style:italic;">
+            Altre aree del Portico attendono di essere edificate...
+          </div>
+          <div id="cant-milestone-reward" style="font-family:'Cinzel Decorative',serif;font-size:.8rem;font-weight:700;color:#7a4a00;margin-bottom:16px;"></div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:18px;padding:0 8px;">
+            <div style="flex:1;height:8px;background:rgba(138,98,16,.15);border-radius:4px;overflow:hidden;">
+              <div style="width:100%;height:100%;background:linear-gradient(90deg,#6a4010,#c9a84c,#f0d060,#c9a84c,#6a4010);border-radius:4px;animation:cantMilestoneBar 2s ease-in-out infinite;"></div>
+            </div>
+            <span style="font-family:'Cinzel',serif;font-size:.55rem;color:#8a5a08;white-space:nowrap;">IV / IV</span>
+          </div>
+        </div>
+        <div style="height:1px;margin:0 24px;background:linear-gradient(90deg,transparent,rgba(138,98,16,.35) 20%,rgba(201,168,76,.5) 50%,rgba(138,98,16,.35) 80%,transparent);"></div>
+        <div style="padding:14px 26px 18px;display:flex;justify-content:center;">
+          <button onclick="closeMilestoneCantiere()" style="
+            background:linear-gradient(160deg,#c09020,#8a6010,#c09020);
+            border:2px solid #ddb438;border-radius:4px;
+            font-family:'Cinzel Decorative',serif;font-size:.6rem;font-weight:700;letter-spacing:.12em;
+            color:#fff8dc;padding:11px 30px;cursor:pointer;
+            box-shadow:0 0 18px rgba(201,168,76,.4),0 4px 14px rgba(0,0,0,.5);
+            text-shadow:0 1px 3px rgba(0,0,0,.5);">
+            TORNA AL FORO
+          </button>
+        </div>
+        <div style="
+          background:linear-gradient(90deg,#2a1608 0%,#6a4010 14%,#b08020 38%,#ddb438 50%,#b08020 62%,#6a4010 86%,#2a1608 100%);
+          height:26px;">
+        </div>
+      </div>
+    </div>
+
     <!-- Tasto chiudi X -->
     <button onclick="closeCantiere()" id="cant-close-btn" style="
       position:absolute;top:78px;right:12px;z-index:40;
@@ -2009,6 +2133,12 @@ const CANT_STAGES = [
       { id:'architetto',   nome:'Architetto',      img:'hidden_architetto.png',      x:155, y:460, w:60, h:60 },
     ]
   },
+  {
+    stage:4, time:180, reward:120, bg:'bg_cantiere4.png',
+    objects: [
+      // Oggetti da definire – aggiornare con gli hidden definitivi dello stage 4
+    ]
+  },
 ];
 
 // ── Pool di oggetti Stage 1 (riferimento per preview intro) ──────────────
@@ -2026,6 +2156,7 @@ let cantTotalStages = CANT_STAGES.length;
 let cantS1Paid      = false; // costo stage 1 già pagato in questa sessione
 let cantS2Paid      = false; // costo stage 2 già pagato in questa sessione
 let cantS3Paid      = false; // costo stage 3 già pagato in questa sessione
+let cantS4Paid      = false; // costo stage 4 già pagato in questa sessione
 let cantWrongCount  = 0;    // errori clic sbagliati (penalità pop ogni 3)
 
 // ── Apri/Chiudi ────────────────────────────────────────
@@ -2092,6 +2223,9 @@ function avviaCantiere(){
     } else if(cantStage === 2){
       alertIco.textContent   = '🪨';
       alertTitle.innerHTML   = 'COMPLETA L\'OPERA<br>CON MARMI PREGIATI';
+    } else if(cantStage === 3){
+      alertIco.textContent   = '🏛️';
+      alertTitle.innerHTML   = 'PORTA A TERMINE<br>L\'OPERA';
     } else {
       alertIco.textContent   = '🪨';
       alertTitle.innerHTML   = 'COSTRUISCI<br>PAVIMENTO';
@@ -2381,7 +2515,16 @@ function cantVittoria(){
   cantRunning = false;
   stopCantTimer();
   const cfg = CANT_STAGES[cantStage];
-  const isLast = cantStage >= cantTotalStages - 1;
+  const isMilestone = cantStage === 3; // stage 4 = primo traguardo
+  const isLast = cantStage >= cantTotalStages - 1 && !isMilestone;
+
+  // Stage 4: celebrazione milestone speciale
+  if(isMilestone){
+    addDen(cfg.reward);
+    document.getElementById('cant-milestone-reward').textContent = '+' + cfg.reward + ' 🪙 Denarii';
+    _triggerMilestoneCelebration();
+    return;
+  }
 
   const res = document.getElementById('cant-result');
   document.getElementById('cant-result-ico').textContent   = isLast ? '🏆' : '';
@@ -2470,6 +2613,10 @@ function cantResultAction(){
       document.getElementById('cant-hud').style.display  = 'none';
       document.getElementById('cant-list').style.display = 'none';
       _triggerStage3Transition();
+    } else if(cantStage === 3){
+      document.getElementById('cant-hud').style.display  = 'none';
+      document.getElementById('cant-list').style.display = 'none';
+      _triggerStage4Transition();
     } else {
       _mostraIntroStage();
     }
@@ -2682,6 +2829,271 @@ function proseguiStage3(){
   _mostraIntroStage();
 }
 
+// ── Transizione visiva+sonora → Stage 4 ────────────────
+function _triggerStage4Transition(){
+  const panel = document.getElementById('panel-cantiere');
+  const bg    = document.getElementById('cant-bg');
+
+  // 1. Cambia sfondo con bg_cantiere4
+  bg.style.background = "url('bg_cantiere4.png') top left/424px 760px no-repeat";
+  bg.style.animation  = 'cantBgReveal 1.4s ease-out forwards';
+  setTimeout(()=>{ bg.style.animation=''; }, 1500);
+
+  // 2. Shake solenne (doppio)
+  panel.style.animation = 'cantShake .9s ease-out';
+  setTimeout(()=>{ panel.style.animation=''; }, 950);
+
+  // 3. Flash bianco-dorato (marmo)
+  ['rgba(255,255,220,.6)','rgba(255,210,80,.4)'].forEach((col, i) => {
+    const flash = document.createElement('div');
+    flash.style.cssText = `position:absolute;inset:0;z-index:55;pointer-events:none;`
+      + `background:radial-gradient(ellipse at 50% 40%,${col} 0%,transparent 65%);`
+      + `animation:cantFlash ${1.1 + i*.3}s ease-out forwards;`;
+    panel.appendChild(flash);
+    setTimeout(()=>{ flash.remove(); }, (1200 + i*300));
+  });
+
+  // 4. Particelle dorate abbondanti (frammenti di marmo)
+  const colors = ['rgba(255,215,60,.8)','rgba(240,200,80,.7)','rgba(255,255,180,.6)','rgba(201,168,76,.7)','rgba(180,140,50,.5)'];
+  for(let i=0;i<45;i++){
+    const p = document.createElement('div');
+    const cx = 20 + Math.random()*380;
+    const cy = 100 + Math.random()*500;
+    const dx = (Math.random()-0.5)*240;
+    const dy = -(50 + Math.random()*200);
+    const sz = 3 + Math.random()*9;
+    const dur = (.5 + Math.random()*.8).toFixed(2);
+    const col = colors[Math.floor(Math.random()*colors.length)];
+    const shape = Math.random() > .4 ? '50%' : '2px';
+    p.style.cssText = `position:absolute;left:${cx}px;top:${cy}px;`
+      +`width:${sz}px;height:${sz}px;border-radius:${shape};`
+      +`background:${col};pointer-events:none;z-index:52;`
+      +`--dx:${dx}px;--dy:${dy}px;`
+      +`animation:cantDust ${dur}s ease-out forwards;`;
+    panel.appendChild(p);
+    setTimeout(()=>{ p.remove(); }, dur*1000+150);
+  }
+
+  // 5. Suono solenne
+  _playCantStage4Sound();
+
+  // 6. Mostra popup avanzamento S4
+  setTimeout(()=>{
+    document.getElementById('cant-avanzamento-popup-s4').style.display = 'flex';
+  }, 900);
+}
+
+function _playCantStage4Sound(){
+  try {
+    const ctx = new (window.AudioContext||window.webkitAudioContext)();
+
+    // Colpo di marmo (pesante e risonante)
+    [[0,150,35,1.0],[.3,110,28,.7],[.6,80,20,.5]].forEach(([t,f0,f1,vol])=>{
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.frequency.setValueAtTime(f0, ctx.currentTime+t);
+      o.frequency.exponentialRampToValueAtTime(f1, ctx.currentTime+t+.6);
+      g.gain.setValueAtTime(vol, ctx.currentTime+t);
+      g.gain.exponentialRampToValueAtTime(.001, ctx.currentTime+t+.7);
+      o.start(ctx.currentTime+t); o.stop(ctx.currentTime+t+.75);
+    });
+
+    // Rumore levigatura marmo
+    const bufLen = ctx.sampleRate*1.0;
+    const buf = ctx.createBuffer(1,bufLen,ctx.sampleRate);
+    const data = buf.getChannelData(0);
+    for(let i=0;i<bufLen;i++) data[i]=(Math.random()*2-1)*Math.pow(1-i/bufLen,1.2);
+    const noise = ctx.createBufferSource();
+    const bpf   = ctx.createBiquadFilter();
+    const gNoise= ctx.createGain();
+    bpf.type='bandpass'; bpf.frequency.value=1200; bpf.Q.value=.4;
+    noise.buffer=buf;
+    noise.connect(bpf); bpf.connect(gNoise); gNoise.connect(ctx.destination);
+    gNoise.gain.setValueAtTime(.3, ctx.currentTime+.15);
+    gNoise.gain.exponentialRampToValueAtTime(.001, ctx.currentTime+1.1);
+    noise.start(ctx.currentTime+.15);
+
+    // Accordo solenne ascendente (Do maggiore completo)
+    [[261,.4,1.2],[329,.55,1.35],[392,.7,1.5],[523,.85,1.7],[659,1.0,1.9]].forEach(([freq,delay,end])=>{
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.type='triangle';
+      o.frequency.value=freq;
+      g.gain.setValueAtTime(0, ctx.currentTime+delay);
+      g.gain.linearRampToValueAtTime(.15, ctx.currentTime+delay+.12);
+      g.gain.exponentialRampToValueAtTime(.001, ctx.currentTime+end+.4);
+      o.start(ctx.currentTime+delay);
+      o.stop(ctx.currentTime+end+.5);
+    });
+  } catch(e){}
+}
+
+// Chiamata dal popup avanzamento S4 → porta all'intro di stage 4
+function proseguiStage4(){
+  document.getElementById('cant-avanzamento-popup-s4').style.display = 'none';
+  _mostraIntroStage();
+}
+
+// ── Milestone Celebration (fine stage 4) ────────────────
+function _triggerMilestoneCelebration(){
+  const panel = document.getElementById('panel-cantiere');
+
+  // 1. Nascondi HUD e lista
+  document.getElementById('cant-hud').style.display  = 'none';
+  document.getElementById('cant-list').style.display = 'none';
+  document.getElementById('cant-close-btn').style.display = 'none';
+
+  // 2. Sequenza di flash dorati multipli
+  [0, 300, 600].forEach((delay, i) => {
+    setTimeout(()=>{
+      const flash = document.createElement('div');
+      const alpha = .7 - i*.15;
+      flash.style.cssText = `position:absolute;inset:0;z-index:58;pointer-events:none;`
+        + `background:radial-gradient(ellipse at 50% 45%,rgba(255,220,80,${alpha}) 0%,rgba(255,180,40,${alpha*.5}) 35%,transparent 65%);`
+        + `animation:cantFlash 1.2s ease-out forwards;`;
+      panel.appendChild(flash);
+      setTimeout(()=>{ flash.remove(); }, 1250);
+    }, delay);
+  });
+
+  // 3. Shake trionfale
+  setTimeout(()=>{
+    panel.style.animation = 'cantShake .6s ease-out';
+    setTimeout(()=>{ panel.style.animation=''; }, 650);
+  }, 200);
+
+  // 4. Confetti dorati abbondanti (tre ondate)
+  const confettiColors = [
+    'rgba(255,215,60,.9)','rgba(255,180,30,.85)','rgba(255,255,150,.8)',
+    'rgba(201,168,76,.9)','rgba(240,200,80,.85)','rgba(255,240,120,.8)',
+    'rgba(180,140,50,.8)','rgba(220,190,90,.85)'
+  ];
+  for(let wave=0; wave<3; wave++){
+    setTimeout(()=>{
+      for(let i=0;i<30;i++){
+        const p = document.createElement('div');
+        const cx = 20 + Math.random()*380;
+        const cy = -10 + Math.random()*100;
+        const cy2 = 500 + Math.random()*300;
+        const rot = (Math.random()-0.5)*720;
+        const sz  = 4 + Math.random()*10;
+        const dur = (1.2 + Math.random()*1.2).toFixed(2);
+        const col = confettiColors[Math.floor(Math.random()*confettiColors.length)];
+        const isRect = Math.random() > .5;
+        p.style.cssText = `position:absolute;left:${cx}px;top:${cy}px;`
+          +(isRect ? `width:${sz}px;height:${sz*.4}px;border-radius:1px;` : `width:${sz}px;height:${sz}px;border-radius:50%;`)
+          +`background:${col};pointer-events:none;z-index:59;`
+          +`--cy:${cy2}px;--cr:${rot}deg;`
+          +`animation:cantConfetti ${dur}s ease-in forwards;`;
+        panel.appendChild(p);
+        setTimeout(()=>{ p.remove(); }, dur*1000+200);
+      }
+    }, wave * 500);
+  }
+
+  // 5. Stelle scintillanti
+  const starsContainer = document.getElementById('cant-milestone-stars');
+  if(starsContainer){
+    for(let i=0;i<20;i++){
+      setTimeout(()=>{
+        const s = document.createElement('div');
+        const sx = 10 + Math.random()*400;
+        const sy = -(100 + Math.random()*300);
+        const sz = 16 + Math.random()*20;
+        s.style.cssText = `position:absolute;left:${sx}px;top:${300 + Math.random()*200}px;`
+          +`font-size:${sz}px;pointer-events:none;`
+          +`--sy:${sy}px;`
+          +`animation:cantStar ${1.5 + Math.random()*.8}s ease-out forwards;`;
+        s.textContent = ['⭐','✨','🌟'][Math.floor(Math.random()*3)];
+        starsContainer.appendChild(s);
+        setTimeout(()=>{ s.remove(); }, 2500);
+      }, i * 120);
+    }
+  }
+
+  // 6. Suono epico
+  _playMilestoneSound();
+
+  // 7. Mostra popup milestone dopo gli effetti
+  setTimeout(()=>{
+    document.getElementById('cant-milestone-popup').style.display = 'flex';
+  }, 1200);
+}
+
+function _playMilestoneSound(){
+  try {
+    const ctx = new (window.AudioContext||window.webkitAudioContext)();
+
+    // Fanfara trionfale epica: Do-Mi-Sol-Do-Mi-Sol-Do (ascendente + risoluzione)
+    const fanfare = [[261,.00],[329,.18],[392,.36],[523,.54],[659,.72],[784,.94],[1047,1.16],[784,1.44],[1047,1.62],[1047,1.90]];
+    fanfare.forEach(([freq, delay]) => {
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.type = 'triangle';
+      o.frequency.value = freq;
+      g.gain.setValueAtTime(0, ctx.currentTime + delay);
+      g.gain.linearRampToValueAtTime(.22, ctx.currentTime + delay + .07);
+      g.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + delay + .32);
+      o.start(ctx.currentTime + delay);
+      o.stop(ctx.currentTime + delay + .38);
+    });
+
+    // Accordo finale sostenuto (Do maggiore in posizione fondamentale)
+    [[261,2.1,.12],[329,2.2,.10],[392,2.3,.10],[523,2.4,.08]].forEach(([freq,delay,vol])=>{
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.type = 'sine';
+      o.frequency.value = freq;
+      g.gain.setValueAtTime(0, ctx.currentTime+delay);
+      g.gain.linearRampToValueAtTime(vol, ctx.currentTime+delay+.15);
+      g.gain.setValueAtTime(vol, ctx.currentTime+delay+1.2);
+      g.gain.exponentialRampToValueAtTime(.001, ctx.currentTime+delay+2.0);
+      o.start(ctx.currentTime+delay);
+      o.stop(ctx.currentTime+delay+2.2);
+    });
+
+    // Campana grande di trionfo (doppia)
+    [[1175, 2.05, .45, 3.5],[880, 2.35, .35, 2.8]].forEach(([f,t,vol,dur])=>{
+      const bell = ctx.createOscillator();
+      const bg   = ctx.createGain();
+      bell.connect(bg); bg.connect(ctx.destination);
+      bell.type = 'sine';
+      bell.frequency.setValueAtTime(f, ctx.currentTime+t);
+      bell.frequency.exponentialRampToValueAtTime(f*.5, ctx.currentTime+t+dur);
+      bg.gain.setValueAtTime(vol, ctx.currentTime+t);
+      bg.gain.exponentialRampToValueAtTime(.001, ctx.currentTime+t+dur);
+      bell.start(ctx.currentTime+t);
+      bell.stop(ctx.currentTime+t+dur+.1);
+    });
+
+    // Rullo di tamburo iniziale
+    const bufLen = ctx.sampleRate*.4;
+    const buf = ctx.createBuffer(1,bufLen,ctx.sampleRate);
+    const data = buf.getChannelData(0);
+    for(let i=0;i<bufLen;i++) data[i]=(Math.random()*2-1)*Math.pow(1-i/bufLen,2.5);
+    const drum = ctx.createBufferSource();
+    const lpf  = ctx.createBiquadFilter();
+    const gDrum= ctx.createGain();
+    lpf.type='lowpass'; lpf.frequency.value=400;
+    drum.buffer=buf;
+    drum.connect(lpf); lpf.connect(gDrum); gDrum.connect(ctx.destination);
+    gDrum.gain.setValueAtTime(.7, ctx.currentTime);
+    gDrum.gain.exponentialRampToValueAtTime(.001, ctx.currentTime+.45);
+    drum.start(ctx.currentTime);
+  } catch(e){}
+}
+
+function closeMilestoneCantiere(){
+  document.getElementById('cant-milestone-popup').style.display = 'none';
+  const stars = document.getElementById('cant-milestone-stars');
+  if(stars) stars.innerHTML = '';
+  closeCantiere();
+}
+
 // Helper: mostra l'intro screen dello stage corrente
 function _mostraIntroStage(){
   document.getElementById('cant-intro').style.display  = 'flex';
@@ -2693,6 +3105,7 @@ function _mostraIntroStage(){
   if(costEl){
     if(cantStage === 1 && !cantS2Paid)      costEl.textContent = 'Costo avvio: 30 🧱 Laterizi';
     else if(cantStage === 2 && !cantS3Paid) costEl.textContent = 'Costo avvio: 50 🧱 Laterizi';
+    else if(cantStage === 3 && !cantS4Paid) costEl.textContent = 'Costo avvio: 70 🧱 Laterizi';
     else                                    costEl.textContent = 'Stage ' + (cantStage + 1) + ' – già sbloccato';
   }
   renderCantPreview();
