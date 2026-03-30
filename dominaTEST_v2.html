@@ -2414,7 +2414,7 @@ function openCantiere(){
     if(cantStage === 0 && !cantS1Paid)      costEl.textContent = 'Costo avvio: 10 🧱 Laterizi';
     else if(cantStage === 1 && !cantS2Paid) costEl.textContent = 'Costo avvio: 30 🧱 Laterizi';
     else if(cantStage === 2 && !cantS3Paid) costEl.textContent = 'Costo avvio: 50 🧱 Laterizi';
-    else if(cantStage === 4 && !cantS5Paid) costEl.textContent = 'Costo avvio: 100 🧱 Laterizi';
+    else if(cantStage === 4 && !cantS5Paid) costEl.textContent = 'Costo avvio: 70 🧱 Laterizi';
     else                                    costEl.textContent = 'Stage ' + (cantStage + 1) + ' – già sbloccato';
   }
   syncCantLifebar();
@@ -2441,8 +2441,8 @@ function avviaCantiere(){
     cantS3Paid = true;
     saveGame();
   } else if(cantStage === 4 && !cantS5Paid){
-    if(lat < 100){ showResPopup('Laterizi insufficienti (servono 100 🧱 per accedere alla Camera Interna)'); return; }
-    lat -= 100;
+    if(lat < 70){ showResPopup('Laterizi insufficienti (servono 70 🧱 per accedere alla Camera Interna)'); return; }
+    lat -= 70;
     document.getElementById('vlat').textContent = lat;
     cantS5Paid = true;
     saveGame();
@@ -3554,7 +3554,7 @@ function _mostraIntroStage(){
     if(cantStage === 1 && !cantS2Paid)      costEl.textContent = 'Costo avvio: 30 🧱 Laterizi';
     else if(cantStage === 2 && !cantS3Paid) costEl.textContent = 'Costo avvio: 50 🧱 Laterizi';
     else if(cantStage === 3 && !cantS4Paid) costEl.textContent = 'Costo avvio: 70 🧱 Laterizi';
-    else if(cantStage === 4 && !cantS5Paid) costEl.textContent = 'Costo avvio: 100 🧱 Laterizi';
+    else if(cantStage === 4 && !cantS5Paid) costEl.textContent = 'Costo avvio: 70 🧱 Laterizi';
     else                                    costEl.textContent = 'Stage ' + (cantStage + 1) + ' – già sbloccato';
   }
   renderCantPreview();
