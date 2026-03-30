@@ -529,6 +529,10 @@ html,body{
 .mag-card.mag-matched .mag-card-back{background:linear-gradient(135deg,#0d2a10,#1a3a18);border-color:#5DBB63;box-shadow:0 0 14px rgba(93,187,99,.55);}
 .mag-card-svg{display:block;flex-shrink:0;}
 .mag-card-nome{font-family:'Cinzel',serif;font-size:.84rem;color:rgba(201,168,76,.9);letter-spacing:.5px;text-align:center;line-height:1.2;}
+.tet-btn{width:56px;height:48px;background:rgba(201,168,76,.12);border:2px solid rgba(201,168,76,.6);border-radius:6px;color:#C9A84C;font-family:'Cinzel',serif;font-size:1.3rem;cursor:pointer;user-select:none;-webkit-user-select:none;touch-action:manipulation;transition:background .15s;}
+.tet-btn:active{background:rgba(201,168,76,.35);}
+.tet-btn-hard{width:200px;height:42px;background:rgba(201,168,76,.15);border:2px solid rgba(201,168,76,.7);border-radius:6px;color:#C9A84C;font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.12em;cursor:pointer;user-select:none;-webkit-user-select:none;touch-action:manipulation;transition:background .15s;}
+.tet-btn-hard:active{background:rgba(201,168,76,.38);}
 </style>
 </head>
 <body>
@@ -1958,10 +1962,13 @@ html,body{
     <div id="mag-scroll" style="position:absolute;inset:0;overflow-y:auto;padding:80px 14px 28px;display:flex;flex-direction:column;align-items:center;">
       <div style="font-family:'Cinzel Decorative',serif;color:#C9A84C;font-size:1.4rem;letter-spacing:2px;text-align:center;margin-bottom:4px;">MEMORIA DELLE STOFFE</div>
       <div style="font-family:'Cinzel',serif;color:rgba(201,168,76,.65);font-size:1rem;letter-spacing:1.5px;text-align:center;margin-bottom:14px;">Il Magister ti mette alla prova</div>
-      <div style="display:flex;gap:8px;margin-bottom:14px;">
-        <button class="mag-tab active" id="mag-tab-1" onclick="startMemoria(1)">I</button>
-        <button class="mag-tab" id="mag-tab-2" onclick="startMemoria(2)">II</button>
-        <button class="mag-tab" id="mag-tab-3" onclick="startMemoria(3)">III</button>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:14px;">
+        <button class="mag-tab active" id="mag-tab-1" onclick="selectMagTab(1)">I</button>
+        <button class="mag-tab" id="mag-tab-2" onclick="selectMagTab(2)">II</button>
+        <button class="mag-tab" id="mag-tab-3" onclick="selectMagTab(3)">III</button>
+        <button class="mag-tab" id="mag-tab-4" onclick="selectMagTab(4)" title="Sblocca completando la Memoria">IV</button>
+        <button class="mag-tab" id="mag-tab-5" onclick="selectMagTab(5)" title="Sblocca completando la Memoria">V</button>
+        <button class="mag-tab" id="mag-tab-6" onclick="selectMagTab(6)" title="Sblocca completando la Memoria">VI</button>
       </div>
       <div style="display:flex;gap:20px;margin-bottom:12px;">
         <span id="mag-stat-pairs" style="font-family:'Cinzel',serif;font-size:1.1rem;color:rgba(201,168,76,.85);">Coppie: 0/4</span>
@@ -1977,6 +1984,47 @@ html,body{
           <button id="mag-win-replay" onclick="startMemoria(memoriaLiv)" style="font-family:'Cinzel',serif;font-size:.6rem;color:rgba(201,168,76,.7);background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.3);border-radius:4px;padding:7px 14px;cursor:pointer;">↺ Rigioca</button>
         </div>
       </div>
+
+      <!-- ══ SEZIONE TETRIS ══ -->
+      <div id="tet-section" style="display:none;flex-direction:column;align-items:center;gap:8px;width:100%;max-width:396px;">
+        <div style="font-family:'Cinzel',serif;font-size:.52rem;color:rgba(201,168,76,.5);letter-spacing:.15em;margin-bottom:-2px;">IL CANTIERE DELLA MENTE</div>
+        <!-- HUD -->
+        <div style="display:flex;gap:18px;align-items:flex-start;justify-content:center;width:100%;">
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <div style="font-family:'Cinzel',serif;font-size:.5rem;color:rgba(201,168,76,.55);">OBIETTIVO</div>
+            <div id="tet-goal-txt" style="font-family:'Cinzel',serif;font-size:.82rem;color:#C9A84C;">5 righe</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <div style="font-family:'Cinzel',serif;font-size:.5rem;color:rgba(201,168,76,.55);">RIGHE</div>
+            <div id="tet-lines-txt" style="font-family:'Cinzel',serif;font-size:.82rem;color:#C9A84C;">0 / 5</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <div style="font-family:'Cinzel',serif;font-size:.5rem;color:rgba(201,168,76,.55);">PROSSIMO</div>
+            <canvas id="tet-next-cvs" width="80" height="80" style="border:1px solid rgba(201,168,76,.3);border-radius:3px;background:#0a0602;"></canvas>
+          </div>
+        </div>
+        <!-- Griglia principale -->
+        <canvas id="tet-cvs" width="280" height="504" style="border:2px solid rgba(201,168,76,.55);border-radius:4px;background:#0a0602;display:block;touch-action:none;"></canvas>
+        <!-- Controlli touch -->
+        <div style="display:flex;gap:10px;align-items:center;margin-top:2px;">
+          <button class="tet-btn" onpointerdown="tetMove(-1)">←</button>
+          <button class="tet-btn" onpointerdown="tetSoftDrop()">↓</button>
+          <button class="tet-btn" onpointerdown="tetRotate()">↺</button>
+          <button class="tet-btn" onpointerdown="tetMove(1)">→</button>
+        </div>
+        <button class="tet-btn-hard" onpointerdown="tetHardDrop()">POSA ⬇</button>
+        <!-- Risultato win/lose -->
+        <div id="tet-result" style="display:none;flex-direction:column;align-items:center;gap:10px;background:linear-gradient(180deg,#1a0f04,#120a02);border:1px solid rgba(201,168,76,.5);border-radius:8px;padding:22px 24px;width:100%;max-width:280px;text-align:center;margin-top:4px;">
+          <div id="tet-result-icon" style="font-size:2rem;"></div>
+          <div id="tet-result-title" style="font-family:'Cinzel Decorative',serif;color:#C9A84C;font-size:.8rem;letter-spacing:2px;"></div>
+          <div id="tet-result-body" style="font-family:'Cinzel',serif;color:rgba(201,168,76,.8);font-size:.6rem;line-height:1.9;"></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:4px;">
+            <button id="tet-result-next" style="display:none;font-family:'Cinzel',serif;font-size:.6rem;color:#C9A84C;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.5);border-radius:4px;padding:7px 14px;cursor:pointer;"></button>
+            <button onpointerdown="startTetris(tetrisLiv)" style="font-family:'Cinzel',serif;font-size:.6rem;color:rgba(201,168,76,.7);background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.3);border-radius:4px;padding:7px 14px;cursor:pointer;">↺ Rigioca</button>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -3377,6 +3425,7 @@ function chiudiMagisterIntroPerg(){
   startMemoria(memoriaLiv);
 }
 function closeMagister(){
+  tetStop();
   document.getElementById('panel-magister').style.display = 'none';
   document.getElementById('hud').style.zIndex = '70';
 }
@@ -3385,6 +3434,8 @@ function closeMagister(){
 function startMemoria(liv){
   if(liv < 1) liv = 1;
   if(liv > 3){ _magAllDone(); return; }
+  tetStop();
+  document.getElementById('tet-section').style.display = 'none';
   memoriaLiv     = liv;
   memoriaFlipped = [];
   memoriaLocked  = false;
@@ -3514,15 +3565,342 @@ function _updateMagStats(){
   document.getElementById('mag-stat-moves').textContent = 'Mosse: ' + memoriaMovs;
 }
 
-function _updateMagTabs(){
+function _updateAllTabs(active){
   for(let i = 1; i <= 3; i++){
     const tab = document.getElementById('mag-tab-' + i);
     if(!tab) continue;
     tab.className = 'mag-tab' +
-      (i === memoriaLiv        ? ' active' : '') +
-      (memoriaLivDone[i - 1]  ? ' done'   : '');
+      (i === active           ? ' active' : '') +
+      (memoriaLivDone[i - 1] ? ' done'   : '');
+  }
+  for(let i = 4; i <= 6; i++){
+    const tab = document.getElementById('mag-tab-' + i);
+    if(!tab) continue;
+    tab.className = 'mag-tab' +
+      (i === active              ? ' active' : '') +
+      (tetrisLivDone[i - 4]     ? ' done'   : '');
   }
 }
+function _updateMagTabs(){ _updateAllTabs(memoriaLiv); }
+// ══════════════════════════════════════════════════════
+//   TETRIS DEL MAGISTER — Livelli IV / V / VI
+// ══════════════════════════════════════════════════════
+
+const TET_COLS = 10, TET_ROWS = 18, TET_CELL = 28;
+
+const TETRIS_LIV_CFG = [
+  { liv:4, speed:900, righe:5,  reward:{ tes:15, den:10, pop:5  } },
+  { liv:5, speed:500, righe:8,  reward:{ tes:25, den:20, pop:8  } },
+  { liv:6, speed:250, righe:12, reward:{ tes:40, den:35, pop:12 } },
+];
+
+const TET_PIECES = [
+  { shape:[[1,1,1,1]],          color:'#C9A84C' }, // I – Colonna
+  { shape:[[1,1],[1,1]],        color:'#7A5C10' }, // O – Blocco
+  { shape:[[0,1,0],[1,1,1]],    color:'#A0522D' }, // T – Arco
+  { shape:[[0,1,1],[1,1,0]],    color:'#5B7A23' }, // S – Onda
+  { shape:[[1,1,0],[0,1,1]],    color:'#C87941' }, // Z – Tegola
+  { shape:[[1,0,0],[1,1,1]],    color:'#8B3A0A' }, // J – Uncino
+  { shape:[[0,0,1],[1,1,1]],    color:'#DAA520' }, // L – Gancio
+];
+
+let tetrisLiv     = 4;
+let tetrisLivDone = [false, false, false];
+let tetBoard      = [];
+let tetCurr       = null;
+let tetNextPiece  = null;
+let tetLoop       = null;
+let tetLinesCleared = 0;
+let tetRunning    = false;
+
+// ── routing tabs ──
+function selectMagTab(n){
+  if(n <= 3){
+    document.getElementById('tet-section').style.display = 'none';
+    startMemoria(n);
+  } else {
+    if(!memoriaLivDone.every(v => v)){
+      showResPopup('Completa prima tutti e 3 i livelli della Memoria delle Stoffe!');
+      return;
+    }
+    document.getElementById('mag-grid').style.display = 'none';
+    document.getElementById('mag-win').style.display  = 'none';
+    const ts = document.getElementById('tet-section');
+    ts.style.display = 'flex';
+    startTetris(n);
+  }
+}
+
+// ── board helpers ──
+function tetNewBoard(){
+  return Array.from({length: TET_ROWS}, () => Array(TET_COLS).fill(null));
+}
+
+function tetRandPiece(){
+  const p = TET_PIECES[Math.floor(Math.random() * TET_PIECES.length)];
+  const shape = p.shape.map(r => [...r]);
+  return { shape, color: p.color,
+           x: Math.floor((TET_COLS - shape[0].length) / 2), y: 0 };
+}
+
+function tetCollides(shape, x, y, board){
+  for(let r = 0; r < shape.length; r++){
+    for(let c = 0; c < shape[r].length; c++){
+      if(!shape[r][c]) continue;
+      const nx = x + c, ny = y + r;
+      if(nx < 0 || nx >= TET_COLS || ny >= TET_ROWS) return true;
+      if(ny >= 0 && board[ny][nx]) return true;
+    }
+  }
+  return false;
+}
+
+function tetRotateMatrix(shape){
+  const rows = shape.length, cols = shape[0].length;
+  return Array.from({length: cols}, (_, c) =>
+    Array.from({length: rows}, (_, r) => shape[rows - 1 - r][c])
+  );
+}
+
+function tetPlaceOnBoard(curr, board){
+  curr.shape.forEach((row, r) => {
+    row.forEach((v, c) => {
+      if(v){
+        const ny = curr.y + r, nx = curr.x + c;
+        if(ny >= 0) board[ny][nx] = curr.color;
+      }
+    });
+  });
+}
+
+function tetClearLines(board){
+  let cleared = 0;
+  for(let r = TET_ROWS - 1; r >= 0; r--){
+    if(board[r].every(c => c !== null)){
+      board.splice(r, 1);
+      board.unshift(Array(TET_COLS).fill(null));
+      cleared++;
+      r++;
+    }
+  }
+  return cleared;
+}
+
+// ── drawing ──
+function _tetDrawCell(ctx, c, r, color){
+  const x = c * TET_CELL, y = r * TET_CELL, p = 2;
+  ctx.fillStyle = color;
+  ctx.fillRect(x + p, y + p, TET_CELL - p*2, TET_CELL - p*2);
+  ctx.fillStyle = 'rgba(255,255,255,0.20)';
+  ctx.fillRect(x + p, y + p, TET_CELL - p*2, 4);
+  ctx.fillRect(x + p, y + p, 4, TET_CELL - p*2);
+  ctx.fillStyle = 'rgba(0,0,0,0.30)';
+  ctx.fillRect(x + p, y + TET_CELL - p - 4, TET_CELL - p*2, 4);
+  ctx.fillRect(x + TET_CELL - p - 4, y + p, 4, TET_CELL - p*2);
+}
+
+function tetDraw(){
+  const cvs = document.getElementById('tet-cvs');
+  if(!cvs) return;
+  const ctx = cvs.getContext('2d');
+  ctx.fillStyle = '#0a0602';
+  ctx.fillRect(0, 0, cvs.width, cvs.height);
+  // Grid lines
+  ctx.strokeStyle = 'rgba(201,168,76,0.07)';
+  ctx.lineWidth = 0.5;
+  for(let r = 0; r <= TET_ROWS; r++){
+    ctx.beginPath(); ctx.moveTo(0, r*TET_CELL); ctx.lineTo(TET_COLS*TET_CELL, r*TET_CELL); ctx.stroke();
+  }
+  for(let c = 0; c <= TET_COLS; c++){
+    ctx.beginPath(); ctx.moveTo(c*TET_CELL, 0); ctx.lineTo(c*TET_CELL, TET_ROWS*TET_CELL); ctx.stroke();
+  }
+  // Board
+  tetBoard.forEach((row, r) => row.forEach((color, c) => { if(color) _tetDrawCell(ctx, c, r, color); }));
+  if(tetCurr && tetRunning){
+    // Ghost
+    let ghostY = tetCurr.y;
+    while(!tetCollides(tetCurr.shape, tetCurr.x, ghostY + 1, tetBoard)) ghostY++;
+    if(ghostY !== tetCurr.y){
+      ctx.globalAlpha = 0.18;
+      tetCurr.shape.forEach((row, r) => row.forEach((v, c) => {
+        if(v) _tetDrawCell(ctx, tetCurr.x + c, ghostY + r, tetCurr.color);
+      }));
+      ctx.globalAlpha = 1;
+    }
+    // Current piece
+    tetCurr.shape.forEach((row, r) => row.forEach((v, c) => {
+      if(v) _tetDrawCell(ctx, tetCurr.x + c, tetCurr.y + r, tetCurr.color);
+    }));
+  }
+}
+
+function tetDrawNext(){
+  const cvs = document.getElementById('tet-next-cvs');
+  if(!cvs || !tetNextPiece) return;
+  const ctx = cvs.getContext('2d');
+  ctx.fillStyle = '#0a0602';
+  ctx.fillRect(0, 0, cvs.width, cvs.height);
+  const cell = 18, sh = tetNextPiece.shape;
+  const offX = Math.floor((4 - sh[0].length) / 2) * cell + 4;
+  const offY = Math.floor((4 - sh.length)    / 2) * cell + 4;
+  sh.forEach((row, r) => row.forEach((v, c) => {
+    if(v){
+      ctx.fillStyle = tetNextPiece.color;
+      ctx.fillRect(offX + c*cell + 2, offY + r*cell + 2, cell-4, cell-4);
+      ctx.fillStyle = 'rgba(255,255,255,0.18)';
+      ctx.fillRect(offX + c*cell + 2, offY + r*cell + 2, cell-4, 3);
+    }
+  }));
+}
+
+// ── core logic ──
+function startTetris(liv){
+  tetStop();
+  const cfg = TETRIS_LIV_CFG[liv - 4];
+  if(!cfg) return;
+  tetrisLiv = liv;
+  tetBoard  = tetNewBoard();
+  tetLinesCleared = 0;
+  tetRunning = true;
+  document.getElementById('tet-result').style.display = 'none';
+  document.getElementById('tet-goal-txt').textContent  = cfg.righe + ' righe';
+  document.getElementById('tet-lines-txt').textContent = '0 / ' + cfg.righe;
+  _updateAllTabs(liv);
+  tetNextPiece = tetRandPiece();
+  _tetSpawnNext();
+  tetDraw();
+  tetDrawNext();
+  tetLoop = setInterval(_tetGravity, cfg.speed);
+}
+
+function _tetSpawnNext(){
+  tetCurr      = tetNextPiece;
+  tetNextPiece = tetRandPiece();
+  if(tetCollides(tetCurr.shape, tetCurr.x, tetCurr.y, tetBoard)){
+    _tetGameOver();
+  }
+}
+
+function _tetGravity(){
+  if(!tetRunning) return;
+  if(!tetCollides(tetCurr.shape, tetCurr.x, tetCurr.y + 1, tetBoard)){
+    tetCurr.y++;
+  } else {
+    _tetLock();
+  }
+  tetDraw();
+}
+
+function _tetLock(){
+  tetPlaceOnBoard(tetCurr, tetBoard);
+  const cleared = tetClearLines(tetBoard);
+  if(cleared > 0){
+    tetLinesCleared += cleared;
+    const cfg = TETRIS_LIV_CFG[tetrisLiv - 4];
+    document.getElementById('tet-lines-txt').textContent = tetLinesCleared + ' / ' + cfg.righe;
+    playFx('correct');
+    if(tetLinesCleared >= cfg.righe){ _tetWin(); return; }
+  }
+  _tetSpawnNext();
+  tetDrawNext();
+}
+
+function tetMove(dx){
+  if(!tetRunning || !tetCurr) return;
+  if(!tetCollides(tetCurr.shape, tetCurr.x + dx, tetCurr.y, tetBoard))
+    tetCurr.x += dx;
+  tetDraw();
+}
+
+function tetRotate(){
+  if(!tetRunning || !tetCurr) return;
+  const rotated = tetRotateMatrix(tetCurr.shape);
+  for(const kick of [0, -1, 1, -2, 2]){
+    if(!tetCollides(rotated, tetCurr.x + kick, tetCurr.y, tetBoard)){
+      tetCurr.shape = rotated;
+      tetCurr.x += kick;
+      break;
+    }
+  }
+  tetDraw();
+}
+
+function tetSoftDrop(){
+  if(!tetRunning || !tetCurr) return;
+  if(!tetCollides(tetCurr.shape, tetCurr.x, tetCurr.y + 1, tetBoard)){
+    tetCurr.y++;
+  } else {
+    _tetLock();
+  }
+  tetDraw();
+}
+
+function tetHardDrop(){
+  if(!tetRunning || !tetCurr) return;
+  while(!tetCollides(tetCurr.shape, tetCurr.x, tetCurr.y + 1, tetBoard))
+    tetCurr.y++;
+  _tetLock();
+  tetDraw();
+}
+
+function tetStop(){
+  tetRunning = false;
+  if(tetLoop){ clearInterval(tetLoop); tetLoop = null; }
+}
+
+function _tetWin(){
+  tetStop();
+  const cfg    = TETRIS_LIV_CFG[tetrisLiv - 4];
+  const livIdx = tetrisLiv - 4;
+  const isNew  = !tetrisLivDone[livIdx];
+  tetrisLivDone[livIdx] = true;
+  _updateAllTabs(tetrisLiv);
+  saveGame();
+  const lines = [];
+  if(isNew){
+    if(cfg.reward.tes > 0){ addTes(cfg.reward.tes);   lines.push('+' + cfg.reward.tes + ' 🧶 Tessuti'); }
+    if(cfg.reward.den > 0){ addDen(cfg.reward.den);   lines.push('+' + cfg.reward.den + ' ◈ Denarii'); }
+    if(cfg.reward.pop > 0){ addPopXP(cfg.reward.pop); lines.push('+' + cfg.reward.pop + ' Popolarità'); }
+  }
+  document.getElementById('tet-result-icon').textContent  = '🏆';
+  document.getElementById('tet-result-title').textContent = isNew ? 'LIVELLO SUPERATO!' : 'OTTIMO LAVORO!';
+  document.getElementById('tet-result-body').innerHTML    = isNew
+    ? lines.join('<br>')
+    : 'Già completato —<br>nessun premio aggiuntivo.';
+  const nb = document.getElementById('tet-result-next');
+  if(tetrisLiv < 6){
+    nb.style.display = 'inline-block';
+    nb.textContent   = 'Livello ' + ['IV','V','VI'][tetrisLiv - 3] + ' →';
+    nb.onclick       = () => selectMagTab(tetrisLiv + 1);
+  } else {
+    nb.style.display = 'none';
+  }
+  document.getElementById('tet-result').style.display = 'flex';
+  const scr = document.getElementById('mag-scroll');
+  if(scr) scr.scrollTop = scr.scrollHeight;
+}
+
+function _tetGameOver(){
+  tetStop();
+  document.getElementById('tet-result-icon').textContent  = '⚠';
+  document.getElementById('tet-result-title').textContent = 'CANTIERE CROLLATO!';
+  document.getElementById('tet-result-body').innerHTML    = 'Le pietre sono cadute.<br>Riprova dall\'inizio.';
+  document.getElementById('tet-result-next').style.display = 'none';
+  document.getElementById('tet-result').style.display = 'flex';
+  playFx('wrong');
+}
+
+// ── keyboard support ──
+document.addEventListener('keydown', function(e){
+  if(!tetRunning) return;
+  if(e.key === 'ArrowLeft')  { e.preventDefault(); tetMove(-1);    }
+  if(e.key === 'ArrowRight') { e.preventDefault(); tetMove(1);     }
+  if(e.key === 'ArrowDown')  { e.preventDefault(); tetSoftDrop();  }
+  if(e.key === 'ArrowUp' || e.key === 'z' || e.key === 'Z')
+                              { e.preventDefault(); tetRotate();    }
+  if(e.key === ' ')          { e.preventDefault(); tetHardDrop();  }
+});
+
 function openDuovirus(){
   document.getElementById('panel-duoviro').style.display = 'block';
   document.getElementById('hud').style.zIndex = '70';
@@ -4387,7 +4765,8 @@ function saveGame(){
     africaEndTime:   africaInterval   ? now + africaSecondsLeft   * 1000 : null,
     duoviroStep, duoviroLivelloCorrente, duoviroL1Completato, duoviroL2Completato, duoviroCompletato, duoviroAttesaRegalia,
     cantStage, cantS1Paid, cantS2Paid, cantS3Paid,
-    memoriaLivDone
+    memoriaLivDone,
+    tetrisLivDone
   };
   localStorage.setItem('dominaSave', JSON.stringify(state));
 }
@@ -4615,6 +4994,7 @@ function loadGame(){
 
     // Memoria delle Stoffe
     memoriaLivDone = s.memoriaLivDone ?? [false, false, false];
+    tetrisLivDone  = s.tetrisLivDone  ?? [false, false, false];
     _updateMagTabs();
 
     return true;
