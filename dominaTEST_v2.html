@@ -3544,11 +3544,76 @@ const duoviroLivello1 = [
   }
 ];
 
-let duoviroStep = 0; // 0-9, indice problema corrente
-let duoviroCompletato = false;
+const duoviroLivello2 = [
+  {
+    problema: "I fullones chiedono uno spazio ufficiale per le riunioni della corporazione.",
+    quesito: "Eumachia, il tuo nome è inciso nella storia di Pompei. A quali divinità augustee hai dedicato il grande edificio che hai fatto erigere nel Foro, la cui iscrizione dedicatoria è stata ritrovata dagli archeologi moderni?",
+    risposte: ["Venere e Marte","Concordia Augusta e Pietas","Giunone e Minerva","Cerere e Libera"],
+    corretta: 1
+  },
+  {
+    problema: "Si discute dell'organizzazione dei giochi gladiatori per il prossimo mese.",
+    quesito: "I giochi onorano la città. L'anfiteatro di Pompei, costruito attorno al 70 avanti Cristo su iniziativa di due duoviri, detiene un primato nell'architettura romana. Quale?",
+    risposte: ["È il più grande anfiteatro del mondo romano","È il più antico anfiteatro in pietra del mondo romano giunto fino a noi","Fu eretto per celebrare la vittoria di Augusto ad Azio","È l'unico anfiteatro privo di arena sotterranea"],
+    corretta: 1
+  },
+  {
+    problema: "I sacerdoti del tempio chiedono sostegno per il restauro delle colonne danneggiate.",
+    quesito: "La dea Iside è venerata con fervore a Pompei. Chi finanziò la ricostruzione del suo tempio dopo il terremoto del 62 d.C., ottenendo in cambio l'ingresso del padre liberto nel Consiglio della città?",
+    risposte: ["Il ricco mercante Marco Olconio Rufo","Il seienne Numerio Popidio Celsino","L'edile Lucio Ceio Secondo","La sacerdotessa pubblica Mammia"],
+    corretta: 1
+  },
+  {
+    problema: "Le matrone della città richiedono un modello femminile di virtù romana da celebrare.",
+    quesito: "La donna è il fondamento della domus. Chi fu la moglie di Augusto, figura di straordinaria influenza politica, che dopo la morte dell'imperatore ricevette il nome di Iulia Augusta e fu poi divinizzata dall'imperatore Claudio?",
+    risposte: ["Ottavia Minore","Livia Drusilla","Giulia Maggiore","Agrippina Maggiore"],
+    corretta: 1
+  },
+  {
+    problema: "I mercanti lamentano confusione sui giorni di mercato nel calendario tradizionale.",
+    quesito: "L'ordine del tempo governa i commerci. Quale grande riformatore romano, con l'aiuto dell'astronomo alessandrino Sosigene, introdusse nel 46 avanti Cristo il calendario solare di 365 giorni con anno bisestile ogni quattro anni?",
+    risposte: ["Augusto","Marco Agrippa","Giulio Cesare","Numa Pompilio"],
+    corretta: 2
+  },
+  {
+    problema: "Uno studioso chiede sostegno per documentare le risorse naturali della regione campana.",
+    quesito: "La natura è maestra di sapienza. Quale grande studioso e prefetto della flotta romana scrisse la Naturalis Historia, enciclopedia in 37 libri, e morì nel tentativo di soccorrere le vittime dell'eruzione del Vesuvio del 79 d.C.?",
+    risposte: ["Plinio il Giovane","Plinio il Vecchio","Tacito","Svetonio"],
+    corretta: 1
+  },
+  {
+    problema: "I fornai della città lamentano l'irregolarità nella distribuzione del grano.",
+    quesito: "Il pane è vita del popolo. Come si chiamava il sistema amministrativo romano — incarnato anche in una divinità — che garantiva l'approvvigionamento e la distribuzione regolare del grano alla plebe urbana?",
+    risposte: ["La Frumentatio","L'Annona","Il Congiarium","La Tessera Frumentaria"],
+    corretta: 1
+  },
+  {
+    problema: "I costruttori chiedono lumi sul miglior materiale da impiegare nei lavori al portico.",
+    quesito: "Il calcestruzzo romano è leggendario per la sua resistenza millenaria. Quale componente vulcanico locale, miscelato con calce e acqua marina, rendeva l'opus caementicium così straordinariamente durevole?",
+    risposte: ["Il tufo giallo campano","La pozzolana, sabbia vulcanica dei Campi Flegrei","Il basalto lavico del Vesuvio","L'argilla cotta in fornace"],
+    corretta: 1
+  },
+  {
+    problema: "I viandanti chiedono migliorie alla strada consolare che conduce verso Roma.",
+    quesito: "Le strade sono le vene dell'Impero. La Via Appia, detta regina viarum, fu iniziata nel 312 avanti Cristo. Da quale censore romano prese il suo nome?",
+    risposte: ["Appio Claudio Cieco","Marco Appio Lepido","Gaio Appio Crasso","Lucio Appio Sallustio"],
+    corretta: 0
+  },
+  {
+    problema: "Si deve spiegare ai cittadini il corretto funzionamento del governo municipale.",
+    quesito: "Il governo di Pompei, colonia romana, è affidato ai duoviri iure dicundo, i due supremi magistrati. Con quale cadenza venivano eletti da assemblee centuriate i cittadini che ricoprivano tale carica?",
+    risposte: ["Ogni cinque anni","Ogni anno","Ogni due anni","Ogni tre anni"],
+    corretta: 1
+  }
+];
+
+let duoviroStep = 0; // 0-9, indice problema corrente nel livello corrente
+let duoviroLivelloCorrente = 1; // 1 o 2
+let duoviroL1Completato = false; // Livello 1 superato (accesso a Livello 2)
+let duoviroCompletato = false; // Livello 2 completato
 let duoviroConsecWrong = 0; // errori consecutivi quiz
 // blocca l'accesso in attesa di pagamento regalia
-// 'none' | 'meta' (dopo q5, 10 tessili) | 'fine' (dopo q10, 20 tessili)
+// 'none' | 'meta' (dopo q5) | 'fine' (dopo q10)
 let duoviroAttesaRegalia = 'none';
 
 function risolviProblema(){
@@ -3563,15 +3628,21 @@ function risolviProblema(){
   mostraDuoviroPopup('problema');
 }
 
+function _duoviroQuestions(){
+  return duoviroLivelloCorrente === 1 ? duoviroLivello1 : duoviroLivello2;
+}
+
 function mostraDuoviroPopup(fase){
   const popWrap = document.getElementById('duoviro-popup');
   const pop = document.getElementById('duoviro-popup-inner');
-  const d = duoviroLivello1[duoviroStep];
+  const domande = _duoviroQuestions();
+  const d = domande[duoviroStep];
+  const lv = duoviroLivelloCorrente;
 
   if(fase === 'problema'){
     pop.innerHTML = `
       <div class="dpop-orn"></div>
-      <div class="dpop-livello">Problema Comunitario — Livello ${duoviroStep+1}/10</div>
+      <div class="dpop-livello">Problema Comunitario — Livello ${lv} · ${duoviroStep+1}/10</div>
       <div class="dpop-orn"></div>
       <p class="dpop-testo">${d.problema}</p>
       <div class="dpop-orn"></div>
@@ -3585,7 +3656,7 @@ function mostraDuoviroPopup(fase){
     `).join('');
     pop.innerHTML = `
       <div class="dpop-orn"></div>
-      <div class="dpop-livello">Quesito del Duoviro — ${duoviroStep+1}/10</div>
+      <div class="dpop-livello">Quesito del Duoviro — L${lv}: ${duoviroStep+1}/10</div>
       <div class="dpop-orn"></div>
       <p class="dpop-testo">${d.quesito}</p>
       <div class="dpop-risposte">${btns}</div>
@@ -3593,13 +3664,18 @@ function mostraDuoviroPopup(fase){
       <button class="dpop-btn-chiudi" onclick="chiudiDuoviroPopup()">✕</button>
     `;
   } else if(fase === 'regalia'){
-    const costo = duoviroAttesaRegalia === 'fine' ? 20 : 10;
-    const titolo = duoviroAttesaRegalia === 'fine'
-      ? 'Regalia per il Livello Successivo'
+    const isFine = duoviroAttesaRegalia === 'fine';
+    const costo = isFine
+      ? (lv === 1 ? 20 : 25)
+      : (lv === 1 ? 10 : 15);
+    const titolo = isFine
+      ? (lv === 1 ? 'Regalia per il Livello Successivo' : 'Regalia Finale al Duoviro')
       : 'Regalia per Continuare';
-    const desc = duoviroAttesaRegalia === 'fine'
-      ? `Hai completato il primo blocco di 10 problemi. Per accedere al Livello 2 occorrono <strong>${costo} Tessili</strong> da offrire al Duoviro.`
-      : `Hai superato 5 problemi. Per affrontare i prossimi 5 occorrono <strong>${costo} Tessili</strong> da offrire al Duoviro.`;
+    const desc = isFine
+      ? (lv === 1
+          ? `Hai completato il Livello 1 con onore. Per accedere al Livello 2 occorrono <strong>${costo} Tessili</strong> da offrire al Duoviro.`
+          : `Hai completato entrambi i livelli con saggezza. Offri <strong>${costo} Tessili</strong> al Duoviro come tributo finale.`)
+      : `Hai superato 5 problemi del Livello ${lv}. Per affrontare i prossimi 5 occorrono <strong>${costo} Tessili</strong> da offrire al Duoviro.`;
     const hasTessili = tes >= costo;
     pop.innerHTML = `
       <div class="dpop-orn"></div>
@@ -3616,9 +3692,9 @@ function mostraDuoviroPopup(fase){
   } else if(fase === 'completato'){
     pop.innerHTML = `
       <div class="dpop-orn"></div>
-      <div class="dpop-livello" style="color:#C9A84C;font-size:1.1rem;">Livello 1 Completato!</div>
+      <div class="dpop-livello" style="color:#C9A84C;font-size:1.1rem;">Livello 2 Completato!</div>
       <div class="dpop-orn"></div>
-      <p class="dpop-testo">Hai risolto tutti i problemi della comunità con saggezza e cultura. Il Duoviro ti onora!</p>
+      <p class="dpop-testo">Hai dimostrato al Duoviro la tua cultura e la tua saggezza in ogni materia. Pompei ti onora, Eumachia. La carriera di Numistrio Frontone verso il Duovirato è ora aperta!</p>
       <div class="dpop-orn"></div>
       <button class="dpop-btn-chiudi" onclick="chiudiDuoviroPopup()">✕</button>
     `;
@@ -3628,25 +3704,33 @@ function mostraDuoviroPopup(fase){
 }
 
 function rispondiDuoviro(idx){
-  const d = duoviroLivello1[duoviroStep];
+  const d = _duoviroQuestions()[duoviroStep];
   const fb = document.getElementById('dpop-feedback');
   if(idx === d.corretta){
     playFx('correct');
     duoviroConsecWrong = 0;
     fb.textContent = 'Esatto!';
     fb.className = 'dpop-feedback corretto';
-    addPopXP(2);
+    // Livello 2 premia +3 Popolarità per risposta corretta (vs +2 del Livello 1)
+    addPopXP(duoviroLivelloCorrente === 1 ? 2 : 3);
     setTimeout(()=>{
       duoviroStep++;
       if(duoviroStep === 5){
-        // metà livello: richiedi 10 tessili
+        // metà livello: richiedi tessili (10 al Lv1, 15 al Lv2)
         duoviroAttesaRegalia = 'meta';
         mostraDuoviroPopup('regalia');
       } else if(duoviroStep >= 10){
-        // fine livello: richiedi 20 tessili per il prossimo livello
-        duoviroAttesaRegalia = 'fine';
-        duoviroCompletato = true;
-        mostraDuoviroPopup('regalia');
+        if(duoviroLivelloCorrente === 1){
+          // fine Livello 1: richiedi 20 tessili per accedere al Livello 2
+          duoviroAttesaRegalia = 'fine';
+          duoviroL1Completato = true;
+          mostraDuoviroPopup('regalia');
+        } else {
+          // fine Livello 2: richiedi 25 tessili come tributo finale
+          duoviroAttesaRegalia = 'fine';
+          duoviroCompletato = true;
+          mostraDuoviroPopup('regalia');
+        }
       } else {
         // prossimo problema nello stesso popup
         mostraDuoviroPopup('problema');
@@ -3670,27 +3754,27 @@ function rispondiDuoviro(idx){
 }
 
 function pagaRegalia(){
-  const costo = duoviroAttesaRegalia === 'fine' ? 20 : 10;
+  const isFine = duoviroAttesaRegalia === 'fine';
+  const costo = isFine
+    ? (duoviroLivelloCorrente === 1 ? 20 : 25)
+    : (duoviroLivelloCorrente === 1 ? 10 : 15);
   if(tes < costo){ mostraDuoviroPopup('regalia'); return; }
   tes -= costo;
   document.getElementById('vtes').textContent = tes;
   duoviroAttesaRegalia = 'none';
   if(duoviroCompletato){
-    chiudiDuoviroPopup();
-    // livello 2 non ancora caricato
-    const popWrap = document.getElementById('duoviro-popup');
-    const pop = document.getElementById('duoviro-popup-inner');
-    pop.innerHTML = `
-      <div class="dpop-orn"></div>
-      <div class="dpop-livello" style="color:#C9A84C;">Livello 2 — In Arrivo!</div>
-      <div class="dpop-orn"></div>
-      <p class="dpop-testo">Il Duoviro ti ringrazia per la generosità. Il prossimo livello sarà presto disponibile.</p>
-      <div class="dpop-orn"></div>
-      <button class="dpop-btn-chiudi" onclick="chiudiDuoviroPopup()">✕</button>
-    `;
-    popWrap.style.display = 'flex';
+    // Livello 2 completato: mostra schermata finale
+    mostraDuoviroPopup('completato');
+    saveGame();
+  } else if(duoviroL1Completato && duoviroLivelloCorrente === 1){
+    // Passaggio da Livello 1 a Livello 2
+    duoviroLivelloCorrente = 2;
+    duoviroStep = 0;
+    duoviroConsecWrong = 0;
+    saveGame();
+    mostraDuoviroPopup('problema');
   } else {
-    // avvia automaticamente il secondo blocco di 5 domande
+    // avvia automaticamente il secondo blocco di 5 domande nello stesso livello
     mostraDuoviroPopup('problema');
   }
 }
@@ -4161,7 +4245,7 @@ function saveGame(){
     galliaEndTime:   galliaInterval   ? now + galliaSecondsLeft   * 1000 : null,
     hispaniaEndTime: hispaniaInterval ? now + hispaniaSecondsLeft * 1000 : null,
     africaEndTime:   africaInterval   ? now + africaSecondsLeft   * 1000 : null,
-    duoviroStep, duoviroCompletato, duoviroAttesaRegalia,
+    duoviroStep, duoviroLivelloCorrente, duoviroL1Completato, duoviroCompletato, duoviroAttesaRegalia,
     cantStage, cantS1Paid, cantS2Paid, cantS3Paid,
     memoriaLivDone
   };
@@ -4342,9 +4426,11 @@ function loadGame(){
     cantS3Paid = s.cantS3Paid ?? false;
 
     // Duoviro
-    duoviroStep           = s.duoviroStep           ?? 0;
-    duoviroCompletato     = s.duoviroCompletato     ?? false;
-    duoviroAttesaRegalia  = s.duoviroAttesaRegalia  ?? 'none';
+    duoviroStep              = s.duoviroStep              ?? 0;
+    duoviroLivelloCorrente   = s.duoviroLivelloCorrente   ?? 1;
+    duoviroL1Completato      = s.duoviroL1Completato      ?? false;
+    duoviroCompletato        = s.duoviroCompletato        ?? false;
+    duoviroAttesaRegalia     = s.duoviroAttesaRegalia     ?? 'none';
 
     // ── Fullonica ──
     function _setFullReady(btnId, readyId){
