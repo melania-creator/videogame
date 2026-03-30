@@ -1776,6 +1776,124 @@ html,body{
       </div>
     </div>
 
+    <!-- ── Popup Avanzamento Stage 6→7 (Terzo Portico Interno) ── -->
+    <div id="cant-avanzamento-popup-s7" style="
+      display:none;position:absolute;inset:0;z-index:35;
+      align-items:center;justify-content:center;
+      background:rgba(3,1,0,.85);">
+      <div style="
+        position:relative;width:320px;
+        background:
+          radial-gradient(ellipse at 12% 18%,rgba(255,215,75,.22) 0%,transparent 48%),
+          radial-gradient(ellipse at 88% 80%,rgba(201,168,76,.18) 0%,transparent 48%),
+          linear-gradient(172deg,#f7ecd4 0%,#eeddbe 22%,#e7d4a2 58%,#efdfc4 88%,#f6ecce 100%);
+        border:2px solid #8a6210;border-radius:3px;
+        box-shadow:0 0 0 5px rgba(201,168,76,.14),0 20px 55px rgba(0,0,0,.9),inset 0 0 80px rgba(155,106,28,.07);
+        overflow:hidden;">
+        <div style="
+          background:linear-gradient(90deg,#3a2408 0%,#7a5010 16%,#c09028 40%,#ddb438 50%,#c09028 60%,#7a5010 84%,#3a2408 100%);
+          height:22px;display:flex;align-items:center;justify-content:center;
+          font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;color:#f6e9c2;
+          text-shadow:0 1px 3px rgba(0,0,0,.6);">
+          ✦ &nbsp; RAPPORTO DEI LAVORI &nbsp; ✦
+        </div>
+        <div style="padding:18px 22px 8px;text-align:center;">
+          <div style="font-family:'Cinzel Decorative',serif;font-weight:700;font-size:.65rem;letter-spacing:.12em;color:#2a1000;margin-bottom:14px;">STATO DI AVANZAMENTO LAVORI</div>
+          <div style="font-size:2.4rem;margin-bottom:10px;">🏺</div>
+          <div style="font-family:'Cinzel Decorative',serif;font-size:.95rem;font-weight:700;color:#2a1000;letter-spacing:.08em;margin-bottom:14px;">TERZO PORTICO</div>
+          <div style="height:1px;margin:0 10px 14px;background:linear-gradient(90deg,transparent,rgba(138,98,16,.28) 25%,rgba(201,168,76,.38) 50%,rgba(138,98,16,.28) 75%,transparent);"></div>
+          <div style="font-family:'Cinzel',serif;font-size:.72rem;color:#150800;line-height:1.75;margin-bottom:16px;">
+            Il Secondo Portico è stato completato.<br>
+            Si apre ora il Terzo Portico Interno.<br>
+            <span style="color:#3a1500;font-style:italic;">Le colonne dorate attendono di essere rivelate.</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:16px;padding:0 8px;">
+            <div style="flex:1;height:6px;background:rgba(138,98,16,.18);border-radius:4px;overflow:hidden;">
+              <div style="width:28%;height:100%;background:linear-gradient(90deg,#8a6210,#c9a84c);border-radius:4px;"></div>
+            </div>
+            <span style="font-family:'Cinzel',serif;font-size:.62rem;color:#2a1000;white-space:nowrap;">VII</span>
+          </div>
+        </div>
+        <div style="height:1px;margin:0 22px;background:linear-gradient(90deg,transparent,rgba(138,98,16,.28) 25%,rgba(201,168,76,.38) 50%,rgba(138,98,16,.28) 75%,transparent);"></div>
+        <div style="padding:12px 22px 16px;display:flex;justify-content:center;">
+          <button onclick="proseguiStage7()" style="
+            background:linear-gradient(160deg,#9a7218,#6a4a0c);
+            border:1px solid #c8a028;border-radius:3px;
+            font-family:'Cinzel',serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;
+            color:#f6e9c2;padding:9px 26px;cursor:pointer;
+            box-shadow:0 2px 10px rgba(0,0,0,.45);">
+            Entra nel Terzo Portico →
+          </button>
+        </div>
+        <div style="
+          background:linear-gradient(90deg,#3a2408 0%,#7a5010 16%,#c09028 40%,#ddb438 50%,#c09028 60%,#7a5010 84%,#3a2408 100%);
+          height:22px;">
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Popup Grande Finale: Portico Completato ── -->
+    <div id="cant-finale-popup" style="
+      display:none;position:absolute;inset:0;z-index:60;
+      align-items:center;justify-content:center;
+      background:rgba(3,1,0,.94);">
+      <!-- Stelle decorative animate -->
+      <div id="cant-finale-stars" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;"></div>
+      <div style="
+        position:relative;width:340px;z-index:1;
+        background:
+          radial-gradient(ellipse at 50% 10%,rgba(255,200,80,.20) 0%,transparent 55%),
+          radial-gradient(ellipse at 12% 85%,rgba(215,170,75,.17) 0%,transparent 45%),
+          radial-gradient(ellipse at 88% 80%,rgba(158,108,32,.14) 0%,transparent 45%),
+          linear-gradient(172deg,#fdf5e0 0%,#f5e8c0 20%,#eeddb0 55%,#f5e8c8 85%,#fdf5e0 100%);
+        border:2px solid #b8880a;border-radius:4px;
+        box-shadow:0 0 0 6px rgba(201,168,76,.18),0 0 0 8px rgba(201,168,76,.08),0 24px 70px rgba(0,0,0,.97),inset 0 0 100px rgba(200,160,50,.08);
+        overflow:hidden;">
+        <div style="
+          background:linear-gradient(90deg,#2a1608 0%,#6a4010 14%,#b08020 38%,#ddb438 50%,#b08020 62%,#6a4010 86%,#2a1608 100%);
+          height:26px;display:flex;align-items:center;justify-content:center;
+          font-family:'Cinzel',serif;font-size:.42rem;letter-spacing:.35em;color:#fff8dc;
+          text-shadow:0 1px 4px rgba(0,0,0,.7);">
+          ✦ &nbsp; RAPPORTO DEI LAVORI &nbsp; ✦
+        </div>
+        <div style="padding:22px 26px 10px;text-align:center;">
+          <div style="font-size:3.2rem;margin-bottom:6px;filter:drop-shadow(0 0 14px rgba(255,200,60,.7));">🏛️</div>
+          <div style="font-family:'Cinzel Decorative',serif;font-weight:700;font-size:.5rem;letter-spacing:.2em;color:#8a5a08;margin-bottom:10px;">OPERA COMPLETATA</div>
+          <div style="font-family:'Cinzel Decorative',serif;font-size:.95rem;font-weight:700;color:#4e2400;letter-spacing:.06em;margin-bottom:6px;line-height:1.3;">IL PORTICO DI<br>EUMACHIA È ULTIMATO</div>
+          <div style="height:2px;margin:12px 10px;background:linear-gradient(90deg,transparent,#c9a84c 20%,#f0d060 50%,#c9a84c 80%,transparent);border-radius:2px;"></div>
+          <div style="font-family:'Cinzel',serif;font-size:.63rem;color:#3a1e06;line-height:1.8;margin-bottom:8px;">
+            Il Portico di Eumachia è stato edificato<br>in tutto il suo magnifico splendore.<br>
+            <span style="color:#7a4a0a;font-style:italic;">Il nome di Eumachia risuonerà per sempre.</span>
+          </div>
+          <div style="font-family:'Cinzel',serif;font-size:.55rem;color:rgba(80,40,10,.65);line-height:1.6;margin-bottom:14px;font-style:italic;">
+            Pompei celebra la grandezza dell'opera.
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:18px;padding:0 8px;">
+            <div style="flex:1;height:8px;background:rgba(138,98,16,.15);border-radius:4px;overflow:hidden;">
+              <div style="width:100%;height:100%;background:linear-gradient(90deg,#6a4010,#c9a84c,#f0d060,#c9a84c,#6a4010);border-radius:4px;animation:cantMilestoneBar 2s ease-in-out infinite;"></div>
+            </div>
+            <span style="font-family:'Cinzel',serif;font-size:.55rem;color:#8a5a08;white-space:nowrap;">VII / VII</span>
+          </div>
+        </div>
+        <div style="height:1px;margin:0 24px;background:linear-gradient(90deg,transparent,rgba(138,98,16,.35) 20%,rgba(201,168,76,.5) 50%,rgba(138,98,16,.35) 80%,transparent);"></div>
+        <div style="padding:14px 26px 18px;display:flex;flex-direction:column;align-items:center;gap:10px;">
+          <button onclick="closeFinaleCantiere()" style="
+            background:linear-gradient(160deg,#c09020,#8a6010,#c09020);
+            border:2px solid #ddb438;border-radius:4px;
+            font-family:'Cinzel Decorative',serif;font-size:.6rem;font-weight:700;letter-spacing:.12em;
+            color:#fff8dc;padding:11px 30px;cursor:pointer;
+            box-shadow:0 0 18px rgba(201,168,76,.4),0 4px 14px rgba(0,0,0,.5);
+            text-shadow:0 1px 3px rgba(0,0,0,.5);">
+            TORNA AL FORO →
+          </button>
+        </div>
+        <div style="
+          background:linear-gradient(90deg,#2a1608 0%,#6a4010 14%,#b08020 38%,#ddb438 50%,#b08020 62%,#6a4010 86%,#2a1608 100%);
+          height:26px;">
+        </div>
+      </div>
+    </div>
+
     <!-- ── Popup Milestone: Primo Traguardo ── -->
     <div id="cant-milestone-popup" style="
       display:none;position:absolute;inset:0;z-index:60;
@@ -2383,6 +2501,20 @@ const CANT_STAGES = [
       { id:'statua', nome:'Statua', img:'hidden_statua.png', x:150, y:350, w:50, h:50 },
     ]
   },
+  {
+    stage:7, time:90, reward:240, popReward:4, bg:'bg_cantiere7.png', introBg:'bg_cantiere7avvio.png',
+    objects: [
+      { id:'altare2c', nome:'Altare', img:'hidden_altare2.png', x:182, y:405, w:60, h:60 },
+      { id:'anfore6c', nome:'Anfore', img:'hidden_anfore6.png', x:364, y:615, w:118, h:118 },
+      { id:'carrettoc', nome:'Carretto', img:'hidden_carretto2.png', x:165, y:600, w:80, h:80 },
+      { id:'cassettalegnoc', nome:'Cassetta di Legno', img:'hidden_cassettalegno.png', x:300, y:410, w:50, h:50 },
+      { id:'travigrandic', nome:'Travi Grandi', img:'hidden_travigrandi.png', x:250, y:500, w:50, h:50 },
+      { id:'attrezzi2', nome:'Attrezzi', img:'hidden_attrezzi.png', x:212, y:650, w:50, h:50 },
+      { id:'marmipregiati2', nome:'Marmi Pregiati', img:'hidden_marmipregiati.png', x:300, y:545, w:50, h:50 },
+      { id:'statua2', nome:'Statua', img:'hidden_statua.png', x:150, y:350, w:50, h:50 },
+      { id:'colonnedorate', nome:'Colonne Dorate', img:'hidden_colonne dorate.png', x:340, y:280, w:60, h:60 },
+    ]
+  },
 ];
 
 // ── Pool di oggetti Stage 1 (riferimento per preview intro) ──────────────
@@ -2403,6 +2535,7 @@ let cantS3Paid      = false; // costo stage 3 già pagato in questa sessione
 let cantS4Paid      = false; // costo stage 4 già pagato in questa sessione
 let cantS5Paid      = false; // costo stage 5 già pagato in questa sessione
 let cantS6Paid      = false; // costo stage 6 già pagato in questa sessione
+let cantS7Paid      = false; // costo stage 7 già pagato in questa sessione
 let cantWrongCount  = 0;    // errori clic sbagliati (penalità pop ogni 3)
 
 // ── Apri/Chiudi ────────────────────────────────────────
@@ -2437,6 +2570,7 @@ function openCantiere(){
     else if(cantStage === 2 && !cantS3Paid) costEl.textContent = 'Costo avvio: 50 🧱 Laterizi';
     else if(cantStage === 4 && !cantS5Paid) costEl.textContent = 'Costo avvio: 70 🧱 Laterizi';
     else if(cantStage === 5 && !cantS6Paid) costEl.textContent = 'Costo avvio: 90 🧱 Laterizi';
+    else if(cantStage === 6 && !cantS7Paid) costEl.textContent = 'Costo avvio: 110 🧱 Laterizi';
     else                                    costEl.textContent = 'Stage ' + (cantStage + 1) + ' – già sbloccato';
   }
   syncCantLifebar();
@@ -2474,6 +2608,12 @@ function avviaCantiere(){
     document.getElementById('vlat').textContent = lat;
     cantS6Paid = true;
     saveGame();
+  } else if(cantStage === 6 && !cantS7Paid){
+    if(lat < 110){ showResPopup('Laterizi insufficienti (servono 110 🧱 per accedere al Terzo Portico)'); return; }
+    lat -= 110;
+    document.getElementById('vlat').textContent = lat;
+    cantS7Paid = true;
+    saveGame();
   }
   // Aggiorna contenuto alert avvio in base allo stage
   const alertIco   = document.getElementById('cant-alert-ico');
@@ -2494,6 +2634,9 @@ function avviaCantiere(){
     } else if(cantStage === 5){
       alertIco.textContent   = '🏛️';
       alertTitle.innerHTML   = 'ENTRA NEL<br>SECONDO PORTICO';
+    } else if(cantStage === 6){
+      alertIco.textContent   = '🏺';
+      alertTitle.innerHTML   = 'ENTRA NEL<br>TERZO PORTICO';
     } else {
       alertIco.textContent   = '🪨';
       alertTitle.innerHTML   = 'COSTRUISCI<br>PAVIMENTO';
@@ -2581,7 +2724,7 @@ function renderCantPreview(){
   const container = document.getElementById('cant-objects');
   container.innerHTML = '';
   CANT_OBJECT_POOL.forEach(obj => {
-    if(cantStage === 3 || cantStage === 4 || cantStage === 5) return; // stage 4/5/6: salta preview pool
+    if(cantStage === 3 || cantStage === 4 || cantStage === 5 || cantStage === 6) return; // stage 4/5/6/7: salta preview pool
     if((cantStage === 1 || cantStage === 2) && obj.id === 'clessidra') return;
     if(obj.fullCanvas){
       const div = document.createElement('div');
@@ -2804,6 +2947,14 @@ function cantVittoria(){
     return;
   }
 
+  // Stage 7 (ultimo): grande finale con bg_cantiere8
+  if(cantStage === 6){
+    addDen(cfg.reward);
+    addPopXP(cfg.popReward);
+    _triggerFinaleCelebration();
+    return;
+  }
+
   const res = document.getElementById('cant-result');
   document.getElementById('cant-result-ico').textContent   = isLast ? '🏆' : '';
   document.getElementById('cant-result-title').textContent = isLast ? 'LAVORI COMPLETATI!' : 'STAGE SUPERATO!';
@@ -2896,6 +3047,10 @@ function cantResultAction(){
       document.getElementById('cant-hud').style.display  = 'none';
       document.getElementById('cant-list').style.display = 'none';
       _triggerStage4Transition();
+    } else if(cantStage === 6){
+      document.getElementById('cant-hud').style.display  = 'none';
+      document.getElementById('cant-list').style.display = 'none';
+      _triggerStage7Transition();
     } else {
       _mostraIntroStage();
     }
@@ -3219,6 +3374,221 @@ function proseguiStage4(){
 function proseguiStage5(){
   document.getElementById('cant-avanzamento-popup-s5').style.display = 'none';
   _mostraIntroStage();
+}
+
+// Chiamata dal popup avanzamento S7 → porta all'intro di stage 7
+function proseguiStage7(){
+  document.getElementById('cant-avanzamento-popup-s7').style.display = 'none';
+  _mostraIntroStage();
+}
+
+// ── Transizione visiva+sonora → Stage 7 (Terzo Portico Interno) ────────────────
+function _triggerStage7Transition(){
+  const panel = document.getElementById('panel-cantiere');
+  const bg    = document.getElementById('cant-bg');
+
+  // 1. Cambia sfondo con bg_cantiere7avvio
+  bg.style.background = "url('bg_cantiere7avvio.png') top left/424px 760px no-repeat";
+  bg.style.animation  = 'cantBgReveal 1.6s ease-out forwards';
+  setTimeout(()=>{ bg.style.animation=''; }, 1700);
+
+  // 2. Shake elegante
+  panel.style.animation = 'cantShake .7s ease-out';
+  setTimeout(()=>{ panel.style.animation=''; }, 750);
+
+  // 3. Flash dorato ricco (colonne dorate)
+  ['rgba(255,210,80,.55)','rgba(220,170,50,.35)'].forEach((col, i) => {
+    const flash = document.createElement('div');
+    flash.style.cssText = `position:absolute;inset:0;z-index:55;pointer-events:none;`
+      + `background:radial-gradient(ellipse at 50% 40%,${col} 0%,transparent 65%);`
+      + `animation:cantFlash ${1.3 + i*.4}s ease-out forwards;`;
+    panel.appendChild(flash);
+    setTimeout(()=>{ flash.remove(); }, (1400 + i*400));
+  });
+
+  // 4. Particelle dorate (doratura colonne)
+  const colors = ['rgba(255,215,60,.8)','rgba(240,195,70,.7)','rgba(255,245,170,.65)','rgba(201,168,76,.75)'];
+  for(let i=0;i<32;i++){
+    const p = document.createElement('div');
+    const cx = 30 + Math.random()*360;
+    const cy = 150 + Math.random()*450;
+    const dx = (Math.random()-0.5)*200;
+    const dy = -(35 + Math.random()*160);
+    const sz = 2 + Math.random()*7;
+    const dur = (.45 + Math.random()*.7).toFixed(2);
+    const col = colors[Math.floor(Math.random()*colors.length)];
+    p.style.cssText = `position:absolute;left:${cx}px;top:${cy}px;`
+      +`width:${sz}px;height:${sz}px;border-radius:50%;`
+      +`background:${col};pointer-events:none;z-index:52;`
+      +`--dx:${dx}px;--dy:${dy}px;`
+      +`animation:cantDust ${dur}s ease-out forwards;`;
+    panel.appendChild(p);
+    setTimeout(()=>{ p.remove(); }, dur*1000+150);
+  }
+
+  // 5. Suono: campana dorata risonante
+  try {
+    const ctx = new (window.AudioContext||window.webkitAudioContext)();
+    [[0,140,32,.9],[.35,110,26,.65],[.7,85,20,.45]].forEach(([t,f0,f1,vol])=>{
+      const o=ctx.createOscillator(), g=ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.frequency.setValueAtTime(f0, ctx.currentTime+t);
+      o.frequency.exponentialRampToValueAtTime(f1, ctx.currentTime+t+.5);
+      g.gain.setValueAtTime(vol, ctx.currentTime+t);
+      g.gain.exponentialRampToValueAtTime(.001, ctx.currentTime+t+.65);
+      o.start(ctx.currentTime+t); o.stop(ctx.currentTime+t+.7);
+    });
+    [[329,.45,1.3],[415,.60,1.45],[523,.75,1.6],[659,.90,1.8]].forEach(([freq,delay,end])=>{
+      const o=ctx.createOscillator(), g=ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.type='triangle'; o.frequency.value=freq;
+      g.gain.setValueAtTime(0, ctx.currentTime+delay);
+      g.gain.linearRampToValueAtTime(.14, ctx.currentTime+delay+.1);
+      g.gain.exponentialRampToValueAtTime(.001, ctx.currentTime+end+.4);
+      o.start(ctx.currentTime+delay); o.stop(ctx.currentTime+end+.5);
+    });
+  } catch(e){}
+
+  // 6. Mostra popup avanzamento S7
+  setTimeout(()=>{
+    document.getElementById('cant-avanzamento-popup-s7').style.display = 'flex';
+  }, 1000);
+}
+
+// ── Grande Finale Cantiere (stage 7 completato → bg_cantiere8) ────────────
+function _triggerFinaleCelebration(){
+  const panel = document.getElementById('panel-cantiere');
+  const bg    = document.getElementById('cant-bg');
+
+  // 1. Nascondi HUD e lista
+  document.getElementById('cant-hud').style.display  = 'none';
+  document.getElementById('cant-list').style.display = 'none';
+  document.getElementById('cant-close-btn').style.display = 'none';
+
+  // 2. Cambia sfondo a bg_cantiere8 (completamento del modulo)
+  bg.style.background = "url('bg_cantiere8.png') top left/424px 760px no-repeat";
+  bg.style.animation  = 'cantBgReveal 2s ease-out forwards';
+  setTimeout(()=>{ bg.style.animation=''; }, 2100);
+
+  // 3. Flash trionfali multipli
+  [0, 300, 600, 900].forEach((delay, i) => {
+    setTimeout(()=>{
+      const flash = document.createElement('div');
+      const alpha = .75 - i*.12;
+      flash.style.cssText = `position:absolute;inset:0;z-index:58;pointer-events:none;`
+        + `background:radial-gradient(ellipse at 50% 45%,rgba(255,230,90,${alpha}) 0%,rgba(255,180,40,${alpha*.5}) 35%,transparent 65%);`
+        + `animation:cantFlash 1.3s ease-out forwards;`;
+      panel.appendChild(flash);
+      setTimeout(()=>{ flash.remove(); }, 1400);
+    }, delay);
+  });
+
+  // 4. Shake trionfale
+  setTimeout(()=>{
+    panel.style.animation = 'cantShake .6s ease-out';
+    setTimeout(()=>{ panel.style.animation=''; }, 650);
+  }, 150);
+
+  // 5. Confetti abbondanti (tre ondate)
+  const confColors = [
+    'rgba(255,215,60,.9)','rgba(255,180,30,.85)','rgba(255,255,150,.8)',
+    'rgba(201,168,76,.9)','rgba(240,200,80,.85)','rgba(255,240,120,.8)',
+    'rgba(180,140,50,.8)','rgba(220,190,90,.85)','rgba(255,255,200,.75)'
+  ];
+  for(let wave=0; wave<4; wave++){
+    setTimeout(()=>{
+      for(let i=0;i<35;i++){
+        const p = document.createElement('div');
+        const cx = 10 + Math.random()*400;
+        const cy = -15 + Math.random()*110;
+        const cy2 = 520 + Math.random()*280;
+        const rot = (Math.random()-0.5)*800;
+        const sz  = 4 + Math.random()*11;
+        const dur = (1.3 + Math.random()*1.3).toFixed(2);
+        const col = confColors[Math.floor(Math.random()*confColors.length)];
+        const isRect = Math.random() > .45;
+        p.style.cssText = `position:absolute;left:${cx}px;top:${cy}px;`
+          +(isRect ? `width:${sz}px;height:${sz*.4}px;border-radius:1px;` : `width:${sz}px;height:${sz}px;border-radius:50%;`)
+          +`background:${col};pointer-events:none;z-index:59;`
+          +`--cy:${cy2}px;--cr:${rot}deg;`
+          +`animation:cantConfetti ${dur}s ease-in forwards;`;
+        panel.appendChild(p);
+        setTimeout(()=>{ p.remove(); }, dur*1000+200);
+      }
+    }, wave * 600);
+  }
+
+  // 6. Stelle scintillanti
+  const starsContainer = document.getElementById('cant-finale-stars');
+  if(starsContainer){
+    for(let i=0;i<28;i++){
+      setTimeout(()=>{
+        const s = document.createElement('div');
+        const sx = 10 + Math.random()*400;
+        const sy = -(100 + Math.random()*320);
+        const sz = 18 + Math.random()*22;
+        s.style.cssText = `position:absolute;left:${sx}px;top:${300 + Math.random()*220}px;`
+          +`font-size:${sz}px;pointer-events:none;`
+          +`--sy:${sy}px;`
+          +`animation:cantStar ${1.6 + Math.random()*.9}s ease-out forwards;`;
+        s.textContent = ['⭐','✨','🌟','🏛️'][Math.floor(Math.random()*4)];
+        starsContainer.appendChild(s);
+        setTimeout(()=>{ s.remove(); }, 2800);
+      }, i * 130);
+    }
+  }
+
+  // 7. Suono epico finale
+  _playFinaleSound();
+
+  // 8. Mostra popup finale
+  setTimeout(()=>{
+    document.getElementById('cant-finale-popup').style.display = 'flex';
+  }, 1500);
+}
+
+function _playFinaleSound(){
+  try {
+    const ctx = new (window.AudioContext||window.webkitAudioContext)();
+    // Fanfara epica ascendente
+    [[261,.00],[329,.18],[392,.36],[523,.56],[659,.76],[784,.98],[1047,1.22],[784,1.48],[1047,1.70]].forEach(([freq,delay])=>{
+      const o=ctx.createOscillator(), g=ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.type='triangle'; o.frequency.value=freq;
+      g.gain.setValueAtTime(0, ctx.currentTime+delay);
+      g.gain.linearRampToValueAtTime(.30, ctx.currentTime+delay+.06);
+      g.gain.exponentialRampToValueAtTime(.001, ctx.currentTime+delay+.30);
+      o.start(ctx.currentTime+delay); o.stop(ctx.currentTime+delay+.35);
+    });
+    // Accordo finale glorioso
+    [[523,2.0,.15],[659,2.12,.13],[784,2.24,.12],[1047,2.36,.10]].forEach(([freq,delay,vol])=>{
+      const o=ctx.createOscillator(), g=ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.type='sine'; o.frequency.value=freq;
+      g.gain.setValueAtTime(0, ctx.currentTime+delay);
+      g.gain.linearRampToValueAtTime(vol, ctx.currentTime+delay+.14);
+      g.gain.setValueAtTime(vol, ctx.currentTime+delay+1.2);
+      g.gain.exponentialRampToValueAtTime(.001, ctx.currentTime+delay+2.4);
+      o.start(ctx.currentTime+delay); o.stop(ctx.currentTime+delay+2.6);
+    });
+    // Campana solenne
+    const bell=ctx.createOscillator(), bg=ctx.createGain();
+    bell.connect(bg); bg.connect(ctx.destination);
+    bell.type='sine';
+    bell.frequency.setValueAtTime(1760, ctx.currentTime+1.95);
+    bell.frequency.exponentialRampToValueAtTime(550, ctx.currentTime+4.0);
+    bg.gain.setValueAtTime(.45, ctx.currentTime+1.95);
+    bg.gain.exponentialRampToValueAtTime(.001, ctx.currentTime+4.2);
+    bell.start(ctx.currentTime+1.95); bell.stop(ctx.currentTime+4.3);
+  } catch(e){}
+}
+
+function closeFinaleCantiere(){
+  document.getElementById('cant-finale-popup').style.display = 'none';
+  const stars = document.getElementById('cant-finale-stars');
+  if(stars) stars.innerHTML = '';
+  document.getElementById('cant-close-btn').style.display = 'flex';
+  closeCantiere();
 }
 
 // ── Transizione visiva+sonora → Stage 5 (Camera Interna) ────────────────
@@ -3588,6 +3958,7 @@ function _mostraIntroStage(){
     else if(cantStage === 3 && !cantS4Paid) costEl.textContent = 'Costo avvio: 70 🧱 Laterizi';
     else if(cantStage === 4 && !cantS5Paid) costEl.textContent = 'Costo avvio: 70 🧱 Laterizi';
     else if(cantStage === 5 && !cantS6Paid) costEl.textContent = 'Costo avvio: 90 🧱 Laterizi';
+    else if(cantStage === 6 && !cantS7Paid) costEl.textContent = 'Costo avvio: 110 🧱 Laterizi';
     else                                    costEl.textContent = 'Stage ' + (cantStage + 1) + ' – già sbloccato';
   }
   renderCantPreview();
@@ -4994,7 +5365,7 @@ function saveGame(){
     hispaniaEndTime: hispaniaInterval ? now + hispaniaSecondsLeft * 1000 : null,
     africaEndTime:   africaInterval   ? now + africaSecondsLeft   * 1000 : null,
     duoviroStep, duoviroLivelloCorrente, duoviroL1Completato, duoviroL2Completato, duoviroCompletato, duoviroAttesaRegalia,
-    cantStage, cantS1Paid, cantS2Paid, cantS3Paid, cantS5Paid, cantS6Paid,
+    cantStage, cantS1Paid, cantS2Paid, cantS3Paid, cantS5Paid, cantS6Paid, cantS7Paid,
     memoriaLivDone,
     tetrisLivDone
   };
@@ -5175,6 +5546,7 @@ function loadGame(){
     cantS3Paid = s.cantS3Paid ?? false;
     cantS5Paid = s.cantS5Paid ?? false;
     cantS6Paid = s.cantS6Paid ?? false;
+    cantS7Paid = s.cantS7Paid ?? false;
 
     // Duoviro
     duoviroStep              = s.duoviroStep              ?? 0;
