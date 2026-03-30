@@ -2379,7 +2379,7 @@ const CANT_STAGES = [
       { id:'cassettalegnob', nome:'Cassetta di Legno', img:'hidden_cassettalegno.png', x:300, y:410, w:50, h:50 },
       { id:'travigrandib', nome:'Travi Grandi', img:'hidden_travigrandi.png', x:250, y:500, w:50, h:50 },
       { id:'attrezzi', nome:'Attrezzi', img:'hidden_attrezzi.png', x:212, y:650, w:50, h:50 },
-      { id:'marmipregiati', nome:'Marmi Pregiati', img:'hidden_marmipregiati.png', x:300, y:480, w:50, h:50 },
+      { id:'marmipregiati', nome:'Marmi Pregiati', img:'hidden_marmipregiati.png', x:300, y:515, w:50, h:50 },
     ]
   },
 ];
@@ -2580,7 +2580,7 @@ function renderCantPreview(){
   const container = document.getElementById('cant-objects');
   container.innerHTML = '';
   CANT_OBJECT_POOL.forEach(obj => {
-    if(cantStage === 3 || cantStage === 4) return; // stage 4/5: salta preview pool stage 1
+    if(cantStage === 3 || cantStage === 4 || cantStage === 5) return; // stage 4/5/6: salta preview pool
     if((cantStage === 1 || cantStage === 2) && obj.id === 'clessidra') return;
     if(obj.fullCanvas){
       const div = document.createElement('div');
