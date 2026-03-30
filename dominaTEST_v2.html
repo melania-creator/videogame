@@ -2216,7 +2216,9 @@ if(window.visualViewport){
     'hidden_cassettalana.png','hidden_clessidra.png','hidden_colonna alta.png',
     'hidden_epigrafe.png','hidden_mattoni.png','hidden_porta.png',
     'hidden_rancio.png','hidden_tavolo.png','hidden_travi.png','porta.png',
-    'hidden_altare.png','hidden_anfore6.png','hidden_carretto.png','hidden_cassettalegno.png','hidden_travigrandi.png'
+    'hidden_altare.png','hidden_anfore6.png','hidden_carretto.png','hidden_cassettalegno.png','hidden_travigrandi.png',
+    'hidden_altare2.png','hidden_attrezzi.png',
+    'bg_cantiere6avvio.png','bg_cantiere6.png'
   ];
   imgs.forEach(src => { const i = new Image(); i.src = src; });
 })();
@@ -2368,6 +2370,17 @@ const CANT_STAGES = [
       { id:'travigrandi', nome:'Travi Grandi', img:'hidden_travigrandi.png', x:250, y:500, w:50, h:50 },
     ]
   },
+  {
+    stage:6, time:60, reward:180, popReward:6, bg:'bg_cantiere6.png', introBg:'bg_cantiere6avvio.png',
+    objects: [
+      { id:'altare2', nome:'Altare', img:'hidden_altare2.png', x:182, y:405, w:60, h:60 },
+      { id:'anfore6b', nome:'Anfore', img:'hidden_anfore6.png', x:364, y:615, w:118, h:118 },
+      { id:'carrettob', nome:'Carretto', img:'hidden_carretto.png', x:165, y:600, w:80, h:80 },
+      { id:'cassettalegnob', nome:'Cassetta di Legno', img:'hidden_cassettalegno.png', x:300, y:410, w:50, h:50 },
+      { id:'travigrandib', nome:'Travi Grandi', img:'hidden_travigrandi.png', x:250, y:500, w:50, h:50 },
+      { id:'attrezzi', nome:'Attrezzi', img:'hidden_attrezzi.png', x:330, y:300, w:50, h:50 },
+    ]
+  },
 ];
 
 // ── Pool di oggetti Stage 1 (riferimento per preview intro) ──────────────
@@ -2387,6 +2400,7 @@ let cantS2Paid      = false; // costo stage 2 già pagato in questa sessione
 let cantS3Paid      = false; // costo stage 3 già pagato in questa sessione
 let cantS4Paid      = false; // costo stage 4 già pagato in questa sessione
 let cantS5Paid      = false; // costo stage 5 già pagato in questa sessione
+let cantS6Paid      = false; // costo stage 6 già pagato in questa sessione
 let cantWrongCount  = 0;    // errori clic sbagliati (penalità pop ogni 3)
 
 // ── Apri/Chiudi ────────────────────────────────────────
@@ -2419,6 +2433,7 @@ function openCantiere(){
     else if(cantStage === 1 && !cantS2Paid) costEl.textContent = 'Costo avvio: 30 🧱 Laterizi';
     else if(cantStage === 2 && !cantS3Paid) costEl.textContent = 'Costo avvio: 50 🧱 Laterizi';
     else if(cantStage === 4 && !cantS5Paid) costEl.textContent = 'Costo avvio: 70 🧱 Laterizi';
+    else if(cantStage === 5 && !cantS6Paid) costEl.textContent = 'Costo avvio: 90 🧱 Laterizi';
     else                                    costEl.textContent = 'Stage ' + (cantStage + 1) + ' – già sbloccato';
   }
   syncCantLifebar();
@@ -2450,6 +2465,12 @@ function avviaCantiere(){
     document.getElementById('vlat').textContent = lat;
     cantS5Paid = true;
     saveGame();
+  } else if(cantStage === 5 && !cantS6Paid){
+    if(lat < 90){ showResPopup('Laterizi insufficienti (servono 90 🧱 per accedere al Secondo Portico)'); return; }
+    lat -= 90;
+    document.getElementById('vlat').textContent = lat;
+    cantS6Paid = true;
+    saveGame();
   }
   // Aggiorna contenuto alert avvio in base allo stage
   const alertIco   = document.getElementById('cant-alert-ico');
@@ -2467,6 +2488,9 @@ function avviaCantiere(){
     } else if(cantStage === 4){
       alertIco.textContent   = '🚪';
       alertTitle.innerHTML   = 'ENTRA NELLA<br>CAMERA INTERNA';
+    } else if(cantStage === 5){
+      alertIco.textContent   = '🏛️';
+      alertTitle.innerHTML   = 'ENTRA NEL<br>SECONDO PORTICO';
     } else {
       alertIco.textContent   = '🪨';
       alertTitle.innerHTML   = 'COSTRUISCI<br>PAVIMENTO';
@@ -3559,6 +3583,7 @@ function _mostraIntroStage(){
     else if(cantStage === 2 && !cantS3Paid) costEl.textContent = 'Costo avvio: 50 🧱 Laterizi';
     else if(cantStage === 3 && !cantS4Paid) costEl.textContent = 'Costo avvio: 70 🧱 Laterizi';
     else if(cantStage === 4 && !cantS5Paid) costEl.textContent = 'Costo avvio: 70 🧱 Laterizi';
+    else if(cantStage === 5 && !cantS6Paid) costEl.textContent = 'Costo avvio: 90 🧱 Laterizi';
     else                                    costEl.textContent = 'Stage ' + (cantStage + 1) + ' – già sbloccato';
   }
   renderCantPreview();
@@ -4965,7 +4990,7 @@ function saveGame(){
     hispaniaEndTime: hispaniaInterval ? now + hispaniaSecondsLeft * 1000 : null,
     africaEndTime:   africaInterval   ? now + africaSecondsLeft   * 1000 : null,
     duoviroStep, duoviroLivelloCorrente, duoviroL1Completato, duoviroL2Completato, duoviroCompletato, duoviroAttesaRegalia,
-    cantStage, cantS1Paid, cantS2Paid, cantS3Paid, cantS5Paid,
+    cantStage, cantS1Paid, cantS2Paid, cantS3Paid, cantS5Paid, cantS6Paid,
     memoriaLivDone,
     tetrisLivDone
   };
@@ -5145,6 +5170,7 @@ function loadGame(){
     cantS2Paid = s.cantS2Paid ?? false;
     cantS3Paid = s.cantS3Paid ?? false;
     cantS5Paid = s.cantS5Paid ?? false;
+    cantS6Paid = s.cantS6Paid ?? false;
 
     // Duoviro
     duoviroStep              = s.duoviroStep              ?? 0;
