@@ -1720,6 +1720,62 @@ html,body{
       </div>
     </div>
 
+    <!-- ── Popup Avanzamento Milestone → Stage 5 (Camera Interna) ── -->
+    <div id="cant-avanzamento-popup-s5" style="
+      display:none;position:absolute;inset:0;z-index:35;
+      align-items:center;justify-content:center;
+      background:rgba(3,1,0,.85);">
+      <div style="
+        position:relative;width:320px;
+        background:
+          radial-gradient(ellipse at 12% 18%,rgba(215,170,75,.2) 0%,transparent 48%),
+          radial-gradient(ellipse at 88% 80%,rgba(158,108,32,.15) 0%,transparent 48%),
+          linear-gradient(172deg,#f7ecd4 0%,#eeddbe 22%,#e7d4a2 58%,#efdfc4 88%,#f6ecce 100%);
+        border:2px solid #8a6210;border-radius:3px;
+        box-shadow:0 0 0 5px rgba(201,168,76,.12),0 20px 55px rgba(0,0,0,.9),inset 0 0 80px rgba(155,106,28,.07);
+        overflow:hidden;">
+        <div style="
+          background:linear-gradient(90deg,#3a2408 0%,#7a5010 16%,#c09028 40%,#ddb438 50%,#c09028 60%,#7a5010 84%,#3a2408 100%);
+          height:22px;display:flex;align-items:center;justify-content:center;
+          font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;color:#f6e9c2;
+          text-shadow:0 1px 3px rgba(0,0,0,.6);">
+          ✦ &nbsp; RAPPORTO DEI LAVORI &nbsp; ✦
+        </div>
+        <div style="padding:18px 22px 8px;text-align:center;">
+          <div style="font-family:'Cinzel Decorative',serif;font-weight:700;font-size:.65rem;letter-spacing:.12em;color:#2a1000;margin-bottom:14px;">STATO DI AVANZAMENTO LAVORI</div>
+          <div style="font-size:2.4rem;margin-bottom:10px;">🚪</div>
+          <div style="font-family:'Cinzel Decorative',serif;font-size:.95rem;font-weight:700;color:#2a1000;letter-spacing:.08em;margin-bottom:14px;">CAMERA INTERNA</div>
+          <div style="height:1px;margin:0 10px 14px;background:linear-gradient(90deg,transparent,rgba(138,98,16,.28) 25%,rgba(201,168,76,.38) 50%,rgba(138,98,16,.28) 75%,transparent);"></div>
+          <div style="font-family:'Cinzel',serif;font-size:.72rem;color:#150800;line-height:1.75;margin-bottom:16px;">
+            Il Portico esterno è completato.<br>
+            Si apre ora la Camera Interna.<br>
+            <span style="color:#3a1500;font-style:italic;">Qui si custodiscono i segreti dell'opera.</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:16px;padding:0 8px;">
+            <div style="flex:1;height:6px;background:rgba(138,98,16,.18);border-radius:4px;overflow:hidden;">
+              <div style="width:20%;height:100%;background:linear-gradient(90deg,#8a6210,#c9a84c);border-radius:4px;"></div>
+            </div>
+            <span style="font-family:'Cinzel',serif;font-size:.62rem;color:#2a1000;white-space:nowrap;">V</span>
+          </div>
+        </div>
+        <div style="height:1px;margin:0 22px;background:linear-gradient(90deg,transparent,rgba(138,98,16,.28) 25%,rgba(201,168,76,.38) 50%,rgba(138,98,16,.28) 75%,transparent);"></div>
+        <div style="padding:12px 22px 16px;display:flex;justify-content:center;">
+          <button onclick="proseguiStage5()" style="
+            background:linear-gradient(160deg,#9a7218,#6a4a0c);
+            border:1px solid #c8a028;border-radius:3px;
+            font-family:'Cinzel',serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;
+            color:#f6e9c2;padding:9px 26px;cursor:pointer;
+            box-shadow:0 2px 10px rgba(0,0,0,.45);">
+            Entra nella Camera →
+          </button>
+        </div>
+        <div style="
+          background:linear-gradient(90deg,#3a2408 0%,#7a5010 16%,#c09028 40%,#ddb438 50%,#c09028 60%,#7a5010 84%,#3a2408 100%);
+          height:22px;">
+        </div>
+      </div>
+    </div>
+
     <!-- ── Popup Milestone: Primo Traguardo ── -->
     <div id="cant-milestone-popup" style="
       display:none;position:absolute;inset:0;z-index:60;
@@ -1767,15 +1823,21 @@ html,body{
           </div>
         </div>
         <div style="height:1px;margin:0 24px;background:linear-gradient(90deg,transparent,rgba(138,98,16,.35) 20%,rgba(201,168,76,.5) 50%,rgba(138,98,16,.35) 80%,transparent);"></div>
-        <div style="padding:14px 26px 18px;display:flex;justify-content:center;">
-          <button onclick="closeMilestoneCantiere()" style="
+        <div style="padding:14px 26px 18px;display:flex;flex-direction:column;align-items:center;gap:10px;">
+          <button onclick="proseguiCameraInterna()" style="
             background:linear-gradient(160deg,#c09020,#8a6010,#c09020);
             border:2px solid #ddb438;border-radius:4px;
             font-family:'Cinzel Decorative',serif;font-size:.6rem;font-weight:700;letter-spacing:.12em;
             color:#fff8dc;padding:11px 30px;cursor:pointer;
             box-shadow:0 0 18px rgba(201,168,76,.4),0 4px 14px rgba(0,0,0,.5);
             text-shadow:0 1px 3px rgba(0,0,0,.5);">
-            TORNA AL FORO
+            ENTRA NELLA CAMERA →
+          </button>
+          <button onclick="closeMilestoneExit()" style="
+            background:transparent;border:none;
+            font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.08em;
+            color:rgba(80,40,10,.65);cursor:pointer;text-decoration:underline;padding:2px 8px;">
+            Torna al Foro
           </button>
         </div>
         <div style="
@@ -2147,12 +2209,14 @@ if(window.visualViewport){
   const imgs = [
     'bg_giardino.jpg','bg_duoviro.jpg','bg_fullonica.jpg','bg_credits.jpg',
     'bg_cantiere.png','bg_cantiere2.png','bg_cantiere3.png','bg_cantiere4.png',
+    'bg_cantiere5avvio.png','bg_cantiere5.png',
     'affari_bg.png','eumachia_bg.jpg','eumachia_look_01.jpg',
     'eumachia_look_02.jpg','eumachia_look_03.jpg','MAPPA.jpg',
     'hidden_anfore.png','hidden_architetto.png','hidden_blocco di marmo.png',
     'hidden_cassettalana.png','hidden_clessidra.png','hidden_colonna alta.png',
     'hidden_epigrafe.png','hidden_mattoni.png','hidden_porta.png',
-    'hidden_rancio.png','hidden_tavolo.png','hidden_travi.png','porta.png'
+    'hidden_rancio.png','hidden_tavolo.png','hidden_travi.png','porta.png',
+    'hidden_altare.png'
   ];
   imgs.forEach(src => { const i = new Image(); i.src = src; });
 })();
@@ -2294,6 +2358,12 @@ const CANT_STAGES = [
       // Oggetti da definire – aggiornare con gli hidden definitivi dello stage 4
     ]
   },
+  {
+    stage:5, time:200, reward:150, popReward:8, bg:'bg_cantiere5.png', introBg:'bg_cantiere5avvio.png',
+    objects: [
+      { id:'altare', nome:'Altare', img:'hidden_altare.png', x:182, y:350, w:60, h:60 },
+    ]
+  },
 ];
 
 // ── Pool di oggetti Stage 1 (riferimento per preview intro) ──────────────
@@ -2312,6 +2382,7 @@ let cantS1Paid      = false; // costo stage 1 già pagato in questa sessione
 let cantS2Paid      = false; // costo stage 2 già pagato in questa sessione
 let cantS3Paid      = false; // costo stage 3 già pagato in questa sessione
 let cantS4Paid      = false; // costo stage 4 già pagato in questa sessione
+let cantS5Paid      = false; // costo stage 5 già pagato in questa sessione
 let cantWrongCount  = 0;    // errori clic sbagliati (penalità pop ogni 3)
 
 // ── Apri/Chiudi ────────────────────────────────────────
@@ -2333,15 +2404,17 @@ function openCantiere(){
   document.getElementById('cant-hud').style.display    = 'none';
   document.getElementById('cant-list').style.display   = 'none';
   document.getElementById('cant-result').style.display = 'none';
-  // Aggiorna sfondo in base allo stage corrente
+  // Aggiorna sfondo in base allo stage corrente (usa introBg se presente)
+  const _introSrc = CANT_STAGES[cantStage].introBg || CANT_STAGES[cantStage].bg;
   document.getElementById('cant-bg').style.background =
-    "url('" + CANT_STAGES[cantStage].bg + "') top left/424px 760px no-repeat";
+    "url('" + _introSrc + "') top left/424px 760px no-repeat";
   // Aggiorna testo costo in base allo stage corrente
   const costEl = document.getElementById('cant-cost-text');
   if(costEl){
     if(cantStage === 0 && !cantS1Paid)      costEl.textContent = 'Costo avvio: 10 🧱 Laterizi';
     else if(cantStage === 1 && !cantS2Paid) costEl.textContent = 'Costo avvio: 30 🧱 Laterizi';
     else if(cantStage === 2 && !cantS3Paid) costEl.textContent = 'Costo avvio: 50 🧱 Laterizi';
+    else if(cantStage === 4 && !cantS5Paid) costEl.textContent = 'Costo avvio: 100 🧱 Laterizi';
     else                                    costEl.textContent = 'Stage ' + (cantStage + 1) + ' – già sbloccato';
   }
   syncCantLifebar();
@@ -2367,6 +2440,12 @@ function avviaCantiere(){
     document.getElementById('vlat').textContent = lat;
     cantS3Paid = true;
     saveGame();
+  } else if(cantStage === 4 && !cantS5Paid){
+    if(lat < 100){ showResPopup('Laterizi insufficienti (servono 100 🧱 per accedere alla Camera Interna)'); return; }
+    lat -= 100;
+    document.getElementById('vlat').textContent = lat;
+    cantS5Paid = true;
+    saveGame();
   }
   // Aggiorna contenuto alert avvio in base allo stage
   const alertIco   = document.getElementById('cant-alert-ico');
@@ -2381,6 +2460,9 @@ function avviaCantiere(){
     } else if(cantStage === 3){
       alertIco.textContent   = '🏛️';
       alertTitle.innerHTML   = 'PORTA A TERMINE<br>L\'OPERA';
+    } else if(cantStage === 4){
+      alertIco.textContent   = '🚪';
+      alertTitle.innerHTML   = 'ENTRA NELLA<br>CAMERA INTERNA';
     } else {
       alertIco.textContent   = '🪨';
       alertTitle.innerHTML   = 'COSTRUISCI<br>PAVIMENTO';
@@ -2468,7 +2550,7 @@ function renderCantPreview(){
   const container = document.getElementById('cant-objects');
   container.innerHTML = '';
   CANT_OBJECT_POOL.forEach(obj => {
-    if(cantStage === 3) return; // stage 4: nessun hidden
+    if(cantStage === 3 || cantStage === 4) return; // stage 4/5: salta preview pool stage 1
     if((cantStage === 1 || cantStage === 2) && obj.id === 'clessidra') return;
     if(obj.fullCanvas){
       const div = document.createElement('div');
@@ -3102,6 +3184,88 @@ function proseguiStage4(){
   _mostraIntroStage();
 }
 
+// Chiamata dal popup avanzamento S5 → porta all'intro di stage 5
+function proseguiStage5(){
+  document.getElementById('cant-avanzamento-popup-s5').style.display = 'none';
+  _mostraIntroStage();
+}
+
+// ── Transizione visiva+sonora → Stage 5 (Camera Interna) ────────────────
+function _triggerStage5Transition(){
+  const panel = document.getElementById('panel-cantiere');
+  const bg    = document.getElementById('cant-bg');
+
+  // 1. Cambia sfondo con bg_cantiere5avvio
+  bg.style.background = "url('bg_cantiere5avvio.png') top left/424px 760px no-repeat";
+  bg.style.animation  = 'cantBgReveal 1.6s ease-out forwards';
+  setTimeout(()=>{ bg.style.animation=''; }, 1700);
+
+  // 2. Shake solenne
+  panel.style.animation = 'cantShake .7s ease-out';
+  setTimeout(()=>{ panel.style.animation=''; }, 750);
+
+  // 3. Flash profondo (atmosfera interna)
+  ['rgba(180,140,80,.5)','rgba(120,90,50,.35)'].forEach((col, i) => {
+    const flash = document.createElement('div');
+    flash.style.cssText = `position:absolute;inset:0;z-index:55;pointer-events:none;`
+      + `background:radial-gradient(ellipse at 50% 55%,${col} 0%,transparent 65%);`
+      + `animation:cantFlash ${1.2 + i*.4}s ease-out forwards;`;
+    panel.appendChild(flash);
+    setTimeout(()=>{ flash.remove(); }, (1300 + i*400));
+  });
+
+  // 4. Particelle polvere di calce
+  const colors = ['rgba(220,200,160,.6)','rgba(180,160,120,.5)','rgba(240,220,180,.55)','rgba(160,130,90,.45)'];
+  for(let i=0;i<30;i++){
+    const p = document.createElement('div');
+    const cx = 40 + Math.random()*340;
+    const cy = 200 + Math.random()*400;
+    const dx = (Math.random()-0.5)*180;
+    const dy = -(30 + Math.random()*150);
+    const sz = 2 + Math.random()*6;
+    const dur = (.45 + Math.random()*.65).toFixed(2);
+    const col = colors[Math.floor(Math.random()*colors.length)];
+    p.style.cssText = `position:absolute;left:${cx}px;top:${cy}px;`
+      +`width:${sz}px;height:${sz}px;border-radius:50%;`
+      +`background:${col};pointer-events:none;z-index:52;`
+      +`--dx:${dx}px;--dy:${dy}px;`
+      +`animation:cantDust ${dur}s ease-out forwards;`;
+    panel.appendChild(p);
+    setTimeout(()=>{ p.remove(); }, dur*1000+150);
+  }
+
+  // 5. Suono porta che si apre
+  try {
+    const ctx = new (window.AudioContext||window.webkitAudioContext)();
+    // Cigolio e risonanza
+    const creak = ctx.createOscillator();
+    const cg    = ctx.createGain();
+    creak.connect(cg); cg.connect(ctx.destination);
+    creak.type = 'sawtooth';
+    creak.frequency.setValueAtTime(200, ctx.currentTime);
+    creak.frequency.exponentialRampToValueAtTime(80, ctx.currentTime + .6);
+    cg.gain.setValueAtTime(.15, ctx.currentTime);
+    cg.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + .7);
+    creak.start(ctx.currentTime);
+    creak.stop(ctx.currentTime + .75);
+    // Eco risonante
+    [[196,.5,.10],[130,.65,.07],[98,.82,.05]].forEach(([freq,t,vol])=>{
+      const o=ctx.createOscillator(), g=ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.type='sine'; o.frequency.value=freq;
+      g.gain.setValueAtTime(0, ctx.currentTime+t);
+      g.gain.linearRampToValueAtTime(vol, ctx.currentTime+t+.08);
+      g.gain.exponentialRampToValueAtTime(.001, ctx.currentTime+t+.6);
+      o.start(ctx.currentTime+t); o.stop(ctx.currentTime+t+.7);
+    });
+  } catch(e){}
+
+  // 6. Mostra popup avanzamento S5
+  setTimeout(()=>{
+    document.getElementById('cant-avanzamento-popup-s5').style.display = 'flex';
+  }, 1000);
+}
+
 // ── Milestone Celebration (fine stage 4) ────────────────
 function _triggerMilestoneCelebration(){
   const panel = document.getElementById('panel-cantiere');
@@ -3355,11 +3519,26 @@ function _celebraNumistrio2(){
   _playNumistrio2Sound();
 }
 
-function closeMilestoneCantiere(){
+function closeMilestoneExit(){
   document.getElementById('cant-milestone-popup').style.display = 'none';
   const stars = document.getElementById('cant-milestone-stars');
   if(stars) stars.innerHTML = '';
   closeCantiere();
+}
+
+// Alias per retrocompatibilità
+function closeMilestoneCantiere(){ closeMilestoneExit(); }
+
+function proseguiCameraInterna(){
+  document.getElementById('cant-milestone-popup').style.display = 'none';
+  const stars = document.getElementById('cant-milestone-stars');
+  if(stars) stars.innerHTML = '';
+  cantStage++;
+  saveGame();
+  document.getElementById('cant-hud').style.display  = 'none';
+  document.getElementById('cant-list').style.display = 'none';
+  document.getElementById('cant-close-btn').style.display = 'flex';
+  _triggerStage5Transition();
 }
 
 // Helper: mostra l'intro screen dello stage corrente
@@ -3367,13 +3546,15 @@ function _mostraIntroStage(){
   document.getElementById('cant-intro').style.display  = 'flex';
   document.getElementById('cant-hud').style.display    = 'none';
   document.getElementById('cant-list').style.display   = 'none';
+  const _introBgSrc = CANT_STAGES[cantStage].introBg || CANT_STAGES[cantStage].bg;
   document.getElementById('cant-bg').style.background =
-    "url('" + CANT_STAGES[cantStage].bg + "') top left/424px 760px no-repeat";
+    "url('" + _introBgSrc + "') top left/424px 760px no-repeat";
   const costEl = document.getElementById('cant-cost-text');
   if(costEl){
     if(cantStage === 1 && !cantS2Paid)      costEl.textContent = 'Costo avvio: 30 🧱 Laterizi';
     else if(cantStage === 2 && !cantS3Paid) costEl.textContent = 'Costo avvio: 50 🧱 Laterizi';
     else if(cantStage === 3 && !cantS4Paid) costEl.textContent = 'Costo avvio: 70 🧱 Laterizi';
+    else if(cantStage === 4 && !cantS5Paid) costEl.textContent = 'Costo avvio: 100 🧱 Laterizi';
     else                                    costEl.textContent = 'Stage ' + (cantStage + 1) + ' – già sbloccato';
   }
   renderCantPreview();
@@ -4780,7 +4961,7 @@ function saveGame(){
     hispaniaEndTime: hispaniaInterval ? now + hispaniaSecondsLeft * 1000 : null,
     africaEndTime:   africaInterval   ? now + africaSecondsLeft   * 1000 : null,
     duoviroStep, duoviroLivelloCorrente, duoviroL1Completato, duoviroL2Completato, duoviroCompletato, duoviroAttesaRegalia,
-    cantStage, cantS1Paid, cantS2Paid, cantS3Paid,
+    cantStage, cantS1Paid, cantS2Paid, cantS3Paid, cantS5Paid,
     memoriaLivDone,
     tetrisLivDone
   };
@@ -4959,6 +5140,7 @@ function loadGame(){
     cantS1Paid = s.cantS1Paid ?? false;
     cantS2Paid = s.cantS2Paid ?? false;
     cantS3Paid = s.cantS3Paid ?? false;
+    cantS5Paid = s.cantS5Paid ?? false;
 
     // Duoviro
     duoviroStep              = s.duoviroStep              ?? 0;
