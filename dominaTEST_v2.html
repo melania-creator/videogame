@@ -2,13 +2,14 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover">
 <title>Domina – Eumachia di Pompei</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Cinzel+Decorative:wght@700;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{
-  width:100%;height:100%;
+  width:100%;
+  height:100dvh;
   overflow:hidden;
   background:#000;
   display:flex;align-items:center;justify-content:center;
@@ -2060,16 +2061,22 @@ let look03Unlocked = false;
 // Scala il game container se lo schermo è più piccolo
 function scaleGame(){
   const g = document.getElementById('game');
-  const scaleX = window.innerWidth  / 424;
-  const scaleY = window.innerHeight / 760;
+  const vw = window.visualViewport ? window.visualViewport.width  : window.innerWidth;
+  const vh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+  const scaleX = vw / 424;
+  const scaleY = vh / 760;
   const scale  = Math.min(scaleX, scaleY, 1);
   g.style.transform = 'scale(' + scale + ')';
-  // Centra verticalmente
-  const offsetY = Math.max(0, (window.innerHeight - 760 * scale) / 2);
+  // Centra verticalmente nell'area visibile reale
+  const offsetY = Math.max(0, (vh - 760 * scale) / 2);
   g.style.marginTop = offsetY + 'px';
 }
 scaleGame();
 window.addEventListener('resize', scaleGame);
+if(window.visualViewport){
+  window.visualViewport.addEventListener('resize', scaleGame);
+  window.visualViewport.addEventListener('scroll', scaleGame);
+}
 
 function fade(cb){
   const o = document.getElementById('tov');
