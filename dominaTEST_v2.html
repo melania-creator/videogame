@@ -2378,7 +2378,7 @@ const CANT_STAGES = [
       { id:'carrettob', nome:'Carretto', img:'hidden_carretto.png', x:165, y:600, w:80, h:80 },
       { id:'cassettalegnob', nome:'Cassetta di Legno', img:'hidden_cassettalegno.png', x:300, y:410, w:50, h:50 },
       { id:'travigrandib', nome:'Travi Grandi', img:'hidden_travigrandi.png', x:250, y:500, w:50, h:50 },
-      { id:'attrezzi', nome:'Attrezzi', img:'hidden_attrezzi.png', x:212, y:700, w:50, h:50 },
+      { id:'attrezzi', nome:'Attrezzi', img:'hidden_attrezzi.png', x:212, y:650, w:50, h:50 },
       { id:'marmipregiati', nome:'Marmi Pregiati', img:'hidden_marmipregiati.png', x:300, y:480, w:50, h:50 },
     ]
   },
@@ -2423,6 +2423,7 @@ function openCantiere(){
   document.getElementById('cant-hud').style.display    = 'none';
   document.getElementById('cant-list').style.display   = 'none';
   document.getElementById('cant-result').style.display = 'none';
+  document.getElementById('cant-objects').innerHTML    = '';
   // Aggiorna sfondo in base allo stage corrente (usa introBg se presente)
   const _introSrc = CANT_STAGES[cantStage].introBg || CANT_STAGES[cantStage].bg;
   document.getElementById('cant-bg').style.background =
@@ -3575,6 +3576,7 @@ function _mostraIntroStage(){
   document.getElementById('cant-intro').style.display  = 'flex';
   document.getElementById('cant-hud').style.display    = 'none';
   document.getElementById('cant-list').style.display   = 'none';
+  document.getElementById('cant-objects').innerHTML    = '';
   const _introBgSrc = CANT_STAGES[cantStage].introBg || CANT_STAGES[cantStage].bg;
   document.getElementById('cant-bg').style.background =
     "url('" + _introBgSrc + "') top left/424px 760px no-repeat";
