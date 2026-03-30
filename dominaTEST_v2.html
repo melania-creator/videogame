@@ -2067,8 +2067,10 @@ function scaleGame(){
   const scaleY = vh / 760;
   const scale  = Math.min(scaleX, scaleY, 1);
   g.style.transform = 'scale(' + scale + ')';
-  // Centra verticalmente nell'area visibile reale
-  const offsetY = Math.max(0, (vh - 760 * scale) / 2);
+  // Centra verticalmente nell'area visibile reale, tenendo conto
+  // dell'offset del visualViewport (es. barra indirizzi in cima su DuckDuckGo)
+  const vpOffsetTop = window.visualViewport ? window.visualViewport.offsetTop : 0;
+  const offsetY = vpOffsetTop + Math.max(0, (vh - 760 * scale) / 2);
   g.style.marginTop = offsetY + 'px';
 }
 scaleGame();
