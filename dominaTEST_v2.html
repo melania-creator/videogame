@@ -2078,6 +2078,21 @@ if(window.visualViewport){
   window.visualViewport.addEventListener('scroll', scaleGame);
 }
 
+// Precarica le immagini esterne in background così le transizioni sono fluide
+(function preloadImages(){
+  const imgs = [
+    'bg_giardino.jpg','bg_duoviro.jpg','bg_fullonica.jpg','bg_credits.jpg',
+    'bg_cantiere.png','bg_cantiere2.png','bg_cantiere3.png','bg_cantiere4.png',
+    'affari_bg.png','eumachia_bg.jpg','eumachia_look_01.jpg',
+    'eumachia_look_02.jpg','eumachia_look_03.jpg','MAPPA.jpg',
+    'hidden_anfore.png','hidden_architetto.png','hidden_blocco di marmo.png',
+    'hidden_cassettalana.png','hidden_clessidra.png','hidden_colonna alta.png',
+    'hidden_epigrafe.png','hidden_mattoni.png','hidden_porta.png',
+    'hidden_rancio.png','hidden_tavolo.png','hidden_travi.png','porta.png'
+  ];
+  imgs.forEach(src => { const i = new Image(); i.src = src; });
+})();
+
 function fade(cb){
   const o = document.getElementById('tov');
   o.classList.add('on');
