@@ -2216,7 +2216,7 @@ if(window.visualViewport){
     'hidden_cassettalana.png','hidden_clessidra.png','hidden_colonna alta.png',
     'hidden_epigrafe.png','hidden_mattoni.png','hidden_porta.png',
     'hidden_rancio.png','hidden_tavolo.png','hidden_travi.png','porta.png',
-    'hidden_altare.png','hidden_anfore6.png','hidden_carretto.png','hidden_cassettalegno.png'
+    'hidden_altare.png','hidden_anfore6.png','hidden_carretto.png','hidden_cassettalegno.png','hidden_travigrandi.png'
   ];
   imgs.forEach(src => { const i = new Image(); i.src = src; });
 })();
@@ -2362,9 +2362,10 @@ const CANT_STAGES = [
     stage:5, time:200, reward:150, popReward:8, bg:'bg_cantiere5.png', introBg:'bg_cantiere5avvio.png',
     objects: [
       { id:'altare', nome:'Altare', img:'hidden_altare.png', x:182, y:405, w:60, h:60 },
-      { id:'anfore6', nome:'Anfore', img:'hidden_anfore6.png', x:364, y:630, w:118, h:118 },
+      { id:'anfore6', nome:'Anfore', img:'hidden_anfore6.png', x:364, y:615, w:118, h:118 },
       { id:'carretto', nome:'Carretto', img:'hidden_carretto.png', x:165, y:600, w:80, h:80 },
-      { id:'cassettalegno', nome:'Cassetta di Legno', img:'hidden_cassettalegno.png', x:300, y:400, w:50, h:50 },
+      { id:'cassettalegno', nome:'Cassetta di Legno', img:'hidden_cassettalegno.png', x:300, y:410, w:50, h:50 },
+      { id:'travigrandi', nome:'Travi Grandi', img:'hidden_travigrandi.png', x:250, y:500, w:50, h:50 },
     ]
   },
 ];
