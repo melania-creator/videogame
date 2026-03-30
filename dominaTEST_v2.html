@@ -222,6 +222,41 @@ html,body{
 
 
 
+/* ══ CREDITS PANEL ══ */
+#panel-credits{
+  position:absolute;inset:0;z-index:65;
+  display:none;flex-direction:column;
+  align-items:center;justify-content:flex-start;
+  overflow-y:auto;
+  background:url('bg_credits.jpg') center center/cover no-repeat;
+}
+#panel-credits::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(160deg,rgba(5,2,1,.82),rgba(14,7,2,.88));
+  pointer-events:none;
+}
+#panel-credits.show{display:flex;animation:fadeUp .3s ease}
+#credits-x{
+  position:absolute;top:16px;right:16px;z-index:1;
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.22);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:all .2s;
+}
+#credits-x:active{background:rgba(201,168,76,.25);transform:rotate(90deg)}
+.credits-inner{
+  position:relative;z-index:1;
+  display:flex;flex-direction:column;align-items:center;
+  width:100%;padding:48px 28px 36px;gap:0;
+}
+.credits-hdr{text-align:center;margin-bottom:28px}
+.credits-t{font-family:'Cinzel Decorative',serif;font-size:1rem;font-weight:700;color:#F0D080;letter-spacing:4px;text-shadow:0 0 18px rgba(201,168,76,.35)}
+.credits-s{font-family:'Cinzel',serif;font-size:.36rem;letter-spacing:3px;color:rgba(200,184,154,.4);text-transform:uppercase;margin-top:3px}
+.credits-div{width:100%;max-width:300px;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.4),transparent);margin:18px 0}
+.credits-section{width:100%;max-width:300px;margin-bottom:6px}
+.credits-role{font-family:'Cinzel',serif;font-size:.38rem;letter-spacing:3px;color:rgba(201,168,76,.55);text-transform:uppercase;margin-bottom:7px;text-align:center}
+.credits-name{font-family:'Cinzel',serif;font-size:.62rem;font-weight:700;letter-spacing:1.5px;color:#E8C840;text-align:center;line-height:1.6}
+
 /* ══ DENARII POPUP ══ */
 @keyframes dpop{
   0%{opacity:0;transform:translateY(0) scale(.5)}
@@ -1100,22 +1135,21 @@ html,body{
       <div class="imp-row-div"></div>
 
       <!-- CREDITS -->
-      <div class="imp-row off">
+      <div class="imp-row" style="cursor:pointer" onclick="openCredits()">
         <div class="imp-ico">
           <svg viewBox="0 0 40 40" width="30" height="30" fill="none">
-            <circle cx="20" cy="20" r="13" stroke="rgba(201,168,76,.28)" stroke-width="1.3"/>
+            <circle cx="20" cy="20" r="13" stroke="#C9A84C" stroke-width="1.3"/>
             <path d="M15 17Q15 12 20 12Q25 12 25 16Q25 19 20 22L20 24"
-              stroke="rgba(201,168,76,.28)" stroke-width="1.3" stroke-linecap="round" fill="none"/>
-            <circle cx="20" cy="28" r="1.5" fill="rgba(201,168,76,.28)"/>
+              stroke="#C9A84C" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+            <circle cx="20" cy="28" r="1.5" fill="#C9A84C"/>
           </svg>
         </div>
         <div class="imp-info">
-          <div class="imp-lbl" style="color:rgba(201,168,76,.28)">CREDITS</div>
-          <div class="imp-sub">Prossimamente…</div>
+          <div class="imp-lbl">CREDITS</div>
+          <div class="imp-sub">Il team di gioco</div>
         </div>
-        <svg viewBox="0 0 22 22" width="18" height="18" fill="none" style="flex-shrink:0;opacity:.35">
-          <rect x="4" y="10" width="14" height="10" rx="2" stroke="#C9A84C" stroke-width="1.4"/>
-          <path d="M8 10V7Q8 3 11 3Q14 3 14 7V10" stroke="#C9A84C" stroke-width="1.4" fill="none"/>
+        <svg viewBox="0 0 14 14" width="12" height="12" fill="none" style="flex-shrink:0;opacity:.6">
+          <path d="M4 2L10 7L4 12" stroke="#C9A84C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
 
@@ -1142,6 +1176,79 @@ html,body{
       </div>
 
     </div><!-- #imp -->
+
+    <!-- ══ CREDITS ══ -->
+    <div id="panel-credits">
+      <button id="credits-x" onclick="closeCredits()">
+        <svg viewBox="0 0 14 14" width="13" height="13" fill="none">
+          <path d="M1 1L13 13M13 1L1 13" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+      <div class="credits-inner">
+        <div class="credits-hdr">
+          <div class="imp-orn">
+            <div class="imp-orn-l"></div>
+            <div class="imp-orn-c">
+              <svg viewBox="0 0 20 20" width="14" height="14" fill="none">
+                <circle cx="10" cy="10" r="3" fill="rgba(201,168,76,.4)" stroke="#C9A84C" stroke-width="1"/>
+                <g stroke="#C9A84C" stroke-width="1.2">
+                  <rect x="8.5" y="1" width="3" height="4" rx="1"/>
+                  <rect x="8.5" y="15" width="3" height="4" rx="1" transform="rotate(180 10 17)"/>
+                  <rect x="8.5" y="1" width="3" height="4" rx="1" transform="rotate(45 10 10)"/>
+                  <rect x="8.5" y="1" width="3" height="4" rx="1" transform="rotate(90 10 10)"/>
+                  <rect x="8.5" y="1" width="3" height="4" rx="1" transform="rotate(135 10 10)"/>
+                  <rect x="8.5" y="1" width="3" height="4" rx="1" transform="rotate(225 10 10)"/>
+                  <rect x="8.5" y="1" width="3" height="4" rx="1" transform="rotate(270 10 10)"/>
+                  <rect x="8.5" y="1" width="3" height="4" rx="1" transform="rotate(315 10 10)"/>
+                </g>
+              </svg>
+            </div>
+            <div class="imp-orn-l"></div>
+          </div>
+          <div class="credits-t">CREDITS</div>
+          <div class="credits-s">Domina — Un gioco su Pompei</div>
+        </div>
+
+        <div class="credits-div"></div>
+
+        <div class="credits-section">
+          <div class="credits-role">Ideazione & Game Design</div>
+          <div class="credits-name"></div>
+        </div>
+
+        <div class="credits-div"></div>
+
+        <div class="credits-section">
+          <div class="credits-role">Sviluppo</div>
+          <div class="credits-name"></div>
+        </div>
+
+        <div class="credits-div"></div>
+
+        <div class="credits-section">
+          <div class="credits-role">Grafica & Arte</div>
+          <div class="credits-name"></div>
+        </div>
+
+        <div class="credits-div"></div>
+
+        <div class="credits-section">
+          <div class="credits-role">Contenuti Storici</div>
+          <div class="credits-name"></div>
+        </div>
+
+        <div class="credits-div"></div>
+
+        <div class="credits-section">
+          <div class="credits-role">Ringraziamenti</div>
+          <div class="credits-name"></div>
+        </div>
+
+        <div class="credits-div"></div>
+      </div>
+    </div><!-- #panel-credits -->
+
 
   
   <!-- ══ PANNELLO AFFARI ══ -->
@@ -4051,6 +4158,13 @@ function openImp() {
 function closeImp(){
   document.getElementById('imp').classList.remove('show');
   document.getElementById('hud').style.zIndex = '80';
+}
+function openCredits(){
+  closeImp();
+  document.getElementById('panel-credits').classList.add('show');
+}
+function closeCredits(){
+  document.getElementById('panel-credits').classList.remove('show');
 }
 
 // ── Popolarità info ──
