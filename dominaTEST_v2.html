@@ -3613,10 +3613,74 @@ const duoviroLivello2 = [
   }
 ];
 
+const duoviroLivello3 = [
+  {
+    problema: "I pescatori del porto di Stabiae lamentano l'erosione della riva.",
+    quesito: "L'eruzione del Vesuvio che distrusse Pompei avvenne nell'anno 79 d.C. Quale giovane scrittore, nipote di Plinio il Vecchio, ci ha lasciato la testimonianza più dettagliata di quella catastrofe in due celebri epistole indirizzate a Tacito?",
+    risposte: ["Svetonio","Plinio il Giovane","Marziale","Stazio"],
+    corretta: 1
+  },
+  {
+    problema: "I mercanti della Via dell'Abbondanza chiedono nuovi accordi commerciali.",
+    quesito: "Il garum, la celebre salsa di pesce fermentata prodotta a Pompei, era esportata in tutto il Mediterraneo. Quale famiglia pompeiana era nota per la produzione del garum di qualità superiore, come attestano le anfore bollate ritrovate dagli archeologi?",
+    risposte: ["La famiglia Eumachii","La famiglia Umbricia Scauri","La famiglia Holconii","La famiglia Popidii"],
+    corretta: 1
+  },
+  {
+    problema: "Gli artigiani del bronzo richiedono tutela contro i concorrenti stranieri.",
+    quesito: "Quale imperatore romano, successore di Nerone, aprì il cosiddetto 'Anno dei quattro imperatori' con la sua breve ascesa al potere nel 68 d.C., dopo il suicidio di Nerone?",
+    risposte: ["Vespasiano","Otone","Galba","Vitellio"],
+    corretta: 2
+  },
+  {
+    problema: "I sacerdoti di Apollo chiedono fondi per restaurare il tempio nel Foro.",
+    quesito: "Il Foro di Pompei ospitava il Tempio di Giove, il Tempio di Apollo e la Basilica. Quale funzione svolgeva principalmente la Basilica nel contesto della vita pubblica pompeiana?",
+    risposte: ["Luogo di culto agli dei tutelari","Sede dell'amministrazione della giustizia e degli affari","Magazzino per le derrate alimentari pubbliche","Teatro per le rappresentazioni religiose"],
+    corretta: 1
+  },
+  {
+    problema: "Dispute tra fullones e lanifricarii sulla qualità della lana campana.",
+    quesito: "La lana proveniente dalle pecore della Campania era lavorata con tecniche precise. Quale sostanza naturale, oltre all'urina, veniva comunemente usata dai fullones pompeiani per sbiancare e ammorbidire i tessuti?",
+    risposte: ["Aceto di vino","Terra di creta (argilla fuller)","Succo di fico","Sale marino del golfo"],
+    corretta: 1
+  },
+  {
+    problema: "I giovani della città vogliono apprendere le arti retoriche.",
+    quesito: "Marco Tullio Cicerone, il grande oratore e uomo politico romano, fu assassinato nel 43 a.C. per ordine del Secondo Triumvirato. Chi era il triumviro che più insistette per includerlo nella lista dei proscritti?",
+    risposte: ["Giulio Cesare","Marco Antonio","Ottaviano","Lepido"],
+    corretta: 1
+  },
+  {
+    problema: "I viticoltori delle pendici del Vesuvio chiedono consigli sui mercati.",
+    quesito: "Quale scrittore latino del I secolo d.C., autore del Satyricon, ha descritto con ironia i banchetti sfarzosi della ricca borghesia attraverso il personaggio di Trimalcione?",
+    risposte: ["Petronio Arbitro","Giovenale","Marziale","Orazio"],
+    corretta: 0
+  },
+  {
+    problema: "I cittadini chiedono spiegazioni sul ciclo delle elezioni magistratuali.",
+    quesito: "A Pompei, accanto ai Duoviri, esistevano gli Aediles, responsabili della gestione urbana. Quanti aediles componevano il collegio magistratuale pompeiano e ogni quanto venivano eletti?",
+    risposte: ["Due aediles, eletti ogni anno","Quattro aediles, eletti ogni due anni","Tre aediles, eletti ogni anno","Due aediles, eletti ogni cinque anni"],
+    corretta: 0
+  },
+  {
+    problema: "Un architetto chiede indicazioni per decorare il nuovo portico con affreschi.",
+    quesito: "Gli affreschi pompeiani sono classificati in quattro stili pittorici. Quale stile crea prospettive illusionistiche di edifici con colonne e portici dipinti per ampliare visivamente gli ambienti?",
+    risposte: ["Primo Stile (a incrostazione)","Secondo Stile (architettonico)","Terzo Stile (ornamentale)","Quarto Stile (fantastico)"],
+    corretta: 1
+  },
+  {
+    problema: "Il Consiglio della città delibera su come omaggiare degnamente la memoria degli antenati.",
+    quesito: "La cerimonia romana della pompa funebris prevedeva l'esibizione delle maschere degli antenati (imagines maiorum). A quale classe sociale era riservato tale privilegio, detto ius imaginum?",
+    risposte: ["A tutta la cittadinanza libera di Roma","Ai soli cittadini della classe equestre e senatoria","Ai liberti che avevano raggiunto cariche pubbliche","Alle famiglie sacerdotali delle principali gentes"],
+    corretta: 1
+  }
+];
+
 let duoviroStep = 0; // 0-9, indice problema corrente nel livello corrente
-let duoviroLivelloCorrente = 1; // 1 o 2
+let duoviroLivelloCorrente = 1; // 1, 2 o 3
 let duoviroL1Completato = false; // Livello 1 superato (accesso a Livello 2)
-let duoviroCompletato = false; // Livello 2 completato
+let duoviroL2Completato = false; // Livello 2 superato (accesso a Livello 3)
+let duoviroCompletato = false; // Livello 3 completato
 let duoviroConsecWrong = 0; // errori consecutivi quiz
 // blocca l'accesso in attesa di pagamento regalia
 // 'none' | 'meta' (dopo q5) | 'fine' (dopo q10)
@@ -3635,7 +3699,9 @@ function risolviProblema(){
 }
 
 function _duoviroQuestions(){
-  return duoviroLivelloCorrente === 1 ? duoviroLivello1 : duoviroLivello2;
+  if(duoviroLivelloCorrente === 1) return duoviroLivello1;
+  if(duoviroLivelloCorrente === 2) return duoviroLivello2;
+  return duoviroLivello3;
 }
 
 function mostraDuoviroPopup(fase){
@@ -3672,15 +3738,17 @@ function mostraDuoviroPopup(fase){
   } else if(fase === 'regalia'){
     const isFine = duoviroAttesaRegalia === 'fine';
     const costo = isFine
-      ? (lv === 1 ? 20 : 25)
-      : (lv === 1 ? 10 : 15);
+      ? (lv === 1 ? 20 : lv === 2 ? 30 : 35)
+      : (lv === 1 ? 10 : lv === 2 ? 15 : 20);
     const titolo = isFine
-      ? (lv === 1 ? 'Regalia per il Livello Successivo' : 'Regalia Finale al Duoviro')
+      ? (lv === 1 ? 'Regalia per il Livello Successivo' : lv === 2 ? 'Regalia per il Livello 3' : 'Regalia Finale al Duoviro')
       : 'Regalia per Continuare';
     const desc = isFine
       ? (lv === 1
           ? `Hai completato il Livello 1 con onore. Per accedere al Livello 2 occorrono <strong>${costo} Tessili</strong> da offrire al Duoviro.`
-          : `Hai completato entrambi i livelli con saggezza. Offri <strong>${costo} Tessili</strong> al Duoviro come tributo finale.`)
+          : lv === 2
+            ? `Hai completato il Livello 2 con saggezza. Per accedere al Livello 3 occorrono <strong>${costo} Tessili</strong> da offrire al Duoviro.`
+            : `Hai completato tutti e tre i livelli con onore supremo. Offri <strong>${costo} Tessili</strong> al Duoviro come tributo finale.`)
       : `Hai superato 5 problemi del Livello ${lv}. Per affrontare i prossimi 5 occorrono <strong>${costo} Tessili</strong> da offrire al Duoviro.`;
     const hasTessili = tes >= costo;
     pop.innerHTML = `
@@ -3698,7 +3766,7 @@ function mostraDuoviroPopup(fase){
   } else if(fase === 'completato'){
     pop.innerHTML = `
       <div class="dpop-orn"></div>
-      <div class="dpop-livello" style="color:#C9A84C;font-size:1.1rem;">Livello 2 Completato!</div>
+      <div class="dpop-livello" style="color:#C9A84C;font-size:1.1rem;">Livello 3 Completato!</div>
       <div class="dpop-orn"></div>
       <p class="dpop-testo">Hai dimostrato al Duoviro la tua cultura e la tua saggezza in ogni materia. Pompei ti onora, Eumachia. La carriera di Numistrio Frontone verso il Duovirato è ora aperta!</p>
       <div class="dpop-orn"></div>
@@ -3717,8 +3785,8 @@ function rispondiDuoviro(idx){
     duoviroConsecWrong = 0;
     fb.textContent = 'Esatto!';
     fb.className = 'dpop-feedback corretto';
-    // Livello 2 premia +3 Popolarità per risposta corretta (vs +2 del Livello 1)
-    addPopXP(duoviroLivelloCorrente === 1 ? 2 : 3);
+    // Lv1=+2, Lv2=+3, Lv3=+4 Popolarità per risposta corretta
+    addPopXP(duoviroLivelloCorrente === 1 ? 2 : duoviroLivelloCorrente === 2 ? 3 : 4);
     setTimeout(()=>{
       duoviroStep++;
       if(duoviroStep === 5){
@@ -3731,8 +3799,13 @@ function rispondiDuoviro(idx){
           duoviroAttesaRegalia = 'fine';
           duoviroL1Completato = true;
           mostraDuoviroPopup('regalia');
+        } else if(duoviroLivelloCorrente === 2){
+          // fine Livello 2: richiedi 30 tessili per accedere al Livello 3
+          duoviroAttesaRegalia = 'fine';
+          duoviroL2Completato = true;
+          mostraDuoviroPopup('regalia');
         } else {
-          // fine Livello 2: richiedi 25 tessili come tributo finale
+          // fine Livello 3: richiedi 35 tessili come tributo finale
           duoviroAttesaRegalia = 'fine';
           duoviroCompletato = true;
           mostraDuoviroPopup('regalia');
@@ -3762,16 +3835,23 @@ function rispondiDuoviro(idx){
 function pagaRegalia(){
   const isFine = duoviroAttesaRegalia === 'fine';
   const costo = isFine
-    ? (duoviroLivelloCorrente === 1 ? 20 : 25)
-    : (duoviroLivelloCorrente === 1 ? 10 : 15);
+    ? (duoviroLivelloCorrente === 1 ? 20 : duoviroLivelloCorrente === 2 ? 30 : 35)
+    : (duoviroLivelloCorrente === 1 ? 10 : duoviroLivelloCorrente === 2 ? 15 : 20);
   if(tes < costo){ mostraDuoviroPopup('regalia'); return; }
   tes -= costo;
   document.getElementById('vtes').textContent = tes;
   duoviroAttesaRegalia = 'none';
   if(duoviroCompletato){
-    // Livello 2 completato: mostra schermata finale
+    // Livello 3 completato: mostra schermata finale
     mostraDuoviroPopup('completato');
     saveGame();
+  } else if(duoviroL2Completato && duoviroLivelloCorrente === 2){
+    // Passaggio da Livello 2 a Livello 3
+    duoviroLivelloCorrente = 3;
+    duoviroStep = 0;
+    duoviroConsecWrong = 0;
+    saveGame();
+    mostraDuoviroPopup('problema');
   } else if(duoviroL1Completato && duoviroLivelloCorrente === 1){
     // Passaggio da Livello 1 a Livello 2
     duoviroLivelloCorrente = 2;
@@ -4251,7 +4331,7 @@ function saveGame(){
     galliaEndTime:   galliaInterval   ? now + galliaSecondsLeft   * 1000 : null,
     hispaniaEndTime: hispaniaInterval ? now + hispaniaSecondsLeft * 1000 : null,
     africaEndTime:   africaInterval   ? now + africaSecondsLeft   * 1000 : null,
-    duoviroStep, duoviroLivelloCorrente, duoviroL1Completato, duoviroCompletato, duoviroAttesaRegalia,
+    duoviroStep, duoviroLivelloCorrente, duoviroL1Completato, duoviroL2Completato, duoviroCompletato, duoviroAttesaRegalia,
     cantStage, cantS1Paid, cantS2Paid, cantS3Paid,
     memoriaLivDone
   };
@@ -4435,6 +4515,7 @@ function loadGame(){
     duoviroStep              = s.duoviroStep              ?? 0;
     duoviroLivelloCorrente   = s.duoviroLivelloCorrente   ?? 1;
     duoviroL1Completato      = s.duoviroL1Completato      ?? false;
+    duoviroL2Completato      = s.duoviroL2Completato      ?? false;
     duoviroCompletato        = s.duoviroCompletato        ?? false;
     duoviroAttesaRegalia     = s.duoviroAttesaRegalia     ?? 'none';
 
