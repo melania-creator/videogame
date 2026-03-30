@@ -2397,9 +2397,9 @@ function openCantiere(){
   document.getElementById('hub').style.zIndex = '80';
   document.getElementById('hub').style.pointerEvents = 'none';
   document.getElementById('bg-hub').style.opacity = '0';
+  document.getElementById('panel-cantiere').style.display = 'flex';
   // Il lampeggio fullonica viene gestito da updateFullonicaBlink (non visibile con panel aperto)
   updateFullonicaBlink();
-  document.getElementById('panel-cantiere').style.display = 'flex';
   // Mostra intro con pulsante Avvia, HUD e lista nascosti
   document.getElementById('cant-intro').style.display  = 'flex';
   document.getElementById('cant-hud').style.display    = 'none';
