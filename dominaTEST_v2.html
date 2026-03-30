@@ -272,11 +272,11 @@ html,body{
 #res-popup-msg{font-size:.95rem;line-height:1.5;letter-spacing:.04em;}
 #res-popup-close{
   position:absolute;top:8px;right:10px;
-  background:none;border:none;color:#f5e6d0;
-  font-size:1.1rem;cursor:pointer;line-height:1;
-  opacity:.8;
+  background:none;border:none;color:#ffffff;
+  font-size:1.2rem;font-weight:700;cursor:pointer;line-height:1;
+  opacity:1;
 }
-#res-popup-close:hover{opacity:1;}
+#res-popup-close:hover{opacity:.8;}
 
 /* ══ INTRO PERGAMENA ══ */
 #intro-pergamena{
@@ -287,12 +287,12 @@ html,body{
 #intro-pergamena.show{display:flex;}
 #intro-skip{
   position:absolute;top:14px;right:14px;
-  background:rgba(0,0,0,.45);border:1px solid rgba(201,168,76,.35);border-radius:4px;
-  font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.1em;
-  color:rgba(201,168,76,.7);padding:5px 12px;cursor:pointer;z-index:2;
-  transition:color .15s,border-color .15s;
+  background:rgba(0,0,0,.6);border:1px solid #C9A84C;border-radius:4px;
+  font-family:'Cinzel',serif;font-size:.58rem;font-weight:700;letter-spacing:.1em;
+  color:#C9A84C;padding:6px 14px;cursor:pointer;z-index:2;
+  transition:color .15s,border-color .15s,background .15s;
 }
-#intro-skip:hover{color:#C9A84C;border-color:#C9A84C;}
+#intro-skip:hover{color:#fff8e7;border-color:#fff8e7;background:rgba(0,0,0,.75);}
 .perg-box{
   position:relative;width:372px;
   background:
@@ -339,21 +339,21 @@ html,body{
   display:flex;align-items:center;justify-content:space-between;
 }
 .perg-btn{
-  background:none;border:1px solid rgba(100,60,10,.45);border-radius:3px;
-  font-family:'Cinzel',serif;font-size:.54rem;letter-spacing:.08em;
-  color:#6a3c0a;padding:6px 13px;cursor:pointer;
+  background:rgba(100,60,10,.08);border:1px solid rgba(100,60,10,.7);border-radius:3px;
+  font-family:'Cinzel',serif;font-size:.58rem;font-weight:700;letter-spacing:.08em;
+  color:#3a1800;padding:7px 15px;cursor:pointer;
   transition:background .15s;
 }
-.perg-btn:hover{background:rgba(100,60,10,.1);}
+.perg-btn:hover{background:rgba(100,60,10,.18);}
 .perg-btn:disabled{opacity:.2;cursor:default;pointer-events:none;}
 .perg-btn.gold{
   background:linear-gradient(160deg,#9a7218,#6a4a0c);
-  border-color:#c8a028;color:#f6e9c2;
+  border-color:#c8a028;color:#fff8e7;
   box-shadow:0 2px 10px rgba(0,0,0,.45);
 }
 .perg-btn.gold:hover{background:linear-gradient(160deg,#aa8228,#7a5a1c);}
 #perg-page-ind{
-  font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.2em;color:#8a6210;
+  font-family:'Cinzel',serif;font-size:.56rem;font-weight:700;letter-spacing:.2em;color:#3a1800;
 }
 
 /* ── Popup Pergamena Duoviro ── */
@@ -381,9 +381,9 @@ html,body{
 .dpop-feedback.errato{color:#cc2200;}
 .dpop-btn-chiudi{
   position:absolute;top:8px;right:10px;
-  width:26px;height:26px;border-radius:50%;
-  background:rgba(139,105,20,.2);border:1px solid #8B6914;
-  color:#5a3a00;font-size:.85rem;cursor:pointer;
+  width:28px;height:28px;border-radius:50%;
+  background:rgba(139,105,20,.35);border:2px solid #8B6914;
+  color:#1a0800;font-size:.95rem;font-weight:700;cursor:pointer;
   display:flex;align-items:center;justify-content:center;
 }
 /* ── Magister Intro Pergamena ── */
@@ -596,7 +596,7 @@ html,body{
       position:absolute;top:14px;right:14px;
       background:rgba(0,0,0,.45);border:1px solid rgba(201,168,76,.35);border-radius:4px;
       font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.1em;
-      color:rgba(201,168,76,.7);padding:5px 12px;cursor:pointer;z-index:2;">SALTA ✕</button>
+      color:#C9A84C;font-weight:700;padding:6px 14px;cursor:pointer;z-index:2;border:1px solid #C9A84C;">SALTA ✕</button>
     <div class="perg-box">
       <div class="perg-roll">
         <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><polygon points="6,1 11,9 1,9" fill="#f6e9c2" opacity=".75"/></svg>
