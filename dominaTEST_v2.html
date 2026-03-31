@@ -3494,18 +3494,9 @@ function openCantiere(){
     if(cantStage === 0 && !cantS1Paid)      costEl.textContent = 'Costo avvio: 10 🧱 Laterizi';
     else if(cantStage === 1 && !cantS2Paid) costEl.textContent = 'Costo avvio: 30 🧱 Laterizi';
     else if(cantStage === 2 && !cantS3Paid) costEl.textContent = 'Costo avvio: 50 🧱 Laterizi';
-    else if(cantStage === 4 && !cantS5Paid) costEl.textContent = 'Costo avvio: 70 🧱 Laterizi';
-    else if(cantStage === 5 && !cantS6Paid) costEl.textContent = 'Costo avvio: 90 🧱 Laterizi';
-    else if(cantStage === 6 && !cantS7Paid)  costEl.textContent = 'Costo avvio: 110 🧱 Laterizi';
-    else if(cantStage === 7 && !cantS8Paid)  costEl.textContent = 'Costo avvio: 130 🧱 Laterizi';
-    else if(cantStage === 8 && !cantS9Paid)  costEl.textContent = 'Costo avvio: 150 🧱 Laterizi';
-    else if(cantStage === 9 && !cantS10Paid) costEl.textContent = 'Costo avvio: 170 🧱 Laterizi';
-    else if(cantStage === 10 && !cantS11Paid) costEl.textContent = 'Costo avvio: 190 🧱 Laterizi';
-    else if(cantStage === 11 && !cantS12Paid) costEl.textContent = 'Costo avvio: 210 🧱 Laterizi';
-    else if(cantStage === 12 && !cantS13Paid) costEl.textContent = 'Costo avvio: 230 🧱 Laterizi';
-    else if(cantStage === 13 && !cantS14Paid) costEl.textContent = 'Costo avvio: 250 🧱 Laterizi';
-    else if(cantStage === 14 && !cantS15Paid) costEl.textContent = 'Costo avvio: 270 🧱 Laterizi';
-    else if(cantStage === 15 && !cantS16Paid) costEl.textContent = 'Costo avvio: 290 🧱 Laterizi';
+    else if(cantStage === 4 && !cantS5Paid) costEl.textContent = 'Costo avvio: 60 🧱 Laterizi';
+    else if(cantStage === 7 && !cantS8Paid) costEl.textContent = 'Costo avvio: 80 🧱 Laterizi';
+    else if(cantStage === 15 && !cantS16Paid) costEl.textContent = 'Costo avvio: 100 🧱 Laterizi';
     else                                    costEl.textContent = 'Stage ' + (cantStage + 1) + ' – già sbloccato';
   }
   syncCantLifebar();
@@ -3532,74 +3523,20 @@ function avviaCantiere(){
     cantS3Paid = true;
     saveGame();
   } else if(cantStage === 4 && !cantS5Paid){
-    if(lat < 70){ showResPopup('Laterizi insufficienti (servono 70 🧱 per accedere alla Camera Interna)'); return; }
-    lat -= 70;
+    if(lat < 60){ showResPopup('Laterizi insufficienti (servono 60 🧱 per accedere alla Camera Interna)'); return; }
+    lat -= 60;
     document.getElementById('vlat').textContent = lat;
     cantS5Paid = true;
     saveGame();
-  } else if(cantStage === 5 && !cantS6Paid){
-    if(lat < 90){ showResPopup('Laterizi insufficienti (servono 90 🧱 per accedere al Secondo Portico)'); return; }
-    lat -= 90;
-    document.getElementById('vlat').textContent = lat;
-    cantS6Paid = true;
-    saveGame();
-  } else if(cantStage === 6 && !cantS7Paid){
-    if(lat < 110){ showResPopup('Laterizi insufficienti (servono 110 🧱 per accedere al Terzo Portico)'); return; }
-    lat -= 110;
-    document.getElementById('vlat').textContent = lat;
-    cantS7Paid = true;
-    saveGame();
   } else if(cantStage === 7 && !cantS8Paid){
-    if(lat < 130){ showResPopup('Laterizi insufficienti (servono 130 🧱 per accedere al Portico Orientale)'); return; }
-    lat -= 130;
+    if(lat < 80){ showResPopup('Laterizi insufficienti (servono 80 🧱 per accedere al Luogo dei Fullones)'); return; }
+    lat -= 80;
     document.getElementById('vlat').textContent = lat;
     cantS8Paid = true;
     saveGame();
-  } else if(cantStage === 8 && !cantS9Paid){
-    if(lat < 150){ showResPopup('Laterizi insufficienti (servono 150 🧱 per accedere all\'Atrio Centrale)'); return; }
-    lat -= 150;
-    document.getElementById('vlat').textContent = lat;
-    cantS9Paid = true;
-    saveGame();
-  } else if(cantStage === 9 && !cantS10Paid){
-    if(lat < 170){ showResPopup('Laterizi insufficienti (servono 170 🧱 per accedere alla Crypta)'); return; }
-    lat -= 170;
-    document.getElementById('vlat').textContent = lat;
-    cantS10Paid = true;
-    saveGame();
-  } else if(cantStage === 10 && !cantS11Paid){
-    if(lat < 190){ showResPopup('Laterizi insufficienti (servono 190 🧱 per la Dedica Finale)'); return; }
-    lat -= 190;
-    document.getElementById('vlat').textContent = lat;
-    cantS11Paid = true;
-    saveGame();
-  } else if(cantStage === 11 && !cantS12Paid){
-    if(lat < 210){ showResPopup('Laterizi insufficienti (servono 210 🧱 per accedere alla Sede della Corporazione)'); return; }
-    lat -= 210;
-    document.getElementById('vlat').textContent = lat;
-    cantS12Paid = true;
-    saveGame();
-  } else if(cantStage === 12 && !cantS13Paid){
-    if(lat < 230){ showResPopup('Laterizi insufficienti (servono 230 🧱 per accedere alla Seconda Sala della Corporazione)'); return; }
-    lat -= 230;
-    document.getElementById('vlat').textContent = lat;
-    cantS13Paid = true;
-    saveGame();
-  } else if(cantStage === 13 && !cantS14Paid){
-    if(lat < 250){ showResPopup('Laterizi insufficienti (servono 250 🧱 per accedere alla Terza Sala della Corporazione)'); return; }
-    lat -= 250;
-    document.getElementById('vlat').textContent = lat;
-    cantS14Paid = true;
-    saveGame();
-  } else if(cantStage === 14 && !cantS15Paid){
-    if(lat < 270){ showResPopup('Laterizi insufficienti (servono 270 🧱 per accedere alla Quarta Sala della Corporazione)'); return; }
-    lat -= 270;
-    document.getElementById('vlat').textContent = lat;
-    cantS15Paid = true;
-    saveGame();
   } else if(cantStage === 15 && !cantS16Paid){
-    if(lat < 290){ showResPopup('Laterizi insufficienti (servono 290 🧱 per accedere alla Sala Conclusiva della Corporazione)'); return; }
-    lat -= 290;
+    if(lat < 100){ showResPopup('Laterizi insufficienti (servono 100 🧱 per completare il Luogo dei Fullones)'); return; }
+    lat -= 100;
     document.getElementById('vlat').textContent = lat;
     cantS16Paid = true;
     saveGame();
