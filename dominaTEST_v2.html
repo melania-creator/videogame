@@ -2112,6 +2112,62 @@ html,body{
       </div>
     </div>
 
+    <!-- ── Popup Avanzamento Stage 13: Seconda Sala della Corporazione ── -->
+    <div id="cant-avanzamento-popup-s13" style="
+      display:none;position:absolute;inset:0;z-index:35;
+      align-items:center;justify-content:center;
+      background:rgba(3,1,0,.85);">
+      <div style="
+        position:relative;width:320px;
+        background:
+          radial-gradient(ellipse at 12% 18%,rgba(255,215,75,.22) 0%,transparent 48%),
+          radial-gradient(ellipse at 88% 80%,rgba(201,168,76,.18) 0%,transparent 48%),
+          linear-gradient(172deg,#f7ecd4 0%,#eeddbe 22%,#e7d4a2 58%,#efdfc4 88%,#f6ecce 100%);
+        border:2px solid #8a6210;border-radius:3px;
+        box-shadow:0 0 0 5px rgba(201,168,76,.14),0 20px 55px rgba(0,0,0,.9),inset 0 0 80px rgba(155,106,28,.07);
+        overflow:hidden;">
+        <div style="
+          background:linear-gradient(90deg,#3a2408 0%,#7a5010 16%,#c09028 40%,#ddb438 50%,#c09028 60%,#7a5010 84%,#3a2408 100%);
+          height:22px;display:flex;align-items:center;justify-content:center;
+          font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;color:#f6e9c2;
+          text-shadow:0 1px 3px rgba(0,0,0,.6);">
+          ✦ &nbsp; RAPPORTO DEI LAVORI &nbsp; ✦
+        </div>
+        <div style="padding:18px 22px 8px;text-align:center;">
+          <div style="font-family:'Cinzel Decorative',serif;font-weight:700;font-size:.65rem;letter-spacing:.12em;color:#2a1000;margin-bottom:14px;">STATO DI AVANZAMENTO LAVORI</div>
+          <div style="font-size:2.4rem;margin-bottom:10px;">🏛️</div>
+          <div style="font-family:'Cinzel Decorative',serif;font-size:.95rem;font-weight:700;color:#2a1000;letter-spacing:.08em;margin-bottom:14px;">SECONDA SALA<br>DELLA CORPORAZIONE</div>
+          <div style="height:1px;margin:0 10px 14px;background:linear-gradient(90deg,transparent,rgba(138,98,16,.28) 25%,rgba(201,168,76,.38) 50%,rgba(138,98,16,.28) 75%,transparent);"></div>
+          <div style="font-family:'Cinzel',serif;font-size:.72rem;color:#150800;line-height:1.75;margin-bottom:16px;">
+            La prima sala è stata ispezionata.<br>
+            Si apre ora la Seconda Sala della Corporazione.<br>
+            <span style="color:#3a1500;font-style:italic;">I mercanti attendono il tuo arrivo.</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:16px;padding:0 8px;">
+            <div style="flex:1;height:6px;background:rgba(138,98,16,.18);border-radius:4px;overflow:hidden;">
+              <div style="width:50%;height:100%;background:linear-gradient(90deg,#8a6210,#c9a84c);border-radius:4px;"></div>
+            </div>
+            <span style="font-family:'Cinzel',serif;font-size:.62rem;color:#2a1000;white-space:nowrap;">XIII</span>
+          </div>
+        </div>
+        <div style="height:1px;margin:0 22px;background:linear-gradient(90deg,transparent,rgba(138,98,16,.28) 25%,rgba(201,168,76,.38) 50%,rgba(138,98,16,.28) 75%,transparent);"></div>
+        <div style="padding:12px 22px 16px;display:flex;justify-content:center;">
+          <button onclick="proseguiStage13()" style="
+            background:linear-gradient(160deg,#9a7218,#6a4a0c);
+            border:1px solid #c8a028;border-radius:3px;
+            font-family:'Cinzel',serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;
+            color:#f6e9c2;padding:9px 26px;cursor:pointer;
+            box-shadow:0 2px 10px rgba(0,0,0,.45);">
+            Entra nella Seconda Sala →
+          </button>
+        </div>
+        <div style="
+          background:linear-gradient(90deg,#3a2408 0%,#7a5010 16%,#c09028 40%,#ddb438 50%,#c09028 60%,#7a5010 84%,#3a2408 100%);
+          height:22px;">
+        </div>
+      </div>
+    </div>
+
     <!-- ── Popup Grande Finale: Portico Completato ── -->
     <div id="cant-finale-popup" style="
       display:none;position:absolute;inset:0;z-index:60;
@@ -2845,6 +2901,16 @@ const CANT_STAGES = [
       { id:'colonnaspezzata',  nome:'Colonna Spezzata',  img:'hidden_colonnaspezzata.png',   x:155, y:420, w:65, h:65 },
     ]
   },
+  {
+    stage:13, time:90, reward:380, popReward:3, bg:'bg_cantiere10.png', introBg:'bg_cantiere10avvio.png',
+    objects: [
+      { id:'4anfore',         nome:'Anfore',            img:'hidden_4anfore.png',            x:212, y:380, w:80, h:80 },
+      { id:'5anfore',         nome:'Cinque Anfore',      img:'hidden_5anfore.png',            x:340, y:560, w:80, h:80 },
+      { id:'carretto3',       nome:'Carretto',           img:'hidden_carretto3.png',          x:100, y:530, w:85, h:85 },
+      { id:'cassaconcemento', nome:'Cassa di Cemento',   img:'hidden_cassaconcemento.png',    x:270, y:620, w:70, h:70 },
+      { id:'colonnaspezzata', nome:'Colonna Spezzata',   img:'hidden_colonnaspezzata.png',    x:155, y:420, w:65, h:65 },
+    ]
+  },
 ];
 
 // ── Pool di oggetti Stage 1 (riferimento per preview intro) ──────────────
@@ -2871,6 +2937,7 @@ let cantS9Paid      = false; // costo stage 9 già pagato in questa sessione
 let cantS10Paid     = false; // costo stage 10 già pagato in questa sessione
 let cantS11Paid     = false; // costo stage 11 già pagato in questa sessione
 let cantS12Paid     = false; // costo stage 12 già pagato in questa sessione
+let cantS13Paid     = false; // costo stage 13 già pagato in questa sessione
 let cantWrongCount  = 0;    // errori clic sbagliati (penalità pop ogni 3)
 
 // ── Apri/Chiudi ────────────────────────────────────────
@@ -2911,6 +2978,7 @@ function openCantiere(){
     else if(cantStage === 9 && !cantS10Paid) costEl.textContent = 'Costo avvio: 170 🧱 Laterizi';
     else if(cantStage === 10 && !cantS11Paid) costEl.textContent = 'Costo avvio: 190 🧱 Laterizi';
     else if(cantStage === 11 && !cantS12Paid) costEl.textContent = 'Costo avvio: 210 🧱 Laterizi';
+    else if(cantStage === 12 && !cantS13Paid) costEl.textContent = 'Costo avvio: 230 🧱 Laterizi';
     else                                    costEl.textContent = 'Stage ' + (cantStage + 1) + ' – già sbloccato';
   }
   syncCantLifebar();
@@ -2984,6 +3052,12 @@ function avviaCantiere(){
     document.getElementById('vlat').textContent = lat;
     cantS12Paid = true;
     saveGame();
+  } else if(cantStage === 12 && !cantS13Paid){
+    if(lat < 230){ showResPopup('Laterizi insufficienti (servono 230 🧱 per accedere alla Seconda Sala della Corporazione)'); return; }
+    lat -= 230;
+    document.getElementById('vlat').textContent = lat;
+    cantS13Paid = true;
+    saveGame();
   }
   // Aggiorna contenuto alert avvio in base allo stage
   const alertIco   = document.getElementById('cant-alert-ico');
@@ -3022,6 +3096,9 @@ function avviaCantiere(){
     } else if(cantStage === 11){
       alertIco.textContent   = '🏛️';
       alertTitle.innerHTML   = 'SEDE DELLA<br>CORPORAZIONE';
+    } else if(cantStage === 12){
+      alertIco.textContent   = '🏛️';
+      alertTitle.innerHTML   = 'SECONDA SALA<br>DELLA CORPORAZIONE';
     } else {
       alertIco.textContent   = '🪨';
       alertTitle.innerHTML   = 'COSTRUISCI<br>PAVIMENTO';
@@ -3453,6 +3530,10 @@ function cantResultAction(){
       document.getElementById('cant-hud').style.display  = 'none';
       document.getElementById('cant-list').style.display = 'none';
       _triggerStage11Transition();
+    } else if(cantStage === 12){
+      document.getElementById('cant-hud').style.display  = 'none';
+      document.getElementById('cant-list').style.display = 'none';
+      _triggerStage13Transition();
     } else {
       _mostraIntroStage();
     }
@@ -4297,6 +4378,59 @@ function _triggerStage12Transition(){
   }, 1000);
 }
 
+// Chiamata dal popup avanzamento S13 → porta all'intro di stage 13
+function proseguiStage13(){
+  document.getElementById('cant-avanzamento-popup-s13').style.display = 'none';
+  _mostraIntroStage();
+}
+
+// ── Transizione visiva+sonora → Stage 13 (Seconda Sala della Corporazione) ──
+function _triggerStage13Transition(){
+  const panel = document.getElementById('panel-cantiere');
+  const bg    = document.getElementById('cant-bg');
+
+  bg.style.background = "url('bg_cantiere10avvio.png') top left/424px 760px no-repeat";
+  bg.style.animation  = 'cantBgReveal 1.6s ease-out forwards';
+  setTimeout(()=>{ bg.style.animation=''; }, 1700);
+
+  panel.style.animation = 'cantShake .7s ease-out';
+  setTimeout(()=>{ panel.style.animation=''; }, 750);
+
+  ['rgba(255,200,70,.5)','rgba(215,165,45,.32)'].forEach((col, i) => {
+    const flash = document.createElement('div');
+    flash.style.cssText = `position:absolute;inset:0;z-index:55;pointer-events:none;`
+      + `background:radial-gradient(ellipse at 50% 40%,${col} 0%,transparent 65%);`
+      + `animation:cantFlash ${1.3 + i*.4}s ease-out forwards;`;
+    panel.appendChild(flash);
+    setTimeout(()=>{ flash.remove(); }, (1400 + i*400));
+  });
+
+  const colors = ['rgba(201,168,76,.75)','rgba(170,130,55,.65)','rgba(240,200,80,.6)','rgba(160,120,45,.7)'];
+  for(let i=0;i<28;i++){
+    const p = document.createElement('div');
+    const cx = 30 + Math.random()*360;
+    const cy = 150 + Math.random()*450;
+    const dx = (Math.random()-0.5)*180;
+    const dy = -(30 + Math.random()*140);
+    const sz = 2 + Math.random()*6;
+    const dur = (.4 + Math.random()*.6).toFixed(2);
+    const col = colors[Math.floor(Math.random()*colors.length)];
+    p.style.cssText = `position:absolute;left:${cx}px;top:${cy}px;`
+      +`width:${sz}px;height:${sz}px;border-radius:50%;`
+      +`background:${col};pointer-events:none;z-index:52;`
+      +`--dx:${dx}px;--dy:${dy}px;`
+      +`animation:cantDust ${dur}s ease-out forwards;`;
+    panel.appendChild(p);
+    setTimeout(()=>{ p.remove(); }, dur*1000+150);
+  }
+
+  _playCantStage2Sound();
+
+  setTimeout(()=>{
+    document.getElementById('cant-avanzamento-popup-s13').style.display = 'flex';
+  }, 1000);
+}
+
 // ── Transizione visiva+sonora → Stage 5 (Camera Interna) ────────────────
 function _triggerStage5Transition(){
   const panel = document.getElementById('panel-cantiere');
@@ -4670,6 +4804,7 @@ function _mostraIntroStage(){
     else if(cantStage === 9 && !cantS10Paid) costEl.textContent = 'Costo avvio: 170 🧱 Laterizi';
     else if(cantStage === 10 && !cantS11Paid) costEl.textContent = 'Costo avvio: 190 🧱 Laterizi';
     else if(cantStage === 11 && !cantS12Paid) costEl.textContent = 'Costo avvio: 210 🧱 Laterizi';
+    else if(cantStage === 12 && !cantS13Paid) costEl.textContent = 'Costo avvio: 230 🧱 Laterizi';
     else                                    costEl.textContent = 'Stage ' + (cantStage + 1) + ' – già sbloccato';
   }
   renderCantPreview();
@@ -6076,7 +6211,7 @@ function saveGame(){
     hispaniaEndTime: hispaniaInterval ? now + hispaniaSecondsLeft * 1000 : null,
     africaEndTime:   africaInterval   ? now + africaSecondsLeft   * 1000 : null,
     duoviroStep, duoviroLivelloCorrente, duoviroL1Completato, duoviroL2Completato, duoviroCompletato, duoviroAttesaRegalia,
-    cantStage, cantS1Paid, cantS2Paid, cantS3Paid, cantS5Paid, cantS6Paid, cantS7Paid, cantS8Paid, cantS9Paid, cantS10Paid, cantS11Paid, cantS12Paid,
+    cantStage, cantS1Paid, cantS2Paid, cantS3Paid, cantS5Paid, cantS6Paid, cantS7Paid, cantS8Paid, cantS9Paid, cantS10Paid, cantS11Paid, cantS12Paid, cantS13Paid,
     memoriaLivDone,
     tetrisLivDone
   };
@@ -6263,6 +6398,7 @@ function loadGame(){
     cantS10Paid = s.cantS10Paid ?? false;
     cantS11Paid = s.cantS11Paid ?? false;
     cantS12Paid = s.cantS12Paid ?? false;
+    cantS13Paid = s.cantS13Paid ?? false;
 
     // Duoviro
     duoviroStep              = s.duoviroStep              ?? 0;
