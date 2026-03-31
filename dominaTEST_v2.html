@@ -3231,7 +3231,7 @@ function goHub(){
 // ── Definizione Stage ──────────────────────────────────
 const CANT_STAGES = [
   {
-    stage:1, time:60, reward:30, popReward:30, bg:'bg_cantiere.png',
+    stage:1, time:60, reward:50, popReward:6, bg:'bg_cantiere.png',
     objects: [
       { id:'epigrafe',   nome:'Epigrafe',    img:'hidden_epigrafe.png',   x:377, y:310, w:60, h:60 },
       { id:'architetto', nome:'Architetto',  img:'hidden_architetto.png', x:155, y:460, w:60, h:60 },
@@ -3241,7 +3241,7 @@ const CANT_STAGES = [
     ]
   },
   {
-    stage:2, time:120, reward:50, popReward:30, bg:'bg_cantiere2.png',
+    stage:2, time:120, reward:100, popReward:6, bg:'bg_cantiere2.png',
     objects: [
       { id:'anfore',       nome:'Anfore',        img:'hidden_anfore.png',       x:395, y:590, w:60, h:60 },
       { id:'architetto',   nome:'Architetto',    img:'hidden_architetto.png',   x:155, y:460, w:60, h:60 },
@@ -3253,7 +3253,7 @@ const CANT_STAGES = [
     ]
   },
   {
-    stage:3, time:150, reward:70, popReward:35, bg:'bg_cantiere3.png',
+    stage:3, time:150, reward:180, popReward:7, bg:'bg_cantiere3.png',
     objects: [
       { id:'bloccomarmo',  nome:'Blocco di Marmo', img:'hidden_blocco di marmo.png', x:320, y:420, w:60, h:60 },
       { id:'colonnaalta',  nome:'Colonna Alta',    img:'hidden_colonna alta.png',    x:212, y:153, w:72, h:72 },
@@ -3267,13 +3267,13 @@ const CANT_STAGES = [
     ]
   },
   {
-    stage:4, time:180, reward:120, popReward:25, bg:'bg_cantiere4.png',
+    stage:4, time:180, reward:60, popReward:7, bg:'bg_cantiere4.png',
     objects: [
       // Oggetti da definire – aggiornare con gli hidden definitivi dello stage 4
     ]
   },
   {
-    stage:5, time:60, reward:150, popReward:40, bg:'bg_cantiere5.png', introBg:'bg_cantiere5avvio.png',
+    stage:5, time:60, reward:240, popReward:7, bg:'bg_cantiere5.png', introBg:'bg_cantiere5avvio.png',
     objects: [
       { id:'altare', nome:'Altare', img:'hidden_altare.png', x:182, y:405, w:60, h:60 },
       { id:'anfore6', nome:'Anfore', img:'hidden_anfore6.png', x:364, y:525, w:118, h:118 },
@@ -3283,7 +3283,7 @@ const CANT_STAGES = [
     ]
   },
   {
-    stage:6, time:60, reward:180, popReward:45, bg:'bg_cantiere6.png', introBg:'bg_cantiere6avvio.png',
+    stage:6, time:60, reward:90, popReward:8, bg:'bg_cantiere6.png', introBg:'bg_cantiere6avvio.png',
     objects: [
       { id:'altare2', nome:'Altare', img:'hidden_altare2.png', x:182, y:405, w:60, h:60 },
       { id:'anfore6b', nome:'Anfore', img:'hidden_anfore6.png', x:364, y:525, w:118, h:118 },
@@ -3296,7 +3296,7 @@ const CANT_STAGES = [
     ]
   },
   {
-    stage:7, time:90, reward:240, popReward:50, bg:'bg_cantiere7.png', introBg:'bg_cantiere7avvio.png',
+    stage:7, time:90, reward:120, popReward:9, bg:'bg_cantiere7.png', introBg:'bg_cantiere7avvio.png',
     objects: [
       { id:'altare2c', nome:'Altare', img:'hidden_altare2.png', x:182, y:405, w:60, h:60 },
       { id:'anfore6c', nome:'Anfore', img:'hidden_anfore6.png', x:364, y:525, w:118, h:118 },
@@ -3310,7 +3310,7 @@ const CANT_STAGES = [
     ]
   },
   {
-    stage:8, time:100, reward:280, popReward:55, bg:'bg_cantiere9.png', introBg:'bg_cantiere8avvio.png',
+    stage:8, time:100, reward:360, popReward:8, bg:'bg_cantiere9.png', introBg:'bg_cantiere8avvio.png',
     objects: [
       { id:'colonnaricostruita', nome:'Colonna Ricostruita', img:'hidden_colonnaricostruita.png', x:200, y:350, w:60, h:60 },
       { id:'sabbiafine',         nome:'Sabbia Fine',         img:'hidden_sabbiafine.png',         x:340, y:580, w:55, h:55 },
@@ -3320,7 +3320,7 @@ const CANT_STAGES = [
     ]
   },
   {
-    stage:9, time:110, reward:320, popReward:55, bg:'bg_cantiere10.png', introBg:'bg_cantiere10avvio.png',
+    stage:9, time:110, reward:60, popReward:8, bg:'bg_cantiere10.png', introBg:'bg_cantiere10avvio.png',
     objects: [
       { id:'pileditegole',    nome:'Pile di Tegole',   img:'hidden_pileditegole.png',    x:175, y:570, w:65, h:65 },
       { id:'colonnaspezzata', nome:'Colonna Spezzata', img:'hidden_colonnaspezzata.png', x:280, y:430, w:60, h:60 },
@@ -3331,7 +3331,7 @@ const CANT_STAGES = [
     ]
   },
   {
-    stage:10, time:120, reward:360, popReward:60, bg:'bg_cantiere11.png', introBg:'bg_cantiere11avvio.png',
+    stage:10, time:120, reward:80, popReward:9, bg:'bg_cantiere11.png', introBg:'bg_cantiere11avvio.png',
     objects: [
       { id:'carretto3',      nome:'Carretto',        img:'hidden_carretto3.png',          x:160, y:560, w:80, h:80 },
       { id:'carrettocolori', nome:'Carretto Colori', img:'hidden_carrettocolori.png',     x:280, y:540, w:65, h:65 },
@@ -3343,7 +3343,7 @@ const CANT_STAGES = [
     ]
   },
   {
-    stage:11, time:130, reward:400, popReward:60, bg:'bg_cantiere12.png', introBg:'bg_cantiere12avvio.png',
+    stage:11, time:130, reward:90, popReward:9, bg:'bg_cantiere12.png', introBg:'bg_cantiere12avvio.png',
     objects: [
       { id:'anfore5',        nome:'Anfore',           img:'hidden_5anfore.png',           x:360, y:560, w:75, h:75 },
       { id:'sacco',          nome:'Sacco',            img:'hidden_sacco.png',             x:175, y:550, w:60, h:60 },
@@ -3356,7 +3356,7 @@ const CANT_STAGES = [
     ]
   },
   {
-    stage:12, time:90, reward:350, popReward:65, bg:'bg_cantiere9.png', introBg:'bg_cantiere9avvio.png',
+    stage:12, time:90, reward:80, popReward:8, bg:'bg_cantiere9.png', introBg:'bg_cantiere9avvio.png',
     objects: [
       { id:'4anfore',  nome:'Anfore',        img:'hidden_4anfore.png',   x:212, y:380, w:80, h:80 },
       { id:'5anfore',  nome:'Cinque Anfore', img:'hidden_5anfore.png',   x:340, y:560, w:80, h:80 },
@@ -3366,7 +3366,7 @@ const CANT_STAGES = [
     ]
   },
   {
-    stage:13, time:90, reward:380, popReward:65, bg:'bg_cantiere10.png', introBg:'bg_cantiere10avvio.png',
+    stage:13, time:90, reward:90, popReward:9, bg:'bg_cantiere10.png', introBg:'bg_cantiere10avvio.png',
     objects: [
       { id:'4anfore',         nome:'Anfore',            img:'hidden_4anfore.png',            x:212, y:380, w:80, h:80 },
       { id:'5anfore',         nome:'Cinque Anfore',      img:'hidden_5anfore.png',            x:340, y:560, w:80, h:80 },
@@ -3380,7 +3380,7 @@ const CANT_STAGES = [
     ]
   },
   {
-    stage:14, time:90, reward:410, popReward:70, bg:'bg_cantiere11.png', introBg:'bg_cantiere11avvio.png',
+    stage:14, time:90, reward:110, popReward:9, bg:'bg_cantiere11.png', introBg:'bg_cantiere11avvio.png',
     objects: [
       { id:'4anfore',         nome:'Anfore',             img:'hidden_4anfore.png',              x:212, y:380, w:80, h:80 },
       { id:'5anfore',         nome:'Cinque Anfore',       img:'hidden_5anfore.png',              x:340, y:560, w:80, h:80 },
@@ -3397,7 +3397,7 @@ const CANT_STAGES = [
     ]
   },
   {
-    stage:15, time:90, reward:440, popReward:70, bg:'bg_cantiere12.png', introBg:'bg_cantiere12avvio.png',
+    stage:15, time:90, reward:120, popReward:9, bg:'bg_cantiere12.png', introBg:'bg_cantiere12avvio.png',
     objects: [
       { id:'4anfore',            nome:'Anfore',               img:'hidden_4anfore.png',              x:212, y:380, w:80, h:80 },
       { id:'5anfore',            nome:'Cinque Anfore',         img:'hidden_5anfore.png',              x:340, y:560, w:80, h:80 },
@@ -3415,7 +3415,7 @@ const CANT_STAGES = [
     ]
   },
   {
-    stage:16, time:90, reward:470, popReward:75, bg:'bg_cantiere13.png',
+    stage:16, time:90, reward:210, popReward:10, bg:'bg_cantiere13.png',
     objects: [
       { id:'4anfore',            nome:'Anfore',               img:'hidden_4anfore.png',              x:212, y:380, w:80, h:80 },
       { id:'5anfore',            nome:'Cinque Anfore',         img:'hidden_5anfore.png',              x:340, y:560, w:80, h:80 },
@@ -3491,115 +3491,115 @@ function openCantiere(){
   // Aggiorna testo costo in base allo stage corrente
   const costEl = document.getElementById('cant-cost-text');
   if(costEl){
-    if(cantStage === 0 && !cantS1Paid)      costEl.textContent = 'Costo avvio: 10 🧱 Laterizi';
-    else if(cantStage === 1 && !cantS2Paid) costEl.textContent = 'Costo avvio: 30 🧱 Laterizi';
-    else if(cantStage === 2 && !cantS3Paid) costEl.textContent = 'Costo avvio: 50 🧱 Laterizi';
-    else if(cantStage === 4 && !cantS5Paid) costEl.textContent = 'Costo avvio: 70 🧱 Laterizi';
-    else if(cantStage === 5 && !cantS6Paid) costEl.textContent = 'Costo avvio: 90 🧱 Laterizi';
-    else if(cantStage === 6 && !cantS7Paid)  costEl.textContent = 'Costo avvio: 110 🧱 Laterizi';
-    else if(cantStage === 7 && !cantS8Paid)  costEl.textContent = 'Costo avvio: 130 🧱 Laterizi';
-    else if(cantStage === 8 && !cantS9Paid)  costEl.textContent = 'Costo avvio: 150 🧱 Laterizi';
-    else if(cantStage === 9 && !cantS10Paid) costEl.textContent = 'Costo avvio: 170 🧱 Laterizi';
-    else if(cantStage === 10 && !cantS11Paid) costEl.textContent = 'Costo avvio: 190 🧱 Laterizi';
-    else if(cantStage === 11 && !cantS12Paid) costEl.textContent = 'Costo avvio: 210 🧱 Laterizi';
-    else if(cantStage === 12 && !cantS13Paid) costEl.textContent = 'Costo avvio: 230 🧱 Laterizi';
-    else if(cantStage === 13 && !cantS14Paid) costEl.textContent = 'Costo avvio: 250 🧱 Laterizi';
-    else if(cantStage === 14 && !cantS15Paid) costEl.textContent = 'Costo avvio: 270 🧱 Laterizi';
-    else if(cantStage === 15 && !cantS16Paid) costEl.textContent = 'Costo avvio: 290 🧱 Laterizi';
-    else                                    costEl.textContent = 'Stage ' + (cantStage + 1) + ' – già sbloccato';
+    if(cantStage === 0 && !cantS1Paid)       costEl.textContent = 'Costo avvio: 80 🧱 Laterizi';
+    else if(cantStage === 1 && !cantS2Paid)  costEl.textContent = 'Costo avvio: 160 🧱 Laterizi';
+    else if(cantStage === 2 && !cantS3Paid)  costEl.textContent = 'Costo avvio: 300 🧱 Laterizi';
+    else if(cantStage === 4 && !cantS5Paid)  costEl.textContent = 'Costo avvio: 400 🧱 Laterizi';
+    else if(cantStage === 5 && !cantS6Paid)  costEl.textContent = 'Costo avvio: 150 🧱 Laterizi';
+    else if(cantStage === 6 && !cantS7Paid)  costEl.textContent = 'Costo avvio: 200 🧱 Laterizi';
+    else if(cantStage === 7 && !cantS8Paid)  costEl.textContent = 'Costo avvio: 600 🧱 Laterizi';
+    else if(cantStage === 8 && !cantS9Paid)  costEl.textContent = 'Costo avvio: 100 🧱 Laterizi';
+    else if(cantStage === 9 && !cantS10Paid) costEl.textContent = 'Costo avvio: 130 🧱 Laterizi';
+    else if(cantStage === 10 && !cantS11Paid) costEl.textContent = 'Costo avvio: 150 🧱 Laterizi';
+    else if(cantStage === 11 && !cantS12Paid) costEl.textContent = 'Costo avvio: 130 🧱 Laterizi';
+    else if(cantStage === 12 && !cantS13Paid) costEl.textContent = 'Costo avvio: 150 🧱 Laterizi';
+    else if(cantStage === 13 && !cantS14Paid) costEl.textContent = 'Costo avvio: 180 🧱 Laterizi';
+    else if(cantStage === 14 && !cantS15Paid) costEl.textContent = 'Costo avvio: 200 🧱 Laterizi';
+    else if(cantStage === 15 && !cantS16Paid) costEl.textContent = 'Costo avvio: 350 🧱 Laterizi';
+    else                                     costEl.textContent = 'Stage ' + (cantStage + 1) + ' – già sbloccato';
   }
   syncCantLifebar();
   renderCantPreview();
 }
 function avviaCantiere(){
-  // Costo d'accesso: 10 lat Stage 1, 30 lat Stage 2, 50 lat Stage 3
+  // Costo d'accesso per ogni stage — calibrato per ~12 giorni di gioco casuale
   if(cantStage === 0 && !cantS1Paid){
-    if(lat < 10){ showResPopup('Laterizi insufficienti (servono 10 🧱 per avviare il cantiere)'); return; }
-    lat -= 10;
+    if(lat < 80){ showResPopup('Laterizi insufficienti (servono 80 🧱 per avviare il cantiere)'); return; }
+    lat -= 80;
     document.getElementById('vlat').textContent = lat;
     cantS1Paid = true;
     saveGame();
   } else if(cantStage === 1 && !cantS2Paid){
-    if(lat < 30){ showResPopup('Laterizi insufficienti (servono 30 🧱 per accedere al Cantiere 2)'); return; }
-    lat -= 30;
+    if(lat < 160){ showResPopup('Laterizi insufficienti (servono 160 🧱 per accedere al Cantiere 2)'); return; }
+    lat -= 160;
     document.getElementById('vlat').textContent = lat;
     cantS2Paid = true;
     saveGame();
   } else if(cantStage === 2 && !cantS3Paid){
-    if(lat < 50){ showResPopup('Laterizi insufficienti (servono 50 🧱 per accedere al Cantiere 3)'); return; }
-    lat -= 50;
+    if(lat < 300){ showResPopup('Laterizi insufficienti (servono 300 🧱 per accedere al Cantiere 3)'); return; }
+    lat -= 300;
     document.getElementById('vlat').textContent = lat;
     cantS3Paid = true;
     saveGame();
   } else if(cantStage === 4 && !cantS5Paid){
-    if(lat < 70){ showResPopup('Laterizi insufficienti (servono 70 🧱 per accedere alla Camera Interna)'); return; }
-    lat -= 70;
+    if(lat < 400){ showResPopup('Laterizi insufficienti (servono 400 🧱 per accedere alla Camera Interna)'); return; }
+    lat -= 400;
     document.getElementById('vlat').textContent = lat;
     cantS5Paid = true;
     saveGame();
   } else if(cantStage === 5 && !cantS6Paid){
-    if(lat < 90){ showResPopup('Laterizi insufficienti (servono 90 🧱 per accedere al Secondo Portico)'); return; }
-    lat -= 90;
+    if(lat < 150){ showResPopup('Laterizi insufficienti (servono 150 🧱 per la Camera Interna — fase II)'); return; }
+    lat -= 150;
     document.getElementById('vlat').textContent = lat;
     cantS6Paid = true;
     saveGame();
   } else if(cantStage === 6 && !cantS7Paid){
-    if(lat < 110){ showResPopup('Laterizi insufficienti (servono 110 🧱 per accedere al Terzo Portico)'); return; }
-    lat -= 110;
+    if(lat < 200){ showResPopup('Laterizi insufficienti (servono 200 🧱 per la Camera Interna — fase finale)'); return; }
+    lat -= 200;
     document.getElementById('vlat').textContent = lat;
     cantS7Paid = true;
     saveGame();
   } else if(cantStage === 7 && !cantS8Paid){
-    if(lat < 130){ showResPopup('Laterizi insufficienti (servono 130 🧱 per accedere al Portico Orientale)'); return; }
-    lat -= 130;
+    if(lat < 600){ showResPopup('Laterizi insufficienti (servono 600 🧱 per accedere al Luogo dei Fullones)'); return; }
+    lat -= 600;
     document.getElementById('vlat').textContent = lat;
     cantS8Paid = true;
     saveGame();
   } else if(cantStage === 8 && !cantS9Paid){
-    if(lat < 150){ showResPopup('Laterizi insufficienti (servono 150 🧱 per accedere all\'Atrio Centrale)'); return; }
-    lat -= 150;
+    if(lat < 100){ showResPopup('Laterizi insufficienti (servono 100 🧱 per il Luogo dei Fullones — fase II)'); return; }
+    lat -= 100;
     document.getElementById('vlat').textContent = lat;
     cantS9Paid = true;
     saveGame();
   } else if(cantStage === 9 && !cantS10Paid){
-    if(lat < 170){ showResPopup('Laterizi insufficienti (servono 170 🧱 per accedere alla Crypta)'); return; }
-    lat -= 170;
+    if(lat < 130){ showResPopup('Laterizi insufficienti (servono 130 🧱 per il Luogo dei Fullones — fase III)'); return; }
+    lat -= 130;
     document.getElementById('vlat').textContent = lat;
     cantS10Paid = true;
     saveGame();
   } else if(cantStage === 10 && !cantS11Paid){
-    if(lat < 190){ showResPopup('Laterizi insufficienti (servono 190 🧱 per la Dedica Finale)'); return; }
-    lat -= 190;
+    if(lat < 150){ showResPopup('Laterizi insufficienti (servono 150 🧱 per il Luogo dei Fullones — fase IV)'); return; }
+    lat -= 150;
     document.getElementById('vlat').textContent = lat;
     cantS11Paid = true;
     saveGame();
   } else if(cantStage === 11 && !cantS12Paid){
-    if(lat < 210){ showResPopup('Laterizi insufficienti (servono 210 🧱 per accedere alla Sede della Corporazione)'); return; }
-    lat -= 210;
+    if(lat < 130){ showResPopup('Laterizi insufficienti (servono 130 🧱 per il Luogo dei Fullones — fase V)'); return; }
+    lat -= 130;
     document.getElementById('vlat').textContent = lat;
     cantS12Paid = true;
     saveGame();
   } else if(cantStage === 12 && !cantS13Paid){
-    if(lat < 230){ showResPopup('Laterizi insufficienti (servono 230 🧱 per accedere alla Seconda Sala della Corporazione)'); return; }
-    lat -= 230;
+    if(lat < 150){ showResPopup('Laterizi insufficienti (servono 150 🧱 per il Luogo dei Fullones — fase VI)'); return; }
+    lat -= 150;
     document.getElementById('vlat').textContent = lat;
     cantS13Paid = true;
     saveGame();
   } else if(cantStage === 13 && !cantS14Paid){
-    if(lat < 250){ showResPopup('Laterizi insufficienti (servono 250 🧱 per accedere alla Terza Sala della Corporazione)'); return; }
-    lat -= 250;
+    if(lat < 180){ showResPopup('Laterizi insufficienti (servono 180 🧱 per il Luogo dei Fullones — fase VII)'); return; }
+    lat -= 180;
     document.getElementById('vlat').textContent = lat;
     cantS14Paid = true;
     saveGame();
   } else if(cantStage === 14 && !cantS15Paid){
-    if(lat < 270){ showResPopup('Laterizi insufficienti (servono 270 🧱 per accedere alla Quarta Sala della Corporazione)'); return; }
-    lat -= 270;
+    if(lat < 200){ showResPopup('Laterizi insufficienti (servono 200 🧱 per il Luogo dei Fullones — fase VIII)'); return; }
+    lat -= 200;
     document.getElementById('vlat').textContent = lat;
     cantS15Paid = true;
     saveGame();
   } else if(cantStage === 15 && !cantS16Paid){
-    if(lat < 290){ showResPopup('Laterizi insufficienti (servono 290 🧱 per accedere alla Sala Conclusiva della Corporazione)'); return; }
-    lat -= 290;
+    if(lat < 350){ showResPopup('Laterizi insufficienti (servono 350 🧱 per completare il Luogo dei Fullones)'); return; }
+    lat -= 350;
     document.getElementById('vlat').textContent = lat;
     cantS16Paid = true;
     saveGame();
