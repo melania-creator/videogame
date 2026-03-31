@@ -1936,11 +1936,11 @@ html,body{
         <div style="padding:18px 22px 8px;text-align:center;">
           <div style="font-family:'Cinzel Decorative',serif;font-weight:700;font-size:.65rem;letter-spacing:.12em;color:#2a1000;margin-bottom:14px;">STATO DI AVANZAMENTO LAVORI</div>
           <div style="font-size:2.4rem;margin-bottom:10px;">🏺</div>
-          <div style="font-family:'Cinzel Decorative',serif;font-size:.95rem;font-weight:700;color:#2a1000;letter-spacing:.08em;margin-bottom:14px;">TERZO PORTICO</div>
+          <div style="font-family:'Cinzel Decorative',serif;font-size:.95rem;font-weight:700;color:#2a1000;letter-spacing:.08em;margin-bottom:14px;">CAMERA INTERNA</div>
           <div style="height:1px;margin:0 10px 14px;background:linear-gradient(90deg,transparent,rgba(138,98,16,.28) 25%,rgba(201,168,76,.38) 50%,rgba(138,98,16,.28) 75%,transparent);"></div>
           <div style="font-family:'Cinzel',serif;font-size:.72rem;color:#150800;line-height:1.75;margin-bottom:16px;">
             Il Secondo Portico è stato completato.<br>
-            Si apre ora il Terzo Portico Interno.<br>
+            Si accede ora alla Camera Interna.<br>
             <span style="color:#3a1500;font-style:italic;">Le colonne dorate attendono di essere rivelate.</span>
           </div>
           <div style="display:flex;align-items:center;gap:6px;margin-bottom:16px;padding:0 8px;">
@@ -1958,7 +1958,7 @@ html,body{
             font-family:'Cinzel',serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;
             color:#f6e9c2;padding:9px 26px;cursor:pointer;
             box-shadow:0 2px 10px rgba(0,0,0,.45);">
-            Entra nel Terzo Portico →
+            Entra nella Camera Interna →
           </button>
         </div>
         <div style="
@@ -3293,7 +3293,7 @@ const CANT_STAGES = [
       { id:'carrettob', nome:'Carretto', img:'hidden_carretto.png', x:165, y:600, w:80, h:80 },
       { id:'cassettalegnob', nome:'Cassetta di Legno', img:'hidden_cassettalegno.png', x:300, y:410, w:50, h:50 },
       { id:'travigrandib', nome:'Travi Grandi', img:'hidden_travigrandi.png', x:250, y:500, w:50, h:50 },
-      { id:'attrezzi', nome:'Attrezzi', img:'hidden_attrezzi.png', x:212, y:650, w:50, h:50 },
+      { id:'attrezzi', nome:'Attrezzi', img:'hidden_attrezzi.png', x:212, y:610, w:50, h:50 },
       { id:'marmipregiati', nome:'Marmi Pregiati', img:'hidden_marmipregiati.png', x:300, y:545, w:50, h:50 },
       { id:'statua', nome:'Statua', img:'hidden_statua.png', x:150, y:350, w:50, h:50 },
     ]
@@ -3306,7 +3306,7 @@ const CANT_STAGES = [
       { id:'carrettoc', nome:'Carretto', img:'hidden_carretto2.png', x:165, y:600, w:80, h:80 },
       { id:'cassettalegnoc', nome:'Cassetta di Legno', img:'hidden_cassettalegno.png', x:300, y:410, w:50, h:50 },
       { id:'travigrandic', nome:'Travi Grandi', img:'hidden_travigrandi.png', x:250, y:500, w:50, h:50 },
-      { id:'attrezzi2', nome:'Attrezzi', img:'hidden_attrezzi.png', x:212, y:650, w:50, h:50 },
+      { id:'attrezzi2', nome:'Attrezzi', img:'hidden_attrezzi.png', x:212, y:610, w:50, h:50 },
       { id:'marmipregiati2', nome:'Marmi Pregiati', img:'hidden_marmipregiati.png', x:300, y:545, w:50, h:50 },
       { id:'statua2', nome:'Statua', img:'hidden_statua.png', x:150, y:350, w:50, h:50 },
       { id:'colonnedorate', nome:'Colonne Dorate', img:'hidden_colonne dorate.png', x:340, y:280, w:60, h:60 },
@@ -3616,7 +3616,7 @@ function avviaCantiere(){
       alertTitle.innerHTML   = 'ENTRA NEL<br>SECONDO PORTICO';
     } else if(cantStage === 6){
       alertIco.textContent   = '🏺';
-      alertTitle.innerHTML   = 'ENTRA NEL<br>TERZO PORTICO';
+      alertTitle.innerHTML   = 'CAMERA<br>INTERNA';
     } else if(cantStage === 7){
       alertIco.textContent   = '🏛️';
       alertTitle.innerHTML   = 'PORTICO<br>ORIENTALE';
