@@ -1558,6 +1558,12 @@ html,body{
           border:none;
           cursor:pointer;">
       </button>
+      <!-- Tasto Avvio Lavori sovrapposto (solo Block 4+, useTasto:true) -->
+      <img id="cant-tasto-lavori"
+        src="tasto_avviolavori.png"
+        style="display:none;position:absolute;left:50%;top:580px;width:260px;
+               transform:translateX(-50%);pointer-events:none;z-index:14;"
+        alt="">
       <!-- Alert "Costruisci Pavimento" -->
       <div id="cant-alert-avvio" style="
         display:none;position:absolute;inset:0;z-index:25;
@@ -3130,7 +3136,9 @@ if(window.visualViewport){
     'bg_cantiere6avvio.png','bg_cantiere6.png',
     'tasto_avanzamento.png',
     'avanzamento1_esterno.png','avanzamento2_interno.png','avanzamento3_luogoincontrofullones.png',
-    'bg_cantiere8.png','bg_cantiere8avvio.png'
+    'bg_cantiere8.png','bg_cantiere8avvio.png',
+    'bg_cantiere14.png','tasto_avviolavori.png',
+    'hidden_new_operaioconcesto.png','hidden_new_operaioconpala.png','hidden_new_pala.png'
   ];
   imgs.forEach(src => { const i = new Image(); i.src = src; });
 })();
@@ -3277,7 +3285,7 @@ const CANT_STAGES = [
     objects: [
       { id:'altare', nome:'Altare', img:'hidden_altare.png', x:182, y:405, w:60, h:60 },
       { id:'anfore6', nome:'Anfore', img:'hidden_anfore6.png', x:364, y:525, w:118, h:118 },
-      { id:'carretto', nome:'Carretto', img:'hidden_carretto.png', x:165, y:565, w:80, h:80 },
+      { id:'carretto', nome:'Carretto', img:'hidden_carretto.png', x:165, y:550, w:80, h:80 },
       { id:'cassettalegno', nome:'Cassetta di Legno', img:'hidden_cassettalegno.png', x:300, y:410, w:50, h:50 },
       { id:'travigrandi', nome:'Travi Grandi', img:'hidden_travigrandi.png', x:250, y:500, w:50, h:50 },
     ]
@@ -3287,7 +3295,7 @@ const CANT_STAGES = [
     objects: [
       { id:'altare2', nome:'Altare', img:'hidden_altare2.png', x:182, y:405, w:60, h:60 },
       { id:'anfore6b', nome:'Anfore', img:'hidden_anfore6.png', x:364, y:525, w:118, h:118 },
-      { id:'carrettob', nome:'Carretto', img:'hidden_carretto.png', x:165, y:565, w:80, h:80 },
+      { id:'carrettob', nome:'Carretto', img:'hidden_carretto.png', x:165, y:550, w:80, h:80 },
       { id:'cassettalegnob', nome:'Cassetta di Legno', img:'hidden_cassettalegno.png', x:300, y:410, w:50, h:50 },
       { id:'travigrandib', nome:'Travi Grandi', img:'hidden_travigrandi.png', x:250, y:500, w:50, h:50 },
       { id:'attrezzi', nome:'Attrezzi', img:'hidden_attrezzi.png', x:212, y:570, w:50, h:50 },
@@ -3300,7 +3308,7 @@ const CANT_STAGES = [
     objects: [
       { id:'altare2c', nome:'Altare', img:'hidden_altare2.png', x:182, y:405, w:60, h:60 },
       { id:'anfore6c', nome:'Anfore', img:'hidden_anfore6.png', x:364, y:525, w:118, h:118 },
-      { id:'carrettoc', nome:'Carretto', img:'hidden_carretto2.png', x:165, y:565, w:80, h:80 },
+      { id:'carrettoc', nome:'Carretto', img:'hidden_carretto2.png', x:165, y:550, w:80, h:80 },
       { id:'cassettalegnoc', nome:'Cassetta di Legno', img:'hidden_cassettalegno.png', x:300, y:410, w:50, h:50 },
       { id:'travigrandic', nome:'Travi Grandi', img:'hidden_travigrandi.png', x:250, y:500, w:50, h:50 },
       { id:'attrezzi2', nome:'Attrezzi', img:'hidden_attrezzi.png', x:212, y:570, w:50, h:50 },
@@ -3333,10 +3341,10 @@ const CANT_STAGES = [
   {
     stage:10, time:120, reward:80, popReward:9, bg:'bg_cantiere11.png', introBg:'bg_cantiere11avvio.png',
     objects: [
-      { id:'carretto3',      nome:'Carretto',        img:'hidden_carretto3.png',          x:160, y:560, w:80, h:80 },
+      { id:'carretto3',      nome:'Carretto',        img:'hidden_carretto3.png',          x:160, y:550, w:80, h:80 },
       { id:'carrettocolori', nome:'Carretto Colori', img:'hidden_carrettocolori.png',     x:280, y:540, w:65, h:65 },
       { id:'piledimattoni',  nome:'Pile di Mattoni', img:'hidden_piledimattoni.png',      x:230, y:440, w:60, h:60 },
-      { id:'anfore4',        nome:'Anfore',          img:'hidden_4anfore.png',            x:370, y:570, w:70, h:70 },
+      { id:'anfore4',        nome:'Anfore',          img:'hidden_4anfore.png',            x:370, y:555, w:70, h:70 },
       { id:'pileditegoles10',nome:'Pile di Tegole',  img:'hidden_pileditegole.png',       x:110, y:570, w:65, h:65 },
       { id:'colonnasps10',   nome:'Colonna Spezzata',img:'hidden_colonnaspezzata.png',    x:300, y:360, w:60, h:60 },
       { id:'saccos10',       nome:'Sacco',           img:'hidden_sacco.png',              x:230, y:510, w:60, h:60 },
@@ -3359,9 +3367,9 @@ const CANT_STAGES = [
     stage:12, time:90, reward:80, popReward:8, bg:'bg_cantiere9.png', introBg:'bg_cantiere9avvio.png',
     objects: [
       { id:'4anfore',  nome:'Anfore',        img:'hidden_4anfore.png',   x:212, y:380, w:80, h:80 },
-      { id:'5anfore',  nome:'Cinque Anfore', img:'hidden_5anfore.png',   x:340, y:560, w:80, h:80 },
+      { id:'5anfore',  nome:'Cinque Anfore', img:'hidden_5anfore.png',   x:340, y:550, w:80, h:80 },
       { id:'carretto3',      nome:'Carretto',         img:'hidden_carretto3.png',      x:100, y:530, w:85, h:85 },
-      { id:'cassaconcemento',  nome:'Cassa di Cemento',  img:'hidden_cassaconcemento.png',  x:270, y:620, w:70, h:70 },
+      { id:'cassaconcemento',  nome:'Cassa di Cemento',  img:'hidden_cassaconcemento.png',  x:270, y:555, w:70, h:70 },
       { id:'colonnaspezzata',  nome:'Colonna Spezzata',  img:'hidden_colonnaspezzata.png',   x:155, y:420, w:65, h:65 },
     ]
   },
@@ -3369,9 +3377,9 @@ const CANT_STAGES = [
     stage:13, time:90, reward:90, popReward:9, bg:'bg_cantiere10.png', introBg:'bg_cantiere10avvio.png',
     objects: [
       { id:'4anfore',         nome:'Anfore',            img:'hidden_4anfore.png',            x:212, y:380, w:80, h:80 },
-      { id:'5anfore',         nome:'Cinque Anfore',      img:'hidden_5anfore.png',            x:340, y:560, w:80, h:80 },
+      { id:'5anfore',         nome:'Cinque Anfore',      img:'hidden_5anfore.png',            x:340, y:550, w:80, h:80 },
       { id:'carretto3',       nome:'Carretto',           img:'hidden_carretto3.png',          x:100, y:530, w:85, h:85 },
-      { id:'cassaconcemento', nome:'Cassa di Cemento',   img:'hidden_cassaconcemento.png',    x:270, y:620, w:70, h:70 },
+      { id:'cassaconcemento', nome:'Cassa di Cemento',   img:'hidden_cassaconcemento.png',    x:270, y:555, w:70, h:70 },
       { id:'colonnaspezzata', nome:'Colonna Spezzata',   img:'hidden_colonnaspezzata.png',    x:155, y:420, w:65, h:65 },
       { id:'piedistallo',     nome:'Piedistallo',        img:'hidden_piedistallo.png',         x:340, y:420, w:65, h:65 },
       { id:'piledimattoni',   nome:'Pile di Mattoni',    img:'hidden_piledimattoni.png',        x:110, y:570, w:65, h:65 },
@@ -3383,15 +3391,15 @@ const CANT_STAGES = [
     stage:14, time:90, reward:110, popReward:9, bg:'bg_cantiere11.png', introBg:'bg_cantiere11avvio.png',
     objects: [
       { id:'4anfore',         nome:'Anfore',             img:'hidden_4anfore.png',              x:212, y:380, w:80, h:80 },
-      { id:'5anfore',         nome:'Cinque Anfore',       img:'hidden_5anfore.png',              x:340, y:560, w:80, h:80 },
+      { id:'5anfore',         nome:'Cinque Anfore',       img:'hidden_5anfore.png',              x:340, y:550, w:80, h:80 },
       { id:'carretto3',       nome:'Carretto',            img:'hidden_carretto3.png',            x:100, y:530, w:85, h:85 },
-      { id:'cassaconcemento', nome:'Cassa di Cemento',    img:'hidden_cassaconcemento.png',      x:270, y:620, w:70, h:70 },
+      { id:'cassaconcemento', nome:'Cassa di Cemento',    img:'hidden_cassaconcemento.png',      x:270, y:555, w:70, h:70 },
       { id:'colonnaspezzata', nome:'Colonna Spezzata',    img:'hidden_colonnaspezzata.png',      x:155, y:420, w:65, h:65 },
       { id:'piedistallo2',    nome:'Piedistallo',         img:'hidden_piedistallo2.png',         x:340, y:420, w:65, h:65 },
-      { id:'piledimattoni',   nome:'Pile di Mattoni',     img:'hidden_piledimattoni.png',        x:110, y:640, w:65, h:65 },
+      { id:'piledimattoni',   nome:'Pile di Mattoni',     img:'hidden_piledimattoni.png',        x:110, y:560, w:65, h:65 },
       { id:'pileditegole',    nome:'Pile di Tegole',      img:'hidden_pileditegole.png',         x:230, y:500, w:65, h:65 },
-      { id:'cassettategole',  nome:'Cassetta Tegole',     img:'hidden_cassettategole.png',       x:370, y:630, w:65, h:65 },
-      { id:'sabbiafine',      nome:'Sabbia Fine',         img:'hidden_sabbiafine.png',           x:180, y:600, w:65, h:65 },
+      { id:'cassettategole',  nome:'Cassetta Tegole',     img:'hidden_cassettategole.png',       x:370, y:560, w:65, h:65 },
+      { id:'sabbiafine',      nome:'Sabbia Fine',         img:'hidden_sabbiafine.png',           x:180, y:555, w:65, h:65 },
       { id:'sacco',           nome:'Sacco',               img:'hidden_sacco.png',                x:300, y:470, w:65, h:65 },
       { id:'carrettocolori',     nome:'Carretto Colori',       img:'hidden_carrettocolori.png',       x:130, y:450, w:75, h:75 },
     ]
@@ -3400,14 +3408,14 @@ const CANT_STAGES = [
     stage:15, time:90, reward:120, popReward:9, bg:'bg_cantiere12.png', introBg:'bg_cantiere12avvio.png',
     objects: [
       { id:'4anfore',            nome:'Anfore',               img:'hidden_4anfore.png',              x:212, y:380, w:80, h:80 },
-      { id:'5anfore',            nome:'Cinque Anfore',         img:'hidden_5anfore.png',              x:340, y:560, w:80, h:80 },
+      { id:'5anfore',            nome:'Cinque Anfore',         img:'hidden_5anfore.png',              x:340, y:550, w:80, h:80 },
       { id:'carretto3',          nome:'Carretto',              img:'hidden_carretto3.png',            x:100, y:530, w:85, h:85 },
-      { id:'cassaconcemento',    nome:'Cassa di Cemento',      img:'hidden_cassaconcemento.png',      x:270, y:570, w:70, h:70 },
+      { id:'cassaconcemento',    nome:'Cassa di Cemento',      img:'hidden_cassaconcemento.png',      x:270, y:555, w:70, h:70 },
       { id:'colonnaspezzata',    nome:'Colonna Spezzata',      img:'hidden_colonnaspezzata.png',      x:155, y:420, w:65, h:65 },
       { id:'piedistallo2',       nome:'Piedistallo',           img:'hidden_piedistallo2.png',         x:340, y:420, w:65, h:65 },
-      { id:'piledimattoni',      nome:'Pile di Mattoni',       img:'hidden_piledimattoni.png',        x:110, y:640, w:65, h:65 },
+      { id:'piledimattoni',      nome:'Pile di Mattoni',       img:'hidden_piledimattoni.png',        x:110, y:560, w:65, h:65 },
       { id:'pileditegole',       nome:'Pile di Tegole',        img:'hidden_pileditegole.png',         x:230, y:500, w:65, h:65 },
-      { id:'cassettategole',     nome:'Cassetta Tegole',       img:'hidden_cassettategole.png',       x:370, y:630, w:65, h:65 },
+      { id:'cassettategole',     nome:'Cassetta Tegole',       img:'hidden_cassettategole.png',       x:370, y:560, w:65, h:65 },
       { id:'sabbiafine',         nome:'Sabbia Fine',           img:'hidden_sabbiafine.png',           x:180, y:570, w:65, h:65 },
       { id:'sacco',              nome:'Sacco',                 img:'hidden_sacco.png',                x:300, y:470, w:65, h:65 },
       { id:'carrettocolori',     nome:'Carretto Colori',       img:'hidden_carrettocolori.png',       x:130, y:450, w:75, h:75 },
@@ -3418,18 +3426,28 @@ const CANT_STAGES = [
     stage:16, time:90, reward:210, popReward:10, bg:'bg_cantiere13.png',
     objects: [
       { id:'4anfore',            nome:'Anfore',               img:'hidden_4anfore.png',              x:212, y:380, w:80, h:80 },
-      { id:'5anfore',            nome:'Cinque Anfore',         img:'hidden_5anfore.png',              x:340, y:560, w:80, h:80 },
+      { id:'5anfore',            nome:'Cinque Anfore',         img:'hidden_5anfore.png',              x:340, y:550, w:80, h:80 },
       { id:'carretto3',          nome:'Carretto',              img:'hidden_carretto3.png',            x:100, y:530, w:85, h:85 },
-      { id:'cassaconcemento',    nome:'Cassa di Cemento',      img:'hidden_cassaconcemento.png',      x:270, y:570, w:70, h:70 },
+      { id:'cassaconcemento',    nome:'Cassa di Cemento',      img:'hidden_cassaconcemento.png',      x:270, y:555, w:70, h:70 },
       { id:'colonnaspezzata',    nome:'Colonna Spezzata',      img:'hidden_colonnaspezzata.png',      x:155, y:420, w:65, h:65 },
       { id:'piedistallo2',       nome:'Piedistallo',           img:'hidden_piedistallo2.png',         x:340, y:420, w:65, h:65 },
-      { id:'piledimattoni',      nome:'Pile di Mattoni',       img:'hidden_piledimattoni.png',        x:110, y:640, w:65, h:65 },
+      { id:'piledimattoni',      nome:'Pile di Mattoni',       img:'hidden_piledimattoni.png',        x:110, y:560, w:65, h:65 },
       { id:'pileditegole',       nome:'Pile di Tegole',        img:'hidden_pileditegole.png',         x:230, y:500, w:65, h:65 },
-      { id:'cassettategole',     nome:'Cassetta Tegole',       img:'hidden_cassettategole.png',       x:370, y:630, w:65, h:65 },
+      { id:'cassettategole',     nome:'Cassetta Tegole',       img:'hidden_cassettategole.png',       x:370, y:560, w:65, h:65 },
       { id:'sabbiafine',         nome:'Sabbia Fine',           img:'hidden_sabbiafine.png',           x:180, y:570, w:65, h:65 },
       { id:'sacco',              nome:'Sacco',                 img:'hidden_sacco.png',                x:300, y:470, w:65, h:65 },
       { id:'carrettocolori',     nome:'Carretto Colori',       img:'hidden_carrettocolori.png',       x:130, y:450, w:75, h:75 },
       { id:'colonnaricostruita', nome:'Colonna Ricostruita',   img:'hidden_colonnaricostruita.png',   x:280, y:340, w:65, h:65 },
+    ]
+  },
+  // ── Block 4: Aranceto (stage 17) ──────────────────────
+  {
+    stage:17, time:90, reward:480, popReward:10, bg:'bg_cantiere14.png', useTasto:true,
+    objects: [
+      { id:'operaioconcesto_b4s1',  nome:'Operaio con Cesto',  img:'hidden_new_operaioconcesto.png',  x:160, y:430, w:65, h:65 },
+      { id:'operaioconpala_b4s1',   nome:'Operaio con Pala',   img:'hidden_new_operaioconpala.png',   x:300, y:400, w:65, h:65 },
+      { id:'pala_b4s1',             nome:'Pala',               img:'hidden_new_pala.png',             x:370, y:500, w:55, h:55 },
+      { id:'attrezzi_b4s1',         nome:'Attrezzi',           img:'hidden_attrezzi.png',             x:220, y:510, w:55, h:55 },
     ]
   },
 ];
@@ -3462,6 +3480,7 @@ let cantS13Paid     = false; // costo stage 13 già pagato in questa sessione
 let cantS14Paid     = false; // costo stage 14 già pagato in questa sessione
 let cantS15Paid     = false; // costo stage 15 già pagato in questa sessione
 let cantS16Paid     = false; // costo stage 16 già pagato in questa sessione
+let cantS17Paid     = false; // costo stage 17 già pagato in questa sessione
 let cantWrongCount  = 0;    // errori clic sbagliati (penalità pop ogni 3)
 
 // ── Apri/Chiudi ────────────────────────────────────────
@@ -3488,25 +3507,29 @@ function openCantiere(){
   const _introSrc = CANT_STAGES[cantStage].introBg || CANT_STAGES[cantStage].bg;
   document.getElementById('cant-bg').style.background =
     "url('" + _introSrc + "') top left/424px 760px no-repeat";
+  // Mostra/nascondi tasto overlay (solo Block 4+, useTasto:true)
+  const tastoEl = document.getElementById('cant-tasto-lavori');
+  if(tastoEl) tastoEl.style.display = CANT_STAGES[cantStage].useTasto ? 'block' : 'none';
   // Aggiorna testo costo in base allo stage corrente
   const costEl = document.getElementById('cant-cost-text');
   if(costEl){
-    if(cantStage === 0 && !cantS1Paid)       costEl.textContent = 'Costo avvio: 80 🧱 Laterizi';
-    else if(cantStage === 1 && !cantS2Paid)  costEl.textContent = 'Costo avvio: 160 🧱 Laterizi';
-    else if(cantStage === 2 && !cantS3Paid)  costEl.textContent = 'Costo avvio: 300 🧱 Laterizi';
-    else if(cantStage === 4 && !cantS5Paid)  costEl.textContent = 'Costo avvio: 400 🧱 Laterizi';
-    else if(cantStage === 5 && !cantS6Paid)  costEl.textContent = 'Costo avvio: 150 🧱 Laterizi';
-    else if(cantStage === 6 && !cantS7Paid)  costEl.textContent = 'Costo avvio: 200 🧱 Laterizi';
-    else if(cantStage === 7 && !cantS8Paid)  costEl.textContent = 'Costo avvio: 600 🧱 Laterizi';
-    else if(cantStage === 8 && !cantS9Paid)  costEl.textContent = 'Costo avvio: 100 🧱 Laterizi';
-    else if(cantStage === 9 && !cantS10Paid) costEl.textContent = 'Costo avvio: 130 🧱 Laterizi';
+    if(cantStage === 0 && !cantS1Paid)        costEl.textContent = 'Costo avvio: 80 🧱 Laterizi';
+    else if(cantStage === 1 && !cantS2Paid)   costEl.textContent = 'Costo avvio: 160 🧱 Laterizi';
+    else if(cantStage === 2 && !cantS3Paid)   costEl.textContent = 'Costo avvio: 300 🧱 Laterizi';
+    else if(cantStage === 4 && !cantS5Paid)   costEl.textContent = 'Costo avvio: 400 🧱 Laterizi';
+    else if(cantStage === 5 && !cantS6Paid)   costEl.textContent = 'Costo avvio: 150 🧱 Laterizi';
+    else if(cantStage === 6 && !cantS7Paid)   costEl.textContent = 'Costo avvio: 200 🧱 Laterizi';
+    else if(cantStage === 7 && !cantS8Paid)   costEl.textContent = 'Costo avvio: 600 🧱 Laterizi';
+    else if(cantStage === 8 && !cantS9Paid)   costEl.textContent = 'Costo avvio: 100 🧱 Laterizi';
+    else if(cantStage === 9 && !cantS10Paid)  costEl.textContent = 'Costo avvio: 130 🧱 Laterizi';
     else if(cantStage === 10 && !cantS11Paid) costEl.textContent = 'Costo avvio: 150 🧱 Laterizi';
     else if(cantStage === 11 && !cantS12Paid) costEl.textContent = 'Costo avvio: 130 🧱 Laterizi';
     else if(cantStage === 12 && !cantS13Paid) costEl.textContent = 'Costo avvio: 150 🧱 Laterizi';
     else if(cantStage === 13 && !cantS14Paid) costEl.textContent = 'Costo avvio: 180 🧱 Laterizi';
     else if(cantStage === 14 && !cantS15Paid) costEl.textContent = 'Costo avvio: 200 🧱 Laterizi';
     else if(cantStage === 15 && !cantS16Paid) costEl.textContent = 'Costo avvio: 350 🧱 Laterizi';
-    else                                     costEl.textContent = 'Stage ' + (cantStage + 1) + ' – già sbloccato';
+    else if(cantStage === 16 && !cantS17Paid) costEl.textContent = 'Costo avvio: 800 🧱 Laterizi';
+    else                                      costEl.textContent = 'Stage ' + (cantStage + 1) + ' – già sbloccato';
   }
   syncCantLifebar();
   renderCantPreview();
@@ -3603,7 +3626,16 @@ function avviaCantiere(){
     document.getElementById('vlat').textContent = lat;
     cantS16Paid = true;
     saveGame();
+  } else if(cantStage === 16 && !cantS17Paid){
+    if(lat < 800){ showResPopup('Laterizi insufficienti (servono 800 🧱 per avviare i lavori dell\'Aranceto)'); return; }
+    lat -= 800;
+    document.getElementById('vlat').textContent = lat;
+    cantS17Paid = true;
+    saveGame();
   }
+  // Nascondi tasto overlay se Block 4+
+  const _tastoEl = document.getElementById('cant-tasto-lavori');
+  if(_tastoEl) _tastoEl.style.display = 'none';
   // Aggiorna contenuto alert avvio in base allo stage
   const alertIco   = document.getElementById('cant-alert-ico');
   const alertTitle = document.getElementById('cant-alert-title');
@@ -3653,6 +3685,9 @@ function avviaCantiere(){
     } else if(cantStage === 15){
       alertIco.textContent   = '⭐';
       alertTitle.innerHTML   = 'SALA CONCLUSIVA<br>DELLA CORPORAZIONE';
+    } else if(cantStage === 16){
+      alertIco.textContent   = '🍊';
+      alertTitle.innerHTML   = 'ARANCETO<br>DI EUMACHIA';
     } else {
       alertIco.textContent   = '🪨';
       alertTitle.innerHTML   = 'COSTRUISCI<br>PAVIMENTO';
@@ -4006,8 +4041,9 @@ function cantVittoria(){
   cantRunning = false;
   stopCantTimer();
   const cfg = CANT_STAGES[cantStage];
-  const isMilestone = cantStage === 3; // stage 4 = primo traguardo
-  const isLast = cantStage >= cantTotalStages - 1 && !isMilestone;
+  const isMilestone  = cantStage === 3; // stage 4 = primo traguardo
+  const isBlock3End  = cantStage === 15; // ultimo stage del Blocco 3
+  const isLast = isBlock3End || (cantStage >= cantTotalStages - 1 && !isMilestone);
 
   // Stage 4: celebrazione milestone speciale
   if(isMilestone){
@@ -4039,7 +4075,7 @@ function cantVittoria(){
 
   addDen(cfg.reward);
   addPopXP(cfg.popReward);
-  if(isLast) unlockAvanzamentoBlock(3);
+  if(isBlock3End) unlockAvanzamentoBlock(3);
   _playCantVittoriaSound(isLast);
 }
 
@@ -5573,24 +5609,27 @@ function _mostraIntroStage(){
   const _introBgSrc = CANT_STAGES[cantStage].introBg || CANT_STAGES[cantStage].bg;
   document.getElementById('cant-bg').style.background =
     "url('" + _introBgSrc + "') top left/424px 760px no-repeat";
+  // Mostra/nascondi tasto overlay (solo Block 4+, useTasto:true)
+  const _tastoElIntro = document.getElementById('cant-tasto-lavori');
+  if(_tastoElIntro) _tastoElIntro.style.display = CANT_STAGES[cantStage].useTasto ? 'block' : 'none';
   const costEl = document.getElementById('cant-cost-text');
   if(costEl){
-    if(cantStage === 1 && !cantS2Paid)      costEl.textContent = 'Costo avvio: 30 🧱 Laterizi';
-    else if(cantStage === 2 && !cantS3Paid) costEl.textContent = 'Costo avvio: 50 🧱 Laterizi';
-    else if(cantStage === 3 && !cantS4Paid) costEl.textContent = 'Costo avvio: 70 🧱 Laterizi';
-    else if(cantStage === 4 && !cantS5Paid) costEl.textContent = 'Costo avvio: 70 🧱 Laterizi';
-    else if(cantStage === 5 && !cantS6Paid) costEl.textContent = 'Costo avvio: 90 🧱 Laterizi';
-    else if(cantStage === 6 && !cantS7Paid)  costEl.textContent = 'Costo avvio: 110 🧱 Laterizi';
-    else if(cantStage === 7 && !cantS8Paid)  costEl.textContent = 'Costo avvio: 130 🧱 Laterizi';
-    else if(cantStage === 8 && !cantS9Paid)  costEl.textContent = 'Costo avvio: 150 🧱 Laterizi';
-    else if(cantStage === 9 && !cantS10Paid) costEl.textContent = 'Costo avvio: 170 🧱 Laterizi';
-    else if(cantStage === 10 && !cantS11Paid) costEl.textContent = 'Costo avvio: 190 🧱 Laterizi';
-    else if(cantStage === 11 && !cantS12Paid) costEl.textContent = 'Costo avvio: 210 🧱 Laterizi';
-    else if(cantStage === 12 && !cantS13Paid) costEl.textContent = 'Costo avvio: 230 🧱 Laterizi';
-    else if(cantStage === 13 && !cantS14Paid) costEl.textContent = 'Costo avvio: 250 🧱 Laterizi';
-    else if(cantStage === 14 && !cantS15Paid) costEl.textContent = 'Costo avvio: 270 🧱 Laterizi';
-    else if(cantStage === 15 && !cantS16Paid) costEl.textContent = 'Costo avvio: 290 🧱 Laterizi';
-    else                                    costEl.textContent = 'Stage ' + (cantStage + 1) + ' – già sbloccato';
+    if(cantStage === 1 && !cantS2Paid)        costEl.textContent = 'Costo avvio: 160 🧱 Laterizi';
+    else if(cantStage === 2 && !cantS3Paid)   costEl.textContent = 'Costo avvio: 300 🧱 Laterizi';
+    else if(cantStage === 4 && !cantS5Paid)   costEl.textContent = 'Costo avvio: 400 🧱 Laterizi';
+    else if(cantStage === 5 && !cantS6Paid)   costEl.textContent = 'Costo avvio: 150 🧱 Laterizi';
+    else if(cantStage === 6 && !cantS7Paid)   costEl.textContent = 'Costo avvio: 200 🧱 Laterizi';
+    else if(cantStage === 7 && !cantS8Paid)   costEl.textContent = 'Costo avvio: 600 🧱 Laterizi';
+    else if(cantStage === 8 && !cantS9Paid)   costEl.textContent = 'Costo avvio: 100 🧱 Laterizi';
+    else if(cantStage === 9 && !cantS10Paid)  costEl.textContent = 'Costo avvio: 130 🧱 Laterizi';
+    else if(cantStage === 10 && !cantS11Paid) costEl.textContent = 'Costo avvio: 150 🧱 Laterizi';
+    else if(cantStage === 11 && !cantS12Paid) costEl.textContent = 'Costo avvio: 130 🧱 Laterizi';
+    else if(cantStage === 12 && !cantS13Paid) costEl.textContent = 'Costo avvio: 150 🧱 Laterizi';
+    else if(cantStage === 13 && !cantS14Paid) costEl.textContent = 'Costo avvio: 180 🧱 Laterizi';
+    else if(cantStage === 14 && !cantS15Paid) costEl.textContent = 'Costo avvio: 200 🧱 Laterizi';
+    else if(cantStage === 15 && !cantS16Paid) costEl.textContent = 'Costo avvio: 350 🧱 Laterizi';
+    else if(cantStage === 16 && !cantS17Paid) costEl.textContent = 'Costo avvio: 800 🧱 Laterizi';
+    else                                      costEl.textContent = 'Stage ' + (cantStage + 1) + ' – già sbloccato';
   }
   renderCantPreview();
 }
@@ -7101,7 +7140,7 @@ function saveGame(){
     hispaniaEndTime: hispaniaInterval ? now + hispaniaSecondsLeft * 1000 : null,
     africaEndTime:   africaInterval   ? now + africaSecondsLeft   * 1000 : null,
     duoviroStep, duoviroLivelloCorrente, duoviroL1Completato, duoviroL2Completato, duoviroCompletato, duoviroAttesaRegalia,
-    cantStage, cantS1Paid, cantS2Paid, cantS3Paid, cantS5Paid, cantS6Paid, cantS7Paid, cantS8Paid, cantS9Paid, cantS10Paid, cantS11Paid, cantS12Paid, cantS13Paid, cantS14Paid, cantS15Paid, cantS16Paid,
+    cantStage, cantS1Paid, cantS2Paid, cantS3Paid, cantS5Paid, cantS6Paid, cantS7Paid, cantS8Paid, cantS9Paid, cantS10Paid, cantS11Paid, cantS12Paid, cantS13Paid, cantS14Paid, cantS15Paid, cantS16Paid, cantS17Paid,
     memoriaLivDone,
     tetrisLivDone,
     avanzamentoUnlocked
@@ -7288,6 +7327,7 @@ function loadGame(){
     cantS14Paid = s.cantS14Paid ?? false;
     cantS15Paid = s.cantS15Paid ?? false;
     cantS16Paid = s.cantS16Paid ?? false;
+    cantS17Paid = s.cantS17Paid ?? false;
 
     // Duoviro
     duoviroStep              = s.duoviroStep              ?? 0;
