@@ -2670,10 +2670,30 @@ html,body{
 
   <!-- ══ PANNELLO MAGISTER ══ -->
   <div id="panel-magister" style="
-    position:absolute;inset:0;z-index:72;display:none;
-    background:rgba(5,2,1,0.92);">
+    position:absolute;top:72px;left:0;right:0;bottom:0;z-index:65;
+    display:none;">
 
-    <!-- ── Intro Pergamena Magister ── -->
+    <!-- Sfondo -->
+    <div style="position:absolute;inset:0;background:url('bg_magister.png') top left/424px 688px no-repeat;z-index:0;"></div>
+
+    <!-- Bottone trasparente "INIZIA LE PROVE" (stesso stile/posizione di RISOLVI PROBLEMI in DUOVIRO) -->
+    <button onclick="apriGiochiMagister()" aria-label="Inizia le prove" style="
+      position:absolute;left:212px;top:630px;width:220px;height:50px;
+      transform:translate(-50%,-50%);background:transparent;border:none;
+      cursor:pointer;z-index:10;"></button>
+
+    <!-- Tasto chiudi X (pannello principale) -->
+    <button onclick="closeMagister()" style="
+      position:absolute;top:6px;right:10px;z-index:10;
+      width:30px;height:30px;border-radius:50%;
+      background:rgba(10,6,2,.6);border:1px solid rgba(201,168,76,.5);
+      cursor:pointer;display:flex;align-items:center;justify-content:center;">
+      <svg viewBox="0 0 14 14" width="12" height="12" fill="none">
+        <path d="M1 1L13 13M13 1L1 13" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <!-- ── Intro Pergamena Magister (overlay sul bg) ── -->
     <div id="magister-intro-perg">
       <div class="mperg-box">
         <div class="mperg-roll">✦ &nbsp; IL MAGISTER DEI FULLONES &nbsp; ✦</div>
@@ -2687,91 +2707,101 @@ html,body{
         </div>
         <div class="mperg-sep"></div>
         <div class="mperg-footer">
-          <button class="mperg-btn" onclick="chiudiMagisterIntroPerg()">Inizia le prove</button>
+          <button class="mperg-btn" onclick="chiudiMagisterIntroPerg()">Tocca «Inizia le prove»</button>
         </div>
         <div class="mperg-roll"></div>
       </div>
     </div>
 
-    <button onclick="closeMagister()" style="
-      position:absolute;top:86px;right:10px;z-index:10;
-      width:30px;height:30px;border-radius:50%;
-      background:rgba(10,6,2,.6);border:1px solid rgba(201,168,76,.5);
-      cursor:pointer;display:flex;align-items:center;justify-content:center;">
-      <svg viewBox="0 0 14 14" width="12" height="12" fill="none">
-        <path d="M1 1L13 13M13 1L1 13" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-    </button>
-    <div id="mag-scroll" style="position:absolute;inset:0;overflow-y:auto;padding:80px 14px 20px;display:flex;flex-direction:column;align-items:center;">
-      <div id="mag-section-title" style="font-family:'Cinzel Decorative',serif;color:#C9A84C;font-size:1.3rem;letter-spacing:2px;text-align:center;margin-bottom:3px;">MEMORIA DELLE STOFFE</div>
-      <div id="mag-section-sub" style="font-family:'Cinzel',serif;color:rgba(201,168,76,.65);font-size:.9rem;letter-spacing:1.5px;text-align:center;margin-bottom:12px;">Il Magister ti mette alla prova</div>
-      <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:10px;">
-        <button class="mag-tab active" id="mag-tab-1" onclick="selectMagTab(1)">I</button>
-        <button class="mag-tab locked" id="mag-tab-2" onclick="selectMagTab(2)" title="Supera il Livello I per sbloccare">II</button>
-        <button class="mag-tab locked" id="mag-tab-3" onclick="selectMagTab(3)" title="Supera il Livello II per sbloccare">III</button>
-        <button class="mag-tab locked" id="mag-tab-4" onclick="selectMagTab(4)" title="Supera tutti e 3 i livelli Memoria per sbloccare">IV</button>
-        <button class="mag-tab locked" id="mag-tab-5" onclick="selectMagTab(5)" title="Supera il Livello IV per sbloccare">V</button>
-        <button class="mag-tab locked" id="mag-tab-6" onclick="selectMagTab(6)" title="Supera il Livello V per sbloccare">VI</button>
-      </div>
-      <div id="mag-stats-row" style="display:flex;gap:20px;margin-bottom:10px;">
-        <span id="mag-stat-pairs" style="font-family:'Cinzel',serif;font-size:1rem;color:rgba(201,168,76,.85);">Coppie: 0/4</span>
-        <span id="mag-stat-moves" style="font-family:'Cinzel',serif;font-size:1rem;color:rgba(201,168,76,.85);">Mosse: 0</span>
-      </div>
-      <div id="mag-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;width:100%;max-width:396px;margin-bottom:10px;"></div>
-      <div id="mag-win" style="display:none;flex-direction:column;align-items:center;gap:10px;background:linear-gradient(180deg,#1a0f04,#120a02);border:1px solid rgba(201,168,76,.5);border-radius:8px;padding:18px 20px;width:100%;max-width:280px;text-align:center;">
-        <div style="font-size:1.6rem;">🏆</div>
-        <div id="mag-win-title" style="font-family:'Cinzel Decorative',serif;color:#C9A84C;font-size:.8rem;letter-spacing:2px;"></div>
-        <div id="mag-win-reward" style="font-family:'Cinzel',serif;color:rgba(201,168,76,.8);font-size:.6rem;line-height:1.9;"></div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
-          <button id="mag-win-next" style="font-family:'Cinzel',serif;font-size:.6rem;color:#C9A84C;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.5);border-radius:4px;padding:7px 14px;cursor:pointer;display:none;"></button>
-          <button id="mag-win-replay" onclick="startMemoria(memoriaLiv)" style="font-family:'Cinzel',serif;font-size:.6rem;color:rgba(201,168,76,.7);background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.3);border-radius:4px;padding:7px 14px;cursor:pointer;">↺ Rigioca</button>
-        </div>
-      </div>
+    <!-- ══ Overlay Giochi (Memory + Tetris) ══ -->
+    <div id="mag-game-overlay" style="
+      display:none;position:absolute;inset:0;z-index:20;
+      background:rgba(5,2,1,0.93);overflow:hidden;">
 
-      <!-- ══ SEZIONE TETRIS ══ -->
-      <div id="tet-section" style="display:none;flex-direction:column;align-items:center;gap:6px;width:100%;max-width:396px;">
-        <!-- Riga principale: canvas + HUD laterale -->
-        <div id="tet-game-row">
-          <!-- Griglia principale (10×18 celle da 20px = 200×360) -->
-          <canvas id="tet-cvs" width="200" height="360" style="border:2px solid rgba(201,168,76,.55);border-radius:4px;background:#0a0602;display:block;touch-action:none;flex-shrink:0;"></canvas>
-          <!-- HUD laterale -->
-          <div id="tet-side-hud">
-            <div class="tet-hud-block">
-              <div class="tet-hud-label">OBIETTIVO</div>
-              <div id="tet-goal-txt" class="tet-hud-val">5 righe</div>
-            </div>
-            <div class="tet-hud-block">
-              <div class="tet-hud-label">RIGHE</div>
-              <div id="tet-lines-txt" class="tet-hud-val">0 / 5</div>
-            </div>
-            <div class="tet-hud-block">
-              <div class="tet-hud-label">PROSSIMO</div>
-              <canvas id="tet-next-cvs" width="72" height="72" style="border:1px solid rgba(201,168,76,.3);border-radius:3px;background:#0a0602;margin-top:2px;"></canvas>
-            </div>
-          </div>
+      <!-- Tasto chiudi X overlay giochi -->
+      <button onclick="chiudiGiochiMagister()" style="
+        position:absolute;top:8px;right:10px;z-index:30;
+        width:30px;height:30px;border-radius:50%;
+        background:rgba(10,6,2,.6);border:1px solid rgba(201,168,76,.5);
+        cursor:pointer;display:flex;align-items:center;justify-content:center;">
+        <svg viewBox="0 0 14 14" width="12" height="12" fill="none">
+          <path d="M1 1L13 13M13 1L1 13" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+      <!-- Contenuto gioco -->
+      <div id="mag-scroll" style="position:absolute;inset:0;overflow-y:auto;padding:48px 14px 20px;display:flex;flex-direction:column;align-items:center;">
+        <div id="mag-section-title" style="font-family:'Cinzel Decorative',serif;color:#C9A84C;font-size:1.3rem;letter-spacing:2px;text-align:center;margin-bottom:3px;">MEMORIA DELLE STOFFE</div>
+        <div id="mag-section-sub" style="font-family:'Cinzel',serif;color:rgba(201,168,76,.65);font-size:.9rem;letter-spacing:1.5px;text-align:center;margin-bottom:12px;">Il Magister ti mette alla prova</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:10px;">
+          <button class="mag-tab active" id="mag-tab-1" onclick="selectMagTab(1)">I</button>
+          <button class="mag-tab locked" id="mag-tab-2" onclick="selectMagTab(2)" title="Supera il Livello I per sbloccare">II</button>
+          <button class="mag-tab locked" id="mag-tab-3" onclick="selectMagTab(3)" title="Supera il Livello II per sbloccare">III</button>
+          <button class="mag-tab locked" id="mag-tab-4" onclick="selectMagTab(4)" title="Supera tutti e 3 i livelli Memoria per sbloccare">IV</button>
+          <button class="mag-tab locked" id="mag-tab-5" onclick="selectMagTab(5)" title="Supera il Livello IV per sbloccare">V</button>
+          <button class="mag-tab locked" id="mag-tab-6" onclick="selectMagTab(6)" title="Supera il Livello V per sbloccare">VI</button>
         </div>
-        <!-- Controlli touch -->
-        <div style="display:flex;gap:8px;align-items:center;justify-content:center;width:100%;max-width:280px;">
-          <button class="tet-btn" onpointerdown="tetMove(-1)">←</button>
-          <button class="tet-btn" onpointerdown="tetRotate()">↺</button>
-          <button class="tet-btn" onpointerdown="tetSoftDrop()">↓</button>
-          <button class="tet-btn" onpointerdown="tetMove(1)">→</button>
+        <div id="mag-stats-row" style="display:flex;gap:20px;margin-bottom:10px;">
+          <span id="mag-stat-pairs" style="font-family:'Cinzel',serif;font-size:1rem;color:rgba(201,168,76,.85);">Coppie: 0/4</span>
+          <span id="mag-stat-moves" style="font-family:'Cinzel',serif;font-size:1rem;color:rgba(201,168,76,.85);">Mosse: 0</span>
         </div>
-        <button class="tet-btn-hard" onpointerdown="tetHardDrop()">⬇ POSA SUBITO</button>
-        <!-- Risultato win/lose -->
-        <div id="tet-result" style="display:none;flex-direction:column;align-items:center;gap:10px;background:linear-gradient(180deg,#1a0f04,#120a02);border:1px solid rgba(201,168,76,.5);border-radius:8px;padding:18px 20px;width:100%;max-width:280px;text-align:center;">
-          <div id="tet-result-icon" style="font-size:2rem;"></div>
-          <div id="tet-result-title" style="font-family:'Cinzel Decorative',serif;color:#C9A84C;font-size:.8rem;letter-spacing:2px;"></div>
-          <div id="tet-result-body" style="font-family:'Cinzel',serif;color:rgba(201,168,76,.8);font-size:.6rem;line-height:1.9;"></div>
+        <div id="mag-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;width:100%;max-width:396px;margin-bottom:10px;"></div>
+        <div id="mag-win" style="display:none;flex-direction:column;align-items:center;gap:10px;background:linear-gradient(180deg,#1a0f04,#120a02);border:1px solid rgba(201,168,76,.5);border-radius:8px;padding:18px 20px;width:100%;max-width:280px;text-align:center;">
+          <div style="font-size:1.6rem;">🏆</div>
+          <div id="mag-win-title" style="font-family:'Cinzel Decorative',serif;color:#C9A84C;font-size:.8rem;letter-spacing:2px;"></div>
+          <div id="mag-win-reward" style="font-family:'Cinzel',serif;color:rgba(201,168,76,.8);font-size:.6rem;line-height:1.9;"></div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
-            <button id="tet-result-next" style="display:none;font-family:'Cinzel',serif;font-size:.6rem;color:#C9A84C;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.5);border-radius:4px;padding:7px 14px;cursor:pointer;"></button>
-            <button onpointerdown="startTetris(tetrisLiv)" style="font-family:'Cinzel',serif;font-size:.6rem;color:rgba(201,168,76,.7);background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.3);border-radius:4px;padding:7px 14px;cursor:pointer;">↺ Rigioca</button>
+            <button id="mag-win-next" style="font-family:'Cinzel',serif;font-size:.6rem;color:#C9A84C;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.5);border-radius:4px;padding:7px 14px;cursor:pointer;display:none;"></button>
+            <button id="mag-win-replay" onclick="startMemoria(memoriaLiv)" style="font-family:'Cinzel',serif;font-size:.6rem;color:rgba(201,168,76,.7);background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.3);border-radius:4px;padding:7px 14px;cursor:pointer;">↺ Rigioca</button>
           </div>
         </div>
-      </div>
 
-    </div>
-  </div>
+        <!-- ══ SEZIONE TETRIS ══ -->
+        <div id="tet-section" style="display:none;flex-direction:column;align-items:center;gap:6px;width:100%;max-width:396px;">
+          <!-- Riga principale: canvas + HUD laterale -->
+          <div id="tet-game-row">
+            <!-- Griglia principale (10×18 celle da 20px = 200×360) -->
+            <canvas id="tet-cvs" width="200" height="360" style="border:2px solid rgba(201,168,76,.55);border-radius:4px;background:#0a0602;display:block;touch-action:none;flex-shrink:0;"></canvas>
+            <!-- HUD laterale -->
+            <div id="tet-side-hud">
+              <div class="tet-hud-block">
+                <div class="tet-hud-label">OBIETTIVO</div>
+                <div id="tet-goal-txt" class="tet-hud-val">5 righe</div>
+              </div>
+              <div class="tet-hud-block">
+                <div class="tet-hud-label">RIGHE</div>
+                <div id="tet-lines-txt" class="tet-hud-val">0 / 5</div>
+              </div>
+              <div class="tet-hud-block">
+                <div class="tet-hud-label">PROSSIMO</div>
+                <canvas id="tet-next-cvs" width="72" height="72" style="border:1px solid rgba(201,168,76,.3);border-radius:3px;background:#0a0602;margin-top:2px;"></canvas>
+              </div>
+            </div>
+          </div>
+          <!-- Controlli touch -->
+          <div style="display:flex;gap:8px;align-items:center;justify-content:center;width:100%;max-width:280px;">
+            <button class="tet-btn" onpointerdown="tetMove(-1)">←</button>
+            <button class="tet-btn" onpointerdown="tetRotate()">↺</button>
+            <button class="tet-btn" onpointerdown="tetSoftDrop()">↓</button>
+            <button class="tet-btn" onpointerdown="tetMove(1)">→</button>
+          </div>
+          <button class="tet-btn-hard" onpointerdown="tetHardDrop()">⬇ POSA SUBITO</button>
+          <!-- Risultato win/lose -->
+          <div id="tet-result" style="display:none;flex-direction:column;align-items:center;gap:10px;background:linear-gradient(180deg,#1a0f04,#120a02);border:1px solid rgba(201,168,76,.5);border-radius:8px;padding:18px 20px;width:100%;max-width:280px;text-align:center;">
+            <div id="tet-result-icon" style="font-size:2rem;"></div>
+            <div id="tet-result-title" style="font-family:'Cinzel Decorative',serif;color:#C9A84C;font-size:.8rem;letter-spacing:2px;"></div>
+            <div id="tet-result-body" style="font-family:'Cinzel',serif;color:rgba(201,168,76,.8);font-size:.6rem;line-height:1.9;"></div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+              <button id="tet-result-next" style="display:none;font-family:'Cinzel',serif;font-size:.6rem;color:#C9A84C;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.5);border-radius:4px;padding:7px 14px;cursor:pointer;"></button>
+              <button onpointerdown="startTetris(tetrisLiv)" style="font-family:'Cinzel',serif;font-size:.6rem;color:rgba(201,168,76,.7);background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.3);border-radius:4px;padding:7px 14px;cursor:pointer;">↺ Rigioca</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /mag-game-overlay -->
+
+  </div><!-- /panel-magister -->
 
   <div id="tov"></div>
 </div><!-- #game -->
@@ -2923,7 +2953,7 @@ if(window.visualViewport){
 // Precarica le immagini esterne in background così le transizioni sono fluide
 (function preloadImages(){
   const imgs = [
-    'bg_giardino.jpg','bg_duoviro.jpg','bg_fullonica.jpg','bg_credits.jpg',
+    'bg_giardino.jpg','bg_duoviro.jpg','bg_fullonica.jpg','bg_credits.jpg','bg_magister.png',
     'bg_cantiere.png','bg_cantiere2.png','bg_cantiere3.png','bg_cantiere4.png',
     'bg_cantiere5avvio.png','bg_cantiere5.png',
     'affari_bg.png','eumachia_bg.jpg','eumachia_look_01.jpg',
@@ -5379,18 +5409,34 @@ function closeGiardinoPergamena(){
 }
 function openMagister(){
   document.getElementById('panel-magister').style.display = 'block';
-  document.getElementById('hud').style.zIndex = '75';
+  document.getElementById('hud').style.zIndex = '70';
   // Mostra sempre l'intro finché non si completano tutti i 6 livelli (come il Duoviro)
   const allDone = memoriaLivDone.every(v => v) && tetrisLivDone.every(v => v);
   if(!allDone){
     document.getElementById('magister-intro-perg').classList.add('show');
-  } else {
-    _magStartCurrentLevel();
   }
+  // Dopo il popup, l'utente clicca il bottone sull'immagine per accedere al gioco
 }
 function chiudiMagisterIntroPerg(){
+  // Chiude solo il popup: l'utente vede il bg e deve cliccare il bottone
   document.getElementById('magister-intro-perg').classList.remove('show');
+}
+function apriGiochiMagister(){
+  // Apre l'overlay del gioco (Memory + Tetris) e avvia il livello corrente
+  document.getElementById('mag-game-overlay').style.display = 'block';
   _magStartCurrentLevel();
+}
+function chiudiGiochiMagister(){
+  // Chiude solo l'overlay del gioco, torna al background con il bottone
+  tetStop();
+  document.getElementById('mag-game-overlay').style.display = 'none';
+}
+function closeMagister(){
+  tetStop();
+  document.getElementById('mag-game-overlay').style.display = 'none';
+  document.getElementById('magister-intro-perg').classList.remove('show');
+  document.getElementById('panel-magister').style.display = 'none';
+  document.getElementById('hud').style.zIndex = '70';
 }
 function _magStartCurrentLevel(){
   // Avvia il livello più avanzato raggiunto
@@ -5404,11 +5450,6 @@ function _magStartCurrentLevel(){
     const memDoneCount = memoriaLivDone.filter(v => v).length;
     startMemoria(Math.min(memDoneCount + 1, 3));
   }
-}
-function closeMagister(){
-  tetStop();
-  document.getElementById('panel-magister').style.display = 'none';
-  document.getElementById('hud').style.zIndex = '70';
 }
 
 // ══ MEMORIA DELLE STOFFE ══
