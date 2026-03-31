@@ -2651,6 +2651,7 @@ function chiudiCantAlertAvvio(){
   if(cantStage === 3){
     // Stage 4: nessun hidden, lancia direttamente la celebrazione milestone
     addDen(CANT_STAGES[3].reward);
+    addPopXP(CANT_STAGES[3].popReward);
     document.getElementById('cant-milestone-reward').textContent = '+' + CANT_STAGES[3].reward + ' 🪙 Denarii';
     _triggerMilestoneCelebration();
     return;
@@ -3464,6 +3465,8 @@ function _triggerFinaleCelebration(){
   document.getElementById('cant-hud').style.display  = 'none';
   document.getElementById('cant-list').style.display = 'none';
   document.getElementById('cant-close-btn').style.display = 'none';
+  // Abbassa #hub sotto panel-cantiere (z:70) così il popup finale è visibile
+  document.getElementById('hub').style.zIndex = '0';
 
   // 2. Cambia sfondo a bg_cantiere8 (completamento del modulo)
   bg.style.background = "url('bg_cantiere8.png') top left/424px 760px no-repeat";
@@ -3518,32 +3521,32 @@ function _triggerFinaleCelebration(){
     }, wave * 600);
   }
 
-  // 6. Stelle scintillanti
-  const starsContainer = document.getElementById('cant-finale-stars');
-  if(starsContainer){
-    for(let i=0;i<28;i++){
-      setTimeout(()=>{
-        const s = document.createElement('div');
-        const sx = 10 + Math.random()*400;
-        const sy = -(100 + Math.random()*320);
-        const sz = 18 + Math.random()*22;
-        s.style.cssText = `position:absolute;left:${sx}px;top:${300 + Math.random()*220}px;`
-          +`font-size:${sz}px;pointer-events:none;`
-          +`--sy:${sy}px;`
-          +`animation:cantStar ${1.6 + Math.random()*.9}s ease-out forwards;`;
-        s.textContent = ['⭐','✨','🌟','🏛️'][Math.floor(Math.random()*4)];
-        starsContainer.appendChild(s);
-        setTimeout(()=>{ s.remove(); }, 2800);
-      }, i * 130);
-    }
-  }
+  // 6. Suono costruzione (primo blocco esterno) + fanfara epica finale
+  _playCantStage2Sound(); // colpo sordo + detriti + accordo ascendente (uniforme con le transizioni)
+  setTimeout(()=>{ _playFinaleSound(); }, 900); // fanfara epica dopo i suoni di costruzione
 
-  // 7. Suono epico finale
-  _playFinaleSound();
-
-  // 8. Mostra popup finale
+  // 7. Mostra popup finale + stelle scintillanti (sincronizzate con il popup)
   setTimeout(()=>{
     document.getElementById('cant-finale-popup').style.display = 'flex';
+    // Stelle generate dopo che il popup è visibile
+    const starsContainer = document.getElementById('cant-finale-stars');
+    if(starsContainer){
+      for(let i=0;i<28;i++){
+        setTimeout(()=>{
+          const s = document.createElement('div');
+          const sx = 10 + Math.random()*400;
+          const sy = -(100 + Math.random()*320);
+          const sz = 18 + Math.random()*22;
+          s.style.cssText = `position:absolute;left:${sx}px;top:${300 + Math.random()*220}px;`
+            +`font-size:${sz}px;pointer-events:none;`
+            +`--sy:${sy}px;`
+            +`animation:cantStar ${1.6 + Math.random()*.9}s ease-out forwards;`;
+          s.textContent = ['⭐','✨','🌟','🏛️'][Math.floor(Math.random()*4)];
+          starsContainer.appendChild(s);
+          setTimeout(()=>{ s.remove(); }, 2800);
+        }, i * 130);
+      }
+    }
   }, 1500);
 }
 
