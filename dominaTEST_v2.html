@@ -7346,6 +7346,18 @@ function devResetGame(){
   localStorage.removeItem('dominaSave');
   location.reload();
 }
+
+function devTestCantiere(){
+  // Solo sessione – NON salva: al riavvio torna tutto normale
+  lat = 9999;
+  cantStage = 0;
+  cantS1Paid=false; cantS2Paid=false; cantS3Paid=false; cantS4Paid=false;
+  cantS5Paid=false; cantS6Paid=false; cantS7Paid=false; cantS8Paid=false;
+  cantS9Paid=false; cantS10Paid=false; cantS11Paid=false; cantS12Paid=false;
+  cantS13Paid=false; cantS14Paid=false; cantS15Paid=false; cantS16Paid=false;
+  document.getElementById('vlat').textContent = lat;
+  console.log('[DEV] Laterizi: 9999 | Stage: 1 | Solo sessione – non salvato');
+}
 </script>
 </body>
 </html>
