@@ -562,6 +562,99 @@ html,body{
 #tet-side-hud .tet-hud-label{font-family:'Cinzel',serif;font-size:.46rem;color:rgba(201,168,76,.55);letter-spacing:.1em;}
 #tet-side-hud .tet-hud-val{font-family:'Cinzel',serif;font-size:.78rem;color:#C9A84C;margin-top:-2px;}
 .tet-hud-block{display:flex;flex-direction:column;align-items:center;}
+
+/* ══ PANEL AVANZAMENTO CANTIERE ══ */
+#panel-avanzamento{
+  position:absolute;top:0;left:0;right:0;bottom:0;z-index:95;
+  display:none;flex-direction:column;
+  background:#0d0800;
+  overflow:hidden;
+}
+#av-header{
+  background:linear-gradient(90deg,#1a0e02 0%,#3d2200 14%,#7a4a08 38%,#C9A84C 50%,#7a4a08 62%,#3d2200 86%,#1a0e02 100%);
+  height:48px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 14px;
+  border-bottom:2px solid #C9A84C;
+}
+#av-header-title{
+  font-family:'Cinzel Decorative',serif;font-size:.78rem;color:#0d0800;
+  letter-spacing:.1em;font-weight:700;
+}
+#av-close-btn{
+  width:30px;height:30px;border-radius:50%;
+  background:rgba(10,6,2,.6);border:1px solid rgba(201,168,76,.5);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+#av-grid{
+  flex:1;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  padding:16px;
+  overflow-y:auto;
+  align-content:start;
+}
+.av-cell{
+  position:relative;
+  aspect-ratio:1/1;
+  border-radius:4px;
+  border:2px solid #C9A84C;
+  background:#0d0800;
+  overflow:hidden;
+  box-shadow:0 0 0 1px rgba(201,168,76,.2),inset 0 0 20px rgba(0,0,0,.6);
+}
+.av-img{
+  width:100%;height:100%;object-fit:cover;
+  filter:grayscale(0.9) brightness(0.4);
+  transition:filter 1.4s ease;
+  display:block;
+}
+.av-cell.unlocked .av-img{
+  filter:none;
+}
+.av-lock{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(5,2,0,.5);
+  transition:opacity 1.0s ease;
+  pointer-events:none;
+}
+.av-lock-ico{
+  font-size:2.4rem;
+  filter:drop-shadow(0 2px 8px rgba(0,0,0,.9));
+}
+.av-cell.unlocked .av-lock{
+  opacity:0;
+}
+.av-cell-label{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:5px 6px;
+  background:linear-gradient(0deg,rgba(5,2,0,.9) 0%,transparent 100%);
+  font-family:'Cinzel',serif;font-size:.56rem;color:#C9A84C;
+  letter-spacing:.1em;text-align:center;
+}
+.av-cell-empty{
+  display:flex;align-items:center;justify-content:center;
+}
+/* Bottone tasto_avanzamento sul cantiere */
+#btn-cant-avanzamento{
+  position:absolute;top:90px;left:12px;z-index:20;
+  width:52px;height:52px;
+  background:transparent;border:none;cursor:pointer;
+  border-radius:50%;padding:0;
+  transition:transform .15s;
+}
+#btn-cant-avanzamento:active{transform:scale(.9);}
+#btn-cant-avanzamento img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+/* Animazione sblocco */
+@keyframes avUnlockPulse{
+  0%  {box-shadow:0 0 0 0 rgba(201,168,76,.85);}
+  60% {box-shadow:0 0 0 18px rgba(201,168,76,0);}
+  100%{box-shadow:0 0 0 0 rgba(201,168,76,0);}
+}
+.av-cell.unlock-anim{animation:avUnlockPulse .9s ease-out forwards;}
 </style>
 </head>
 <body>
@@ -2513,6 +2606,11 @@ html,body{
     </div>
 
     <!-- Tasto chiudi X -->
+    <!-- Bottone Avanzamento trasparente sul bg cantiere -->
+    <button id="btn-cant-avanzamento" onclick="openAvanzamento()" aria-label="Avanzamento Cantiere">
+      <img src="tasto_avanzamento.png" alt="Avanzamento">
+    </button>
+
     <button onclick="closeCantiere()" id="cant-close-btn" style="
       position:absolute;top:78px;right:12px;z-index:40;
       width:30px;height:30px;border-radius:50%;
@@ -2522,6 +2620,50 @@ html,body{
         <path d="M1 1L13 13M13 1L1 13" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
       </svg>
     </button>
+  </div>
+
+  <!-- ══ PANNELLO AVANZAMENTO CANTIERE ══ -->
+  <div id="panel-avanzamento">
+    <div id="av-header">
+      <div id="av-header-title">AVANZAMENTO DEL CANTIERE</div>
+      <button id="av-close-btn" onclick="closeAvanzamento()" aria-label="Chiudi">
+        <svg viewBox="0 0 14 14" width="12" height="12" fill="none">
+          <path d="M1 1L13 13M13 1L1 13" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+    <div id="av-grid">
+      <!-- Cella 1: Portico Esterno -->
+      <div class="av-cell" id="av-cell-1">
+        <img src="avanzamento1_esterno.png" class="av-img" id="av-img-1" alt="Portico Esterno">
+        <div class="av-lock" id="av-lock-1"><span class="av-lock-ico">🔒</span></div>
+        <div class="av-cell-label">PORTICO ESTERNO</div>
+      </div>
+      <!-- Cella 2: Camera Interna -->
+      <div class="av-cell" id="av-cell-2">
+        <img src="avanzamento2_interno.png" class="av-img" id="av-img-2" alt="Camera Interna">
+        <div class="av-lock" id="av-lock-2"><span class="av-lock-ico">🔒</span></div>
+        <div class="av-cell-label">CAMERA INTERNA</div>
+      </div>
+      <!-- Cella 3: Luogo dei Fullones -->
+      <div class="av-cell" id="av-cell-3">
+        <img src="avanzamento3_luogoincontrofullones.png" class="av-img" id="av-img-3" alt="Luogo dei Fullones">
+        <div class="av-lock" id="av-lock-3"><span class="av-lock-ico">🔒</span></div>
+        <div class="av-cell-label">LUOGO DEI FULLONES</div>
+      </div>
+      <!-- Cella 4: futura -->
+      <div class="av-cell av-cell-empty" id="av-cell-4">
+        <div class="av-lock" id="av-lock-4"><span class="av-lock-ico">🔒</span></div>
+      </div>
+      <!-- Cella 5: futura -->
+      <div class="av-cell av-cell-empty" id="av-cell-5">
+        <div class="av-lock" id="av-lock-5"><span class="av-lock-ico">🔒</span></div>
+      </div>
+      <!-- Cella 6: futura -->
+      <div class="av-cell av-cell-empty" id="av-cell-6">
+        <div class="av-lock" id="av-lock-6"><span class="av-lock-ico">🔒</span></div>
+      </div>
+    </div>
   </div>
 
   <!-- ══ PANNELLO FULLONICA ══ -->
@@ -2831,6 +2973,7 @@ let popXP = 0; // 0-199, si azzera ogni 200 (0-99=verde, 100-199=rosso)
 let hispaniaUnlocked = false;
 let africaUnlocked   = false;
 let numistrio2Unlocked = false; // sblocco Livello 2 carriera al primo passaggio verde→rosso
+let avanzamentoUnlocked = [false, false, false, false, false, false]; // 6 blocchi avanzamento cantiere
 
 // ── Memoria delle Stoffe (Magister) ──
 const MEMORIA_SIMBOLI = [
@@ -2981,7 +3124,9 @@ if(window.visualViewport){
     'hidden_rancio.png','hidden_tavolo.png','hidden_travi.png','porta.png',
     'hidden_altare.png','hidden_anfore6.png','hidden_carretto.png','hidden_cassettalegno.png','hidden_travigrandi.png',
     'hidden_altare2.png','hidden_attrezzi.png','hidden_marmipregiati.png','hidden_statua.png',
-    'bg_cantiere6avvio.png','bg_cantiere6.png'
+    'bg_cantiere6avvio.png','bg_cantiere6.png',
+    'tasto_avanzamento.png',
+    'avanzamento1_esterno.png','avanzamento2_interno.png','avanzamento3_luogoincontrofullones.png'
   ];
   imgs.forEach(src => { const i = new Image(); i.src = src; });
 })();
@@ -3508,6 +3653,7 @@ function chiudiCantAlertAvvio(){
     addDen(CANT_STAGES[3].reward);
     addPopXP(CANT_STAGES[3].popReward);
     document.getElementById('cant-milestone-reward').textContent = '+' + CANT_STAGES[3].reward + ' 🪙 Denarii';
+    unlockAvanzamentoBlock(1);
     _triggerMilestoneCelebration();
     return;
   }
@@ -3515,6 +3661,59 @@ function chiudiCantAlertAvvio(){
   document.getElementById('cant-list').style.display  = 'flex';
   startCantStage();
 }
+// ══ AVANZAMENTO CANTIERE ══
+function openAvanzamento(){
+  _updateAvanzamentoCells();
+  document.getElementById('panel-avanzamento').style.display = 'flex';
+}
+function closeAvanzamento(){
+  document.getElementById('panel-avanzamento').style.display = 'none';
+}
+function _updateAvanzamentoCells(){
+  for(let i = 0; i < 6; i++){
+    const cell = document.getElementById('av-cell-' + (i+1));
+    if(!cell) continue;
+    if(avanzamentoUnlocked[i]) cell.classList.add('unlocked');
+    else cell.classList.remove('unlocked');
+  }
+}
+function unlockAvanzamentoBlock(n){
+  if(avanzamentoUnlocked[n-1]) return;
+  avanzamentoUnlocked[n-1] = true;
+  saveGame();
+  _playAvanzamentoUnlockSound();
+  // Se il pannello è aperto, aggiorna e anima la cella
+  const panel = document.getElementById('panel-avanzamento');
+  if(panel.style.display !== 'none'){
+    _updateAvanzamentoCells();
+    const cell = document.getElementById('av-cell-' + n);
+    if(cell){ cell.classList.add('unlock-anim'); setTimeout(()=>cell.classList.remove('unlock-anim'),950); }
+  }
+}
+function _playAvanzamentoUnlockSound(){
+  try{
+    const ctx = new (window.AudioContext||window.webkitAudioContext)();
+    const notes = [[523,.00],[659,.20],[784,.40],[1047,.60],[1319,.80]];
+    notes.forEach(([freq,delay])=>{
+      const o=ctx.createOscillator(), g=ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.type='sine'; o.frequency.value=freq;
+      g.gain.setValueAtTime(0,ctx.currentTime+delay);
+      g.gain.linearRampToValueAtTime(.28,ctx.currentTime+delay+.06);
+      g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+delay+.35);
+      o.start(ctx.currentTime+delay); o.stop(ctx.currentTime+delay+.4);
+    });
+    const bell=ctx.createOscillator(), bg=ctx.createGain();
+    bell.connect(bg); bg.connect(ctx.destination);
+    bell.type='sine';
+    bell.frequency.setValueAtTime(1568,ctx.currentTime+1.1);
+    bell.frequency.exponentialRampToValueAtTime(800,ctx.currentTime+2.0);
+    bg.gain.setValueAtTime(.38,ctx.currentTime+1.1);
+    bg.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+2.2);
+    bell.start(ctx.currentTime+1.1); bell.stop(ctx.currentTime+2.3);
+  }catch(e){}
+}
+
 function closeCantiere(){
   stopCantTimer();
   document.getElementById('panel-cantiere').style.display = 'none';
@@ -3807,6 +4006,7 @@ function cantVittoria(){
   if(cantStage === 10){
     addDen(cfg.reward);
     addPopXP(cfg.popReward);
+    unlockAvanzamentoBlock(2);
     _triggerFinaleCelebration();
     return;
   }
@@ -3824,6 +4024,7 @@ function cantVittoria(){
 
   addDen(cfg.reward);
   addPopXP(cfg.popReward);
+  if(isLast) unlockAvanzamentoBlock(3);
   _playCantVittoriaSound(isLast);
 }
 
@@ -6885,7 +7086,8 @@ function saveGame(){
     duoviroStep, duoviroLivelloCorrente, duoviroL1Completato, duoviroL2Completato, duoviroCompletato, duoviroAttesaRegalia,
     cantStage, cantS1Paid, cantS2Paid, cantS3Paid, cantS5Paid, cantS6Paid, cantS7Paid, cantS8Paid, cantS9Paid, cantS10Paid, cantS11Paid, cantS12Paid, cantS13Paid, cantS14Paid, cantS15Paid, cantS16Paid,
     memoriaLivDone,
-    tetrisLivDone
+    tetrisLivDone,
+    avanzamentoUnlocked
   };
   localStorage.setItem('dominaSave', JSON.stringify(state));
 }
@@ -7123,6 +7325,10 @@ function loadGame(){
     tetrisLivDone  = s.tetrisLivDone  ?? [false, false, false];
     _updateMagTabs();
 
+    // Avanzamento cantiere
+    avanzamentoUnlocked = s.avanzamentoUnlocked ?? [false, false, false, false, false, false];
+    _updateAvanzamentoCells();
+
     return true;
   } catch(e){
     console.warn('Errore caricamento salvataggio:', e);
@@ -7139,6 +7345,18 @@ function newGame(){
 function devResetGame(){
   localStorage.removeItem('dominaSave');
   location.reload();
+}
+
+function devTestCantiere(){
+  // Solo sessione – NON salva: al riavvio torna tutto normale
+  lat = 9999;
+  cantStage = 0;
+  cantS1Paid=false; cantS2Paid=false; cantS3Paid=false; cantS4Paid=false;
+  cantS5Paid=false; cantS6Paid=false; cantS7Paid=false; cantS8Paid=false;
+  cantS9Paid=false; cantS10Paid=false; cantS11Paid=false; cantS12Paid=false;
+  cantS13Paid=false; cantS14Paid=false; cantS15Paid=false; cantS16Paid=false;
+  document.getElementById('vlat').textContent = lat;
+  console.log('[DEV] Laterizi: 9999 | Stage: 1 | Solo sessione – non salvato');
 }
 </script>
 </body>
