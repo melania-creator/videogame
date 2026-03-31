@@ -1939,8 +1939,8 @@ html,body{
           <div style="font-family:'Cinzel Decorative',serif;font-size:.95rem;font-weight:700;color:#2a1000;letter-spacing:.08em;margin-bottom:14px;">CAMERA INTERNA</div>
           <div style="height:1px;margin:0 10px 14px;background:linear-gradient(90deg,transparent,rgba(138,98,16,.28) 25%,rgba(201,168,76,.38) 50%,rgba(138,98,16,.28) 75%,transparent);"></div>
           <div style="font-family:'Cinzel',serif;font-size:.72rem;color:#150800;line-height:1.75;margin-bottom:16px;">
-            Il Secondo Portico è stato completato.<br>
-            Si accede ora alla Camera Interna.<br>
+            I lavori nella Camera Interna procedono.<br>
+            La fase conclusiva si apre davanti a noi.<br>
             <span style="color:#3a1500;font-style:italic;">Le colonne dorate attendono di essere rivelate.</span>
           </div>
           <div style="display:flex;align-items:center;gap:6px;margin-bottom:16px;padding:0 8px;">
@@ -2048,12 +2048,12 @@ html,body{
         <div style="padding:18px 22px 8px;text-align:center;">
           <div style="font-family:'Cinzel Decorative',serif;font-weight:700;font-size:.65rem;letter-spacing:.12em;color:#2a1000;margin-bottom:14px;">STATO DI AVANZAMENTO LAVORI</div>
           <div style="font-size:2.4rem;margin-bottom:10px;">🪨</div>
-          <div style="font-family:'Cinzel Decorative',serif;font-size:.95rem;font-weight:700;color:#2a1000;letter-spacing:.08em;margin-bottom:14px;">ATRIO CENTRALE</div>
+          <div style="font-family:'Cinzel Decorative',serif;font-size:.95rem;font-weight:700;color:#2a1000;letter-spacing:.08em;margin-bottom:14px;">LUOGO DEI FULLONES</div>
           <div style="height:1px;margin:0 10px 14px;background:linear-gradient(90deg,transparent,rgba(138,98,16,.28) 25%,rgba(201,168,76,.38) 50%,rgba(138,98,16,.28) 75%,transparent);"></div>
           <div style="font-family:'Cinzel',serif;font-size:.72rem;color:#150800;line-height:1.75;margin-bottom:16px;">
-            Il Portico Orientale è stato completato.<br>
-            Si apre ora l'Atrio Centrale.<br>
-            <span style="color:#3a1500;font-style:italic;">Il cuore del Portico di Eumachia si svela.</span>
+            I lavori nel Luogo dei Fullones procedono.<br>
+            Le vasche dei lavandai vengono ampliate.<br>
+            <span style="color:#3a1500;font-style:italic;">L'opera di Eumachia si fa sempre più grande.</span>
           </div>
           <div style="display:flex;align-items:center;gap:6px;margin-bottom:16px;padding:0 8px;">
             <div style="flex:1;height:6px;background:rgba(138,98,16,.18);border-radius:4px;overflow:hidden;">
@@ -2070,7 +2070,7 @@ html,body{
             font-family:'Cinzel',serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;
             color:#f6e9c2;padding:9px 26px;cursor:pointer;
             box-shadow:0 2px 10px rgba(0,0,0,.45);">
-            Entra nell'Atrio Centrale →
+            Prosegui nel Luogo dei Fullones →
           </button>
         </div>
         <div style="
@@ -2104,12 +2104,12 @@ html,body{
         <div style="padding:18px 22px 8px;text-align:center;">
           <div style="font-family:'Cinzel Decorative',serif;font-weight:700;font-size:.65rem;letter-spacing:.12em;color:#2a1000;margin-bottom:14px;">STATO DI AVANZAMENTO LAVORI</div>
           <div style="font-size:2.4rem;margin-bottom:10px;">🏺</div>
-          <div style="font-family:'Cinzel Decorative',serif;font-size:.95rem;font-weight:700;color:#2a1000;letter-spacing:.08em;margin-bottom:14px;">CRYPTA DEL PORTICO</div>
+          <div style="font-family:'Cinzel Decorative',serif;font-size:.95rem;font-weight:700;color:#2a1000;letter-spacing:.08em;margin-bottom:14px;">LUOGO DEI FULLONES</div>
           <div style="height:1px;margin:0 10px 14px;background:linear-gradient(90deg,transparent,rgba(138,98,16,.28) 25%,rgba(201,168,76,.38) 50%,rgba(138,98,16,.28) 75%,transparent);"></div>
           <div style="font-family:'Cinzel',serif;font-size:.72rem;color:#150800;line-height:1.75;margin-bottom:16px;">
-            L'Atrio Centrale è stato ultimato.<br>
-            Si apre ora la Crypta sotterranea.<br>
-            <span style="color:#3a1500;font-style:italic;">Nelle profondità riposano i segreti dell'opera.</span>
+            I fullones lavorano senza sosta.<br>
+            Il loro spazio si fa più grande e maestoso.<br>
+            <span style="color:#3a1500;font-style:italic;">L'opera si avvicina al suo compimento.</span>
           </div>
           <div style="display:flex;align-items:center;gap:6px;margin-bottom:16px;padding:0 8px;">
             <div style="flex:1;height:6px;background:rgba(138,98,16,.18);border-radius:4px;overflow:hidden;">
@@ -2126,7 +2126,7 @@ html,body{
             font-family:'Cinzel',serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;
             color:#f6e9c2;padding:9px 26px;cursor:pointer;
             box-shadow:0 2px 10px rgba(0,0,0,.45);">
-            Scendi nella Crypta →
+            Prosegui nel Luogo →
           </button>
         </div>
         <div style="
@@ -3008,16 +3008,12 @@ let memoriaMovs    = 0;
 
 // ── Cursus Honorum di Numistrio Frontone (10 stadi, 50 XP ciascuno) ──
 const CURSUS_HONORUM = [
-  { nome: 'Candidato',             titolo: 'Stadio I — Candidato',             desc: 'Numistrio Frontone annuncia ufficialmente la sua candidatura. Il suo nome inizia a circolare tra i pompeiani.',                                            soglia: 0,   grad: 'linear-gradient(180deg,#9A9A90 0%,#777770 50%,#555550 100%)' },
-  { nome: 'Amico del Popolo',      titolo: 'Stadio II — Amico del Popolo',     desc: 'La corporazione dei fullones appoggia Numistrio. Le prime amicizie politiche si formano tra i mercanti del porto.',                                        soglia: 50,  grad: 'linear-gradient(180deg,#7DDB83 0%,#5DBB63 50%,#3A9940 100%)' },
-  { nome: 'Scriba',                titolo: 'Stadio III — Scriba',              desc: 'Numistrio entra a servizio del Foro come scriba. Apprende le leggi, i contratti e i costumi dell\'amministrazione di Pompei.',                            soglia: 100, grad: 'linear-gradient(180deg,#2AB0B0 0%,#1A9090 50%,#0A7070 100%)' },
-  { nome: 'Accensus',              titolo: 'Stadio IV — Accensus',             desc: 'Numistrio accompagna i magistrati nelle cerimonie pubbliche. La sua presenza autorevole viene notata dai cittadini.',                                       soglia: 150, grad: 'linear-gradient(180deg,#30C8D0 0%,#1AA8B0 50%,#0A8890 100%)' },
-  { nome: 'Viatore',               titolo: 'Stadio V — Viatore',               desc: 'Numistrio porta i messaggi ufficiali tra le istituzioni. È il volto della legge nelle strade di Pompei.',                                                  soglia: 200, grad: 'linear-gradient(180deg,#4192D8 0%,#2172B8 50%,#115298 100%)' },
-  { nome: 'Quinqueviro',           titolo: 'Stadio VI — Quinqueviro',          desc: 'Numistrio entra nel consiglio dei cinque magistrati. Partecipa alle decisioni sui mercati e sulla sicurezza della città.',                                  soglia: 250, grad: 'linear-gradient(180deg,#8B5FC0 0%,#6B3FA0 50%,#4B1F80 100%)' },
-  { nome: 'Aedilis',               titolo: 'Stadio VII — Aedilis',             desc: 'Numistrio sorveglia le strade, i mercati e i giochi pubblici. La città lo riconosce come uomo di ordine e rettitudine.',                                    soglia: 300, grad: 'linear-gradient(180deg,#E17C3A 0%,#C15C1A 50%,#A03C00 100%)' },
-  { nome: 'Pretore',               titolo: 'Stadio VIII — Pretore',            desc: 'Numistrio amministra la giustizia nella Basilica del Foro. Il suo verdetto è rispettato da mercanti e cittadini di ogni ceto.',                            soglia: 350, grad: 'linear-gradient(180deg,#F4A93A 0%,#D4891A 50%,#B46900 100%)' },
-  { nome: 'Duoviro Eletto',        titolo: 'Stadio IX — Duoviro Eletto',       desc: 'Numistrio Frontone è eletto Duoviro di Pompei! Il sogno di Eumachia si avvera: il figlio governa la città.',                                              soglia: 400, grad: 'linear-gradient(180deg,#E9C86C 0%,#C9A84C 50%,#A9882C 100%)' },
-  { nome: 'Duoviro Quinquennalis', titolo: 'Stadio X — Duoviro Quinquennalis', desc: 'Numistrio diventa Duoviro Quinquennale, censore e custode delle leggi. Il nome degli Eumachii sarà inciso nella storia di Pompei per sempre.',             soglia: 450, grad: 'linear-gradient(180deg,#D04040 0%,#9B0000 50%,#6B0000 100%)' },
+  { nome: 'Candidato',             titolo: 'Stadio I — Candidato',              desc: 'Numistrio Frontone annuncia ufficialmente la sua candidatura. Il suo nome inizia a circolare tra i pompeiani.',                                       soglia: 0,   grad: 'linear-gradient(180deg,#9A9A90 0%,#777770 50%,#555550 100%)' },
+  { nome: 'Amico del Popolo',      titolo: 'Stadio II — Amico del Popolo',      desc: 'La corporazione dei fullones appoggia Numistrio. Le prime amicizie politiche si formano tra i mercanti del porto.',                                   soglia: 50,  grad: 'linear-gradient(180deg,#7DDB83 0%,#5DBB63 50%,#3A9940 100%)' },
+  { nome: 'Aedilis',               titolo: 'Stadio III — Aedilis',              desc: 'Numistrio sorveglia le strade, i mercati e i giochi pubblici. La città lo riconosce come uomo di ordine e rettitudine.',                             soglia: 100, grad: 'linear-gradient(180deg,#E17C3A 0%,#C15C1A 50%,#A03C00 100%)' },
+  { nome: 'Pretore',               titolo: 'Stadio IV — Pretore',               desc: 'Numistrio amministra la giustizia nella Basilica del Foro. Il suo verdetto è rispettato da mercanti e cittadini di ogni ceto.',                      soglia: 200, grad: 'linear-gradient(180deg,#F4A93A 0%,#D4891A 50%,#B46900 100%)' },
+  { nome: 'Duoviro Eletto',        titolo: 'Stadio V — Duoviro Eletto',         desc: 'Numistrio Frontone è eletto Duoviro di Pompei! Il sogno di Eumachia si avvera: il figlio governa la città.',                                        soglia: 400, grad: 'linear-gradient(180deg,#E9C86C 0%,#C9A84C 50%,#A9882C 100%)' },
+  { nome: 'Duoviro Quinquennalis', titolo: 'Stadio VI — Duoviro Quinquennalis', desc: 'Numistrio diventa Duoviro Quinquennale, censore e custode delle leggi. Il nome degli Eumachii sarà inciso nella storia di Pompei per sempre.',        soglia: 800, grad: 'linear-gradient(180deg,#D04040 0%,#9B0000 50%,#6B0000 100%)' },
 ];
 let cursusStageReached = 0; // 0-9, stadio massimo già raggiunto (per non mostrare popup al reload)
 
@@ -3235,7 +3231,7 @@ function goHub(){
 // ── Definizione Stage ──────────────────────────────────
 const CANT_STAGES = [
   {
-    stage:1, time:60, reward:30, popReward:40, bg:'bg_cantiere.png',
+    stage:1, time:60, reward:30, popReward:30, bg:'bg_cantiere.png',
     objects: [
       { id:'epigrafe',   nome:'Epigrafe',    img:'hidden_epigrafe.png',   x:377, y:310, w:60, h:60 },
       { id:'architetto', nome:'Architetto',  img:'hidden_architetto.png', x:155, y:460, w:60, h:60 },
@@ -3253,11 +3249,11 @@ const CANT_STAGES = [
       { id:'tavolo',       nome:'Tavolo',        img:'hidden_tavolo.png',       x:235, y:390, w:60, h:60 },
       { id:'cassettalana', nome:'Cassetta Lana', img:'hidden_cassettalana.png', x:300, y:370, w:60, h:60 },
       { id:'epigrafe',     nome:'Epigrafe',      img:'hidden_epigrafe.png',     x:372, y:310, w:60, h:60 },
-      { id:'travi',        nome:'Travi',         img:'hidden_travi.png',        x:365, y:625, w:72, h:72 },
+      { id:'travi',        nome:'Travi',         img:'hidden_travi.png',        x:365, y:575, w:72, h:72 },
     ]
   },
   {
-    stage:3, time:150, reward:70, popReward:20, bg:'bg_cantiere3.png',
+    stage:3, time:150, reward:70, popReward:35, bg:'bg_cantiere3.png',
     objects: [
       { id:'bloccomarmo',  nome:'Blocco di Marmo', img:'hidden_blocco di marmo.png', x:320, y:420, w:60, h:60 },
       { id:'colonnaalta',  nome:'Colonna Alta',    img:'hidden_colonna alta.png',    x:212, y:153, w:72, h:72 },
@@ -3271,27 +3267,27 @@ const CANT_STAGES = [
     ]
   },
   {
-    stage:4, time:180, reward:120, popReward:10, bg:'bg_cantiere4.png',
+    stage:4, time:180, reward:120, popReward:25, bg:'bg_cantiere4.png',
     objects: [
       // Oggetti da definire – aggiornare con gli hidden definitivi dello stage 4
     ]
   },
   {
-    stage:5, time:60, reward:150, popReward:8, bg:'bg_cantiere5.png', introBg:'bg_cantiere5avvio.png',
+    stage:5, time:60, reward:150, popReward:40, bg:'bg_cantiere5.png', introBg:'bg_cantiere5avvio.png',
     objects: [
       { id:'altare', nome:'Altare', img:'hidden_altare.png', x:182, y:405, w:60, h:60 },
-      { id:'anfore6', nome:'Anfore', img:'hidden_anfore6.png', x:364, y:615, w:118, h:118 },
-      { id:'carretto', nome:'Carretto', img:'hidden_carretto.png', x:165, y:600, w:80, h:80 },
+      { id:'anfore6', nome:'Anfore', img:'hidden_anfore6.png', x:364, y:525, w:118, h:118 },
+      { id:'carretto', nome:'Carretto', img:'hidden_carretto.png', x:165, y:565, w:80, h:80 },
       { id:'cassettalegno', nome:'Cassetta di Legno', img:'hidden_cassettalegno.png', x:300, y:410, w:50, h:50 },
       { id:'travigrandi', nome:'Travi Grandi', img:'hidden_travigrandi.png', x:250, y:500, w:50, h:50 },
     ]
   },
   {
-    stage:6, time:60, reward:180, popReward:6, bg:'bg_cantiere6.png', introBg:'bg_cantiere6avvio.png',
+    stage:6, time:60, reward:180, popReward:45, bg:'bg_cantiere6.png', introBg:'bg_cantiere6avvio.png',
     objects: [
       { id:'altare2', nome:'Altare', img:'hidden_altare2.png', x:182, y:405, w:60, h:60 },
-      { id:'anfore6b', nome:'Anfore', img:'hidden_anfore6.png', x:364, y:615, w:118, h:118 },
-      { id:'carrettob', nome:'Carretto', img:'hidden_carretto.png', x:165, y:600, w:80, h:80 },
+      { id:'anfore6b', nome:'Anfore', img:'hidden_anfore6.png', x:364, y:525, w:118, h:118 },
+      { id:'carrettob', nome:'Carretto', img:'hidden_carretto.png', x:165, y:565, w:80, h:80 },
       { id:'cassettalegnob', nome:'Cassetta di Legno', img:'hidden_cassettalegno.png', x:300, y:410, w:50, h:50 },
       { id:'travigrandib', nome:'Travi Grandi', img:'hidden_travigrandi.png', x:250, y:500, w:50, h:50 },
       { id:'attrezzi', nome:'Attrezzi', img:'hidden_attrezzi.png', x:212, y:570, w:50, h:50 },
@@ -3300,11 +3296,11 @@ const CANT_STAGES = [
     ]
   },
   {
-    stage:7, time:90, reward:240, popReward:4, bg:'bg_cantiere7.png', introBg:'bg_cantiere7avvio.png',
+    stage:7, time:90, reward:240, popReward:50, bg:'bg_cantiere7.png', introBg:'bg_cantiere7avvio.png',
     objects: [
       { id:'altare2c', nome:'Altare', img:'hidden_altare2.png', x:182, y:405, w:60, h:60 },
-      { id:'anfore6c', nome:'Anfore', img:'hidden_anfore6.png', x:364, y:615, w:118, h:118 },
-      { id:'carrettoc', nome:'Carretto', img:'hidden_carretto2.png', x:165, y:600, w:80, h:80 },
+      { id:'anfore6c', nome:'Anfore', img:'hidden_anfore6.png', x:364, y:525, w:118, h:118 },
+      { id:'carrettoc', nome:'Carretto', img:'hidden_carretto2.png', x:165, y:565, w:80, h:80 },
       { id:'cassettalegnoc', nome:'Cassetta di Legno', img:'hidden_cassettalegno.png', x:300, y:410, w:50, h:50 },
       { id:'travigrandic', nome:'Travi Grandi', img:'hidden_travigrandi.png', x:250, y:500, w:50, h:50 },
       { id:'attrezzi2', nome:'Attrezzi', img:'hidden_attrezzi.png', x:212, y:570, w:50, h:50 },
@@ -3314,7 +3310,7 @@ const CANT_STAGES = [
     ]
   },
   {
-    stage:8, time:100, reward:280, popReward:3, bg:'bg_cantiere9.png', introBg:'bg_cantiere8avvio.png',
+    stage:8, time:100, reward:280, popReward:55, bg:'bg_cantiere9.png', introBg:'bg_cantiere8avvio.png',
     objects: [
       { id:'colonnaricostruita', nome:'Colonna Ricostruita', img:'hidden_colonnaricostruita.png', x:200, y:350, w:60, h:60 },
       { id:'sabbiafine',         nome:'Sabbia Fine',         img:'hidden_sabbiafine.png',         x:340, y:580, w:55, h:55 },
@@ -3324,9 +3320,9 @@ const CANT_STAGES = [
     ]
   },
   {
-    stage:9, time:110, reward:320, popReward:2, bg:'bg_cantiere10.png', introBg:'bg_cantiere10avvio.png',
+    stage:9, time:110, reward:320, popReward:55, bg:'bg_cantiere10.png', introBg:'bg_cantiere10avvio.png',
     objects: [
-      { id:'pileditegole',    nome:'Pile di Tegole',   img:'hidden_pileditegole.png',    x:175, y:600, w:65, h:65 },
+      { id:'pileditegole',    nome:'Pile di Tegole',   img:'hidden_pileditegole.png',    x:175, y:570, w:65, h:65 },
       { id:'colonnaspezzata', nome:'Colonna Spezzata', img:'hidden_colonnaspezzata.png', x:280, y:430, w:60, h:60 },
       { id:'cassettategole',  nome:'Cassetta Tegole',  img:'hidden_cassettategole.png',  x:360, y:530, w:60, h:60 },
       { id:'piedistallo',     nome:'Piedistallo',      img:'hidden_piedistallo.png',     x:200, y:380, w:60, h:60 },
@@ -3335,21 +3331,21 @@ const CANT_STAGES = [
     ]
   },
   {
-    stage:10, time:120, reward:360, popReward:2, bg:'bg_cantiere11.png', introBg:'bg_cantiere11avvio.png',
+    stage:10, time:120, reward:360, popReward:60, bg:'bg_cantiere11.png', introBg:'bg_cantiere11avvio.png',
     objects: [
-      { id:'carretto3',      nome:'Carretto',        img:'hidden_carretto3.png',          x:160, y:620, w:80, h:80 },
+      { id:'carretto3',      nome:'Carretto',        img:'hidden_carretto3.png',          x:160, y:560, w:80, h:80 },
       { id:'carrettocolori', nome:'Carretto Colori', img:'hidden_carrettocolori.png',     x:280, y:540, w:65, h:65 },
       { id:'piledimattoni',  nome:'Pile di Mattoni', img:'hidden_piledimattoni.png',      x:230, y:440, w:60, h:60 },
-      { id:'anfore4',        nome:'Anfore',          img:'hidden_4anfore.png',            x:370, y:600, w:70, h:70 },
-      { id:'pileditegoles10',nome:'Pile di Tegole',  img:'hidden_pileditegole.png',       x:110, y:590, w:65, h:65 },
+      { id:'anfore4',        nome:'Anfore',          img:'hidden_4anfore.png',            x:370, y:570, w:70, h:70 },
+      { id:'pileditegoles10',nome:'Pile di Tegole',  img:'hidden_pileditegole.png',       x:110, y:570, w:65, h:65 },
       { id:'colonnasps10',   nome:'Colonna Spezzata',img:'hidden_colonnaspezzata.png',    x:300, y:360, w:60, h:60 },
       { id:'saccos10',       nome:'Sacco',           img:'hidden_sacco.png',              x:230, y:510, w:60, h:60 },
     ]
   },
   {
-    stage:11, time:130, reward:400, popReward:1, bg:'bg_cantiere12.png', introBg:'bg_cantiere12avvio.png',
+    stage:11, time:130, reward:400, popReward:60, bg:'bg_cantiere12.png', introBg:'bg_cantiere12avvio.png',
     objects: [
-      { id:'anfore5',        nome:'Anfore',           img:'hidden_5anfore.png',           x:360, y:590, w:75, h:75 },
+      { id:'anfore5',        nome:'Anfore',           img:'hidden_5anfore.png',           x:360, y:560, w:75, h:75 },
       { id:'sacco',          nome:'Sacco',            img:'hidden_sacco.png',             x:175, y:550, w:60, h:60 },
       { id:'piedistallo2',   nome:'Piedistallo',      img:'hidden_piedistallo2.png',      x:280, y:400, w:60, h:60 },
       { id:'carrettocoloris11', nome:'Carretto Colori', img:'hidden_carrettocolori.png', x:280, y:470, w:65, h:65 },
@@ -3360,7 +3356,7 @@ const CANT_STAGES = [
     ]
   },
   {
-    stage:12, time:90, reward:350, popReward:3, bg:'bg_cantiere9.png', introBg:'bg_cantiere9avvio.png',
+    stage:12, time:90, reward:350, popReward:65, bg:'bg_cantiere9.png', introBg:'bg_cantiere9avvio.png',
     objects: [
       { id:'4anfore',  nome:'Anfore',        img:'hidden_4anfore.png',   x:212, y:380, w:80, h:80 },
       { id:'5anfore',  nome:'Cinque Anfore', img:'hidden_5anfore.png',   x:340, y:560, w:80, h:80 },
@@ -3370,7 +3366,7 @@ const CANT_STAGES = [
     ]
   },
   {
-    stage:13, time:90, reward:380, popReward:3, bg:'bg_cantiere10.png', introBg:'bg_cantiere10avvio.png',
+    stage:13, time:90, reward:380, popReward:65, bg:'bg_cantiere10.png', introBg:'bg_cantiere10avvio.png',
     objects: [
       { id:'4anfore',         nome:'Anfore',            img:'hidden_4anfore.png',            x:212, y:380, w:80, h:80 },
       { id:'5anfore',         nome:'Cinque Anfore',      img:'hidden_5anfore.png',            x:340, y:560, w:80, h:80 },
@@ -3378,13 +3374,13 @@ const CANT_STAGES = [
       { id:'cassaconcemento', nome:'Cassa di Cemento',   img:'hidden_cassaconcemento.png',    x:270, y:620, w:70, h:70 },
       { id:'colonnaspezzata', nome:'Colonna Spezzata',   img:'hidden_colonnaspezzata.png',    x:155, y:420, w:65, h:65 },
       { id:'piedistallo',     nome:'Piedistallo',        img:'hidden_piedistallo.png',         x:340, y:420, w:65, h:65 },
-      { id:'piledimattoni',   nome:'Pile di Mattoni',    img:'hidden_piledimattoni.png',        x:110, y:640, w:65, h:65 },
+      { id:'piledimattoni',   nome:'Pile di Mattoni',    img:'hidden_piledimattoni.png',        x:110, y:570, w:65, h:65 },
       { id:'pileditegole',    nome:'Pile di Tegole',     img:'hidden_pileditegole.png',         x:230, y:500, w:65, h:65 },
-      { id:'cassettategole',  nome:'Cassetta Tegole',    img:'hidden_cassettategole.png',       x:370, y:630, w:65, h:65 },
+      { id:'cassettategole',  nome:'Cassetta Tegole',    img:'hidden_cassettategole.png',       x:370, y:570, w:65, h:65 },
     ]
   },
   {
-    stage:14, time:90, reward:410, popReward:3, bg:'bg_cantiere11.png', introBg:'bg_cantiere11avvio.png',
+    stage:14, time:90, reward:410, popReward:70, bg:'bg_cantiere11.png', introBg:'bg_cantiere11avvio.png',
     objects: [
       { id:'4anfore',         nome:'Anfore',             img:'hidden_4anfore.png',              x:212, y:380, w:80, h:80 },
       { id:'5anfore',         nome:'Cinque Anfore',       img:'hidden_5anfore.png',              x:340, y:560, w:80, h:80 },
@@ -3401,36 +3397,36 @@ const CANT_STAGES = [
     ]
   },
   {
-    stage:15, time:90, reward:440, popReward:3, bg:'bg_cantiere12.png', introBg:'bg_cantiere12avvio.png',
+    stage:15, time:90, reward:440, popReward:70, bg:'bg_cantiere12.png', introBg:'bg_cantiere12avvio.png',
     objects: [
       { id:'4anfore',            nome:'Anfore',               img:'hidden_4anfore.png',              x:212, y:380, w:80, h:80 },
       { id:'5anfore',            nome:'Cinque Anfore',         img:'hidden_5anfore.png',              x:340, y:560, w:80, h:80 },
       { id:'carretto3',          nome:'Carretto',              img:'hidden_carretto3.png',            x:100, y:530, w:85, h:85 },
-      { id:'cassaconcemento',    nome:'Cassa di Cemento',      img:'hidden_cassaconcemento.png',      x:270, y:620, w:70, h:70 },
+      { id:'cassaconcemento',    nome:'Cassa di Cemento',      img:'hidden_cassaconcemento.png',      x:270, y:570, w:70, h:70 },
       { id:'colonnaspezzata',    nome:'Colonna Spezzata',      img:'hidden_colonnaspezzata.png',      x:155, y:420, w:65, h:65 },
       { id:'piedistallo2',       nome:'Piedistallo',           img:'hidden_piedistallo2.png',         x:340, y:420, w:65, h:65 },
       { id:'piledimattoni',      nome:'Pile di Mattoni',       img:'hidden_piledimattoni.png',        x:110, y:640, w:65, h:65 },
       { id:'pileditegole',       nome:'Pile di Tegole',        img:'hidden_pileditegole.png',         x:230, y:500, w:65, h:65 },
       { id:'cassettategole',     nome:'Cassetta Tegole',       img:'hidden_cassettategole.png',       x:370, y:630, w:65, h:65 },
-      { id:'sabbiafine',         nome:'Sabbia Fine',           img:'hidden_sabbiafine.png',           x:180, y:600, w:65, h:65 },
+      { id:'sabbiafine',         nome:'Sabbia Fine',           img:'hidden_sabbiafine.png',           x:180, y:570, w:65, h:65 },
       { id:'sacco',              nome:'Sacco',                 img:'hidden_sacco.png',                x:300, y:470, w:65, h:65 },
       { id:'carrettocolori',     nome:'Carretto Colori',       img:'hidden_carrettocolori.png',       x:130, y:450, w:75, h:75 },
       { id:'colonnaricostruita', nome:'Colonna Ricostruita',   img:'hidden_colonnaricostruita.png',   x:280, y:340, w:65, h:65 },
     ]
   },
   {
-    stage:16, time:90, reward:470, popReward:3, bg:'bg_cantiere13.png',
+    stage:16, time:90, reward:470, popReward:75, bg:'bg_cantiere13.png',
     objects: [
       { id:'4anfore',            nome:'Anfore',               img:'hidden_4anfore.png',              x:212, y:380, w:80, h:80 },
       { id:'5anfore',            nome:'Cinque Anfore',         img:'hidden_5anfore.png',              x:340, y:560, w:80, h:80 },
       { id:'carretto3',          nome:'Carretto',              img:'hidden_carretto3.png',            x:100, y:530, w:85, h:85 },
-      { id:'cassaconcemento',    nome:'Cassa di Cemento',      img:'hidden_cassaconcemento.png',      x:270, y:620, w:70, h:70 },
+      { id:'cassaconcemento',    nome:'Cassa di Cemento',      img:'hidden_cassaconcemento.png',      x:270, y:570, w:70, h:70 },
       { id:'colonnaspezzata',    nome:'Colonna Spezzata',      img:'hidden_colonnaspezzata.png',      x:155, y:420, w:65, h:65 },
       { id:'piedistallo2',       nome:'Piedistallo',           img:'hidden_piedistallo2.png',         x:340, y:420, w:65, h:65 },
       { id:'piledimattoni',      nome:'Pile di Mattoni',       img:'hidden_piledimattoni.png',        x:110, y:640, w:65, h:65 },
       { id:'pileditegole',       nome:'Pile di Tegole',        img:'hidden_pileditegole.png',         x:230, y:500, w:65, h:65 },
       { id:'cassettategole',     nome:'Cassetta Tegole',       img:'hidden_cassettategole.png',       x:370, y:630, w:65, h:65 },
-      { id:'sabbiafine',         nome:'Sabbia Fine',           img:'hidden_sabbiafine.png',           x:180, y:600, w:65, h:65 },
+      { id:'sabbiafine',         nome:'Sabbia Fine',           img:'hidden_sabbiafine.png',           x:180, y:570, w:65, h:65 },
       { id:'sacco',              nome:'Sacco',                 img:'hidden_sacco.png',                x:300, y:470, w:65, h:65 },
       { id:'carrettocolori',     nome:'Carretto Colori',       img:'hidden_carrettocolori.png',       x:130, y:450, w:75, h:75 },
       { id:'colonnaricostruita', nome:'Colonna Ricostruita',   img:'hidden_colonnaricostruita.png',   x:280, y:340, w:65, h:65 },
