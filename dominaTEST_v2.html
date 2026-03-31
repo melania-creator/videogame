@@ -155,13 +155,16 @@ html,body{
 .hpol-fill{
   height:100%;width:0%;
   border-radius:8px;
-  background:linear-gradient(180deg,#5DBB63 0%,#3A9940 50%,#236B28 100%);
-  transition:width .6s, background .6s;
+  background:linear-gradient(180deg,#9A9A90 0%,#777770 50%,#555550 100%);
+  transition:width .6s ease, background .8s ease;
   position:relative;
 }
-.hpol-fill.red{
-  background:linear-gradient(180deg,#E05050 0%,#C02020 50%,#8B0000 100%);
+@keyframes cursusStageIn{
+  0%{opacity:0;transform:scale(.6) translateY(20px);}
+  70%{transform:scale(1.04) translateY(-3px);}
+  100%{opacity:1;transform:scale(1) translateY(0);}
 }
+#cursus-stage-popup .csp-box{animation:cursusStageIn .55s cubic-bezier(.2,1.4,.4,1) forwards;}
 /* Tacca marker */
 .hpol-fill::after{
   content:'';position:absolute;right:0;top:0;bottom:0;
@@ -587,6 +590,29 @@ html,body{
         <div class="perg-sep"></div>
         <div class="perg-footer" style="justify-content:center;gap:12px;">
           <button class="perg-btn gold" onclick="chiudiNumistrio2Popup()">Accedi all'Accademia →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CURSUS HONORUM STAGE POPUP ══ -->
+  <div id="cursus-stage-popup" style="display:none;position:absolute;inset:0;z-index:1000;align-items:center;justify-content:center;background:rgba(3,1,0,.88);">
+    <div class="csp-box perg-box" style="width:360px;">
+      <div class="perg-roll">
+        <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><polygon points="6,1 11,9 1,9" fill="#f6e9c2" opacity=".75"/></svg>
+        <span class="perg-roll-txt">CURSUS HONORUM · NUMISTRIO FRONTONE</span>
+        <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><polygon points="6,1 11,9 1,9" fill="#f6e9c2" opacity=".75"/></svg>
+      </div>
+      <div class="perg-inner-border">
+        <div class="perg-body" style="gap:10px;">
+          <div id="csp-badge" style="align-self:center;padding:5px 20px;border-radius:20px;font-family:'Cinzel',serif;font-size:.7rem;color:#fff;letter-spacing:2px;margin-bottom:4px;"></div>
+          <div id="csp-titolo" class="perg-lead" style="font-size:.9rem;"></div>
+          <div class="perg-sep" style="margin:4px 0;"></div>
+          <div id="csp-desc" class="perg-text" style="font-size:.72rem;line-height:1.6;"></div>
+        </div>
+        <div class="perg-sep"></div>
+        <div class="perg-footer" style="justify-content:center;">
+          <button class="perg-btn gold" onclick="document.getElementById('cursus-stage-popup').style.display='none'">Avanti per la gloria ✦</button>
         </div>
       </div>
     </div>
@@ -2581,13 +2607,13 @@ html,body{
       padding:22px 24px;display:flex;flex-direction:column;gap:14px;
       box-shadow:0 4px 24px rgba(0,0,0,.7);">
       <div style="text-align:center;font-family:'Cinzel',serif;color:#C9A84C;font-size:.85rem;letter-spacing:2px;">
-        POPOLARITÀ
+        POPOLARITÀ · CURSUS HONORUM
       </div>
       <div style="height:1px;background:rgba(201,168,76,.3);"></div>
       <div id="pop-valore" style="text-align:center;font-family:'Cinzel',serif;font-size:1.6rem;color:#fff;"></div>
       <div id="pop-fase-label" style="text-align:center;font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:1.5px;padding:4px 12px;border-radius:20px;"></div>
       <div style="height:8px;border-radius:4px;background:rgba(255,255,255,.1);overflow:hidden;position:relative;">
-        <div id="pop-barra" style="height:100%;border-radius:4px;transition:width .4s;"></div>
+        <div id="pop-barra" style="height:100%;border-radius:4px;transition:width .5s ease,background .8s ease;"></div>
       </div>
       <div style="height:1px;background:rgba(201,168,76,.3);"></div>
       <div id="pop-desc" style="font-family:'Cinzel',serif;font-size:.6rem;color:rgba(201,168,76,.75);line-height:1.7;text-align:center;"></div>
@@ -2771,9 +2797,63 @@ let memoriaLocked  = false;
 let memoriaMatched = 0;
 let memoriaMovs    = 0;
 
+// ── Cursus Honorum di Numistrio Frontone (10 stadi, 50 XP ciascuno) ──
+const CURSUS_HONORUM = [
+  { nome: 'Candidato',             titolo: 'Stadio I — Candidato',             desc: 'Numistrio Frontone annuncia ufficialmente la sua candidatura. Il suo nome inizia a circolare tra i pompeiani.',                                            soglia: 0,   grad: 'linear-gradient(180deg,#9A9A90 0%,#777770 50%,#555550 100%)' },
+  { nome: 'Amico del Popolo',      titolo: 'Stadio II — Amico del Popolo',     desc: 'La corporazione dei fullones appoggia Numistrio. Le prime amicizie politiche si formano tra i mercanti del porto.',                                        soglia: 50,  grad: 'linear-gradient(180deg,#7DDB83 0%,#5DBB63 50%,#3A9940 100%)' },
+  { nome: 'Scriba',                titolo: 'Stadio III — Scriba',              desc: 'Numistrio entra a servizio del Foro come scriba. Apprende le leggi, i contratti e i costumi dell\'amministrazione di Pompei.',                            soglia: 100, grad: 'linear-gradient(180deg,#2AB0B0 0%,#1A9090 50%,#0A7070 100%)' },
+  { nome: 'Accensus',              titolo: 'Stadio IV — Accensus',             desc: 'Numistrio accompagna i magistrati nelle cerimonie pubbliche. La sua presenza autorevole viene notata dai cittadini.',                                       soglia: 150, grad: 'linear-gradient(180deg,#30C8D0 0%,#1AA8B0 50%,#0A8890 100%)' },
+  { nome: 'Viatore',               titolo: 'Stadio V — Viatore',               desc: 'Numistrio porta i messaggi ufficiali tra le istituzioni. È il volto della legge nelle strade di Pompei.',                                                  soglia: 200, grad: 'linear-gradient(180deg,#4192D8 0%,#2172B8 50%,#115298 100%)' },
+  { nome: 'Quinqueviro',           titolo: 'Stadio VI — Quinqueviro',          desc: 'Numistrio entra nel consiglio dei cinque magistrati. Partecipa alle decisioni sui mercati e sulla sicurezza della città.',                                  soglia: 250, grad: 'linear-gradient(180deg,#8B5FC0 0%,#6B3FA0 50%,#4B1F80 100%)' },
+  { nome: 'Aedilis',               titolo: 'Stadio VII — Aedilis',             desc: 'Numistrio sorveglia le strade, i mercati e i giochi pubblici. La città lo riconosce come uomo di ordine e rettitudine.',                                    soglia: 300, grad: 'linear-gradient(180deg,#E17C3A 0%,#C15C1A 50%,#A03C00 100%)' },
+  { nome: 'Pretore',               titolo: 'Stadio VIII — Pretore',            desc: 'Numistrio amministra la giustizia nella Basilica del Foro. Il suo verdetto è rispettato da mercanti e cittadini di ogni ceto.',                            soglia: 350, grad: 'linear-gradient(180deg,#F4A93A 0%,#D4891A 50%,#B46900 100%)' },
+  { nome: 'Duoviro Eletto',        titolo: 'Stadio IX — Duoviro Eletto',       desc: 'Numistrio Frontone è eletto Duoviro di Pompei! Il sogno di Eumachia si avvera: il figlio governa la città.',                                              soglia: 400, grad: 'linear-gradient(180deg,#E9C86C 0%,#C9A84C 50%,#A9882C 100%)' },
+  { nome: 'Duoviro Quinquennalis', titolo: 'Stadio X — Duoviro Quinquennalis', desc: 'Numistrio diventa Duoviro Quinquennale, censore e custode delle leggi. Il nome degli Eumachii sarà inciso nella storia di Pompei per sempre.',             soglia: 450, grad: 'linear-gradient(180deg,#D04040 0%,#9B0000 50%,#6B0000 100%)' },
+];
+let cursusStageReached = 0; // 0-9, stadio massimo già raggiunto (per non mostrare popup al reload)
+
+function _getCursusStage(xp){
+  for(let i = CURSUS_HONORUM.length - 1; i >= 0; i--){
+    if(xp >= CURSUS_HONORUM[i].soglia) return i;
+  }
+  return 0;
+}
+
+function _updatePopBar(){
+  const stage = _getCursusStage(popXP);
+  const ch = CURSUS_HONORUM[stage];
+  const nextSoglia = stage < CURSUS_HONORUM.length - 1
+    ? CURSUS_HONORUM[stage + 1].soglia
+    : ch.soglia + 50;
+  const pct = Math.min(100, Math.round((popXP - ch.soglia) / (nextSoglia - ch.soglia) * 100));
+  ['hpol-f','cant-hpol-f'].forEach(id => {
+    const fill = document.getElementById(id);
+    if(!fill) return;
+    fill.style.width = pct + '%';
+    fill.style.background = ch.grad;
+  });
+}
+
+function _mostraStageCursus(stageIdx){
+  cursusStageReached = Math.max(cursusStageReached, stageIdx);
+  const ch = CURSUS_HONORUM[stageIdx];
+  const pop = document.getElementById('cursus-stage-popup');
+  if(!pop) return;
+  pop.querySelector('#csp-titolo').textContent = ch.titolo;
+  pop.querySelector('#csp-desc').textContent   = ch.desc;
+  const badge = pop.querySelector('#csp-badge');
+  badge.style.background = ch.grad;
+  badge.textContent = 'Stadio ' + (stageIdx + 1) + ' / 10';
+  pop.style.display = 'flex';
+  // Reset animation
+  const box = pop.querySelector('.csp-box');
+  if(box){ box.style.animation = 'none'; void box.offsetWidth; box.style.animation = ''; }
+}
+
 function addPopXP(n){
+  const prevXP = popXP;
   popXP = Math.max(0, popXP + n);
-  // Sblocchi rotte basati sulla popolarità (prima del reset)
+  // Sblocchi rotte basati sulla popolarità accumulata
   if(!hispaniaUnlocked && popXP >= 50){
     hispaniaUnlocked = true;
     updateAffariLocks();
@@ -2791,20 +2871,15 @@ function addPopXP(n){
       _celebraNumistrio2();
     }, 500);
   }
-  if(popXP >= 200) popXP = 0;
-  const pct = popXP % 100;
-  const isRed = popXP >= 100;
-  const fills = [
-    document.getElementById('hpol-f'),
-    document.getElementById('cant-hpol-f')
-  ];
-  fills.forEach(fill => {
-    if(!fill) return;
-    fill.style.width = pct + '%';
-    fill.style.background = isRed
-      ? 'linear-gradient(180deg,#E05050 0%,#C02020 50%,#8B0000 100%)'
-      : 'linear-gradient(180deg,#5DBB63 0%,#3A9940 50%,#236B28 100%)';
-  });
+  // Avanzamento stadio cursus honorum
+  if(n > 0){
+    const prevStage = _getCursusStage(prevXP);
+    const newStage  = _getCursusStage(popXP);
+    if(newStage > prevStage){
+      setTimeout(() => _mostraStageCursus(newStage), 800);
+    }
+  }
+  _updatePopBar();
 }
 
 // ── Cambio Look ──
@@ -6367,29 +6442,33 @@ function closeCredits(){
 
 // ── Popolarità info ──
 function openPopolarity(){
-  const pct = popXP % 100;
-  const fase = popXP >= 100 ? 'rosso' : 'verde';
-  document.getElementById('pop-valore').textContent = popXP + ' / 199';
+  const stageIdx   = _getCursusStage(popXP);
+  const ch         = CURSUS_HONORUM[stageIdx];
+  const nextStage  = stageIdx < CURSUS_HONORUM.length - 1 ? CURSUS_HONORUM[stageIdx + 1] : null;
+  const nextSoglia = nextStage ? nextStage.soglia : ch.soglia + 50;
+  const pct        = Math.min(100, Math.round((popXP - ch.soglia) / (nextSoglia - ch.soglia) * 100));
+
+  document.getElementById('pop-valore').textContent = popXP + ' XP';
+
   const lbl = document.getElementById('pop-fase-label');
-  if(fase === 'verde'){
-    lbl.textContent = 'FASE VERDE · Stabilità';
-    lbl.style.background = 'rgba(30,100,30,.35)';
-    lbl.style.color = '#7ecb7e';
-    lbl.style.border = '1px solid rgba(80,180,80,.4)';
-  } else {
-    lbl.textContent = 'FASE ROSSA · Tensione';
-    lbl.style.background = 'rgba(120,20,20,.35)';
-    lbl.style.color = '#e07070';
-    lbl.style.border = '1px solid rgba(200,60,60,.4)';
-  }
+  lbl.textContent = 'Stadio ' + (stageIdx + 1) + ' / 10 — ' + ch.nome;
+  lbl.style.background = 'rgba(0,0,0,.35)';
+  lbl.style.border      = '1px solid rgba(201,168,76,.4)';
+  lbl.style.color       = '#f0d080';
+
   const barra = document.getElementById('pop-barra');
-  barra.style.width = pct + '%';
-  barra.style.background = fase === 'verde'
-    ? 'linear-gradient(90deg,#3a8a3a,#7ecb7e)'
-    : 'linear-gradient(90deg,#8a2020,#e07070)';
-  document.getElementById('pop-desc').textContent = fase === 'verde'
-    ? 'Il popolo di Pompei ti sostiene. La Concordia regna nella corporazione e nella città.'
-    : 'La tensione cresce tra i fullones. Completa incarichi del Duoviro per ristabilire l\'ordine.';
+  barra.style.width      = pct + '%';
+  barra.style.background = ch.grad.replace('180deg','90deg');
+
+  const xpNelLivello  = popXP - ch.soglia;
+  const xpAlProssimo  = nextStage ? nextSoglia - popXP : 0;
+  const descProssimo  = nextStage
+    ? ' · Prossimo stadio <em>' + nextStage.nome + '</em> tra ' + xpAlProssimo + ' XP'
+    : ' · Hai raggiunto il massimo onore!';
+  document.getElementById('pop-desc').innerHTML =
+    ch.desc + '<br><br><span style="color:#C9A84C;font-size:.6rem;">' +
+    'XP in questo stadio: ' + xpNelLivello + ' / ' + (nextSoglia - ch.soglia) + descProssimo + '</span>';
+
   document.getElementById('panel-popolarita').style.display = 'flex';
   document.getElementById('hud').style.zIndex = '75';
 }
@@ -6632,7 +6711,7 @@ function saveGame(){
   const state = {
     v: 1,
     den, tes, vin, lat, popXP,
-    hispaniaUnlocked, africaUnlocked,
+    hispaniaUnlocked, africaUnlocked, numistrio2Unlocked, cursusStageReached,
     lookIdx, look02Unlocked, look03Unlocked,
     fullVinoEndTime:    fullVinoInterval    ? now + fullVinoSecondsLeft    * 1000 : null,
     fullVinoReady,
@@ -6788,9 +6867,9 @@ function loadGame(){
     popXP = s.popXP ?? 0;
 
     // Rotte completate offline: aggiungi risorse direttamente
-    if(s.galliaEndTime   && now > s.galliaEndTime)  { den += 10;  popXP = Math.min(199, popXP + 5);  }
-    if(s.hispaniaEndTime && now > s.hispaniaEndTime){ den += 40;  popXP = Math.min(199, popXP + 10); }
-    if(s.africaEndTime   && now > s.africaEndTime)  { den += 100; popXP = Math.min(199, popXP + 20); }
+    if(s.galliaEndTime   && now > s.galliaEndTime)  { den += 10;  popXP += 5;  }
+    if(s.hispaniaEndTime && now > s.hispaniaEndTime){ den += 40;  popXP += 10; }
+    if(s.africaEndTime   && now > s.africaEndTime)  { den += 100; popXP += 20; }
 
     // Aggiorna display risorse
     document.getElementById('vden').textContent = den;
@@ -6798,20 +6877,15 @@ function loadGame(){
     document.getElementById('vvin').textContent = vin;
     document.getElementById('vlat').textContent = lat;
 
-    // Barra popolarità
-    { const pct = popXP % 100; const isRed = popXP >= 100;
-      ['hpol-f','cant-hpol-f'].forEach(id => {
-        const el = document.getElementById(id); if(!el) return;
-        el.style.width = pct + '%';
-        el.style.background = isRed
-          ? 'linear-gradient(180deg,#E05050 0%,#C02020 50%,#8B0000 100%)'
-          : 'linear-gradient(180deg,#5DBB63 0%,#3A9940 50%,#236B28 100%)';
-      });
-    }
+    // Barra popolarità (cursus honorum)
+    _updatePopBar();
 
     // Rotte sbloccate
-    hispaniaUnlocked = s.hispaniaUnlocked ?? (popXP >= 50);
-    africaUnlocked   = s.africaUnlocked   ?? (popXP >= 100);
+    hispaniaUnlocked  = s.hispaniaUnlocked  ?? (popXP >= 50);
+    africaUnlocked    = s.africaUnlocked    ?? (popXP >= 100);
+    numistrio2Unlocked = s.numistrio2Unlocked ?? (popXP >= 100);
+    // Cursus honorum: inizializza allo stadio corrente per non mostrare popup al reload
+    cursusStageReached = s.cursusStageReached ?? _getCursusStage(popXP);
 
     // Look
     lookIdx = s.lookIdx ?? 0;
