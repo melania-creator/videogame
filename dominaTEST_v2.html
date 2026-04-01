@@ -1701,10 +1701,10 @@ html,body{
       background:linear-gradient(180deg,rgba(5,2,1,.92) 70%,transparent);
       padding:10px 52px 18px 16px;
       display:flex;flex-direction:column;gap:6px;">
-      <!-- Riga 1: stage e timer (timer centrato) -->
-      <div style="display:flex;align-items:center;position:relative;">
+      <!-- Riga 1: stage (sx) e timer (dx) -->
+      <div style="display:flex;align-items:center;gap:8px;">
         <span style="font-family:'Cinzel',serif;color:#C9A84C;font-size:13px;letter-spacing:1px;flex:1;" id="cant-stage-label">STAGE 1 / 1</span>
-        <div style="position:absolute;left:calc(50% + 15px);transform:translateX(-50%);display:flex;align-items:center;gap:6px;">
+        <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#C9A84C" stroke-width="1.5"/><path d="M7 4v3.5l2 2" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/></svg>
           <span id="cant-timer" style="font-family:'Cinzel',serif;color:#C9A84C;font-size:16px;font-weight:700;">60</span>
         </div>
@@ -2443,10 +2443,10 @@ const CANT_STAGES = [
     bg: 'bg_cantiere5.png', introBg: 'bg_cantiere5avvio.png',
     cost: 50, alertIco: '🏛', alertTitle: 'CAMERA<br>PRINCIPALE',
     objects: [
-      { id:'s4_altare',        nome:'Altare',          img:'hidden_altare.png',           x:100, y:350, w:55, h:80 },
+      { id:'s4_altare',        nome:'Altare',          img:'hidden_altare.png',           x:150, y:370, w:55, h:80 },
       { id:'s4_bloccomarmo',   nome:'Blocco di Marmo', img:'hidden_blocco di marmo.png',  x:250, y:440, w:70, h:55 },
-      { id:'s4_carretto',      nome:'Carretto',        img:'hidden_carretto.png',         x:350, y:390, w:70, h:60 },
-      { id:'s4_cassettalegno', nome:'Cassetta Legno',  img:'hidden_cassettalegno.png',    x:160, y:490, w:60, h:60 },
+      { id:'s4_carretto',      nome:'Carretto',        img:'hidden_carretto.png',         x:354, y:560, w:70, h:60 },
+      { id:'s4_cassettalegno', nome:'Cassetta Legno',  img:'hidden_cassettalegno.png',    x:160, y:465, w:60, h:60 },
       { id:'s4_mattoni',       nome:'Mattoni',         img:'hidden_mattoni.png',          x:300, y:540, w:70, h:55 },
     ]
   },
@@ -2458,8 +2458,8 @@ const CANT_STAGES = [
     objects: [
       { id:'s5_altare2',       nome:'Altare',          img:'hidden_altare2.png',          x:80,  y:190, w:60, h:80 },
       { id:'s5_bloccomarmo',   nome:'Blocco di Marmo', img:'hidden_blocco di marmo.png',  x:250, y:440, w:70, h:55 },
-      { id:'s5_carretto',      nome:'Carretto',        img:'hidden_carretto.png',         x:360, y:210, w:70, h:60 },
-      { id:'s5_cassettalegno', nome:'Cassetta Legno',  img:'hidden_cassettalegno.png',    x:160, y:490, w:60, h:60 },
+      { id:'s5_carretto',      nome:'Carretto',        img:'hidden_carretto.png',         x:354, y:560, w:70, h:60 },
+      { id:'s5_cassettalegno', nome:'Cassetta Legno',  img:'hidden_cassettalegno.png',    x:160, y:465, w:60, h:60 },
       { id:'s5_mattoni',       nome:'Mattoni',         img:'hidden_mattoni.png',          x:300, y:540, w:70, h:55 },
       { id:'s5_epigrafe2',     nome:'Epigrafe',        img:'hidden_epigrafe2.png',        x:360, y:340, w:70, h:60 },
       { id:'s5_marmipregiati', nome:'Marmi Pregiati',  img:'hidden_marmipregiati.png',    x:130, y:480, w:70, h:65 },
@@ -2479,7 +2479,7 @@ const CANT_STAGES = [
       { id:'s6_altare2',       nome:'Altare',          img:'hidden_altare2.png',          x:80,  y:190, w:60, h:80 },
       { id:'s6_bloccomarmo',   nome:'Blocco di Marmo', img:'hidden_blocco di marmo.png',  x:250, y:440, w:70, h:55 },
       { id:'s6_carretto2',     nome:'Carretto',        img:'hidden_carretto2.png',        x:344, y:170, w:70, h:60 },
-      { id:'s6_cassettalegno', nome:'Cassetta Legno',  img:'hidden_cassettalegno.png',    x:160, y:490, w:60, h:60 },
+      { id:'s6_cassettalegno', nome:'Cassetta Legno',  img:'hidden_cassettalegno.png',    x:160, y:465, w:60, h:60 },
       { id:'s6_mattoni',       nome:'Mattoni',         img:'hidden_mattoni.png',          x:300, y:540, w:70, h:55 },
       { id:'s6_epigrafe2',     nome:'Epigrafe',        img:'hidden_epigrafe2.png',        x:360, y:340, w:70, h:60 },
       { id:'s6_marmipregiati', nome:'Marmi Pregiati',  img:'hidden_marmipregiati.png',    x:130, y:480, w:70, h:65 },
@@ -2823,8 +2823,12 @@ function startCantStage(){
     "url('" + cfg.bg + "') top left/424px 760px no-repeat";
 
   // Aggiorna HUD
+  // Numerazione relativa al blocco corrente
+  const blockStages   = CANT_STAGES.filter(s => s.blockName === cfg.blockName);
+  const blockPos      = blockStages.findIndex(s => s.stage === cfg.stage) + 1;
+  const blockTotal    = blockStages.length;
   document.getElementById('cant-stage-label').textContent =
-    (cfg.blockName ? cfg.blockName + ' · ' : '') + 'STAGE ' + cfg.stage + ' / ' + cantTotalStages;
+    (cfg.blockName ? cfg.blockName + ' · ' : '') + 'STAGE ' + blockPos + ' / ' + blockTotal;
   updateCantProgress();
   renderCantObjects();
   renderCantNames();
