@@ -3129,16 +3129,25 @@ if(window.visualViewport){
     'bg_cantiere5avvio.png','bg_cantiere5.png',
     'affari_bg.png','eumachia_bg.jpg','eumachia_look_01.jpg',
     'eumachia_look_02.jpg','eumachia_look_03.jpg','MAPPA.jpg',
+    // Block 1 hidden objects
     'hidden_anfore.png','hidden_architetto.png','hidden_blocco di marmo.png',
     'hidden_cassettalana.png','hidden_clessidra.png','hidden_colonna alta.png',
     'hidden_epigrafe.png','hidden_mattoni.png','hidden_porta.png',
     'hidden_rancio.png','hidden_tavolo.png','hidden_travi.png','porta.png',
+    // Block 2 hidden objects
     'hidden_altare.png','hidden_anfore6.png','hidden_carretto.png','hidden_cassettalegno.png','hidden_travigrandi.png',
     'hidden_altare2.png','hidden_attrezzi.png','hidden_marmipregiati.png','hidden_statua.png',
+    'hidden_carretto2.png','hidden_colonne dorate.png',
     'bg_cantiere6avvio.png','bg_cantiere6.png',
     'tasto_avanzamento.png',
     'avanzamento1_esterno.png','avanzamento2_interno.png','avanzamento3_luogoincontrofullones.png',
     'bg_cantiere8.png','bg_cantiere8avvio.png',
+    // Block 3 hidden objects
+    'hidden_colonnaricostruita.png','hidden_sabbiafine.png','hidden_cassaconcemento.png',
+    'hidden_carretto3.png','hidden_4anfore.png','hidden_5anfore.png','hidden_colonnaspezzata.png',
+    'hidden_pileditegole.png','hidden_cassettategole.png','hidden_piedistallo.png',
+    'hidden_sacco.png','hidden_carrettocolori.png','hidden_piledimattoni.png','hidden_piedistallo2.png',
+    // Block 4 hidden objects
     'bg_cantiere14.png','tasto_avviolavori.png',
     'hidden_new_operaioconcesto.png','hidden_new_operaioconpala.png','hidden_new_pala.png',
     'avanzamento4_aranceto.png'
@@ -3240,156 +3249,182 @@ function goHub(){
    ══════════════════════════════════════════════════════ */
 
 // ── Definizione Stage ──────────────────────────────────
+// ── Definizione Stage ──────────────────────────────────
 const CANT_STAGES = [
+
+  // ══ BLOCCO 1 — Portico Esterno ════════════════════════════════════════════
+
+  // Stage 1 · bg_cantiere · 5 oggetti · intro al cantiere
   {
-    stage:1, time:60, reward:50, popReward:6, bg:'bg_cantiere.png',
+    stage:1, time:60, reward:50, popReward:8, bg:'bg_cantiere.png',
     objects: [
-      { id:'epigrafe',   nome:'Epigrafe',    img:'hidden_epigrafe.png',   x:377, y:310, w:60, h:60 },
-      { id:'architetto', nome:'Architetto',  img:'hidden_architetto.png', x:155, y:460, w:60, h:60 },
-      { id:'tavolo',     nome:'Tavolo',       img:'hidden_tavolo.png',     x:235, y:390, w:60, h:60 },
-      { id:'clessidra',  nome:'Clessidra',    img:'hidden_clessidra.png',  x:287, y:487, w:60, h:60 },
-      { id:'anfore',     nome:'Anfore',       img:'hidden_anfore.png',     x:395, y:590, w:60, h:60 },
+      { id:'s1_epigrafe',   nome:'Epigrafe',   img:'hidden_epigrafe.png',   x:340, y:300, w:60, h:60 },
+      { id:'s1_architetto', nome:'Architetto', img:'hidden_architetto.png', x:140, y:440, w:60, h:60 },
+      { id:'s1_tavolo',     nome:'Tavolo',     img:'hidden_tavolo.png',     x:230, y:375, w:60, h:60 },
+      { id:'s1_clessidra',  nome:'Clessidra',  img:'hidden_clessidra.png',  x:280, y:480, w:60, h:60 },
+      { id:'s1_anfore',     nome:'Anfore',     img:'hidden_anfore.png',     x:355, y:555, w:60, h:60 },
     ]
   },
+
+  // Stage 2 · bg_cantiere2 · 7 oggetti · mura perimetrali
   {
-    stage:2, time:120, reward:100, popReward:6, bg:'bg_cantiere2.png',
+    stage:2, time:120, reward:100, popReward:10, bg:'bg_cantiere2.png',
     objects: [
-      { id:'anfore',       nome:'Anfore',        img:'hidden_anfore.png',       x:395, y:590, w:60, h:60 },
-      { id:'architetto',   nome:'Architetto',    img:'hidden_architetto.png',   x:155, y:460, w:60, h:60 },
-      { id:'mattoni',      nome:'Mattoni',       img:'hidden_mattoni.png',      x:175, y:390, w:60, h:60 },
-      { id:'tavolo',       nome:'Tavolo',        img:'hidden_tavolo.png',       x:235, y:390, w:60, h:60 },
-      { id:'cassettalana', nome:'Cassetta Lana', img:'hidden_cassettalana.png', x:300, y:370, w:60, h:60 },
-      { id:'epigrafe',     nome:'Epigrafe',      img:'hidden_epigrafe.png',     x:372, y:310, w:60, h:60 },
-      { id:'travi',        nome:'Travi',         img:'hidden_travi.png',        x:365, y:575, w:72, h:72 },
+      { id:'s2_travi',        nome:'Travi',         img:'hidden_travi.png',        x:330, y:538, w:65, h:65 },
+      { id:'s2_mattoni',      nome:'Mattoni',       img:'hidden_mattoni.png',      x:155, y:385, w:60, h:60 },
+      { id:'s2_cassettalana', nome:'Cassetta Lana', img:'hidden_cassettalana.png', x:295, y:355, w:60, h:60 },
+      { id:'s2_epigrafe',     nome:'Epigrafe',      img:'hidden_epigrafe.png',     x:355, y:295, w:60, h:60 },
+      { id:'s2_architetto',   nome:'Architetto',    img:'hidden_architetto.png',   x:145, y:455, w:60, h:60 },
+      { id:'s2_anfore',       nome:'Anfore',        img:'hidden_anfore.png',       x:90,  y:550, w:60, h:60 },
+      { id:'s2_clessidra',    nome:'Clessidra',     img:'hidden_clessidra.png',    x:245, y:478, w:60, h:60 },
     ]
   },
+
+  // Stage 3 · bg_cantiere3 · 9 oggetti · marmi e colonne
   {
-    stage:3, time:150, reward:180, popReward:7, bg:'bg_cantiere3.png',
+    stage:3, time:150, reward:180, popReward:12, bg:'bg_cantiere3.png',
     objects: [
-      { id:'bloccomarmo',  nome:'Blocco di Marmo', img:'hidden_blocco di marmo.png', x:320, y:420, w:60, h:60 },
-      { id:'colonnaalta',  nome:'Colonna Alta',    img:'hidden_colonna alta.png',    x:212, y:153, w:72, h:72 },
-      { id:'porta',        nome:'Porta',           img:'hidden_porta.png',           x:191, y:308, w:94, h:94 },
-      { id:'rancio',       nome:'Rancio',          img:'hidden_rancio.png',          x:355, y:520, w:60, h:60 },
-      { id:'mattoni',      nome:'Mattoni',         img:'hidden_mattoni.png',         x:332, y:361, w:60, h:60 },
-      { id:'travi',        nome:'Travi',           img:'hidden_travi.png',           x:260, y:360, w:60, h:60 },
-      { id:'epigrafe',     nome:'Epigrafe',        img:'hidden_epigrafe.png',        x:392, y:290, w:60, h:60 },
-      { id:'anfore',       nome:'Anfore',          img:'hidden_anfore.png',          x:388, y:555, w:72, h:72 },
-      { id:'architetto',   nome:'Architetto',      img:'hidden_architetto.png',      x:155, y:460, w:60, h:60 },
+      { id:'s3_colonnaalta', nome:'Colonna Alta',    img:'hidden_colonna alta.png',    x:205, y:145, w:65, h:65 },
+      { id:'s3_bloccomarmo', nome:'Blocco di Marmo', img:'hidden_blocco di marmo.png', x:310, y:410, w:60, h:60 },
+      { id:'s3_porta',       nome:'Porta',           img:'hidden_porta.png',           x:185, y:295, w:90, h:90 },
+      { id:'s3_rancio',      nome:'Rancio',          img:'hidden_rancio.png',          x:350, y:510, w:60, h:60 },
+      { id:'s3_mattoni',     nome:'Mattoni',         img:'hidden_mattoni.png',         x:330, y:355, w:60, h:60 },
+      { id:'s3_travi',       nome:'Travi',           img:'hidden_travi.png',           x:255, y:355, w:60, h:60 },
+      { id:'s3_epigrafe',    nome:'Epigrafe',        img:'hidden_epigrafe.png',        x:355, y:285, w:60, h:60 },
+      { id:'s3_anfore',      nome:'Anfore',          img:'hidden_anfore.png',          x:90,  y:538, w:65, h:65 },
+      { id:'s3_architetto',  nome:'Architetto',      img:'hidden_architetto.png',      x:145, y:455, w:60, h:60 },
     ]
   },
+
+  // Stage 4 · bg_cantiere4 · MILESTONE — portico completato (nessun hidden)
   {
-    stage:4, time:180, reward:60, popReward:7, bg:'bg_cantiere4.png',
+    stage:4, time:180, reward:60, popReward:15, bg:'bg_cantiere4.png',
+    objects: []
+  },
+
+  // ══ BLOCCO 2 — Camera Interna & Luogo dei Fullones ════════════════════════
+
+  // Stage 5 · bg_cantiere5 · 5 oggetti · camera interna
+  {
+    stage:5, time:60, reward:240, popReward:15, bg:'bg_cantiere5.png', introBg:'bg_cantiere5avvio.png',
     objects: [
-      // Oggetti da definire – aggiornare con gli hidden definitivi dello stage 4
+      { id:'s5_altare',        nome:'Altare',         img:'hidden_altare.png',        x:178, y:395, w:65, h:65 },
+      { id:'s5_anfore6',       nome:'Anfore',         img:'hidden_anfore6.png',        x:335, y:510, w:70, h:70 },
+      { id:'s5_carretto',      nome:'Carretto',       img:'hidden_carretto.png',       x:155, y:538, w:75, h:75 },
+      { id:'s5_cassettalegno', nome:'Cassetta Legno', img:'hidden_cassettalegno.png',  x:298, y:400, w:55, h:55 },
+      { id:'s5_travigrandi',   nome:'Travi Grandi',   img:'hidden_travigrandi.png',    x:245, y:490, w:55, h:55 },
     ]
   },
+
+  // Stage 6 · bg_cantiere6 · 8 oggetti · camera interna fase II
   {
-    stage:5, time:60, reward:240, popReward:7, bg:'bg_cantiere5.png', introBg:'bg_cantiere5avvio.png',
+    stage:6, time:60, reward:90, popReward:18, bg:'bg_cantiere6.png', introBg:'bg_cantiere6avvio.png',
     objects: [
-      { id:'altare', nome:'Altare', img:'hidden_altare.png', x:182, y:405, w:60, h:60 },
-      { id:'anfore6', nome:'Anfore', img:'hidden_anfore6.png', x:364, y:525, w:118, h:118 },
-      { id:'carretto', nome:'Carretto', img:'hidden_carretto.png', x:165, y:550, w:80, h:80 },
-      { id:'cassettalegno', nome:'Cassetta di Legno', img:'hidden_cassettalegno.png', x:300, y:410, w:50, h:50 },
-      { id:'travigrandi', nome:'Travi Grandi', img:'hidden_travigrandi.png', x:250, y:500, w:50, h:50 },
+      { id:'s6_altare2',       nome:'Altare',         img:'hidden_altare2.png',        x:175, y:395, w:65, h:65 },
+      { id:'s6_anfore6',       nome:'Anfore',         img:'hidden_anfore6.png',        x:325, y:505, w:70, h:70 },
+      { id:'s6_carretto',      nome:'Carretto',       img:'hidden_carretto.png',       x:140, y:528, w:75, h:75 },
+      { id:'s6_cassettalegno', nome:'Cassetta Legno', img:'hidden_cassettalegno.png',  x:292, y:400, w:55, h:55 },
+      { id:'s6_travigrandi',   nome:'Travi Grandi',   img:'hidden_travigrandi.png',    x:242, y:485, w:55, h:55 },
+      { id:'s6_attrezzi',      nome:'Attrezzi',       img:'hidden_attrezzi.png',       x:208, y:552, w:55, h:55 },
+      { id:'s6_marmipregiati', nome:'Marmi Pregiati', img:'hidden_marmipregiati.png',  x:292, y:538, w:55, h:55 },
+      { id:'s6_statua',        nome:'Statua',         img:'hidden_statua.png',         x:148, y:338, w:55, h:55 },
     ]
   },
+
+  // Stage 7 · bg_cantiere7 · 9 oggetti · luogo dei fullones
   {
-    stage:6, time:60, reward:90, popReward:8, bg:'bg_cantiere6.png', introBg:'bg_cantiere6avvio.png',
+    stage:7, time:90, reward:120, popReward:22, bg:'bg_cantiere7.png', introBg:'bg_cantiere7avvio.png',
     objects: [
-      { id:'altare2', nome:'Altare', img:'hidden_altare2.png', x:182, y:405, w:60, h:60 },
-      { id:'anfore6b', nome:'Anfore', img:'hidden_anfore6.png', x:364, y:525, w:118, h:118 },
-      { id:'carrettob', nome:'Carretto', img:'hidden_carretto.png', x:165, y:550, w:80, h:80 },
-      { id:'cassettalegnob', nome:'Cassetta di Legno', img:'hidden_cassettalegno.png', x:300, y:410, w:50, h:50 },
-      { id:'travigrandib', nome:'Travi Grandi', img:'hidden_travigrandi.png', x:250, y:500, w:50, h:50 },
-      { id:'attrezzi', nome:'Attrezzi', img:'hidden_attrezzi.png', x:212, y:570, w:50, h:50 },
-      { id:'marmipregiati', nome:'Marmi Pregiati', img:'hidden_marmipregiati.png', x:300, y:545, w:50, h:50 },
-      { id:'statua', nome:'Statua', img:'hidden_statua.png', x:150, y:350, w:50, h:50 },
+      { id:'s7_altare2',       nome:'Altare',          img:'hidden_altare2.png',         x:178, y:390, w:65, h:65 },
+      { id:'s7_anfore6',       nome:'Anfore',          img:'hidden_anfore6.png',          x:325, y:495, w:70, h:70 },
+      { id:'s7_carretto2',     nome:'Carretto',        img:'hidden_carretto2.png',        x:148, y:528, w:75, h:75 },
+      { id:'s7_cassettalegno', nome:'Cassetta Legno',  img:'hidden_cassettalegno.png',    x:292, y:395, w:55, h:55 },
+      { id:'s7_travigrandi',   nome:'Travi Grandi',    img:'hidden_travigrandi.png',      x:242, y:482, w:55, h:55 },
+      { id:'s7_attrezzi',      nome:'Attrezzi',        img:'hidden_attrezzi.png',         x:212, y:552, w:55, h:55 },
+      { id:'s7_marmipregiati', nome:'Marmi Pregiati',  img:'hidden_marmipregiati.png',    x:288, y:540, w:55, h:55 },
+      { id:'s7_statua',        nome:'Statua',          img:'hidden_statua.png',           x:148, y:335, w:55, h:55 },
+      { id:'s7_colonnedorate', nome:'Colonne Dorate',  img:'hidden_colonne dorate.png',   x:285, y:300, w:65, h:65 },
     ]
   },
+
+  // ══ BLOCCO 3 — Sede della Corporazione ═══════════════════════════════════
+
+  // Stage 8 · bg_cantiere9 · 7 oggetti
   {
-    stage:7, time:90, reward:120, popReward:9, bg:'bg_cantiere7.png', introBg:'bg_cantiere7avvio.png',
-    objects: [
-      { id:'altare2c', nome:'Altare', img:'hidden_altare2.png', x:182, y:405, w:60, h:60 },
-      { id:'anfore6c', nome:'Anfore', img:'hidden_anfore6.png', x:364, y:525, w:118, h:118 },
-      { id:'carrettoc', nome:'Carretto', img:'hidden_carretto2.png', x:165, y:550, w:80, h:80 },
-      { id:'cassettalegnoc', nome:'Cassetta di Legno', img:'hidden_cassettalegno.png', x:300, y:410, w:50, h:50 },
-      { id:'travigrandic', nome:'Travi Grandi', img:'hidden_travigrandi.png', x:250, y:500, w:50, h:50 },
-      { id:'attrezzi2', nome:'Attrezzi', img:'hidden_attrezzi.png', x:212, y:570, w:50, h:50 },
-      { id:'marmipregiati2', nome:'Marmi Pregiati', img:'hidden_marmipregiati.png', x:300, y:545, w:50, h:50 },
-      { id:'statua2', nome:'Statua', img:'hidden_statua.png', x:150, y:350, w:50, h:50 },
-      { id:'colonnedorate', nome:'Colonne Dorate', img:'hidden_colonne dorate.png', x:290, y:320, w:60, h:60 },
-    ]
-  },
-  // ── Block 3 — Stage 8: bg_cantiere9 (7 hidden) ─────────
-  {
-    stage:8, time:120, reward:360, popReward:8, bg:'bg_cantiere9.png', introBg:'bg_cantiere8avvio.png',
+    stage:8, time:120, reward:360, popReward:25, bg:'bg_cantiere9.png', introBg:'bg_cantiere8avvio.png',
     objects: [
       { id:'b3s1_colonnaricostruita', nome:'Colonna Ricostruita', img:'hidden_colonnaricostruita.png', x:200, y:350, w:65, h:65 },
-      { id:'b3s1_sabbiafine',         nome:'Sabbia Fine',         img:'hidden_sabbiafine.png',         x:340, y:555, w:55, h:55 },
-      { id:'b3s1_cassaconcemento',    nome:'Cassa di Cemento',    img:'hidden_cassaconcemento.png',    x:140, y:475, w:72, h:72 },
-      { id:'b3s1_carretto3',          nome:'Carretto',            img:'hidden_carretto3.png',          x:100, y:540, w:80, h:80 },
-      { id:'b3s1_4anfore',            nome:'Anfore',              img:'hidden_4anfore.png',            x:330, y:435, w:65, h:65 },
-      { id:'b3s1_5anfore',            nome:'Cinque Anfore',       img:'hidden_5anfore.png',            x:195, y:535, w:75, h:75 },
-      { id:'b3s1_colonnaspezzata',    nome:'Colonna Spezzata',    img:'hidden_colonnaspezzata.png',    x:268, y:415, w:65, h:65 },
+      { id:'b3s1_sabbiafine',         nome:'Sabbia Fine',         img:'hidden_sabbiafine.png',         x:340, y:552, w:55, h:55 },
+      { id:'b3s1_cassaconcemento',    nome:'Cassa di Cemento',    img:'hidden_cassaconcemento.png',    x:140, y:472, w:72, h:72 },
+      { id:'b3s1_carretto3',          nome:'Carretto',            img:'hidden_carretto3.png',          x:100, y:538, w:80, h:80 },
+      { id:'b3s1_4anfore',            nome:'Anfore',              img:'hidden_4anfore.png',            x:330, y:432, w:65, h:65 },
+      { id:'b3s1_5anfore',            nome:'Cinque Anfore',       img:'hidden_5anfore.png',            x:195, y:528, w:75, h:75 },
+      { id:'b3s1_colonnaspezzata',    nome:'Colonna Spezzata',    img:'hidden_colonnaspezzata.png',    x:268, y:412, w:65, h:65 },
     ]
   },
-  // ── Block 3 — Stage 9: bg_cantiere10 (8 hidden) ────────
-  {
-    stage:9, time:140, reward:60, popReward:8, bg:'bg_cantiere10.png', introBg:'bg_cantiere10avvio.png',
-    objects: [
-      { id:'b3s2_pileditegole',    nome:'Pile di Tegole',   img:'hidden_pileditegole.png',    x:175, y:550, w:65, h:65 },
-      { id:'b3s2_colonnaspezzata', nome:'Colonna Spezzata', img:'hidden_colonnaspezzata.png', x:280, y:425, w:60, h:60 },
-      { id:'b3s2_cassettategole',  nome:'Cassetta Tegole',  img:'hidden_cassettategole.png',  x:360, y:510, w:60, h:60 },
-      { id:'b3s2_piedistallo',     nome:'Piedistallo',      img:'hidden_piedistallo.png',      x:200, y:375, w:60, h:60 },
-      { id:'b3s2_sabbiafine',      nome:'Sabbia Fine',      img:'hidden_sabbiafine.png',       x:340, y:550, w:55, h:55 },
-      { id:'b3s2_sacco',           nome:'Sacco',            img:'hidden_sacco.png',            x:140, y:470, w:60, h:60 },
-      { id:'b3s2_4anfore',         nome:'Anfore',           img:'hidden_4anfore.png',          x:310, y:375, w:75, h:75 },
-      { id:'b3s2_carretto3',       nome:'Carretto',         img:'hidden_carretto3.png',        x:100, y:540, w:80, h:80 },
-    ]
-  },
-  // ── Block 3 — Stage 10: bg_cantiere11 (9 hidden) ───────
-  {
-    stage:10, time:160, reward:80, popReward:9, bg:'bg_cantiere11.png', introBg:'bg_cantiere11avvio.png',
-    objects: [
-      { id:'b3s3_carretto3',       nome:'Carretto',         img:'hidden_carretto3.png',          x:160, y:540, w:80, h:80 },
-      { id:'b3s3_carrettocolori',  nome:'Carretto Colori',  img:'hidden_carrettocolori.png',     x:280, y:530, w:65, h:65 },
-      { id:'b3s3_piledimattoni',   nome:'Pile di Mattoni',  img:'hidden_piledimattoni.png',      x:230, y:440, w:60, h:60 },
-      { id:'b3s3_4anfore',         nome:'Anfore',           img:'hidden_4anfore.png',            x:350, y:370, w:75, h:75 },
-      { id:'b3s3_pileditegole',    nome:'Pile di Tegole',   img:'hidden_pileditegole.png',       x:110, y:550, w:65, h:65 },
-      { id:'b3s3_colonnaspezzata', nome:'Colonna Spezzata', img:'hidden_colonnaspezzata.png',    x:300, y:360, w:60, h:60 },
-      { id:'b3s3_sacco',           nome:'Sacco',            img:'hidden_sacco.png',              x:230, y:505, w:60, h:60 },
-      { id:'b3s3_cassaconcemento', nome:'Cassa di Cemento', img:'hidden_cassaconcemento.png',    x:130, y:450, w:72, h:72 },
-      { id:'b3s3_piedistallo2',    nome:'Piedistallo',      img:'hidden_piedistallo2.png',        x:340, y:415, w:65, h:65 },
-    ]
-  },
-  // ── Block 3 — Stage 11: bg_cantiere12 (10 hidden, finale) ─
-  {
-    stage:11, time:180, reward:90, popReward:9, bg:'bg_cantiere12.png', introBg:'bg_cantiere12avvio.png',
-    objects: [
-      { id:'b3s4_anfore5',            nome:'Cinque Anfore',      img:'hidden_5anfore.png',            x:360, y:535, w:75, h:75 },
-      { id:'b3s4_sacco',              nome:'Sacco',              img:'hidden_sacco.png',              x:175, y:545, w:60, h:60 },
-      { id:'b3s4_piedistallo2',       nome:'Piedistallo',        img:'hidden_piedistallo2.png',       x:280, y:395, w:60, h:60 },
-      { id:'b3s4_carrettocolori',     nome:'Carretto Colori',    img:'hidden_carrettocolori.png',     x:160, y:455, w:65, h:65 },
-      { id:'b3s4_colonnaricostruita', nome:'Colonna Ricostruita',img:'hidden_colonnaricostruita.png', x:210, y:335, w:65, h:65 },
-      { id:'b3s4_cassaconcemento',    nome:'Cassa di Cemento',   img:'hidden_cassaconcemento.png',    x:350, y:470, w:72, h:72 },
-      { id:'b3s4_carretto3',          nome:'Carretto',           img:'hidden_carretto3.png',          x:100, y:535, w:80, h:80 },
-      { id:'b3s4_4anfore',            nome:'Anfore',             img:'hidden_4anfore.png',            x:300, y:365, w:80, h:80 },
-      { id:'b3s4_piledimattoni',      nome:'Pile di Mattoni',    img:'hidden_piledimattoni.png',      x:130, y:440, w:65, h:65 },
-      { id:'b3s4_cassettategole',     nome:'Cassetta Tegole',    img:'hidden_cassettategole.png',     x:375, y:545, w:60, h:60 },
-    ]
-  },
-  // ── Block 4: Aranceto (stage 17) ──────────────────────
-  {
-    stage:12, time:90, reward:480, popReward:10, bg:'bg_cantiere14.png', useTasto:true,
-    objects: [
-      { id:'operaioconcesto_b4s1',  nome:'Operaio con Cesto',  img:'hidden_new_operaioconcesto.png',  x:160, y:430, w:65, h:65 },
-      { id:'operaioconpala_b4s1',   nome:'Operaio con Pala',   img:'hidden_new_operaioconpala.png',   x:300, y:400, w:65, h:65 },
-      { id:'pala_b4s1',             nome:'Pala',               img:'hidden_new_pala.png',             x:370, y:500, w:55, h:55 },
-      { id:'attrezzi_b4s1',         nome:'Attrezzi',           img:'hidden_attrezzi.png',             x:220, y:510, w:55, h:55 },
-    ]
-  },
-];
 
+  // Stage 9 · bg_cantiere10 · 8 oggetti
+  {
+    stage:9, time:140, reward:60, popReward:28, bg:'bg_cantiere10.png', introBg:'bg_cantiere10avvio.png',
+    objects: [
+      { id:'b3s2_pileditegole',    nome:'Pile di Tegole',   img:'hidden_pileditegole.png',    x:175, y:548, w:65, h:65 },
+      { id:'b3s2_colonnaspezzata', nome:'Colonna Spezzata', img:'hidden_colonnaspezzata.png', x:280, y:422, w:60, h:60 },
+      { id:'b3s2_cassettategole',  nome:'Cassetta Tegole',  img:'hidden_cassettategole.png',  x:355, y:508, w:60, h:60 },
+      { id:'b3s2_piedistallo',     nome:'Piedistallo',      img:'hidden_piedistallo.png',      x:200, y:372, w:60, h:60 },
+      { id:'b3s2_sabbiafine',      nome:'Sabbia Fine',      img:'hidden_sabbiafine.png',       x:338, y:545, w:55, h:55 },
+      { id:'b3s2_sacco',           nome:'Sacco',            img:'hidden_sacco.png',            x:140, y:468, w:60, h:60 },
+      { id:'b3s2_4anfore',         nome:'Anfore',           img:'hidden_4anfore.png',          x:305, y:368, w:75, h:75 },
+      { id:'b3s2_carretto3',       nome:'Carretto',         img:'hidden_carretto3.png',        x:95,  y:532, w:80, h:80 },
+    ]
+  },
+
+  // Stage 10 · bg_cantiere11 · 9 oggetti
+  {
+    stage:10, time:160, reward:80, popReward:32, bg:'bg_cantiere11.png', introBg:'bg_cantiere11avvio.png',
+    objects: [
+      { id:'b3s3_carretto3',       nome:'Carretto',         img:'hidden_carretto3.png',       x:155, y:532, w:80, h:80 },
+      { id:'b3s3_carrettocolori',  nome:'Carretto Colori',  img:'hidden_carrettocolori.png',  x:278, y:522, w:65, h:65 },
+      { id:'b3s3_piledimattoni',   nome:'Pile di Mattoni',  img:'hidden_piledimattoni.png',   x:228, y:432, w:60, h:60 },
+      { id:'b3s3_4anfore',         nome:'Anfore',           img:'hidden_4anfore.png',         x:342, y:362, w:75, h:75 },
+      { id:'b3s3_pileditegole',    nome:'Pile di Tegole',   img:'hidden_pileditegole.png',    x:108, y:542, w:65, h:65 },
+      { id:'b3s3_colonnaspezzata', nome:'Colonna Spezzata', img:'hidden_colonnaspezzata.png', x:298, y:352, w:60, h:60 },
+      { id:'b3s3_sacco',           nome:'Sacco',            img:'hidden_sacco.png',           x:228, y:498, w:60, h:60 },
+      { id:'b3s3_cassaconcemento', nome:'Cassa di Cemento', img:'hidden_cassaconcemento.png', x:128, y:442, w:72, h:72 },
+      { id:'b3s3_piedistallo2',    nome:'Piedistallo',      img:'hidden_piedistallo2.png',    x:338, y:408, w:65, h:65 },
+    ]
+  },
+
+  // Stage 11 · bg_cantiere12 · 10 oggetti · FINALE BLOCCO 3
+  {
+    stage:11, time:180, reward:90, popReward:40, bg:'bg_cantiere12.png', introBg:'bg_cantiere12avvio.png',
+    objects: [
+      { id:'b3s4_anfore5',            nome:'Cinque Anfore',       img:'hidden_5anfore.png',            x:335, y:528, w:75, h:75 },
+      { id:'b3s4_sacco',              nome:'Sacco',               img:'hidden_sacco.png',              x:172, y:538, w:60, h:60 },
+      { id:'b3s4_piedistallo2',       nome:'Piedistallo',         img:'hidden_piedistallo2.png',       x:278, y:388, w:60, h:60 },
+      { id:'b3s4_carrettocolori',     nome:'Carretto Colori',     img:'hidden_carrettocolori.png',     x:158, y:448, w:65, h:65 },
+      { id:'b3s4_colonnaricostruita', nome:'Colonna Ricostruita', img:'hidden_colonnaricostruita.png', x:208, y:328, w:65, h:65 },
+      { id:'b3s4_cassaconcemento',    nome:'Cassa di Cemento',    img:'hidden_cassaconcemento.png',    x:342, y:460, w:72, h:72 },
+      { id:'b3s4_carretto3',          nome:'Carretto',            img:'hidden_carretto3.png',          x:95,  y:528, w:80, h:80 },
+      { id:'b3s4_4anfore',            nome:'Anfore',              img:'hidden_4anfore.png',            x:295, y:355, w:80, h:80 },
+      { id:'b3s4_piledimattoni',      nome:'Pile di Mattoni',     img:'hidden_piledimattoni.png',      x:128, y:432, w:65, h:65 },
+      { id:'b3s4_cassettategole',     nome:'Cassetta Tegole',     img:'hidden_cassettategole.png',     x:345, y:535, w:60, h:60 },
+    ]
+  },
+
+  // ══ BLOCCO 4 — Aranceto di Eumachia ══════════════════════════════════════
+
+  // Stage 12 · bg_cantiere14 · 4 oggetti · tasto avvio
+  {
+    stage:12, time:90, reward:480, popReward:50, bg:'bg_cantiere14.png', useTasto:true,
+    objects: [
+      { id:'b4s1_operaioconcesto', nome:'Operaio con Cesto', img:'hidden_new_operaioconcesto.png', x:160, y:428, w:65, h:65 },
+      { id:'b4s1_operaioconpala',  nome:'Operaio con Pala',  img:'hidden_new_operaioconpala.png',  x:298, y:398, w:65, h:65 },
+      { id:'b4s1_pala',            nome:'Pala',              img:'hidden_new_pala.png',            x:362, y:495, w:55, h:55 },
+      { id:'b4s1_attrezzi',        nome:'Attrezzi',          img:'hidden_attrezzi.png',            x:218, y:505, w:55, h:55 },
+    ]
+  },
+
+];
 // ── Pool di oggetti Stage 1 (riferimento per preview intro) ──────────────
 const CANT_OBJECT_POOL = CANT_STAGES[0].objects;
 
