@@ -2564,13 +2564,13 @@ const CANT_STAGES = [
     stage: 11, time: 60, reward: 550, popReward: 30,
     blockName: 'ARANCETO',
     bg: 'bg_cantiere14.png', introBg: 'bg_cantiere13avvio.png',
-    cost: 170, alertIco: '🍊', alertTitle: 'ARANCETO',
+    cost: 170, alertIco: '', alertTitle: 'ARANCETO',
     objects: [
-      { id:'s11_bloccomarmo',      nome:'Blocco di Marmo',  img:'hidden_blocco di marmo.png',       x:100, y:230, w:70, h:55 },
-      { id:'s11_cassaconcemento',  nome:'Cassa Cemento',    img:'hidden_cassaconcemento.png',        x:280, y:240, w:70, h:65 },
-      { id:'s11_operaioconcesto',  nome:'Operaio',          img:'hidden_new_operaioconcesto.png',    x:380, y:350, w:60, h:80 },
+      { id:'s11_bloccomarmo',      nome:'Blocco di Marmo',  img:'hidden_blocco di marmo.png',       x:115, y:310, w:70, h:55 },
+      { id:'s11_cassaconcemento',  nome:'Cassa Cemento',    img:'hidden_cassaconcemento.png',        x:270, y:310, w:91, h:85 },
+      { id:'s11_operaioconcesto',  nome:'Operaio',          img:'hidden_new_operaioconcesto.png',    x:470, y:370, w:90, h:120 },
       { id:'s11_sabbiafine',       nome:'Sabbia Fine',      img:'hidden_sabbiafine.png',             x:130, y:420, w:70, h:65 },
-      { id:'s11_sacco',            nome:'Sacco',            img:'hidden_sacco.png',                  x:300, y:490, w:65, h:75 },
+      { id:'s11_sacco',            nome:'Sacco',            img:'hidden_sacco.png',                  x:290, y:505, w:65, h:75 },
     ]
   },
   // ── BLOCCO 4 — ARANCETO Stage 2 (fine blocco) ────────────────────────────
@@ -2580,7 +2580,7 @@ const CANT_STAGES = [
     bg: 'bg_cantiere15.png', introBg: 'bg_cantiere15avvio.png',
     completionBg: 'bg_cantiere17.png', completionIntroBg: 'bg_cantiere17avvio.png', avanzamentoCell: 4,
     blockEndLabel: 'ARANCETO COMPLETATO!',
-    cost: 190, alertIco: '🍊', alertTitle: 'ARANCETO',
+    cost: 190, alertIco: '', alertTitle: 'ARANCETO',
     objects: [
       { id:'s12_bloccomarmo',       nome:'Blocco di Marmo',   img:'hidden_blocco di marmo.png',       x:100, y:230, w:70, h:55 },
       { id:'s12_cassaconcemento',   nome:'Cassa Cemento',     img:'hidden_cassaconcemento.png',        x:280, y:240, w:70, h:65 },
@@ -2725,7 +2725,7 @@ function avviaCantiere(){
   if(_tastoEl) _tastoEl.style.display = 'none';
   // Aggiorna popup alert con dati dello stage
   const icoEl = document.getElementById('cant-alert-ico');
-  if(icoEl) icoEl.textContent = cfg.alertIco || '🪨';
+  if(icoEl){ icoEl.textContent = cfg.alertIco || '🪨'; icoEl.style.display = cfg.alertIco === '' ? 'none' : ''; }
   const titleEl = document.getElementById('cant-alert-title');
   if(titleEl) titleEl.innerHTML = cfg.alertTitle || 'AVVIA STAGE';
   document.getElementById('cant-alert-avvio').style.display = 'flex';
