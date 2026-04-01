@@ -1598,6 +1598,35 @@ html,body{
         </div>
       </div>
 
+      <!-- Tutorial "Come si gioca" — mostrato solo al primo stage del Blocco 1 -->
+      <div id="cant-tutorial" style="
+        display:none;position:absolute;inset:0;z-index:30;
+        align-items:center;justify-content:center;
+        background:rgba(3,1,0,.88);">
+        <div class="perg-box" style="width:340px;">
+          <div class="perg-roll">
+            <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><polygon points="6,1 11,9 1,9" fill="#f6e9c2" opacity=".75"/></svg>
+            <span class="perg-roll-txt">CANTIERE · COME SI GIOCA</span>
+            <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><polygon points="6,1 11,9 1,9" fill="#f6e9c2" opacity=".75"/></svg>
+          </div>
+          <div class="perg-inner-border">
+            <div class="perg-body" style="gap:0;">
+              <div class="perg-lead" style="margin-bottom:12px;">TROVA GLI OGGETTI NASCOSTI</div>
+              <div class="perg-text">
+                <p>🗺 A destra vedi la lista degli oggetti da trovare — il <strong>primo in alto</strong> è quello attivo.</p>
+                <p>🔍 Esplora la scena e <strong>tocca l'oggetto</strong> corrispondente prima che scada il tempo.</p>
+                <p>⚠ Ogni clic sbagliato costa <strong>−2 secondi</strong>. Procedi con attenzione.</p>
+                <p>🏆 Trova tutti gli oggetti per completare lo stage e guadagnare Denarii e Popolarità.</p>
+              </div>
+            </div>
+            <div class="perg-sep"></div>
+            <div class="perg-footer" style="justify-content:center;">
+              <button class="perg-btn gold" onclick="chiudiCantTutorial()">Ho capito · Inizia ✦</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- DEV: pulsante reset test visibile solo durante sviluppo -->
       <button onclick="devResetGame()" title="Dev Reset: riporta al primo avvio" style="
         position:absolute;bottom:10px;right:10px;
@@ -2410,6 +2439,7 @@ let cantS16Paid     = false; // costo stage 16 già pagato in questa sessione
 let cantS17Paid     = false; // costo stage 17 già pagato in questa sessione
 let cantWrongCount  = 0;    // errori clic sbagliati (penalità pop ogni 3)
 let cantBlockTransition = false; // true quando si mostra lo schermo intro del blocco successivo
+let cantTutorialSeen    = false; // true dopo che il giocatore ha visto il tutorial del primo stage
 
 // ── Apri/Chiudi ────────────────────────────────────────
 function syncCantLifebar(){
@@ -2443,6 +2473,10 @@ function openCantiere(){
   syncCantLifebar();
   renderCantPreview();
 }
+function chiudiCantTutorial(){
+  document.getElementById('cant-tutorial').style.display = 'none';
+  avviaCantiere();
+}
 function avviaCantiere(){
   // Se stiamo mostrando la schermata di transizione inter-blocco, avanza al prossimo stage
   if(cantBlockTransition){
@@ -2454,6 +2488,12 @@ function avviaCantiere(){
   }
   if(!CANT_STAGES.length) return;
   const cfg = CANT_STAGES[cantStage];
+  // Mostra tutorial al primo avvio assoluto
+  if(cantStage === 0 && !cantTutorialSeen){
+    cantTutorialSeen = true;
+    document.getElementById('cant-tutorial').style.display = 'flex';
+    return;
+  }
   // Controlla e scala il costo laterizi (una sola volta per stage per sessione)
   const paidFlags = [cantS1Paid,cantS2Paid,cantS3Paid,cantS4Paid,cantS5Paid,cantS6Paid,
                      cantS7Paid,cantS8Paid,cantS9Paid,cantS10Paid,cantS11Paid,cantS12Paid,
@@ -2593,6 +2633,13 @@ function startCantStage(){
   // Nascondi result screen
   document.getElementById('cant-result').style.display = 'none';
   document.getElementById('cant-close-btn').style.display = 'flex';
+
+  // Stage placeholder senza oggetti: salta direttamente alla vittoria
+  if(cantObjects.length === 0){
+    stopCantTimer();
+    cantRunning = false;
+    cantVittoria();
+  }
 }
 
 // ── Tick timer ─────────────────────────────────────────
@@ -2828,7 +2875,7 @@ function cantVittoria(){
   addDen(cfg.reward);
   addPopXP(cfg.popReward);
 
-  const isBlockEnd = isLast && !!cfg.completionBg;
+  const isBlockEnd = !!cfg.completionBg;
   // Se fine blocco, cambia sfondo con l'immagine di completamento
   if(isBlockEnd){
     document.getElementById('cant-bg').style.background =
@@ -2903,11 +2950,11 @@ function cantResultAction(){
   const isLast       = cantStage >= cantTotalStages - 1;
   const wasVittoria  = document.getElementById('cant-result-title').textContent !== 'TEMPO SCADUTO';
   const cfg          = CANT_STAGES[cantStage];
-  const isBlockEnd   = isLast && !!cfg.completionBg;
+  const isBlockEnd   = !!cfg.completionBg;
   if(!wasVittoria){
     startCantStage();
   } else if(isBlockEnd && cfg.completionIntroBg){
-    // Fine blocco: mostra l'intro del blocco successivo (bg_cantiere4avvio)
+    // Fine blocco: mostra l'intro del blocco successivo
     cantBlockTransition = true;
     document.getElementById('cant-intro').style.display  = 'flex';
     document.getElementById('cant-hud').style.display    = 'none';
@@ -2915,10 +2962,11 @@ function cantResultAction(){
     document.getElementById('cant-objects').innerHTML    = '';
     document.getElementById('cant-bg').style.background =
       "url('" + cfg.completionIntroBg + "') top left/424px 760px no-repeat";
+    const nextStageCfg = CANT_STAGES[cantStage + 1];
     const costEl = document.getElementById('cant-cost-text');
-    if(costEl) costEl.textContent = '';
+    if(costEl) costEl.textContent = (nextStageCfg && nextStageCfg.cost) ? 'Costo avvio: ' + nextStageCfg.cost + ' 🧱 Laterizi' : '';
     const tastoEl = document.getElementById('cant-tasto-lavori');
-    if(tastoEl) tastoEl.style.display = 'none';
+    if(tastoEl) tastoEl.style.display = 'block';
   } else if(isLast){
     closeCantiere();
   } else {
