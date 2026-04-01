@@ -1598,6 +1598,40 @@ html,body{
         </div>
       </div>
 
+      <!-- Intro pergamena Cantiere — mostrata solo alla prima apertura assoluta -->
+      <div id="cant-intro-perg" style="
+        display:none;position:absolute;inset:0;z-index:32;
+        align-items:center;justify-content:center;
+        background:rgba(3,1,0,.88);">
+        <div class="perg-box" style="width:356px;">
+          <div class="perg-roll">
+            <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><polygon points="6,1 11,9 1,9" fill="#f6e9c2" opacity=".75"/></svg>
+            <span class="perg-roll-txt">DOMINA · EUMACHIA DI POMPEI</span>
+            <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><polygon points="6,1 11,9 1,9" fill="#f6e9c2" opacity=".75"/></svg>
+          </div>
+          <div class="perg-inner-border">
+            <div class="perg-body">
+              <div class="perg-lead">IL CANTIERE DI EUMACHIA</div>
+              <div class="perg-text">
+                <p>Ho ottenuto il permesso del Senato. La costruzione del mio Portico avrà inizio.</p>
+                <p>Ogni blocco avanza per <strong>stage successivi</strong>, ciascuno dei quali ti chiede di <strong>trovare tutti gli oggetti nascosti</strong> nella scena prima che scada il tempo.</p>
+                <p>Osserva bene ogni angolo. Usa i tuoi <strong>Laterizi</strong> per avviare i lavori. Ogni stage completato porta il Portico un passo più vicino alla gloria.</p>
+                <p>Ogni clic sbagliato costa <strong>−2 secondi</strong>. Procedi con attenzione.</p>
+              </div>
+            </div>
+            <div class="perg-sep"></div>
+            <div class="perg-footer" style="justify-content:center;">
+              <button class="perg-btn gold" onclick="chiudiCantIntroPerg()">Che i lavori abbiano inizio ✦</button>
+            </div>
+          </div>
+          <div class="perg-roll">
+            <svg width="55" height="6" viewBox="0 0 55 6"><line x1="0" y1="3" x2="55" y2="3" stroke="#f6e9c2" stroke-width="1" stroke-dasharray="3,3" opacity=".55"/></svg>
+            <svg width="8" height="8" viewBox="0 0 8 8"><rect x="2" y="2" width="4" height="4" fill="#f6e9c2" opacity=".65" transform="rotate(45 4 4)"/></svg>
+            <svg width="55" height="6" viewBox="0 0 55 6"><line x1="0" y1="3" x2="55" y2="3" stroke="#f6e9c2" stroke-width="1" stroke-dasharray="3,3" opacity=".55"/></svg>
+          </div>
+        </div>
+      </div>
+
       <!-- Tutorial "Come si gioca" — mostrato solo al primo stage del Blocco 1 -->
       <div id="cant-tutorial" style="
         display:none;position:absolute;inset:0;z-index:30;
@@ -2582,6 +2616,7 @@ let cantS17Paid     = false; // costo stage 17 già pagato in questa sessione
 let cantWrongCount  = 0;    // errori clic sbagliati (penalità pop ogni 3)
 let cantBlockTransition = false; // true quando si mostra lo schermo intro del blocco successivo
 let cantTutorialSeen    = false; // true dopo che il giocatore ha visto il tutorial del primo stage
+let cantIntroSeen       = false; // true dopo la prima apertura assoluta del cantiere
 
 // ── Apri/Chiudi ────────────────────────────────────────
 function syncCantLifebar(){
@@ -2614,6 +2649,14 @@ function openCantiere(){
   if(costEl) costEl.textContent = cfg.cost ? 'Costo avvio: ' + cfg.cost + ' 🧱 Laterizi' : '';
   syncCantLifebar();
   renderCantPreview();
+  // Prima apertura assoluta: mostra la pergamena introduttiva
+  if(cantStage === 0 && !cantIntroSeen){
+    cantIntroSeen = true;
+    document.getElementById('cant-intro-perg').style.display = 'flex';
+  }
+}
+function chiudiCantIntroPerg(){
+  document.getElementById('cant-intro-perg').style.display = 'none';
 }
 function chiudiCantTutorial(){
   document.getElementById('cant-tutorial').style.display = 'none';
