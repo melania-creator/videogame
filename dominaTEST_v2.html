@@ -2186,7 +2186,7 @@ if(window.visualViewport){
     'bg_giardino.jpg','bg_duoviro.jpg','bg_fullonica.jpg','bg_credits.jpg','bg_magister.png',
     'bg_cantiereavvio.png','bg_cantiere2avvio.png','bg_cantiere3avvio.png','bg_cantiere4avvio.png',
     'bg_cantiere.png','bg_cantiere2.png','bg_cantiere3.png','bg_cantiere4.png',
-    'bg_cantiere5avvio.png','bg_cantiere5.png',
+    'bg_cantiere5avvio.png','bg_cantiere5.png','bg_cantiere6avvio.png',
     'affari_bg.png','eumachia_bg.jpg','eumachia_look_01.jpg',
     'eumachia_look_02.jpg','eumachia_look_03.jpg','MAPPA.jpg',
     // Block 1 hidden objects
@@ -2341,6 +2341,7 @@ const CANT_STAGES = [
     bg: 'bg_cantiere3.png', introBg: 'bg_cantiere3avvio.png',
     cost: 30, alertIco: '🏛', alertTitle: 'RIFINITURA<br>DEL PORTICO',
     completionBg: 'bg_cantiere4.png', completionIntroBg: 'bg_cantiere4avvio.png',
+    blockEndLabel: 'BLOCCO 1 COMPLETATO!', blockEndMsg: 'Il Portico prende forma. Preparati per la Camera Principale!',
     objects: [
       // Riepilogo Stage 1
       { id:'s3_anfore',       nome:'Anfore',       img:'hidden_anfore.png',       x:80,  y:200, w:60, h:60 },
@@ -2355,6 +2356,26 @@ const CANT_STAGES = [
       { id:'s3_tavolo',       nome:'Tavolo',       img:'hidden_tavolo.png',       x:212, y:460, w:70, h:60 },
       { id:'s3_epigrafe',     nome:'Epigrafe',     img:'hidden_epigrafe.png',     x:344, y:460, w:70, h:60 },
     ]
+  },
+  // ── BLOCCO 2 — Stage 1 ────────────────────────────────────────────────────
+  {
+    stage: 4, time: 120, reward: 200, popReward: 12,
+    bg: 'bg_cantiere5.png', introBg: 'bg_cantiere5avvio.png',
+    cost: 50, alertIco: '🏛', alertTitle: 'CAMERA<br>PRINCIPALE',
+    objects: [
+      { id:'s4_altare',        nome:'Altare',          img:'hidden_altare.png',           x:100, y:350, w:55, h:80 },
+      { id:'s4_bloccomarmo',   nome:'Blocco di Marmo', img:'hidden_blocco di marmo.png',  x:250, y:440, w:70, h:55 },
+      { id:'s4_carretto',      nome:'Carretto',        img:'hidden_carretto.png',         x:350, y:390, w:70, h:60 },
+      { id:'s4_cassettalegno', nome:'Cassetta Legno',  img:'hidden_cassettalegno.png',    x:160, y:490, w:60, h:60 },
+      { id:'s4_mattoni',       nome:'Mattoni',         img:'hidden_mattoni.png',          x:300, y:540, w:70, h:55 },
+    ]
+  },
+  // ── BLOCCO 2 — Stage 2 (oggetti da definire) ──────────────────────────────
+  {
+    stage: 5, time: 120, reward: 250, popReward: 15,
+    bg: 'bg_cantiere6.png', introBg: 'bg_cantiere6avvio.png',
+    cost: 60, alertIco: '🏛', alertTitle: 'CAMERA<br>PRINCIPALE',
+    objects: []
   },
 ];
 // ── Pool di oggetti Stage 1 (riferimento per preview intro) ──────────────
@@ -2421,8 +2442,14 @@ function openCantiere(){
   renderCantPreview();
 }
 function avviaCantiere(){
-  // Se stiamo mostrando l'intro del blocco successivo (non ancora implementato), chiudi
-  if(cantBlockTransition){ cantBlockTransition = false; closeCantiere(); return; }
+  // Se stiamo mostrando la schermata di transizione inter-blocco, avanza al prossimo stage
+  if(cantBlockTransition){
+    cantBlockTransition = false;
+    cantStage++;
+    saveGame();
+    _mostraIntroStage();
+    return;
+  }
   if(!CANT_STAGES.length) return;
   const cfg = CANT_STAGES[cantStage];
   // Controlla e scala il costo laterizi (una sola volta per stage per sessione)
