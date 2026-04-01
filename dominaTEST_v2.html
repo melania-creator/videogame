@@ -2439,6 +2439,27 @@ const CANT_STAGES = [
       { id:'s6_statua',        nome:'Statua',          img:'hidden_statua.png',           x:290, y:555, w:65, h:80 },
     ]
   },
+  // ── BLOCCO 3 — LUOGO DEI FULLONES Stage 1 ────────────────────────────────
+  {
+    stage: 7, time: 120, reward: 350, popReward: 20,
+    blockName: 'LUOGO DEI FULLONES',
+    bg: 'bg_cantiere9.png', introBg: 'bg_cantiere8avvio.png',
+    cost: 90, alertIco: '🧺', alertTitle: 'LUOGO DEI<br>FULLONES',
+    objects: [
+      { id:'s7_4anfore',       nome:'Anfore',        img:'hidden_4anfore.png',       x:100, y:300, w:70, h:70 },
+      { id:'s7_attrezzi',      nome:'Attrezzi',      img:'hidden_attrezzi.png',      x:250, y:250, w:70, h:65 },
+      { id:'s7_carretto3',     nome:'Carretto',      img:'hidden_carretto3.png',     x:340, y:390, w:70, h:60 },
+      { id:'s7_cassettalegno', nome:'Cassetta Legno',img:'hidden_cassettalegno.png', x:140, y:480, w:60, h:60 },
+    ]
+  },
+  // ── BLOCCO 3 — LUOGO DEI FULLONES Stage 2 (oggetti da definire) ───────────
+  {
+    stage: 8, time: 150, reward: 400, popReward: 22,
+    blockName: 'LUOGO DEI FULLONES',
+    bg: 'bg_cantiere10.png', introBg: 'bg_cantiere9avvio.png',
+    cost: 110, alertIco: '🧺', alertTitle: 'LUOGO DEI<br>FULLONES',
+    objects: []
+  },
 ];
 // ── Pool di oggetti Stage 1 (riferimento per preview intro) ──────────────
 const CANT_OBJECT_POOL = CANT_STAGES.length ? CANT_STAGES[0].objects : [];
@@ -2516,12 +2537,10 @@ function avviaCantiere(){
     cantStage++;
     saveGame();
     if(cantStage >= CANT_STAGES.length){
-      // Blocco successivo non ancora implementato
       closeCantiere();
       return;
     }
-    _mostraIntroStage();
-    return;
+    // Il giocatore è già sulla schermata avvio del nuovo blocco: procedi a costo/alert
   }
   if(!CANT_STAGES.length) return;
   const cfg = CANT_STAGES[cantStage];
