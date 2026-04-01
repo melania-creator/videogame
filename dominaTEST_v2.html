@@ -2416,13 +2416,28 @@ const CANT_STAGES = [
       { id:'s5_travigrandi',   nome:'Travi Grandi',    img:'hidden_travigrandi.png',      x:300, y:480, w:80, h:60 },
     ]
   },
-  // ── BLOCCO 2 — CAMERA PRINCIPALE Stage 3 ─────────────────────────────────
+  // ── BLOCCO 2 — CAMERA PRINCIPALE Stage 3 (fine blocco) ───────────────────
   {
     stage: 6, time: 180, reward: 300, popReward: 18,
     blockName: 'CAMERA PRINCIPALE',
     bg: 'bg_cantiere7.png', introBg: 'bg_cantiere7avvio.png',
     cost: 75, alertIco: '🏛', alertTitle: 'CAMERA<br>PRINCIPALE',
-    objects: []
+    completionBg: 'bg_cantiere8.png', completionIntroBg: 'bg_cantiere8avvio.png',
+    blockEndLabel: 'CAMERA PRINCIPALE COMPLETATA!',
+    blockEndMsg: 'Gli ambienti principali risplendono. Preparati per il Luogo dei Fullones!',
+    objects: [
+      { id:'s6_altare2',       nome:'Altare',          img:'hidden_altare2.png',          x:80,  y:160, w:60, h:80 },
+      { id:'s6_bloccomarmo',   nome:'Blocco di Marmo', img:'hidden_blocco di marmo.png',  x:212, y:170, w:70, h:55 },
+      { id:'s6_carretto2',     nome:'Carretto',        img:'hidden_carretto2.png',        x:344, y:170, w:70, h:60 },
+      { id:'s6_cassettalegno', nome:'Cassetta Legno',  img:'hidden_cassettalegno.png',    x:80,  y:300, w:60, h:60 },
+      { id:'s6_mattoni',       nome:'Mattoni',         img:'hidden_mattoni.png',          x:212, y:295, w:70, h:55 },
+      { id:'s6_epigrafe2',     nome:'Epigrafe',        img:'hidden_epigrafe2.png',        x:344, y:300, w:70, h:60 },
+      { id:'s6_marmipregiati', nome:'Marmi Pregiati',  img:'hidden_marmipregiati.png',    x:80,  y:430, w:70, h:65 },
+      { id:'s6_travigrandi',   nome:'Travi Grandi',    img:'hidden_travigrandi.png',      x:212, y:430, w:80, h:60 },
+      { id:'s6_colonnedorate', nome:'Colonne Dorate',  img:'hidden_colonnedorate.png',    x:344, y:430, w:65, h:80 },
+      { id:'s6_clessidra',     nome:'Clessidra',       img:'hidden_clessidra.png',        x:130, y:555, w:60, h:60 },
+      { id:'s6_statua',        nome:'Statua',          img:'hidden_statua.png',           x:290, y:555, w:65, h:80 },
+    ]
   },
 ];
 // ── Pool di oggetti Stage 1 (riferimento per preview intro) ──────────────
@@ -2500,6 +2515,11 @@ function avviaCantiere(){
     cantBlockTransition = false;
     cantStage++;
     saveGame();
+    if(cantStage >= CANT_STAGES.length){
+      // Blocco successivo non ancora implementato
+      closeCantiere();
+      return;
+    }
     _mostraIntroStage();
     return;
   }
