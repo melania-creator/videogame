@@ -1560,6 +1560,25 @@ html,body{
           Costo avvio: 10 🧱 Laterizi
         </span>
       </div>
+      <!-- Avviso "prossimamente" fine contenuto -->
+      <div id="cant-coming-soon" style="
+        display:none;position:absolute;inset:0;z-index:20;
+        background:rgba(3,1,0,.88);
+        flex-direction:column;align-items:center;justify-content:center;
+        gap:18px;padding:40px 28px;text-align:center;">
+        <div style="font-size:48px;">🏛️</div>
+        <div style="font-family:'Cinzel Decorative',serif;color:#C9A84C;font-size:20px;letter-spacing:2px;">CANTIERE IN PAUSA</div>
+        <div style="font-family:'Cinzel',serif;color:#C9A84C;font-size:14px;line-height:1.7;max-width:320px;">
+          Hai completato tutte le aree disponibili.<br>Presto arriveranno nuove aree da costruire&nbsp;— resta nei paraggi, Pompei ha ancora bisogno di te!
+        </div>
+        <button onclick="document.getElementById('cant-coming-soon').style.display='none';closeCantiere();"
+          style="margin-top:8px;padding:14px 36px;
+          background:linear-gradient(135deg,#8B6914,#C9A84C,#8B6914);
+          border:none;border-radius:4px;cursor:pointer;
+          font-family:'Cinzel',serif;color:#0A0600;font-size:14px;font-weight:700;letter-spacing:1px;">
+          TORNA AL FORO
+        </button>
+      </div>
       <!-- Tasto Avvio Lavori sovrapposto (mostrato per stage con introBg) -->
       <img id="cant-tasto-lavori"
         src="tasto_avviolavori.png"
@@ -3261,6 +3280,10 @@ function cantResultAction(){
     if(costEl) costEl.textContent = (nextStageCfg && nextStageCfg.cost) ? 'Costo avvio: ' + nextStageCfg.cost + ' 🧱 Laterizi' : '';
     const tastoEl = document.getElementById('cant-tasto-lavori');
     if(tastoEl) tastoEl.style.display = (nextStageCfg && nextStageCfg.tastoIco) ? 'block' : 'none';
+    if(!nextStageCfg){
+      const cs = document.getElementById('cant-coming-soon');
+      if(cs) cs.style.display = 'flex';
+    }
   } else if(isLast){
     closeCantiere();
   } else {
