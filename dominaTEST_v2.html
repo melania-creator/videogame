@@ -1547,24 +1547,25 @@ html,body{
           Costo avvio: 10 🧱 Laterizi
         </span>
       </div>
-      <button onclick="avviaCantiere()"
-        aria-label="Avvio Lavori"
-        style="
-          position:absolute;
-          left:50%;top:640px;
-          width:220px;height:60px;
-          transform:translateX(-50%);
-          background:transparent;
-          border:none;
-          cursor:pointer;">
-      </button>
       <!-- Tasto Avvio Lavori sovrapposto (mostrato per stage con introBg) -->
       <img id="cant-tasto-lavori"
         src="tasto_avviolavori.png"
         onclick="avviaCantiere()"
-        style="display:none;position:absolute;left:50%;top:580px;width:260px;
+        style="display:none;position:absolute;left:50%;top:500px;width:260px;
                transform:translateX(-50%);cursor:pointer;z-index:14;"
         alt="Avvio Lavori">
+      <button onclick="avviaCantiere()"
+        aria-label="Avvio Lavori"
+        style="
+          position:absolute;
+          left:50%;top:500px;
+          width:260px;height:260px;
+          transform:translateX(-50%);
+          background:transparent;
+          border:none;
+          cursor:pointer;
+          z-index:15;">
+      </button>
       <!-- Alert "Costruisci Pavimento" -->
       <div id="cant-alert-avvio" style="
         display:none;position:absolute;inset:0;z-index:25;
@@ -2311,9 +2312,10 @@ function goHub(){
 // ── Definizione Stage ──────────────────────────────────
 // ── Definizione Stage (da ricostruire) ──────────────────────────────────
 const CANT_STAGES = [
-  // ── BLOCCO 1 ──────────────────────────────────────────────────────────────
+  // ── BLOCCO 1 — INGRESSO ───────────────────────────────────────────────────
   {
     stage: 1, time: 90, reward: 50, popReward: 8,
+    blockName: 'INGRESSO',
     bg: 'bg_cantiere.png', introBg: 'bg_cantiereavvio.png',
     cost: 10, alertIco: '🪨', alertTitle: 'COSTRUISCI<br>IL PAVIMENTO',
     objects: [
@@ -2324,6 +2326,7 @@ const CANT_STAGES = [
   },
   {
     stage: 2, time: 120, reward: 100, popReward: 10,
+    blockName: 'INGRESSO',
     bg: 'bg_cantiere2.png', introBg: 'bg_cantiere2avvio.png',
     cost: 30, alertIco: '🧱', alertTitle: 'COSTRUISCI<br>LE MURA',
     objects: [
@@ -2335,31 +2338,29 @@ const CANT_STAGES = [
       { id:'s2_rancio',       nome:'Rancio',       img:'hidden_rancio.png',       x:375, y:440, w:60, h:60 },
     ]
   },
-  // ── BLOCCO 1 — Stage 3 ────────────────────────────────────────────────────
   {
     stage: 3, time: 150, reward: 150, popReward: 15,
+    blockName: 'INGRESSO',
     bg: 'bg_cantiere3.png', introBg: 'bg_cantiere3avvio.png',
     cost: 30, alertIco: '🏛', alertTitle: 'RIFINITURA<br>DEL PORTICO',
     completionBg: 'bg_cantiere4.png', completionIntroBg: 'bg_cantiere4avvio.png',
-    blockEndLabel: 'BLOCCO 1 COMPLETATO!', blockEndMsg: 'Il Portico prende forma. Preparati per la Camera Principale!',
+    blockEndLabel: 'INGRESSO COMPLETATO!', blockEndMsg: 'Il Portico prende forma. Preparati per la Camera Principale!',
     objects: [
-      // Riepilogo Stage 1
       { id:'s3_anfore',       nome:'Anfore',       img:'hidden_anfore.png',       x:80,  y:200, w:60, h:60 },
       { id:'s3_architetto',   nome:'Architetto',   img:'hidden_architetto.png',   x:212, y:200, w:60, h:60 },
       { id:'s3_cassettalana', nome:'Cassetta Lana', img:'hidden_cassettalana.png', x:344, y:200, w:60, h:60 },
-      // Riepilogo Stage 2
       { id:'s3_clessidra',    nome:'Clessidra',    img:'hidden_clessidra.png',    x:80,  y:330, w:60, h:60 },
       { id:'s3_travi',        nome:'Travi',        img:'hidden_travi.png',        x:212, y:330, w:70, h:60 },
       { id:'s3_rancio',       nome:'Rancio',       img:'hidden_rancio.png',       x:344, y:330, w:60, h:60 },
-      // Nuovi Stage 3
       { id:'s3_porta',        nome:'Porta',        img:'hidden_porta.png',        x:80,  y:470, w:60, h:80 },
       { id:'s3_tavolo',       nome:'Tavolo',       img:'hidden_tavolo.png',       x:212, y:460, w:70, h:60 },
       { id:'s3_epigrafe',     nome:'Epigrafe',     img:'hidden_epigrafe.png',     x:344, y:460, w:70, h:60 },
     ]
   },
-  // ── BLOCCO 2 — Stage 1 ────────────────────────────────────────────────────
+  // ── BLOCCO 2 — CAMERA PRINCIPALE ─────────────────────────────────────────
   {
     stage: 4, time: 120, reward: 200, popReward: 12,
+    blockName: 'CAMERA PRINCIPALE',
     bg: 'bg_cantiere5.png', introBg: 'bg_cantiere5avvio.png',
     cost: 50, alertIco: '🏛', alertTitle: 'CAMERA<br>PRINCIPALE',
     objects: [
@@ -2370,9 +2371,9 @@ const CANT_STAGES = [
       { id:'s4_mattoni',       nome:'Mattoni',         img:'hidden_mattoni.png',          x:300, y:540, w:70, h:55 },
     ]
   },
-  // ── BLOCCO 2 — Stage 2 (oggetti da definire) ──────────────────────────────
   {
     stage: 5, time: 120, reward: 250, popReward: 15,
+    blockName: 'CAMERA PRINCIPALE',
     bg: 'bg_cantiere6.png', introBg: 'bg_cantiere6avvio.png',
     cost: 60, alertIco: '🏛', alertTitle: 'CAMERA<br>PRINCIPALE',
     objects: []
@@ -2429,6 +2430,7 @@ function openCantiere(){
   document.getElementById('cant-result').style.display = 'none';
   document.getElementById('cant-objects').innerHTML    = '';
   if(!CANT_STAGES.length) return;
+  if(cantStage >= CANT_STAGES.length) cantStage = 0;
   const cfg = CANT_STAGES[cantStage];
   const _introSrc = cfg.introBg || cfg.bg;
   document.getElementById('cant-bg').style.background =
@@ -2576,7 +2578,7 @@ function startCantStage(){
 
   // Aggiorna HUD
   document.getElementById('cant-stage-label').textContent =
-    'STAGE ' + cfg.stage + ' / ' + cantTotalStages;
+    (cfg.blockName ? cfg.blockName + ' · ' : '') + 'STAGE ' + cfg.stage + ' / ' + cantTotalStages;
   updateCantProgress();
   renderCantObjects();
   renderCantNames();
@@ -2833,14 +2835,16 @@ function cantVittoria(){
       "url('" + cfg.completionBg + "') top left/424px 760px no-repeat";
   }
   const res = document.getElementById('cant-result');
-  document.getElementById('cant-result-ico').textContent   = isBlockEnd ? '🏆' : (isLast ? '🏆' : '');
-  document.getElementById('cant-result-title').textContent = isBlockEnd ? 'BLOCCO 1 COMPLETATO!' : (isLast ? 'LAVORI COMPLETATI!' : 'STAGE SUPERATO!');
+  const nextCfg = CANT_STAGES[cantStage + 1];
+  const nextBlockName = nextCfg ? nextCfg.blockName : null;
+  document.getElementById('cant-result-ico').textContent   = isBlockEnd ? '🏆' : (isLast ? '🏆' : '✅');
+  document.getElementById('cant-result-title').textContent = isBlockEnd ? (cfg.blockEndLabel || (cfg.blockName + ' COMPLETATO!')) : (isLast ? 'LAVORI COMPLETATI!' : 'STAGE SUPERATO!');
   document.getElementById('cant-result-msg').innerHTML =
-    (isBlockEnd ? 'Il Portico prende forma. Preparati per la Camera Principale!'
+    (isBlockEnd ? (cfg.blockEndMsg || 'Blocco completato!')
      : isLast ? 'Hai completato il Cantiere!'
      : 'Avanza allo stage ' + (cfg.stage + 1) + '!')
     + '<br><br><span style="color:#C9A84C;font-size:18px;">+' + cfg.reward + ' 🪙 Denarii &nbsp;·&nbsp; +' + cfg.popReward + ' Popolarità</span>';
-  document.getElementById('cant-result-btn').textContent = isBlockEnd ? 'BLOCCO 2 →' : (isLast ? 'TORNA AL FORO' : 'STAGE SUCCESSIVO →');
+  document.getElementById('cant-result-btn').textContent = isBlockEnd ? (nextBlockName ? nextBlockName + ' →' : 'BLOCCO SUCCESSIVO →') : (isLast ? 'TORNA AL FORO' : 'STAGE SUCCESSIVO →');
   res.style.display = 'flex';
   _playCantVittoriaSound(isLast);
 }
