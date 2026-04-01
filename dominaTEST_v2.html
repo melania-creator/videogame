@@ -1558,12 +1558,13 @@ html,body{
           border:none;
           cursor:pointer;">
       </button>
-      <!-- Tasto Avvio Lavori sovrapposto (solo Block 4+, useTasto:true) -->
+      <!-- Tasto Avvio Lavori sovrapposto (mostrato per stage con introBg) -->
       <img id="cant-tasto-lavori"
         src="tasto_avviolavori.png"
+        onclick="avviaCantiere()"
         style="display:none;position:absolute;left:50%;top:580px;width:260px;
-               transform:translateX(-50%);pointer-events:none;z-index:14;"
-        alt="">
+               transform:translateX(-50%);cursor:pointer;z-index:14;"
+        alt="Avvio Lavori">
       <!-- Alert "Costruisci Pavimento" -->
       <div id="cant-alert-avvio" style="
         display:none;position:absolute;inset:0;z-index:25;
@@ -2076,9 +2077,9 @@ let memoriaMovs    = 0;
 const CURSUS_HONORUM = [
   { nome: 'Candidato',             titolo: 'Stadio I — Candidato',              desc: 'Numistrio Frontone annuncia ufficialmente la sua candidatura. Il suo nome inizia a circolare tra i pompeiani.',                                       soglia: 0,   grad: 'linear-gradient(180deg,#9A9A90 0%,#777770 50%,#555550 100%)' },
   { nome: 'Amico del Popolo',      titolo: 'Stadio II — Amico del Popolo',      desc: 'La corporazione dei fullones appoggia Numistrio. Le prime amicizie politiche si formano tra i mercanti del porto.',                                   soglia: 50,  grad: 'linear-gradient(180deg,#7DDB83 0%,#5DBB63 50%,#3A9940 100%)' },
-  { nome: 'Aedilis',               titolo: 'Stadio III — Aedilis',              desc: 'Numistrio sorveglia le strade, i mercati e i giochi pubblici. La città lo riconosce come uomo di ordine e rettitudine.',                             soglia: 100, grad: 'linear-gradient(180deg,#E17C3A 0%,#C15C1A 50%,#A03C00 100%)' },
-  { nome: 'Pretore',               titolo: 'Stadio IV — Pretore',               desc: 'Numistrio amministra la giustizia nella Basilica del Foro. Il suo verdetto è rispettato da mercanti e cittadini di ogni ceto.',                      soglia: 200, grad: 'linear-gradient(180deg,#F4A93A 0%,#D4891A 50%,#B46900 100%)' },
-  { nome: 'Duoviro Eletto',        titolo: 'Stadio V — Duoviro Eletto',         desc: 'Numistrio Frontone è eletto Duoviro di Pompei! Il sogno di Eumachia si avvera: il figlio governa la città.',                                        soglia: 400, grad: 'linear-gradient(180deg,#E9C86C 0%,#C9A84C 50%,#A9882C 100%)' },
+  { nome: 'Aedilis',               titolo: 'Stadio III — Aedilis',              desc: 'Numistrio sorveglia le strade, i mercati e i giochi pubblici. La città lo riconosce come uomo di ordine e rettitudine.',                             soglia: 150, grad: 'linear-gradient(180deg,#E17C3A 0%,#C15C1A 50%,#A03C00 100%)' },
+  { nome: 'Pretore',               titolo: 'Stadio IV — Pretore',               desc: 'Numistrio amministra la giustizia nella Basilica del Foro. Il suo verdetto è rispettato da mercanti e cittadini di ogni ceto.',                      soglia: 300, grad: 'linear-gradient(180deg,#F4A93A 0%,#D4891A 50%,#B46900 100%)' },
+  { nome: 'Duoviro Eletto',        titolo: 'Stadio V — Duoviro Eletto',         desc: 'Numistrio Frontone è eletto Duoviro di Pompei! Il sogno di Eumachia si avvera: il figlio governa la città.',                                        soglia: 500, grad: 'linear-gradient(180deg,#E9C86C 0%,#C9A84C 50%,#A9882C 100%)' },
   { nome: 'Duoviro Quinquennalis', titolo: 'Stadio VI — Duoviro Quinquennalis', desc: 'Numistrio diventa Duoviro Quinquennale, censore e custode delle leggi. Il nome degli Eumachii sarà inciso nella storia di Pompei per sempre.',        soglia: 800, grad: 'linear-gradient(180deg,#D04040 0%,#9B0000 50%,#6B0000 100%)' },
 ];
 let cursusStageReached = 0; // 0-9, stadio massimo già raggiunto (per non mostrare popup al reload)
@@ -2183,6 +2184,7 @@ if(window.visualViewport){
 (function preloadImages(){
   const imgs = [
     'bg_giardino.jpg','bg_duoviro.jpg','bg_fullonica.jpg','bg_credits.jpg','bg_magister.png',
+    'bg_cantiereavvio.png','bg_cantiere2avvio.png',
     'bg_cantiere.png','bg_cantiere2.png','bg_cantiere3.png','bg_cantiere4.png',
     'bg_cantiere5avvio.png','bg_cantiere5.png',
     'affari_bg.png','eumachia_bg.jpg','eumachia_look_01.jpg',
@@ -2308,9 +2310,27 @@ function goHub(){
 
 // ── Definizione Stage ──────────────────────────────────
 // ── Definizione Stage (da ricostruire) ──────────────────────────────────
-const CANT_STAGES = [];
+const CANT_STAGES = [
+  // ── BLOCCO 1 ──────────────────────────────────────────────────────────────
+  {
+    stage: 1, time: 90, reward: 50, popReward: 8,
+    bg: 'bg_cantiere.png', introBg: 'bg_cantiereavvio.png',
+    cost: 10, alertIco: '🪨', alertTitle: 'COSTRUISCI<br>IL PAVIMENTO',
+    objects: [
+      { id:'s1_anfore',      nome:'Anfore',      img:'hidden_anfore.png',      x:100, y:475, w:60, h:60 },
+      { id:'s1_architetto',  nome:'Architetto',  img:'hidden_architetto.png',  x:245, y:410, w:60, h:60 },
+      { id:'s1_cassettalana',nome:'Cassetta Lana',img:'hidden_cassettalana.png',x:340, y:345, w:60, h:60 },
+    ]
+  },
+  {
+    stage: 2, time: 120, reward: 100, popReward: 10,
+    bg: 'bg_cantiere2.png', introBg: 'bg_cantiere2avvio.png',
+    cost: 30, alertIco: '🧱', alertTitle: 'COSTRUISCI<br>LE MURA',
+    objects: []
+  },
+];
 // ── Pool di oggetti Stage 1 (riferimento per preview intro) ──────────────
-const CANT_OBJECT_POOL = CANT_STAGES[0].objects;
+const CANT_OBJECT_POOL = CANT_STAGES.length ? CANT_STAGES[0].objects : [];
 
 // ── Stato partita ───────────────────────────────────────
 let cantStage       = 0;   // indice in CANT_STAGES (0-4)
@@ -2352,31 +2372,57 @@ function openCantiere(){
   document.getElementById('hub').style.pointerEvents = 'none';
   document.getElementById('bg-hub').style.opacity = '0';
   document.getElementById('panel-cantiere').style.display = 'flex';
-  // Il lampeggio fullonica viene gestito da updateFullonicaBlink (non visibile con panel aperto)
   updateFullonicaBlink();
-  // Mostra intro con pulsante Avvia, HUD e lista nascosti
   document.getElementById('cant-intro').style.display  = 'flex';
   document.getElementById('cant-hud').style.display    = 'none';
   document.getElementById('cant-list').style.display   = 'none';
   document.getElementById('cant-result').style.display = 'none';
   document.getElementById('cant-objects').innerHTML    = '';
-  // Aggiorna sfondo in base allo stage corrente (usa introBg se presente)
-  const _introSrc = CANT_STAGES[cantStage].introBg || CANT_STAGES[cantStage].bg;
+  if(!CANT_STAGES.length) return;
+  const cfg = CANT_STAGES[cantStage];
+  const _introSrc = cfg.introBg || cfg.bg;
   document.getElementById('cant-bg').style.background =
     "url('" + _introSrc + "') top left/424px 760px no-repeat";
-  // Mostra/nascondi tasto overlay (solo Block 4+, useTasto:true)
+  // Mostra tasto overlay solo se lo stage ha uno sfondo intro separato
   const tastoEl = document.getElementById('cant-tasto-lavori');
-  if(tastoEl) tastoEl.style.display = CANT_STAGES[cantStage].useTasto ? 'block' : 'none';
-    const costEl = document.getElementById('cant-cost-text');
-  if(costEl) costEl.textContent = '';
+  if(tastoEl) tastoEl.style.display = cfg.introBg ? 'block' : 'none';
+  const costEl = document.getElementById('cant-cost-text');
+  if(costEl) costEl.textContent = cfg.cost ? 'Costo avvio: ' + cfg.cost + ' 🧱 Laterizi' : '';
   syncCantLifebar();
   renderCantPreview();
 }
 function avviaCantiere(){
-  // Nascondi tasto overlay se Block 4+
+  if(!CANT_STAGES.length) return;
+  const cfg = CANT_STAGES[cantStage];
+  // Controlla e scala il costo laterizi (una sola volta per stage per sessione)
+  const paidFlags = [cantS1Paid,cantS2Paid,cantS3Paid,cantS4Paid,cantS5Paid,cantS6Paid,
+                     cantS7Paid,cantS8Paid,cantS9Paid,cantS10Paid,cantS11Paid,cantS12Paid,
+                     cantS13Paid,cantS14Paid,cantS15Paid,cantS16Paid,cantS17Paid];
+  const alreadyPaid = paidFlags[cantStage] || false;
+  if(cfg.cost && !alreadyPaid){
+    if(lat < cfg.cost){
+      // Laterizi insufficienti: mostra messaggio e non procedere
+      const costEl = document.getElementById('cant-cost-text');
+      if(costEl){ costEl.textContent = '⚠ Laterizi insufficienti!'; costEl.style.color = '#e05040'; }
+      return;
+    }
+    addLat(-cfg.cost);
+    // Segna come pagato per questa sessione
+    const setters = [()=>cantS1Paid=true,()=>cantS2Paid=true,()=>cantS3Paid=true,()=>cantS4Paid=true,
+                     ()=>cantS5Paid=true,()=>cantS6Paid=true,()=>cantS7Paid=true,()=>cantS8Paid=true,
+                     ()=>cantS9Paid=true,()=>cantS10Paid=true,()=>cantS11Paid=true,()=>cantS12Paid=true,
+                     ()=>cantS13Paid=true,()=>cantS14Paid=true,()=>cantS15Paid=true,()=>cantS16Paid=true,
+                     ()=>cantS17Paid=true];
+    if(setters[cantStage]) setters[cantStage]();
+  }
+  // Nascondi tasto overlay
   const _tastoEl = document.getElementById('cant-tasto-lavori');
   if(_tastoEl) _tastoEl.style.display = 'none';
-    // Mostra alert prima di avviare
+  // Aggiorna popup alert con dati dello stage
+  const icoEl = document.getElementById('cant-alert-ico');
+  if(icoEl) icoEl.textContent = cfg.alertIco || '🪨';
+  const titleEl = document.getElementById('cant-alert-title');
+  if(titleEl) titleEl.innerHTML = cfg.alertTitle || 'AVVIA STAGE';
   document.getElementById('cant-alert-avvio').style.display = 'flex';
 }
 function chiudiCantAlertAvvio(){
@@ -2503,9 +2549,9 @@ function stopCantTimer(){ clearInterval(cantTimerID); cantTimerID = null; }
 function renderCantPreview(){
   const container = document.getElementById('cant-objects');
   container.innerHTML = '';
-  CANT_OBJECT_POOL.forEach(obj => {
-    if(cantStage === 3 || cantStage === 4 || cantStage === 5 || cantStage === 6 || cantStage === 7 || cantStage === 8 || cantStage === 9 || cantStage === 10) return; // stage 4-11: salta preview pool
-    if((cantStage === 1 || cantStage === 2) && obj.id === 'clessidra') return;
+  if(!CANT_STAGES.length) return;
+  const _previewObjs = CANT_STAGES[cantStage].objects || [];
+  _previewObjs.forEach(obj => {
     if(obj.fullCanvas){
       const div = document.createElement('div');
       div.style.cssText = 'position:absolute;left:0;top:0;width:424px;height:760px;pointer-events:none;z-index:4;';
@@ -2973,10 +3019,11 @@ function _mostraIntroStage(){
   const _introBgSrc = CANT_STAGES[cantStage].introBg || CANT_STAGES[cantStage].bg;
   document.getElementById('cant-bg').style.background =
     "url('" + _introBgSrc + "') top left/424px 760px no-repeat";
+  const _cfgIntro = CANT_STAGES[cantStage];
   const _tastoElIntro = document.getElementById('cant-tasto-lavori');
-  if(_tastoElIntro) _tastoElIntro.style.display = CANT_STAGES[cantStage].useTasto ? 'block' : 'none';
+  if(_tastoElIntro) _tastoElIntro.style.display = _cfgIntro.introBg ? 'block' : 'none';
   const costEl = document.getElementById('cant-cost-text');
-  if(costEl) costEl.textContent = '';
+  if(costEl) costEl.textContent = _cfgIntro.cost ? 'Costo avvio: ' + _cfgIntro.cost + ' 🧱 Laterizi' : '';
   renderCantPreview();
 }
 const panels = {
