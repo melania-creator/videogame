@@ -2401,10 +2401,27 @@ const CANT_STAGES = [
     ]
   },
   {
-    stage: 5, time: 120, reward: 250, popReward: 15,
+    stage: 5, time: 150, reward: 250, popReward: 15,
     blockName: 'CAMERA PRINCIPALE',
     bg: 'bg_cantiere6.png', introBg: 'bg_cantiere6avvio.png',
     cost: 60, alertIco: '🏛', alertTitle: 'CAMERA<br>PRINCIPALE',
+    objects: [
+      { id:'s5_altare2',       nome:'Altare',          img:'hidden_altare2.png',          x:80,  y:190, w:60, h:80 },
+      { id:'s5_bloccomarmo',   nome:'Blocco di Marmo', img:'hidden_blocco di marmo.png',  x:220, y:200, w:70, h:55 },
+      { id:'s5_carretto',      nome:'Carretto',        img:'hidden_carretto.png',         x:360, y:210, w:70, h:60 },
+      { id:'s5_cassettalegno', nome:'Cassetta Legno',  img:'hidden_cassettalegno.png',    x:80,  y:340, w:60, h:60 },
+      { id:'s5_mattoni',       nome:'Mattoni',         img:'hidden_mattoni.png',          x:220, y:330, w:70, h:55 },
+      { id:'s5_epigrafe2',     nome:'Epigrafe',        img:'hidden_epigrafe2.png',        x:360, y:340, w:70, h:60 },
+      { id:'s5_marmipregiati', nome:'Marmi Pregiati',  img:'hidden_marmipregiati.png',    x:130, y:480, w:70, h:65 },
+      { id:'s5_travigrandi',   nome:'Travi Grandi',    img:'hidden_travigrandi.png',      x:300, y:480, w:80, h:60 },
+    ]
+  },
+  // ── BLOCCO 2 — CAMERA PRINCIPALE Stage 3 ─────────────────────────────────
+  {
+    stage: 6, time: 180, reward: 300, popReward: 18,
+    blockName: 'CAMERA PRINCIPALE',
+    bg: 'bg_cantiere7.png', introBg: 'bg_cantiere7avvio.png',
+    cost: 75, alertIco: '🏛', alertTitle: 'CAMERA<br>PRINCIPALE',
     objects: []
   },
 ];
@@ -2412,7 +2429,7 @@ const CANT_STAGES = [
 const CANT_OBJECT_POOL = CANT_STAGES.length ? CANT_STAGES[0].objects : [];
 
 // ── Stato partita ───────────────────────────────────────
-let cantStage       = 0;   // indice in CANT_STAGES (0-4)
+let cantStage       = 0;   // indice in CANT_STAGES (0-5)
 let cantObjects     = [];  // oggetti attivi in questo stage
 let cantFound       = 0;   // quanti trovati finora
 let cantTarget      = 0;   // indice corrente nell'elenco (oggetto da trovare ora)
@@ -4667,7 +4684,7 @@ function saveGame(){
     hispaniaEndTime: hispaniaInterval ? now + hispaniaSecondsLeft * 1000 : null,
     africaEndTime:   africaInterval   ? now + africaSecondsLeft   * 1000 : null,
     duoviroStep, duoviroLivelloCorrente, duoviroL1Completato, duoviroL2Completato, duoviroCompletato, duoviroAttesaRegalia,
-    cantStage, cantS1Paid, cantS2Paid, cantS3Paid, cantS5Paid, cantS6Paid, cantS7Paid, cantS8Paid, cantS9Paid, cantS10Paid, cantS11Paid, cantS12Paid, cantS13Paid, cantS14Paid, cantS15Paid, cantS16Paid, cantS17Paid,
+    cantStage, cantS1Paid, cantS2Paid, cantS3Paid, cantS4Paid, cantS5Paid, cantS6Paid, cantS7Paid, cantS8Paid, cantS9Paid, cantS10Paid, cantS11Paid, cantS12Paid, cantS13Paid, cantS14Paid, cantS15Paid, cantS16Paid, cantS17Paid,
     memoriaLivDone,
     tetrisLivDone,
     avanzamentoUnlocked
@@ -4842,6 +4859,7 @@ function loadGame(){
     cantS1Paid = s.cantS1Paid ?? false;
     cantS2Paid = s.cantS2Paid ?? false;
     cantS3Paid = s.cantS3Paid ?? false;
+    cantS4Paid = s.cantS4Paid ?? false;
     cantS5Paid = s.cantS5Paid ?? false;
     cantS6Paid = s.cantS6Paid ?? false;
     cantS7Paid = s.cantS7Paid ?? false;
