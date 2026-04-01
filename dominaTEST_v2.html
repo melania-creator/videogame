@@ -2422,7 +2422,7 @@ const CANT_STAGES = [
     blockName: 'INGRESSO',
     bg: 'bg_cantiere3.png', introBg: 'bg_cantiere3avvio.png',
     cost: 40, alertIco: '🏛', alertTitle: 'RIFINITURA<br>DEL PORTICO',
-    completionBg: 'bg_cantiere4.png', completionIntroBg: 'bg_cantiere4avvio.png',
+    completionBg: 'bg_cantiere4.png', completionIntroBg: 'bg_cantiere4avvio.png', avanzamentoCell: 1,
     blockEndLabel: 'INGRESSO COMPLETATO!', blockEndMsg: 'Il Portico prende forma. Preparati per la Camera Principale!',
     objects: [
       { id:'s3_anfore',       nome:'Anfore',       img:'hidden_anfore.png',       x:394, y:535, w:60, h:60 },
@@ -2472,7 +2472,7 @@ const CANT_STAGES = [
     blockName: 'CAMERA PRINCIPALE',
     bg: 'bg_cantiere7.png', introBg: 'bg_cantiere7avvio.png',
     cost: 75, alertIco: '🏛', alertTitle: 'CAMERA<br>PRINCIPALE',
-    completionBg: 'bg_cantiere8.png', completionIntroBg: 'bg_cantiere8avvio.png',
+    completionBg: 'bg_cantiere8.png', completionIntroBg: 'bg_cantiere8avvio.png', avanzamentoCell: 2,
     blockEndLabel: 'CAMERA PRINCIPALE COMPLETATA!',
     blockEndMsg: 'Gli ambienti principali risplendono. Preparati per il Luogo dei Fullones!',
     objects: [
@@ -2542,7 +2542,7 @@ const CANT_STAGES = [
     blockName: 'LUOGO DEI FULLONES',
     bg: 'bg_cantiere12.png', introBg: 'bg_cantiere11avvio.png',
     cost: 150, alertIco: '🧺', alertTitle: 'LUOGO DEI<br>FULLONES',
-    completionBg: 'bg_cantiere13.png', completionIntroBg: 'bg_cantiere13avvio.png',
+    completionBg: 'bg_cantiere13.png', completionIntroBg: 'bg_cantiere13avvio.png', avanzamentoCell: 3,
     blockEndLabel: 'LUOGO DEI FULLONES COMPLETATO!',
     blockEndMsg: 'La Corporazione dei Fullones è splendente. Preparati per l\'Aranceto!',
     objects: [
@@ -2579,7 +2579,7 @@ const CANT_STAGES = [
     stage: 12, time: 60, reward: 650, popReward: 35,
     blockName: 'ARANCETO',
     bg: 'bg_cantiere15.png', introBg: 'bg_cantiere15avvio.png',
-    completionBg: 'bg_cantiere17.png', completionIntroBg: 'bg_cantiere17avvio.png',
+    completionBg: 'bg_cantiere17.png', completionIntroBg: 'bg_cantiere17avvio.png', avanzamentoCell: 4,
     blockEndLabel: 'ARANCETO COMPLETATO!',
     cost: 190, alertIco: '🍊', alertTitle: 'ARANCETO',
     objects: [
@@ -3067,6 +3067,7 @@ function cantVittoria(){
   document.getElementById('cant-result-btn').textContent = isBlockEnd ? (nextBlockName ? nextBlockName + ' →' : 'BLOCCO SUCCESSIVO →') : (isLast ? 'TORNA AL FORO' : 'STAGE SUCCESSIVO →');
 
   if(isBlockEnd){
+    if(cfg.avanzamentoCell) unlockAvanzamentoBlock(cfg.avanzamentoCell);
     _cantBlockEndEffect();
     _playCantVittoriaSound('block');
     setTimeout(() => {
