@@ -2465,9 +2465,9 @@ function openCantiere(){
   const _introSrc = cfg.introBg || cfg.bg;
   document.getElementById('cant-bg').style.background =
     "url('" + _introSrc + "') top left/424px 760px no-repeat";
-  // Mostra tasto overlay solo se lo stage ha uno sfondo intro separato
+  // Mostra icona overlay solo se lo stage la richiede esplicitamente (es. Aranceto)
   const tastoEl = document.getElementById('cant-tasto-lavori');
-  if(tastoEl) tastoEl.style.display = cfg.introBg ? 'block' : 'none';
+  if(tastoEl) tastoEl.style.display = (cfg.introBg && cfg.tastoIco) ? 'block' : 'none';
   const costEl = document.getElementById('cant-cost-text');
   if(costEl) costEl.textContent = cfg.cost ? 'Costo avvio: ' + cfg.cost + ' 🧱 Laterizi' : '';
   syncCantLifebar();
@@ -2966,7 +2966,7 @@ function cantResultAction(){
     const costEl = document.getElementById('cant-cost-text');
     if(costEl) costEl.textContent = (nextStageCfg && nextStageCfg.cost) ? 'Costo avvio: ' + nextStageCfg.cost + ' 🧱 Laterizi' : '';
     const tastoEl = document.getElementById('cant-tasto-lavori');
-    if(tastoEl) tastoEl.style.display = 'block';
+    if(tastoEl) tastoEl.style.display = (nextStageCfg && nextStageCfg.tastoIco) ? 'block' : 'none';
   } else if(isLast){
     closeCantiere();
   } else {
@@ -3155,7 +3155,7 @@ function _mostraIntroStage(){
     "url('" + _introBgSrc + "') top left/424px 760px no-repeat";
   const _cfgIntro = CANT_STAGES[cantStage];
   const _tastoElIntro = document.getElementById('cant-tasto-lavori');
-  if(_tastoElIntro) _tastoElIntro.style.display = _cfgIntro.introBg ? 'block' : 'none';
+  if(_tastoElIntro) _tastoElIntro.style.display = (_cfgIntro.introBg && _cfgIntro.tastoIco) ? 'block' : 'none';
   const costEl = document.getElementById('cant-cost-text');
   if(costEl) costEl.textContent = _cfgIntro.cost ? 'Costo avvio: ' + _cfgIntro.cost + ' 🧱 Laterizi' : '';
   renderCantPreview();
