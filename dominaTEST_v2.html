@@ -3060,7 +3060,9 @@ function cantVittoria(){
   const res = document.getElementById('cant-result');
   const nextCfg = CANT_STAGES[cantStage + 1];
   const nextBlockName = nextCfg ? nextCfg.blockName : null;
-  document.getElementById('cant-result-ico').textContent   = isBlockEnd ? '🏆' : (isLast ? '🏆' : '✅');
+  const _icoEl = document.getElementById('cant-result-ico');
+  _icoEl.textContent  = (isBlockEnd || isLast) ? '🏆' : '';
+  _icoEl.style.display = (isBlockEnd || isLast) ? '' : 'none';
   document.getElementById('cant-result-title').textContent = isBlockEnd ? (cfg.blockEndLabel || (cfg.blockName + ' COMPLETATO!')) : (isLast ? 'LAVORI COMPLETATI!' : 'STAGE SUPERATO!');
   document.getElementById('cant-result-msg').innerHTML =
     (isBlockEnd ? (cfg.blockEndMsg || 'Blocco completato!')
