@@ -2184,7 +2184,7 @@ if(window.visualViewport){
 (function preloadImages(){
   const imgs = [
     'bg_giardino.jpg','bg_duoviro.jpg','bg_fullonica.jpg','bg_credits.jpg','bg_magister.png',
-    'bg_cantiereavvio.png','bg_cantiere2avvio.png',
+    'bg_cantiereavvio.png','bg_cantiere2avvio.png','bg_cantiere3avvio.png','bg_cantiere4avvio.png',
     'bg_cantiere.png','bg_cantiere2.png','bg_cantiere3.png','bg_cantiere4.png',
     'bg_cantiere5avvio.png','bg_cantiere5.png',
     'affari_bg.png','eumachia_bg.jpg','eumachia_look_01.jpg',
@@ -2326,7 +2326,35 @@ const CANT_STAGES = [
     stage: 2, time: 120, reward: 100, popReward: 10,
     bg: 'bg_cantiere2.png', introBg: 'bg_cantiere2avvio.png',
     cost: 30, alertIco: '🧱', alertTitle: 'COSTRUISCI<br>LE MURA',
-    objects: []
+    objects: [
+      { id:'s2_anfore',       nome:'Anfore',       img:'hidden_anfore.png',       x:90,  y:460, w:60, h:60 },
+      { id:'s2_architetto',   nome:'Architetto',   img:'hidden_architetto.png',   x:220, y:390, w:60, h:60 },
+      { id:'s2_cassettalana', nome:'Cassetta Lana', img:'hidden_cassettalana.png', x:340, y:320, w:60, h:60 },
+      { id:'s2_clessidra',    nome:'Clessidra',    img:'hidden_clessidra.png',    x:130, y:530, w:60, h:60 },
+      { id:'s2_travi',        nome:'Travi',        img:'hidden_travi.png',        x:260, y:480, w:70, h:60 },
+      { id:'s2_rancio',       nome:'Rancio',       img:'hidden_rancio.png',       x:375, y:440, w:60, h:60 },
+    ]
+  },
+  // ── BLOCCO 1 — Stage 3 ────────────────────────────────────────────────────
+  {
+    stage: 3, time: 150, reward: 150, popReward: 15,
+    bg: 'bg_cantiere3.png', introBg: 'bg_cantiere3avvio.png',
+    cost: 30, alertIco: '🏛', alertTitle: 'RIFINITURA<br>DEL PORTICO',
+    completionBg: 'bg_cantiere4.png', completionIntroBg: 'bg_cantiere4avvio.png',
+    objects: [
+      // Riepilogo Stage 1
+      { id:'s3_anfore',       nome:'Anfore',       img:'hidden_anfore.png',       x:80,  y:200, w:60, h:60 },
+      { id:'s3_architetto',   nome:'Architetto',   img:'hidden_architetto.png',   x:212, y:200, w:60, h:60 },
+      { id:'s3_cassettalana', nome:'Cassetta Lana', img:'hidden_cassettalana.png', x:344, y:200, w:60, h:60 },
+      // Riepilogo Stage 2
+      { id:'s3_clessidra',    nome:'Clessidra',    img:'hidden_clessidra.png',    x:80,  y:330, w:60, h:60 },
+      { id:'s3_travi',        nome:'Travi',        img:'hidden_travi.png',        x:212, y:330, w:70, h:60 },
+      { id:'s3_rancio',       nome:'Rancio',       img:'hidden_rancio.png',       x:344, y:330, w:60, h:60 },
+      // Nuovi Stage 3
+      { id:'s3_porta',        nome:'Porta',        img:'hidden_porta.png',        x:80,  y:470, w:60, h:80 },
+      { id:'s3_tavolo',       nome:'Tavolo',       img:'hidden_tavolo.png',       x:212, y:460, w:70, h:60 },
+      { id:'s3_epigrafe',     nome:'Epigrafe',     img:'hidden_epigrafe.png',     x:344, y:460, w:70, h:60 },
+    ]
   },
 ];
 // ── Pool di oggetti Stage 1 (riferimento per preview intro) ──────────────
@@ -2359,6 +2387,7 @@ let cantS15Paid     = false; // costo stage 15 già pagato in questa sessione
 let cantS16Paid     = false; // costo stage 16 già pagato in questa sessione
 let cantS17Paid     = false; // costo stage 17 già pagato in questa sessione
 let cantWrongCount  = 0;    // errori clic sbagliati (penalità pop ogni 3)
+let cantBlockTransition = false; // true quando si mostra lo schermo intro del blocco successivo
 
 // ── Apri/Chiudi ────────────────────────────────────────
 function syncCantLifebar(){
@@ -2392,6 +2421,8 @@ function openCantiere(){
   renderCantPreview();
 }
 function avviaCantiere(){
+  // Se stiamo mostrando l'intro del blocco successivo (non ancora implementato), chiudi
+  if(cantBlockTransition){ cantBlockTransition = false; closeCantiere(); return; }
   if(!CANT_STAGES.length) return;
   const cfg = CANT_STAGES[cantStage];
   // Controlla e scala il costo laterizi (una sola volta per stage per sessione)
@@ -2487,6 +2518,7 @@ function _playAvanzamentoUnlockSound(){
 
 function closeCantiere(){
   stopCantTimer();
+  cantBlockTransition = false;
   document.getElementById('panel-cantiere').style.display = 'none';
   document.getElementById('cant-result').style.display = 'none';
   // Ripristina #hub allo stato normale
@@ -2767,13 +2799,21 @@ function cantVittoria(){
   addDen(cfg.reward);
   addPopXP(cfg.popReward);
 
+  const isBlockEnd = isLast && !!cfg.completionBg;
+  // Se fine blocco, cambia sfondo con l'immagine di completamento
+  if(isBlockEnd){
+    document.getElementById('cant-bg').style.background =
+      "url('" + cfg.completionBg + "') top left/424px 760px no-repeat";
+  }
   const res = document.getElementById('cant-result');
-  document.getElementById('cant-result-ico').textContent   = isLast ? '🏆' : '';
-  document.getElementById('cant-result-title').textContent = isLast ? 'LAVORI COMPLETATI!' : 'STAGE SUPERATO!';
+  document.getElementById('cant-result-ico').textContent   = isBlockEnd ? '🏆' : (isLast ? '🏆' : '');
+  document.getElementById('cant-result-title').textContent = isBlockEnd ? 'BLOCCO 1 COMPLETATO!' : (isLast ? 'LAVORI COMPLETATI!' : 'STAGE SUPERATO!');
   document.getElementById('cant-result-msg').innerHTML =
-    (isLast ? 'Hai completato il Cantiere!' : 'Avanza allo stage ' + (cfg.stage + 1) + '!')
+    (isBlockEnd ? 'Il Portico prende forma. Preparati per la Camera Principale!'
+     : isLast ? 'Hai completato il Cantiere!'
+     : 'Avanza allo stage ' + (cfg.stage + 1) + '!')
     + '<br><br><span style="color:#C9A84C;font-size:18px;">+' + cfg.reward + ' 🪙 Denarii &nbsp;·&nbsp; +' + cfg.popReward + ' Popolarità</span>';
-  document.getElementById('cant-result-btn').textContent = isLast ? 'TORNA AL FORO' : 'STAGE SUCCESSIVO →';
+  document.getElementById('cant-result-btn').textContent = isBlockEnd ? 'BLOCCO 2 →' : (isLast ? 'TORNA AL FORO' : 'STAGE SUCCESSIVO →');
   res.style.display = 'flex';
   _playCantVittoriaSound(isLast);
 }
@@ -2831,8 +2871,23 @@ function cantResultAction(){
   document.getElementById('cant-result').style.display = 'none';
   const isLast       = cantStage >= cantTotalStages - 1;
   const wasVittoria  = document.getElementById('cant-result-title').textContent !== 'TEMPO SCADUTO';
+  const cfg          = CANT_STAGES[cantStage];
+  const isBlockEnd   = isLast && !!cfg.completionBg;
   if(!wasVittoria){
     startCantStage();
+  } else if(isBlockEnd && cfg.completionIntroBg){
+    // Fine blocco: mostra l'intro del blocco successivo (bg_cantiere4avvio)
+    cantBlockTransition = true;
+    document.getElementById('cant-intro').style.display  = 'flex';
+    document.getElementById('cant-hud').style.display    = 'none';
+    document.getElementById('cant-list').style.display   = 'none';
+    document.getElementById('cant-objects').innerHTML    = '';
+    document.getElementById('cant-bg').style.background =
+      "url('" + cfg.completionIntroBg + "') top left/424px 760px no-repeat";
+    const costEl = document.getElementById('cant-cost-text');
+    if(costEl) costEl.textContent = '';
+    const tastoEl = document.getElementById('cant-tasto-lavori');
+    if(tastoEl) tastoEl.style.display = 'none';
   } else if(isLast){
     closeCantiere();
   } else {
