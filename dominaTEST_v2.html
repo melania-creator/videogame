@@ -2318,7 +2318,10 @@ if(window.visualViewport){
     'bg_cantiere20.png','bg_cantiere20avvio.png',
     'hidden_5_travi.png','hidden_6_cassettaghiaia.png','hidden_cassettategole.png',
     'bg_cantiere21.png','bg_cantiere21avvio.png',
-    'hidden_5_tavolo.png','hidden_architetto.png'
+    'hidden_5_tavolo.png','hidden_architetto.png',
+    'bg_cantiere22.png','bg_cantiere22avvio.png',
+    'hidden_5_anforedorate.png','hidden_5_lampadario.png','hidden_5_mezzobusto1.png',
+    'hidden_5_pavone.png','hidden_5_sedia.png'
   ];
   imgs.forEach(src => { const i = new Image(); i.src = src; });
 })();
@@ -2737,6 +2740,35 @@ const CANT_STAGES = [
       { id:'s18_pileditegole',       nome:'Pile di Tegole',      img:'hidden_pileditegole.png',         x:130, y:600, w:60,  h:60  },
     ]
   },
+  // ── BLOCCO 5 — FRIGIDARIUM Stage 5 ───────────────────────────────────────
+  {
+    stage: 19, time: 60, reward: 1350, popReward: 70,
+    blockName: 'FRIGIDARIUM',
+    bg: 'bg_cantiere22.png', introBg: 'bg_cantiere21avvio.png',
+    cost: 330, alertIco: '', alertTitle: 'FRIGIDARIUM',
+    objects: [
+      { id:'s19_cassettapiastrelle', nome:'Cassetta Piastrelle', img:'hidden_5_cassettapiastrelle.png', x:100, y:350, w:80,  h:70  },
+      { id:'s19_anfore',             nome:'Anfore',              img:'hidden_5_anfore.png',             x:320, y:280, w:70,  h:100 },
+      { id:'s19_cassette',           nome:'Cassette',            img:'hidden_5_cassette.png',           x:200, y:550, w:85,  h:65  },
+      { id:'s19_gru',                nome:'Gru',                 img:'hidden_5_gru.png',                x:350, y:450, w:90,  h:120 },
+      { id:'s19_coloneincompiute',   nome:'Colonne Incompiute',  img:'hidden_5_coloneincompiute.png',   x:160, y:260, w:85,  h:130 },
+      { id:'s19_piedistallo',        nome:'Piedistallo',         img:'hidden_5_piedistallo.png',        x:60,  y:500, w:70,  h:90  },
+      { id:'s19_travertino',         nome:'Travertino',          img:'hidden_5_travertino.png',         x:290, y:560, w:90,  h:65  },
+      { id:'s19_travi',              nome:'Travi',               img:'hidden_5_travi.png',              x:210, y:420, w:100, h:60  },
+      { id:'s19_cassettaghiaia',     nome:'Cassetta Ghiaia',     img:'hidden_6_cassettaghiaia.png',     x:70,  y:620, w:80,  h:65  },
+      { id:'s19_bloccomarmo',        nome:'Blocco di Marmo',     img:'hidden_blocco di marmo.png',      x:340, y:360, w:70,  h:55  },
+      { id:'s19_cassettategole',     nome:'Cassetta Tegole',     img:'hidden_cassettategole.png',       x:180, y:660, w:80,  h:65  },
+      { id:'s19_sabbiafine',         nome:'Sabbia Fine',         img:'hidden_sabbiafine.png',           x:60,  y:390, w:70,  h:65  },
+      { id:'s19_tavolo',             nome:'Tavolo',              img:'hidden_5_tavolo.png',             x:220, y:480, w:90,  h:70  },
+      { id:'s19_architetto',         nome:'Architetto',          img:'hidden_architetto.png',           x:360, y:580, w:75,  h:110 },
+      { id:'s19_pileditegole',       nome:'Pile di Tegole',      img:'hidden_pileditegole.png',         x:130, y:600, w:60,  h:60  },
+      { id:'s19_anforedorate',       nome:'Anfore Dorate',       img:'hidden_5_anforedorate.png',       x:280, y:640, w:75,  h:90  },
+      { id:'s19_lampadario',         nome:'Lampadario',          img:'hidden_5_lampadario.png',         x:200, y:180, w:80,  h:100 },
+      { id:'s19_mezzobusto1',        nome:'Mezzobusto',          img:'hidden_5_mezzobusto1.png',        x:380, y:300, w:70,  h:95  },
+      { id:'s19_pavone',             nome:'Pavone',              img:'hidden_5_pavone.png',             x:90,  y:260, w:75,  h:100 },
+      { id:'s19_sedia',              nome:'Sedia',               img:'hidden_5_sedia.png',              x:310, y:500, w:70,  h:90  },
+    ]
+  },
 ];
 // ── Pool di oggetti Stage 1 (riferimento per preview intro) ──────────────
 const CANT_OBJECT_POOL = CANT_STAGES.length ? CANT_STAGES[0].objects : [];
@@ -2768,6 +2800,7 @@ let cantS15Paid     = false; // costo stage 15 già pagato in questa sessione
 let cantS16Paid     = false; // costo stage 16 già pagato in questa sessione
 let cantS17Paid     = false; // costo stage 17 già pagato in questa sessione
 let cantS18Paid     = false; // costo stage 18 già pagato in questa sessione
+let cantS19Paid     = false; // costo stage 19 già pagato in questa sessione
 let cantWrongCount  = 0;    // errori clic sbagliati (penalità pop ogni 3)
 let cantBlockTransition = false; // true quando si mostra lo schermo intro del blocco successivo
 let cantTutorialSeen    = false; // true dopo che il giocatore ha visto il tutorial del primo stage
@@ -2840,7 +2873,7 @@ function avviaCantiere(){
   // Controlla e scala il costo laterizi (una sola volta per stage per sessione)
   const paidFlags = [cantS1Paid,cantS2Paid,cantS3Paid,cantS4Paid,cantS5Paid,cantS6Paid,
                      cantS7Paid,cantS8Paid,cantS9Paid,cantS10Paid,cantS11Paid,cantS12Paid,
-                     cantS13Paid,cantS14Paid,cantS15Paid,cantS16Paid,cantS17Paid,cantS18Paid];
+                     cantS13Paid,cantS14Paid,cantS15Paid,cantS16Paid,cantS17Paid,cantS18Paid,cantS19Paid];
   const alreadyPaid = paidFlags[cantStage] || false;
   if(cfg.cost && !alreadyPaid){
     if(lat < cfg.cost){
@@ -2855,7 +2888,7 @@ function avviaCantiere(){
                      ()=>cantS5Paid=true,()=>cantS6Paid=true,()=>cantS7Paid=true,()=>cantS8Paid=true,
                      ()=>cantS9Paid=true,()=>cantS10Paid=true,()=>cantS11Paid=true,()=>cantS12Paid=true,
                      ()=>cantS13Paid=true,()=>cantS14Paid=true,()=>cantS15Paid=true,()=>cantS16Paid=true,
-                     ()=>cantS17Paid=true,()=>cantS18Paid=true];
+                     ()=>cantS17Paid=true,()=>cantS18Paid=true,()=>cantS19Paid=true];
     if(setters[cantStage]) setters[cantStage]();
   }
   // Nascondi tasto overlay
