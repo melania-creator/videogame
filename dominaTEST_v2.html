@@ -1834,9 +1834,11 @@ html,body{
         <div class="av-lock" id="av-lock-5"><span class="av-lock-ico">🔒</span></div>
         <div class="av-cell-label">FRIGIDARIUM</div>
       </div>
-      <!-- Cella 6: futura -->
-      <div class="av-cell av-cell-empty" id="av-cell-6">
+      <!-- Cella 6: Sala Consiliare -->
+      <div class="av-cell" id="av-cell-6">
+        <img src="avanzamento6_salaconsiliare.png" class="av-img" id="av-img-6" alt="Sala Consiliare">
         <div class="av-lock" id="av-lock-6"><span class="av-lock-ico">🔒</span></div>
+        <div class="av-cell-label">SALA CONSILIARE</div>
       </div>
     </div>
   </div>
@@ -2174,14 +2176,18 @@ let memoriaLocked  = false;
 let memoriaMatched = 0;
 let memoriaMovs    = 0;
 
-// ── Cursus Honorum di Numistrio Frontone (10 stadi, 50 XP ciascuno) ──
+// ── Cursus Honorum di Numistrio Frontone (10 stadi) ──
 const CURSUS_HONORUM = [
-  { nome: 'Candidato',             titolo: 'Stadio I — Candidato',              desc: 'Numistrio Frontone annuncia ufficialmente la sua candidatura. Il suo nome inizia a circolare tra i pompeiani.',                                       soglia: 0,   grad: 'linear-gradient(180deg,#9A9A90 0%,#777770 50%,#555550 100%)' },
-  { nome: 'Amico del Popolo',      titolo: 'Stadio II — Amico del Popolo',      desc: 'La corporazione dei fullones appoggia Numistrio. Le prime amicizie politiche si formano tra i mercanti del porto.',                                   soglia: 50,  grad: 'linear-gradient(180deg,#7DDB83 0%,#5DBB63 50%,#3A9940 100%)' },
-  { nome: 'Aedilis',               titolo: 'Stadio III — Aedilis',              desc: 'Numistrio sorveglia le strade, i mercati e i giochi pubblici. La città lo riconosce come uomo di ordine e rettitudine.',                             soglia: 150, grad: 'linear-gradient(180deg,#E17C3A 0%,#C15C1A 50%,#A03C00 100%)' },
-  { nome: 'Pretore',               titolo: 'Stadio IV — Pretore',               desc: 'Numistrio amministra la giustizia nella Basilica del Foro. Il suo verdetto è rispettato da mercanti e cittadini di ogni ceto.',                      soglia: 300, grad: 'linear-gradient(180deg,#F4A93A 0%,#D4891A 50%,#B46900 100%)' },
-  { nome: 'Duoviro Eletto',        titolo: 'Stadio V — Duoviro Eletto',         desc: 'Numistrio Frontone è eletto Duoviro di Pompei! Il sogno di Eumachia si avvera: il figlio governa la città.',                                        soglia: 500, grad: 'linear-gradient(180deg,#E9C86C 0%,#C9A84C 50%,#A9882C 100%)' },
-  { nome: 'Duoviro Quinquennalis', titolo: 'Stadio VI — Duoviro Quinquennalis', desc: 'Numistrio diventa Duoviro Quinquennale, censore e custode delle leggi. Il nome degli Eumachii sarà inciso nella storia di Pompei per sempre.',        soglia: 800, grad: 'linear-gradient(180deg,#D04040 0%,#9B0000 50%,#6B0000 100%)' },
+  { nome: 'Candidato',           titolo: 'Stadio I — Candidato',           soglia: 0,    grad: 'linear-gradient(180deg,#9A9A90 0%,#777770 50%,#555550 100%)', desc: 'Numistrio Frontone annuncia la sua ambizione civica. Il nome degli Eumachii apre le porte del Foro e accende il sogno della toga pretesta.' },
+  { nome: 'Scolaro di Retorica', titolo: 'Stadio II — Scolaro di Retorica', soglia: 80,   grad: 'linear-gradient(180deg,#8BB8D8 0%,#6098B8 50%,#407898 100%)', desc: 'Numistrio frequenta la scuola di retorica: impara l\'arte del discorso, la forza della parola e l\'eleganza dell\'argomentazione. La via del Foro inizia qui.' },
+  { nome: 'Scriba',              titolo: 'Stadio III — Scriba',             soglia: 220,  grad: 'linear-gradient(180deg,#98C878 0%,#78A858 50%,#588838 100%)', desc: 'Numistrio serve come scriba nei tribunali e negli uffici municipali. Apprende le leggi, i registri e i segreti dell\'amministrazione pompeiana.' },
+  { nome: 'Vicomagister',        titolo: 'Stadio IV — Vicomagister',        soglia: 420,  grad: 'linear-gradient(180deg,#C8B080 0%,#A89060 50%,#887040 100%)', desc: 'Numistrio è eletto Vicomagister: guida il suo quartiere, presiede i riti dei Lari Compitali e media le controversie tra i vicini. Il popolo lo rispetta.' },
+  { nome: 'Decurione',           titolo: 'Stadio V — Decurione',            soglia: 680,  grad: 'linear-gradient(180deg,#E0C060 0%,#C0A040 50%,#A08020 100%)', desc: 'Numistrio entra nell\'Ordo Decurionum, il senato locale di Pompei. Partecipa alle delibere che governano la città, le sue finanze e i suoi spettacoli pubblici.' },
+  { nome: 'Patrono del Collegio', titolo: 'Stadio VI — Patrono del Collegio', soglia: 980,  grad: 'linear-gradient(180deg,#E0A848 0%,#C08828 50%,#A06808 100%)', desc: 'I Fullones, i mercanti e gli artigiani lo eleggono loro patrono. Numistrio li difende nei tribunali e li onora nei banchetti: la sua rete di clienti si estende a tutta Pompei.' },
+  { nome: 'Quaestore',           titolo: 'Stadio VII — Quaestore',          soglia: 1340, grad: 'linear-gradient(180deg,#D89040 0%,#B87020 50%,#985000 100%)', desc: 'Numistrio amministra l\'erario municipale: sorveglia le entrate, finanzia i lavori pubblici e garantisce la trasparenza dei conti davanti all\'Ordo Decurionum.' },
+  { nome: 'Aedile',              titolo: 'Stadio VIII — Aedile',            soglia: 1760, grad: 'linear-gradient(180deg,#D07030 0%,#B05010 50%,#903000 100%)', desc: 'Come Aedile, Numistrio sorveglia i mercati, le terme, le strade e organizza i giochi pubblici. Il suo nome appare sulle epigrafi della città come garante dell\'ordine e della bellezza.' },
+  { nome: 'Praefecto',           titolo: 'Stadio IX — Praefecto',           soglia: 2200, grad: 'linear-gradient(180deg,#C06828 0%,#A04808 50%,#803000 100%)', desc: 'Nominato Praefectus iure dicundo, Numistrio esercita i pieni poteri dei Duoviri durante la loro assenza. La città si affida interamente al suo giudizio.' },
+  { nome: 'Duoviro',             titolo: 'Stadio X — Duoviro',              soglia: 2700, grad: 'linear-gradient(180deg,#F0D060 0%,#D0A830 50%,#B08000 100%)', desc: 'Numistrio Frontone è eletto Duoviro di Pompei! Guida la città insieme al suo collega, presiede il Consiglio, amministra la giustizia nel Foro. Il sogno di Eumachia si è avverato.' },
 ];
 let cursusStageReached = 0; // 0-9, stadio massimo già raggiunto (per non mostrare popup al reload)
 
@@ -2227,17 +2233,17 @@ function addPopXP(n){
   const prevXP = popXP;
   popXP = Math.max(0, popXP + n);
   // Sblocchi rotte basati sulla popolarità accumulata
-  if(!hispaniaUnlocked && popXP >= 50){
+  if(!hispaniaUnlocked && popXP >= 80){
     hispaniaUnlocked = true;
     updateAffariLocks();
     showResPopup('🔓 Rotta Hispania sbloccata! (30 min · 10 🧱 → +40 ◈)');
   }
-  if(!africaUnlocked && popXP >= 100){
+  if(!africaUnlocked && popXP >= 250){
     africaUnlocked = true;
     updateAffariLocks();
     showResPopup('🔓 Rotta Africa sbloccata! (60 min · 10 🍷 + 10 🧱 → +100 ◈)');
   }
-  if(!numistrio2Unlocked && popXP >= 100){
+  if(!numistrio2Unlocked && popXP >= 250){
     numistrio2Unlocked = true;
     setTimeout(() => {
       document.getElementById('numistrio2-popup').style.display = 'flex';
@@ -2325,7 +2331,7 @@ if(window.visualViewport){
     'hidden_5_anforedorate.png','hidden_5_lampadario.png','hidden_5_mezzobusto1.png',
     'hidden_5_pavone.png','hidden_5_sedia.png',
     'bg_cantiere24.png','bg_cantiere25.png','bg_cantiere25avvio.png',
-    'hidden_6_fontanella.png','avanzamento5_frigidarium.png'
+    'hidden_6_fontanella.png','avanzamento5_frigidarium.png','avanzamento6_salaconsiliare.png'
   ];
   imgs.forEach(src => { const i = new Image(); i.src = src; });
 })();
@@ -2428,7 +2434,7 @@ function goHub(){
 const CANT_STAGES = [
   // ── BLOCCO 1 — INGRESSO ───────────────────────────────────────────────────
   {
-    stage: 1, time: 60, reward: 10, popReward: 8,
+    stage: 1, time: 60, reward: 10, popReward: 5,
     blockName: 'INGRESSO',
     bg: 'bg_cantiere.png', introBg: 'bg_cantiereavvio.png',
     cost: 10, alertIco: '🪨', alertTitle: 'COSTRUISCI<br>IL PAVIMENTO',
@@ -2439,7 +2445,7 @@ const CANT_STAGES = [
     ]
   },
   {
-    stage: 2, time: 60, reward: 30, popReward: 10,
+    stage: 2, time: 60, reward: 30, popReward: 6,
     blockName: 'INGRESSO',
     bg: 'bg_cantiere2.png', introBg: 'bg_cantiere2avvio.png',
     cost: 30, alertIco: '🧱', alertTitle: 'COSTRUISCI<br>LE MURA',
@@ -2453,7 +2459,7 @@ const CANT_STAGES = [
     ]
   },
   {
-    stage: 3, time: 60, reward: 40, popReward: 15,
+    stage: 3, time: 60, reward: 40, popReward: 9,
     blockName: 'INGRESSO',
     bg: 'bg_cantiere3.png', introBg: 'bg_cantiere3avvio.png',
     cost: 40, alertIco: '🏛', alertTitle: 'RIFINITURA<br>DEL PORTICO',
@@ -2473,7 +2479,7 @@ const CANT_STAGES = [
   },
   // ── BLOCCO 2 — CAMERA PRINCIPALE ─────────────────────────────────────────
   {
-    stage: 4, time: 60, reward: 200, popReward: 12,
+    stage: 4, time: 60, reward: 200, popReward: 7,
     blockName: 'CAMERA PRINCIPALE',
     bg: 'bg_cantiere5.png', introBg: 'bg_cantiere5avvio.png',
     cost: 50, alertIco: '🏛', alertTitle: 'CAMERA<br>PRINCIPALE',
@@ -2486,7 +2492,7 @@ const CANT_STAGES = [
     ]
   },
   {
-    stage: 5, time: 60, reward: 250, popReward: 15,
+    stage: 5, time: 60, reward: 250, popReward: 9,
     blockName: 'CAMERA PRINCIPALE',
     bg: 'bg_cantiere6.png', introBg: 'bg_cantiere6avvio.png',
     cost: 60, alertIco: '🏛', alertTitle: 'CAMERA<br>PRINCIPALE',
@@ -2503,7 +2509,7 @@ const CANT_STAGES = [
   },
   // ── BLOCCO 2 — CAMERA PRINCIPALE Stage 3 (fine blocco) ───────────────────
   {
-    stage: 6, time: 60, reward: 300, popReward: 18,
+    stage: 6, time: 60, reward: 300, popReward: 11,
     blockName: 'CAMERA PRINCIPALE',
     bg: 'bg_cantiere7.png', introBg: 'bg_cantiere7avvio.png',
     cost: 75, alertIco: '🏛', alertTitle: 'CAMERA<br>PRINCIPALE',
@@ -2525,7 +2531,7 @@ const CANT_STAGES = [
   },
   // ── BLOCCO 3 — LUOGO DEI FULLONES Stage 1 ────────────────────────────────
   {
-    stage: 7, time: 60, reward: 350, popReward: 20,
+    stage: 7, time: 60, reward: 350, popReward: 12,
     blockName: 'LUOGO DEI FULLONES',
     bg: 'bg_cantiere9.png', introBg: 'bg_cantiere8avvio.png',
     cost: 90, alertIco: '🧺', alertTitle: 'LUOGO DEI<br>FULLONES',
@@ -2538,7 +2544,7 @@ const CANT_STAGES = [
   },
   // ── BLOCCO 3 — LUOGO DEI FULLONES Stage 2 ────────────────────────────────
   {
-    stage: 8, time: 60, reward: 400, popReward: 22,
+    stage: 8, time: 60, reward: 400, popReward: 13,
     blockName: 'LUOGO DEI FULLONES',
     bg: 'bg_cantiere10.png', introBg: 'bg_cantiere9avvio.png',
     cost: 110, alertIco: '🧺', alertTitle: 'LUOGO DEI<br>FULLONES',
@@ -2554,7 +2560,7 @@ const CANT_STAGES = [
   },
   // ── BLOCCO 3 — LUOGO DEI FULLONES Stage 3 ────────────────────────────────
   {
-    stage: 9, time: 60, reward: 450, popReward: 25,
+    stage: 9, time: 60, reward: 450, popReward: 15,
     blockName: 'LUOGO DEI FULLONES',
     bg: 'bg_cantiere11.png', introBg: 'bg_cantiere10avvio.png',
     cost: 130, alertIco: '🧺', alertTitle: 'LUOGO DEI<br>FULLONES',
@@ -2572,7 +2578,7 @@ const CANT_STAGES = [
   },
   // ── BLOCCO 3 — LUOGO DEI FULLONES Stage 4 (fine blocco) ─────────────────
   {
-    stage: 10, time: 60, reward: 500, popReward: 28,
+    stage: 10, time: 60, reward: 500, popReward: 17,
     blockName: 'LUOGO DEI FULLONES',
     bg: 'bg_cantiere12.png', introBg: 'bg_cantiere11avvio.png',
     cost: 150, alertIco: '🧺', alertTitle: 'LUOGO DEI<br>FULLONES',
@@ -2596,7 +2602,7 @@ const CANT_STAGES = [
   },
   // ── BLOCCO 4 — ARANCETO Stage 1 ─────────────────────────────────────────
   {
-    stage: 11, time: 60, reward: 550, popReward: 30,
+    stage: 11, time: 60, reward: 550, popReward: 18,
     blockName: 'ARANCETO',
     bg: 'bg_cantiere14.png', introBg: 'bg_cantiere13avvio.png',
     cost: 170, alertIco: '', alertTitle: 'ARANCETO',
@@ -2610,7 +2616,7 @@ const CANT_STAGES = [
   },
   // ── BLOCCO 4 — ARANCETO Stage 2 ──────────────────────────────────────────
   {
-    stage: 12, time: 60, reward: 650, popReward: 35,
+    stage: 12, time: 60, reward: 650, popReward: 21,
     blockName: 'ARANCETO',
     bg: 'bg_cantiere15.png', introBg: 'bg_cantiere15avvio.png',
     cost: 190, alertIco: '', alertTitle: 'ARANCETO',
@@ -2626,7 +2632,7 @@ const CANT_STAGES = [
   },
   // ── BLOCCO 4 — ARANCETO Stage 3 ──────────────────────────────────────────
   {
-    stage: 13, time: 60, reward: 750, popReward: 40,
+    stage: 13, time: 60, reward: 750, popReward: 24,
     blockName: 'ARANCETO',
     bg: 'bg_cantiere16.png', introBg: 'bg_cantiere16avvio.png',
     cost: 210, alertIco: '', alertTitle: 'ARANCETO',
@@ -2646,7 +2652,7 @@ const CANT_STAGES = [
   },
   // ── BLOCCO 4 — ARANCETO Stage 4 (fine blocco) ────────────────────────────
   {
-    stage: 14, time: 60, reward: 850, popReward: 45,
+    stage: 14, time: 60, reward: 850, popReward: 27,
     blockName: 'ARANCETO',
     bg: 'bg_cantiere16.png', introBg: 'bg_cantiere16avvio.png',
     completionBg: 'bg_cantiere17.png', completionIntroBg: 'bg_cantiere17avvio.png', avanzamentoCell: 4,
@@ -2672,49 +2678,49 @@ const CANT_STAGES = [
   },
   // ── BLOCCO 5 — FRIGIDARIUM Stage 1 ───────────────────────────────────────
   {
-    stage: 15, time: 60, reward: 950, popReward: 50,
+    stage: 15, time: 60, reward: 950, popReward: 30,
     blockName: 'FRIGIDARIUM',
     bg: 'bg_cantiere18.png', introBg: 'bg_cantiere17avvio.png',
     cost: 250, alertIco: '', alertTitle: 'FRIGIDARIUM',
     objects: [
-      { id:'s15_cassettapiastrelle', nome:'Cassetta Piastrelle', img:'hidden_5_cassettapiastrelle.png', x:100, y:350, w:80,  h:70  },
-      { id:'s15_anfore',             nome:'Anfore',              img:'hidden_5_anfore.png',             x:320, y:280, w:70,  h:100 },
+      { id:'s15_cassettapiastrelle', nome:'Cassetta Piastrelle', img:'hidden_5_cassettapiastrelle.png', x:100, y:350, w:56,  h:49  },
+      { id:'s15_anfore',             nome:'Anfore',              img:'hidden_5_anfore.png',             x:270, y:330, w:70,  h:100 },
       { id:'s15_cassette',           nome:'Cassette',            img:'hidden_5_cassette.png',           x:200, y:550, w:85,  h:65  },
       { id:'s15_gru',                nome:'Gru',                 img:'hidden_5_gru.png',                x:350, y:450, w:90,  h:120 },
     ]
   },
   // ── BLOCCO 5 — FRIGIDARIUM Stage 2 ───────────────────────────────────────
   {
-    stage: 16, time: 60, reward: 1050, popReward: 55,
+    stage: 16, time: 60, reward: 1050, popReward: 33,
     blockName: 'FRIGIDARIUM',
     bg: 'bg_cantiere19.png', introBg: 'bg_cantiere18avvio.png',
     cost: 270, alertIco: '', alertTitle: 'FRIGIDARIUM',
     objects: [
-      { id:'s16_cassettapiastrelle', nome:'Cassetta Piastrelle', img:'hidden_5_cassettapiastrelle.png', x:100, y:350, w:80,  h:70  },
-      { id:'s16_anfore',             nome:'Anfore',              img:'hidden_5_anfore.png',             x:320, y:280, w:70,  h:100 },
+      { id:'s16_cassettapiastrelle', nome:'Cassetta Piastrelle', img:'hidden_5_cassettapiastrelle.png', x:100, y:350, w:56,  h:49  },
+      { id:'s16_anfore',             nome:'Anfore',              img:'hidden_5_anfore.png',             x:270, y:330, w:70,  h:100 },
       { id:'s16_cassette',           nome:'Cassette',            img:'hidden_5_cassette.png',           x:200, y:550, w:85,  h:65  },
       { id:'s16_gru',                nome:'Gru',                 img:'hidden_5_gru.png',                x:350, y:450, w:90,  h:120 },
-      { id:'s16_coloneincompiute',   nome:'Colonne Incompiute',  img:'hidden_5_coloneincompiute.png',   x:160, y:260, w:85,  h:130 },
-      { id:'s16_piedistallo',        nome:'Piedistallo',         img:'hidden_5_piedistallo.png',        x:60,  y:500, w:70,  h:90  },
-      { id:'s16_travertino',         nome:'Travertino',          img:'hidden_5_travertino.png',         x:290, y:560, w:90,  h:65  },
+      { id:'s16_coloneincompiute',   nome:'Colonne Incompiute',  img:'hidden_5_coloneincompiute.png',   x:160, y:300, w:85,  h:130 },
+      { id:'s16_piedistallo',        nome:'Piedistallo',         img:'hidden_5_piedistallo.png',        x:364, y:500, w:70,  h:90  },
+      { id:'s16_travertino',         nome:'Travertino',          img:'hidden_5_travertino.png',         x:290, y:585, w:90,  h:65  },
     ]
   },
   // ── BLOCCO 5 — FRIGIDARIUM Stage 3 ───────────────────────────────────────
   {
-    stage: 17, time: 60, reward: 1150, popReward: 60,
+    stage: 17, time: 60, reward: 1150, popReward: 36,
     blockName: 'FRIGIDARIUM',
     bg: 'bg_cantiere20.png', introBg: 'bg_cantiere19avvio.png',
     cost: 290, alertIco: '', alertTitle: 'FRIGIDARIUM',
     objects: [
-      { id:'s17_cassettapiastrelle', nome:'Cassetta Piastrelle', img:'hidden_5_cassettapiastrelle.png', x:100, y:350, w:80,  h:70  },
-      { id:'s17_anfore',             nome:'Anfore',              img:'hidden_5_anfore.png',             x:320, y:280, w:70,  h:100 },
+      { id:'s17_cassettapiastrelle', nome:'Cassetta Piastrelle', img:'hidden_5_cassettapiastrelle.png', x:100, y:350, w:56,  h:49  },
+      { id:'s17_anfore',             nome:'Anfore',              img:'hidden_5_anfore.png',             x:270, y:330, w:70,  h:100 },
       { id:'s17_cassette',           nome:'Cassette',            img:'hidden_5_cassette.png',           x:200, y:550, w:85,  h:65  },
       { id:'s17_gru',                nome:'Gru',                 img:'hidden_5_gru.png',                x:350, y:450, w:90,  h:120 },
-      { id:'s17_coloneincompiute',   nome:'Colonne Incompiute',  img:'hidden_5_coloneincompiute.png',   x:160, y:260, w:85,  h:130 },
-      { id:'s17_piedistallo',        nome:'Piedistallo',         img:'hidden_5_piedistallo.png',        x:60,  y:500, w:70,  h:90  },
-      { id:'s17_travertino',         nome:'Travertino',          img:'hidden_5_travertino.png',         x:290, y:560, w:90,  h:65  },
-      { id:'s17_travi',              nome:'Travi',               img:'hidden_5_travi.png',              x:210, y:420, w:100, h:60  },
-      { id:'s17_cassettaghiaia',     nome:'Cassetta Ghiaia',     img:'hidden_6_cassettaghiaia.png',     x:70,  y:620, w:80,  h:65  },
+      { id:'s17_coloneincompiute',   nome:'Colonne Incompiute',  img:'hidden_5_coloneincompiute.png',   x:160, y:300, w:85,  h:130 },
+      { id:'s17_piedistallo',        nome:'Piedistallo',         img:'hidden_5_piedistallo.png',        x:364, y:500, w:70,  h:90  },
+      { id:'s17_travertino',         nome:'Travertino',          img:'hidden_5_travertino.png',         x:290, y:585, w:90,  h:65  },
+      { id:'s17_travi',              nome:'Travi',               img:'hidden_5_travi.png',              x:210, y:470, w:100, h:60  },
+      { id:'s17_cassettaghiaia',     nome:'Cassetta Ghiaia',     img:'hidden_6_cassettaghiaia.png',     x:70,  y:590, w:80,  h:65  },
       { id:'s17_bloccomarmo',        nome:'Blocco di Marmo',     img:'hidden_blocco di marmo.png',      x:340, y:360, w:70,  h:55  },
       { id:'s17_cassettategole',     nome:'Cassetta Tegole',     img:'hidden_cassettategole.png',       x:180, y:660, w:80,  h:65  },
       { id:'s17_sabbiafine',         nome:'Sabbia Fine',         img:'hidden_sabbiafine.png',           x:60,  y:390, w:70,  h:65  },
@@ -2722,20 +2728,20 @@ const CANT_STAGES = [
   },
   // ── BLOCCO 5 — FRIGIDARIUM Stage 4 ───────────────────────────────────────
   {
-    stage: 18, time: 60, reward: 1250, popReward: 65,
+    stage: 18, time: 60, reward: 1250, popReward: 39,
     blockName: 'FRIGIDARIUM',
     bg: 'bg_cantiere21.png', introBg: 'bg_cantiere20avvio.png',
     cost: 310, alertIco: '', alertTitle: 'FRIGIDARIUM',
     objects: [
-      { id:'s18_cassettapiastrelle', nome:'Cassetta Piastrelle', img:'hidden_5_cassettapiastrelle.png', x:100, y:350, w:80,  h:70  },
-      { id:'s18_anfore',             nome:'Anfore',              img:'hidden_5_anfore.png',             x:320, y:280, w:70,  h:100 },
+      { id:'s18_cassettapiastrelle', nome:'Cassetta Piastrelle', img:'hidden_5_cassettapiastrelle.png', x:100, y:350, w:56,  h:49  },
+      { id:'s18_anfore',             nome:'Anfore',              img:'hidden_5_anfore.png',             x:270, y:330, w:70,  h:100 },
       { id:'s18_cassette',           nome:'Cassette',            img:'hidden_5_cassette.png',           x:200, y:550, w:85,  h:65  },
       { id:'s18_gru',                nome:'Gru',                 img:'hidden_5_gru.png',                x:350, y:450, w:90,  h:120 },
-      { id:'s18_coloneincompiute',   nome:'Colonne Incompiute',  img:'hidden_5_coloneincompiute.png',   x:160, y:260, w:85,  h:130 },
-      { id:'s18_piedistallo',        nome:'Piedistallo',         img:'hidden_5_piedistallo.png',        x:60,  y:500, w:70,  h:90  },
-      { id:'s18_travertino',         nome:'Travertino',          img:'hidden_5_travertino.png',         x:290, y:560, w:90,  h:65  },
-      { id:'s18_travi',              nome:'Travi',               img:'hidden_5_travi.png',              x:210, y:420, w:100, h:60  },
-      { id:'s18_cassettaghiaia',     nome:'Cassetta Ghiaia',     img:'hidden_6_cassettaghiaia.png',     x:70,  y:620, w:80,  h:65  },
+      { id:'s18_coloneincompiute',   nome:'Colonne Incompiute',  img:'hidden_5_coloneincompiute.png',   x:160, y:300, w:85,  h:130 },
+      { id:'s18_piedistallo',        nome:'Piedistallo',         img:'hidden_5_piedistallo.png',        x:364, y:500, w:70,  h:90  },
+      { id:'s18_travertino',         nome:'Travertino',          img:'hidden_5_travertino.png',         x:290, y:585, w:90,  h:65  },
+      { id:'s18_travi',              nome:'Travi',               img:'hidden_5_travi.png',              x:210, y:470, w:100, h:60  },
+      { id:'s18_cassettaghiaia',     nome:'Cassetta Ghiaia',     img:'hidden_6_cassettaghiaia.png',     x:70,  y:590, w:80,  h:65  },
       { id:'s18_bloccomarmo',        nome:'Blocco di Marmo',     img:'hidden_blocco di marmo.png',      x:340, y:360, w:70,  h:55  },
       { id:'s18_cassettategole',     nome:'Cassetta Tegole',     img:'hidden_cassettategole.png',       x:180, y:660, w:80,  h:65  },
       { id:'s18_sabbiafine',         nome:'Sabbia Fine',         img:'hidden_sabbiafine.png',           x:60,  y:390, w:70,  h:65  },
@@ -2746,20 +2752,20 @@ const CANT_STAGES = [
   },
   // ── BLOCCO 5 — FRIGIDARIUM Stage 5 ───────────────────────────────────────
   {
-    stage: 19, time: 60, reward: 1350, popReward: 70,
+    stage: 19, time: 60, reward: 1350, popReward: 42,
     blockName: 'FRIGIDARIUM',
     bg: 'bg_cantiere22.png', introBg: 'bg_cantiere21avvio.png',
     cost: 330, alertIco: '', alertTitle: 'FRIGIDARIUM',
     objects: [
-      { id:'s19_cassettapiastrelle', nome:'Cassetta Piastrelle', img:'hidden_5_cassettapiastrelle.png', x:100, y:350, w:80,  h:70  },
-      { id:'s19_anfore',             nome:'Anfore',              img:'hidden_5_anfore.png',             x:320, y:280, w:70,  h:100 },
+      { id:'s19_cassettapiastrelle', nome:'Cassetta Piastrelle', img:'hidden_5_cassettapiastrelle.png', x:100, y:350, w:56,  h:49  },
+      { id:'s19_anfore',             nome:'Anfore',              img:'hidden_5_anfore.png',             x:270, y:330, w:70,  h:100 },
       { id:'s19_cassette',           nome:'Cassette',            img:'hidden_5_cassette.png',           x:200, y:550, w:85,  h:65  },
       { id:'s19_gru',                nome:'Gru',                 img:'hidden_5_gru.png',                x:350, y:450, w:90,  h:120 },
-      { id:'s19_coloneincompiute',   nome:'Colonne Incompiute',  img:'hidden_5_coloneincompiute.png',   x:160, y:260, w:85,  h:130 },
-      { id:'s19_piedistallo',        nome:'Piedistallo',         img:'hidden_5_piedistallo.png',        x:60,  y:500, w:70,  h:90  },
-      { id:'s19_travertino',         nome:'Travertino',          img:'hidden_5_travertino.png',         x:290, y:560, w:90,  h:65  },
-      { id:'s19_travi',              nome:'Travi',               img:'hidden_5_travi.png',              x:210, y:420, w:100, h:60  },
-      { id:'s19_cassettaghiaia',     nome:'Cassetta Ghiaia',     img:'hidden_6_cassettaghiaia.png',     x:70,  y:620, w:80,  h:65  },
+      { id:'s19_coloneincompiute',   nome:'Colonne Incompiute',  img:'hidden_5_coloneincompiute.png',   x:160, y:300, w:85,  h:130 },
+      { id:'s19_piedistallo',        nome:'Piedistallo',         img:'hidden_5_piedistallo.png',        x:364, y:500, w:70,  h:90  },
+      { id:'s19_travertino',         nome:'Travertino',          img:'hidden_5_travertino.png',         x:290, y:585, w:90,  h:65  },
+      { id:'s19_travi',              nome:'Travi',               img:'hidden_5_travi.png',              x:210, y:470, w:100, h:60  },
+      { id:'s19_cassettaghiaia',     nome:'Cassetta Ghiaia',     img:'hidden_6_cassettaghiaia.png',     x:70,  y:590, w:80,  h:65  },
       { id:'s19_bloccomarmo',        nome:'Blocco di Marmo',     img:'hidden_blocco di marmo.png',      x:340, y:360, w:70,  h:55  },
       { id:'s19_cassettategole',     nome:'Cassetta Tegole',     img:'hidden_cassettategole.png',       x:180, y:660, w:80,  h:65  },
       { id:'s19_sabbiafine',         nome:'Sabbia Fine',         img:'hidden_sabbiafine.png',           x:60,  y:390, w:70,  h:65  },
@@ -2775,7 +2781,7 @@ const CANT_STAGES = [
   },
   // ── BLOCCO 5 — FRIGIDARIUM Stage 6 (fine blocco) ─────────────────────────
   {
-    stage: 20, time: 60, reward: 1450, popReward: 75,
+    stage: 20, time: 60, reward: 1450, popReward: 45,
     blockName: 'FRIGIDARIUM',
     bg: 'bg_cantiere24.png', introBg: 'bg_cantiere22avvio.png',
     completionBg: 'bg_cantiere25.png', completionIntroBg: 'bg_cantiere25avvio.png', avanzamentoCell: 5,
@@ -2783,15 +2789,15 @@ const CANT_STAGES = [
     blockEndMsg: 'Il Frigidarium splende nella sua bellezza. La Sala dei Fullones si prepara ad accogliere le assemblee...',
     cost: 350, alertIco: '', alertTitle: 'FRIGIDARIUM',
     objects: [
-      { id:'s20_cassettapiastrelle', nome:'Cassetta Piastrelle', img:'hidden_5_cassettapiastrelle.png', x:100, y:350, w:80,  h:70  },
-      { id:'s20_anfore',             nome:'Anfore',              img:'hidden_5_anfore.png',             x:320, y:280, w:70,  h:100 },
+      { id:'s20_cassettapiastrelle', nome:'Cassetta Piastrelle', img:'hidden_5_cassettapiastrelle.png', x:100, y:350, w:56,  h:49  },
+      { id:'s20_anfore',             nome:'Anfore',              img:'hidden_5_anfore.png',             x:270, y:330, w:70,  h:100 },
       { id:'s20_cassette',           nome:'Cassette',            img:'hidden_5_cassette.png',           x:200, y:550, w:85,  h:65  },
       { id:'s20_gru',                nome:'Gru',                 img:'hidden_5_gru.png',                x:350, y:450, w:90,  h:120 },
-      { id:'s20_coloneincompiute',   nome:'Colonne Incompiute',  img:'hidden_5_coloneincompiute.png',   x:160, y:260, w:85,  h:130 },
-      { id:'s20_piedistallo',        nome:'Piedistallo',         img:'hidden_5_piedistallo.png',        x:60,  y:500, w:70,  h:90  },
-      { id:'s20_travertino',         nome:'Travertino',          img:'hidden_5_travertino.png',         x:290, y:560, w:90,  h:65  },
-      { id:'s20_travi',              nome:'Travi',               img:'hidden_5_travi.png',              x:210, y:420, w:100, h:60  },
-      { id:'s20_cassettaghiaia',     nome:'Cassetta Ghiaia',     img:'hidden_6_cassettaghiaia.png',     x:70,  y:620, w:80,  h:65  },
+      { id:'s20_coloneincompiute',   nome:'Colonne Incompiute',  img:'hidden_5_coloneincompiute.png',   x:160, y:300, w:85,  h:130 },
+      { id:'s20_piedistallo',        nome:'Piedistallo',         img:'hidden_5_piedistallo.png',        x:364, y:500, w:70,  h:90  },
+      { id:'s20_travertino',         nome:'Travertino',          img:'hidden_5_travertino.png',         x:290, y:585, w:90,  h:65  },
+      { id:'s20_travi',              nome:'Travi',               img:'hidden_5_travi.png',              x:210, y:470, w:100, h:60  },
+      { id:'s20_cassettaghiaia',     nome:'Cassetta Ghiaia',     img:'hidden_6_cassettaghiaia.png',     x:70,  y:590, w:80,  h:65  },
       { id:'s20_bloccomarmo',        nome:'Blocco di Marmo',     img:'hidden_blocco di marmo.png',      x:340, y:360, w:70,  h:55  },
       { id:'s20_cassettategole',     nome:'Cassetta Tegole',     img:'hidden_cassettategole.png',       x:180, y:660, w:80,  h:65  },
       { id:'s20_sabbiafine',         nome:'Sabbia Fine',         img:'hidden_sabbiafine.png',           x:60,  y:390, w:70,  h:65  },
@@ -5298,9 +5304,9 @@ function loadGame(){
     _updatePopBar();
 
     // Rotte sbloccate
-    hispaniaUnlocked  = s.hispaniaUnlocked  ?? (popXP >= 50);
-    africaUnlocked    = s.africaUnlocked    ?? (popXP >= 100);
-    numistrio2Unlocked = s.numistrio2Unlocked ?? (popXP >= 100);
+    hispaniaUnlocked  = s.hispaniaUnlocked  ?? (popXP >= 80);
+    africaUnlocked    = s.africaUnlocked    ?? (popXP >= 250);
+    numistrio2Unlocked = s.numistrio2Unlocked ?? (popXP >= 250);
     // Cursus honorum: inizializza allo stadio corrente per non mostrare popup al reload
     cursusStageReached = s.cursusStageReached ?? _getCursusStage(popXP);
 
