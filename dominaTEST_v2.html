@@ -2314,7 +2314,9 @@ if(window.visualViewport){
     'bg_cantiere17.png','bg_cantiere17avvio.png','bg_cantiere18.png','bg_cantiere18avvio.png',
     'hidden_5_cassettapiastrelle.png','hidden_5_anfore.png','hidden_5_cassette.png','hidden_5_gru.png',
     'bg_cantiere19.png','bg_cantiere19avvio.png',
-    'hidden_5_coloneincompiute.png','hidden_5_piedistallo.png','hidden_5_travertino.png'
+    'hidden_5_coloneincompiute.png','hidden_5_piedistallo.png','hidden_5_travertino.png',
+    'bg_cantiere20.png','bg_cantiere20avvio.png',
+    'hidden_5_travi.png','hidden_6_cassettaghiaia.png','hidden_cassettategole.png'
   ];
   imgs.forEach(src => { const i = new Image(); i.src = src; });
 })();
@@ -2686,6 +2688,27 @@ const CANT_STAGES = [
       { id:'s16_coloneincompiute',   nome:'Colonne Incompiute',  img:'hidden_5_coloneincompiute.png',   x:160, y:260, w:85,  h:130 },
       { id:'s16_piedistallo',        nome:'Piedistallo',         img:'hidden_5_piedistallo.png',        x:60,  y:500, w:70,  h:90  },
       { id:'s16_travertino',         nome:'Travertino',          img:'hidden_5_travertino.png',         x:290, y:560, w:90,  h:65  },
+    ]
+  },
+  // ── BLOCCO 5 — FRIGIDARIUM Stage 3 ───────────────────────────────────────
+  {
+    stage: 17, time: 60, reward: 1150, popReward: 60,
+    blockName: 'FRIGIDARIUM',
+    bg: 'bg_cantiere20.png', introBg: 'bg_cantiere19avvio.png',
+    cost: 290, alertIco: '', alertTitle: 'FRIGIDARIUM',
+    objects: [
+      { id:'s17_cassettapiastrelle', nome:'Cassetta Piastrelle', img:'hidden_5_cassettapiastrelle.png', x:100, y:350, w:80,  h:70  },
+      { id:'s17_anfore',             nome:'Anfore',              img:'hidden_5_anfore.png',             x:320, y:280, w:70,  h:100 },
+      { id:'s17_cassette',           nome:'Cassette',            img:'hidden_5_cassette.png',           x:200, y:550, w:85,  h:65  },
+      { id:'s17_gru',                nome:'Gru',                 img:'hidden_5_gru.png',                x:350, y:450, w:90,  h:120 },
+      { id:'s17_coloneincompiute',   nome:'Colonne Incompiute',  img:'hidden_5_coloneincompiute.png',   x:160, y:260, w:85,  h:130 },
+      { id:'s17_piedistallo',        nome:'Piedistallo',         img:'hidden_5_piedistallo.png',        x:60,  y:500, w:70,  h:90  },
+      { id:'s17_travertino',         nome:'Travertino',          img:'hidden_5_travertino.png',         x:290, y:560, w:90,  h:65  },
+      { id:'s17_travi',              nome:'Travi',               img:'hidden_5_travi.png',              x:210, y:420, w:100, h:60  },
+      { id:'s17_cassettaghiaia',     nome:'Cassetta Ghiaia',     img:'hidden_6_cassettaghiaia.png',     x:70,  y:620, w:80,  h:65  },
+      { id:'s17_bloccomarmo',        nome:'Blocco di Marmo',     img:'hidden_blocco di marmo.png',      x:340, y:360, w:70,  h:55  },
+      { id:'s17_cassettategole',     nome:'Cassetta Tegole',     img:'hidden_cassettategole.png',       x:180, y:660, w:80,  h:65  },
+      { id:'s17_sabbiafine',         nome:'Sabbia Fine',         img:'hidden_sabbiafine.png',           x:60,  y:390, w:70,  h:65  },
     ]
   },
 ];
