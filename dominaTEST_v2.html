@@ -2309,7 +2309,10 @@ if(window.visualViewport){
     // Block 4 hidden objects
     'bg_cantiere14.png','tasto_avviolavori.png',
     'hidden_new_operaioconcesto.png','hidden_new_operaioconpala.png','hidden_new_pala.png',
-    'avanzamento4_aranceto.png'
+    'avanzamento4_aranceto.png',
+    // Block 5 hidden objects
+    'bg_cantiere17.png','bg_cantiere17avvio.png','bg_cantiere18.png','bg_cantiere18avvio.png',
+    'hidden_5_cassettapiastrelle.png','hidden_5_anfore.png','hidden_5_cassette.png','hidden_5_gru.png'
   ];
   imgs.forEach(src => { const i = new Image(); i.src = src; });
 })();
@@ -2652,6 +2655,19 @@ const CANT_STAGES = [
       { id:'s14_portaprovvisoria',  nome:'Porta Provvisoria', img:'hidden_new_portaprovvisoria.png',   x:223, y:495, w:70,  h:100 },
       { id:'s14_vasiimpilati',      nome:'Vasi',              img:'hidden_new_vasiimpilati.png',       x:58,  y:510, w:60,  h:70  },
       { id:'s14_cassaconcemento',   nome:'Cassa Cemento',     img:'hidden_cassaconcemento.png',         x:229, y:574, w:91,  h:85  },
+    ]
+  },
+  // ── BLOCCO 5 — FRIGIDARIUM Stage 1 ───────────────────────────────────────
+  {
+    stage: 15, time: 60, reward: 950, popReward: 50,
+    blockName: 'FRIGIDARIUM',
+    bg: 'bg_cantiere18.png', introBg: 'bg_cantiere17avvio.png',
+    cost: 250, alertIco: '', alertTitle: 'FRIGIDARIUM',
+    objects: [
+      { id:'s15_cassettapiastrelle', nome:'Cassetta Piastrelle', img:'hidden_5_cassettapiastrelle.png', x:100, y:350, w:80,  h:70  },
+      { id:'s15_anfore',             nome:'Anfore',              img:'hidden_5_anfore.png',             x:320, y:280, w:70,  h:100 },
+      { id:'s15_cassette',           nome:'Cassette',            img:'hidden_5_cassette.png',           x:200, y:550, w:85,  h:65  },
+      { id:'s15_gru',                nome:'Gru',                 img:'hidden_5_gru.png',                x:350, y:450, w:90,  h:120 },
     ]
   },
 ];
