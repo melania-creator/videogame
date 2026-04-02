@@ -1828,9 +1828,11 @@ html,body{
         <div class="av-lock" id="av-lock-4"><span class="av-lock-ico">🔒</span></div>
         <div class="av-cell-label">ARANCETO</div>
       </div>
-      <!-- Cella 5: futura -->
-      <div class="av-cell av-cell-empty" id="av-cell-5">
+      <!-- Cella 5: Frigidarium -->
+      <div class="av-cell" id="av-cell-5">
+        <img src="avanzamento5_frigidarium.png" class="av-img" id="av-img-5" alt="Frigidarium">
         <div class="av-lock" id="av-lock-5"><span class="av-lock-ico">🔒</span></div>
+        <div class="av-cell-label">FRIGIDARIUM</div>
       </div>
       <!-- Cella 6: futura -->
       <div class="av-cell av-cell-empty" id="av-cell-6">
@@ -2321,7 +2323,9 @@ if(window.visualViewport){
     'hidden_5_tavolo.png','hidden_architetto.png',
     'bg_cantiere22.png','bg_cantiere22avvio.png',
     'hidden_5_anforedorate.png','hidden_5_lampadario.png','hidden_5_mezzobusto1.png',
-    'hidden_5_pavone.png','hidden_5_sedia.png'
+    'hidden_5_pavone.png','hidden_5_sedia.png',
+    'bg_cantiere24.png','bg_cantiere25.png','bg_cantiere25avvio.png',
+    'hidden_6_fontanella.png','avanzamento5_frigidarium.png'
   ];
   imgs.forEach(src => { const i = new Image(); i.src = src; });
 })();
@@ -2769,6 +2773,40 @@ const CANT_STAGES = [
       { id:'s19_sedia',              nome:'Sedia',               img:'hidden_5_sedia.png',              x:310, y:500, w:70,  h:90  },
     ]
   },
+  // ── BLOCCO 5 — FRIGIDARIUM Stage 6 (fine blocco) ─────────────────────────
+  {
+    stage: 20, time: 60, reward: 1450, popReward: 75,
+    blockName: 'FRIGIDARIUM',
+    bg: 'bg_cantiere24.png', introBg: 'bg_cantiere22avvio.png',
+    completionBg: 'bg_cantiere25.png', completionIntroBg: 'bg_cantiere25avvio.png', avanzamentoCell: 5,
+    blockEndLabel: 'FRIGIDARIUM COMPLETATO!',
+    blockEndMsg: 'Il Frigidarium splende nella sua bellezza. La Sala dei Fullones si prepara ad accogliere le assemblee...',
+    cost: 350, alertIco: '', alertTitle: 'FRIGIDARIUM',
+    objects: [
+      { id:'s20_cassettapiastrelle', nome:'Cassetta Piastrelle', img:'hidden_5_cassettapiastrelle.png', x:100, y:350, w:80,  h:70  },
+      { id:'s20_anfore',             nome:'Anfore',              img:'hidden_5_anfore.png',             x:320, y:280, w:70,  h:100 },
+      { id:'s20_cassette',           nome:'Cassette',            img:'hidden_5_cassette.png',           x:200, y:550, w:85,  h:65  },
+      { id:'s20_gru',                nome:'Gru',                 img:'hidden_5_gru.png',                x:350, y:450, w:90,  h:120 },
+      { id:'s20_coloneincompiute',   nome:'Colonne Incompiute',  img:'hidden_5_coloneincompiute.png',   x:160, y:260, w:85,  h:130 },
+      { id:'s20_piedistallo',        nome:'Piedistallo',         img:'hidden_5_piedistallo.png',        x:60,  y:500, w:70,  h:90  },
+      { id:'s20_travertino',         nome:'Travertino',          img:'hidden_5_travertino.png',         x:290, y:560, w:90,  h:65  },
+      { id:'s20_travi',              nome:'Travi',               img:'hidden_5_travi.png',              x:210, y:420, w:100, h:60  },
+      { id:'s20_cassettaghiaia',     nome:'Cassetta Ghiaia',     img:'hidden_6_cassettaghiaia.png',     x:70,  y:620, w:80,  h:65  },
+      { id:'s20_bloccomarmo',        nome:'Blocco di Marmo',     img:'hidden_blocco di marmo.png',      x:340, y:360, w:70,  h:55  },
+      { id:'s20_cassettategole',     nome:'Cassetta Tegole',     img:'hidden_cassettategole.png',       x:180, y:660, w:80,  h:65  },
+      { id:'s20_sabbiafine',         nome:'Sabbia Fine',         img:'hidden_sabbiafine.png',           x:60,  y:390, w:70,  h:65  },
+      { id:'s20_tavolo',             nome:'Tavolo',              img:'hidden_5_tavolo.png',             x:220, y:480, w:90,  h:70  },
+      { id:'s20_architetto',         nome:'Architetto',          img:'hidden_architetto.png',           x:360, y:580, w:75,  h:110 },
+      { id:'s20_pileditegole',       nome:'Pile di Tegole',      img:'hidden_pileditegole.png',         x:130, y:600, w:60,  h:60  },
+      { id:'s20_anforedorate',       nome:'Anfore Dorate',       img:'hidden_5_anforedorate.png',       x:280, y:640, w:75,  h:90  },
+      { id:'s20_lampadario',         nome:'Lampadario',          img:'hidden_5_lampadario.png',         x:200, y:180, w:80,  h:100 },
+      { id:'s20_mezzobusto1',        nome:'Mezzobusto',          img:'hidden_5_mezzobusto1.png',        x:380, y:300, w:70,  h:95  },
+      { id:'s20_pavone',             nome:'Pavone',              img:'hidden_5_pavone.png',             x:90,  y:260, w:75,  h:100 },
+      { id:'s20_sedia',              nome:'Sedia',               img:'hidden_5_sedia.png',              x:310, y:500, w:70,  h:90  },
+      { id:'s20_fontanella',         nome:'Fontanella',          img:'hidden_6_fontanella.png',         x:190, y:320, w:70,  h:95  },
+      { id:'s20_clessidra',          nome:'Clessidra',           img:'hidden_clessidra.png',            x:380, y:420, w:55,  h:80  },
+    ]
+  },
 ];
 // ── Pool di oggetti Stage 1 (riferimento per preview intro) ──────────────
 const CANT_OBJECT_POOL = CANT_STAGES.length ? CANT_STAGES[0].objects : [];
@@ -2801,6 +2839,7 @@ let cantS16Paid     = false; // costo stage 16 già pagato in questa sessione
 let cantS17Paid     = false; // costo stage 17 già pagato in questa sessione
 let cantS18Paid     = false; // costo stage 18 già pagato in questa sessione
 let cantS19Paid     = false; // costo stage 19 già pagato in questa sessione
+let cantS20Paid     = false; // costo stage 20 già pagato in questa sessione
 let cantWrongCount  = 0;    // errori clic sbagliati (penalità pop ogni 3)
 let cantBlockTransition = false; // true quando si mostra lo schermo intro del blocco successivo
 let cantTutorialSeen    = false; // true dopo che il giocatore ha visto il tutorial del primo stage
@@ -2873,7 +2912,7 @@ function avviaCantiere(){
   // Controlla e scala il costo laterizi (una sola volta per stage per sessione)
   const paidFlags = [cantS1Paid,cantS2Paid,cantS3Paid,cantS4Paid,cantS5Paid,cantS6Paid,
                      cantS7Paid,cantS8Paid,cantS9Paid,cantS10Paid,cantS11Paid,cantS12Paid,
-                     cantS13Paid,cantS14Paid,cantS15Paid,cantS16Paid,cantS17Paid,cantS18Paid,cantS19Paid];
+                     cantS13Paid,cantS14Paid,cantS15Paid,cantS16Paid,cantS17Paid,cantS18Paid,cantS19Paid,cantS20Paid];
   const alreadyPaid = paidFlags[cantStage] || false;
   if(cfg.cost && !alreadyPaid){
     if(lat < cfg.cost){
@@ -2888,7 +2927,7 @@ function avviaCantiere(){
                      ()=>cantS5Paid=true,()=>cantS6Paid=true,()=>cantS7Paid=true,()=>cantS8Paid=true,
                      ()=>cantS9Paid=true,()=>cantS10Paid=true,()=>cantS11Paid=true,()=>cantS12Paid=true,
                      ()=>cantS13Paid=true,()=>cantS14Paid=true,()=>cantS15Paid=true,()=>cantS16Paid=true,
-                     ()=>cantS17Paid=true,()=>cantS18Paid=true,()=>cantS19Paid=true];
+                     ()=>cantS17Paid=true,()=>cantS18Paid=true,()=>cantS19Paid=true,()=>cantS20Paid=true];
     if(setters[cantStage]) setters[cantStage]();
   }
   // Nascondi tasto overlay
