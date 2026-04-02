@@ -2312,7 +2312,9 @@ if(window.visualViewport){
     'avanzamento4_aranceto.png',
     // Block 5 hidden objects
     'bg_cantiere17.png','bg_cantiere17avvio.png','bg_cantiere18.png','bg_cantiere18avvio.png',
-    'hidden_5_cassettapiastrelle.png','hidden_5_anfore.png','hidden_5_cassette.png','hidden_5_gru.png'
+    'hidden_5_cassettapiastrelle.png','hidden_5_anfore.png','hidden_5_cassette.png','hidden_5_gru.png',
+    'bg_cantiere19.png','bg_cantiere19avvio.png',
+    'hidden_5_coloneincompiute.png','hidden_5_piedistallo.png','hidden_5_travertino.png'
   ];
   imgs.forEach(src => { const i = new Image(); i.src = src; });
 })();
@@ -2668,6 +2670,22 @@ const CANT_STAGES = [
       { id:'s15_anfore',             nome:'Anfore',              img:'hidden_5_anfore.png',             x:320, y:280, w:70,  h:100 },
       { id:'s15_cassette',           nome:'Cassette',            img:'hidden_5_cassette.png',           x:200, y:550, w:85,  h:65  },
       { id:'s15_gru',                nome:'Gru',                 img:'hidden_5_gru.png',                x:350, y:450, w:90,  h:120 },
+    ]
+  },
+  // ── BLOCCO 5 — FRIGIDARIUM Stage 2 ───────────────────────────────────────
+  {
+    stage: 16, time: 60, reward: 1050, popReward: 55,
+    blockName: 'FRIGIDARIUM',
+    bg: 'bg_cantiere19.png', introBg: 'bg_cantiere18avvio.png',
+    cost: 270, alertIco: '', alertTitle: 'FRIGIDARIUM',
+    objects: [
+      { id:'s16_cassettapiastrelle', nome:'Cassetta Piastrelle', img:'hidden_5_cassettapiastrelle.png', x:100, y:350, w:80,  h:70  },
+      { id:'s16_anfore',             nome:'Anfore',              img:'hidden_5_anfore.png',             x:320, y:280, w:70,  h:100 },
+      { id:'s16_cassette',           nome:'Cassette',            img:'hidden_5_cassette.png',           x:200, y:550, w:85,  h:65  },
+      { id:'s16_gru',                nome:'Gru',                 img:'hidden_5_gru.png',                x:350, y:450, w:90,  h:120 },
+      { id:'s16_coloneincompiute',   nome:'Colonne Incompiute',  img:'hidden_5_coloneincompiute.png',   x:160, y:260, w:85,  h:130 },
+      { id:'s16_piedistallo',        nome:'Piedistallo',         img:'hidden_5_piedistallo.png',        x:60,  y:500, w:70,  h:90  },
+      { id:'s16_travertino',         nome:'Travertino',          img:'hidden_5_travertino.png',         x:290, y:560, w:90,  h:65  },
     ]
   },
 ];
