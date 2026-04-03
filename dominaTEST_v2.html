@@ -1546,7 +1546,7 @@ html,body{
          Regola left/top/width/height per allinearlo al pulsante dell'immagine. -->
     <div id="cant-intro" style="position:absolute;inset:0;z-index:15;">
       <!-- Avviso costo laterizi -->
-      <div style="
+      <div id="cant-cost-box" style="
         position:absolute;
         left:calc(50% + 5px);top:558px;
         transform:translateX(-50%);
@@ -2877,6 +2877,13 @@ let cantIntroSeen       = false; // true dopo la prima apertura assoluta del can
 function syncCantLifebar(){
   // La barra Popolarità è già nel #hud principale; nessun aggiornamento locale necessario.
 }
+function setCantCostText(cfg, text){
+  const box = document.getElementById('cant-cost-box');
+  const span = document.getElementById('cant-cost-text');
+  if(!span) return;
+  span.textContent = text;
+  if(box) box.style.top = (cfg && cfg.blockName === 'FRIGIDARIUM') ? '548px' : '558px';
+}
 
 function openCantiere(){
   // Non resettare cantStage: il giocatore riprende dallo stage già sbloccato
@@ -2900,8 +2907,7 @@ function openCantiere(){
   // Mostra icona overlay solo se lo stage la richiede esplicitamente (es. Aranceto)
   const tastoEl = document.getElementById('cant-tasto-lavori');
   if(tastoEl) tastoEl.style.display = (cfg.introBg && cfg.tastoIco) ? 'block' : 'none';
-  const costEl = document.getElementById('cant-cost-text');
-  if(costEl) costEl.textContent = cfg.cost ? 'Costo avvio: ' + cfg.cost + ' 🧱 Laterizi' : '';
+  setCantCostText(cfg, cfg.cost ? 'Costo avvio: ' + cfg.cost + ' 🧱 Laterizi' : '');
   syncCantLifebar();
   renderCantPreview();
   // Prima apertura assoluta: mostra la pergamena introduttiva
@@ -3461,8 +3467,7 @@ function cantResultAction(){
     document.getElementById('cant-bg').style.background =
       "url('" + cfg.completionIntroBg + "') top left/424px 760px no-repeat";
     const nextStageCfg = CANT_STAGES[cantStage + 1];
-    const costEl = document.getElementById('cant-cost-text');
-    if(costEl) costEl.textContent = (nextStageCfg && nextStageCfg.cost) ? 'Costo avvio: ' + nextStageCfg.cost + ' 🧱 Laterizi' : '';
+    setCantCostText(nextStageCfg, (nextStageCfg && nextStageCfg.cost) ? 'Costo avvio: ' + nextStageCfg.cost + ' 🧱 Laterizi' : '');
     const tastoEl = document.getElementById('cant-tasto-lavori');
     if(tastoEl) tastoEl.style.display = (nextStageCfg && nextStageCfg.tastoIco) ? 'block' : 'none';
     if(!nextStageCfg){
@@ -3658,8 +3663,7 @@ function _mostraIntroStage(){
   const _cfgIntro = CANT_STAGES[cantStage];
   const _tastoElIntro = document.getElementById('cant-tasto-lavori');
   if(_tastoElIntro) _tastoElIntro.style.display = (_cfgIntro.introBg && _cfgIntro.tastoIco) ? 'block' : 'none';
-  const costEl = document.getElementById('cant-cost-text');
-  if(costEl) costEl.textContent = _cfgIntro.cost ? 'Costo avvio: ' + _cfgIntro.cost + ' 🧱 Laterizi' : '';
+  setCantCostText(_cfgIntro, _cfgIntro.cost ? 'Costo avvio: ' + _cfgIntro.cost + ' 🧱 Laterizi' : '');
   renderCantPreview();
 }
 const panels = {
