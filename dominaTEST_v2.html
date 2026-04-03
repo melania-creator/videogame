@@ -1546,7 +1546,7 @@ html,body{
          Regola left/top/width/height per allinearlo al pulsante dell'immagine. -->
     <div id="cant-intro" style="position:absolute;inset:0;z-index:15;">
       <!-- Avviso costo laterizi -->
-      <div style="
+      <div id="cant-cost-box" style="
         position:absolute;
         left:calc(50% + 5px);top:558px;
         transform:translateX(-50%);
@@ -2758,12 +2758,12 @@ const CANT_STAGES = [
       { id:'s18_anfore',             nome:'Anfore',              img:'hidden_5_anfore.png',             x:237, y:356, w:70,  h:100 },
       { id:'s18_cassette',           nome:'Cassette',            img:'hidden_5_cassette.png',           x:200, y:550, w:85,  h:65  },
       { id:'s18_gru',                nome:'Gru',                 img:'hidden_5_gru.png',                x:343, y:450, w:90,  h:120 },
-      { id:'s18_coloneincompiute',   nome:'Colonne Incompiute',  img:'hidden_5_coloneincompiute.png',   x:160, y:356, w:85,  h:130 },
+      { id:'s18_coloneincompiute',   nome:'Colonne Incompiute',  img:'hidden_5_coloneincompiute.png',   x:160, y:353, w:85,  h:130 },
       { id:'s18_piedistallo',        nome:'Piedistallo',         img:'hidden_5_piedistallo.png',        x:377, y:503, w:70,  h:90  },
       { id:'s18_travertino',         nome:'Travertino',          img:'hidden_5_travertino.png',         x:272, y:502, w:90,  h:65  },
 
       { id:'s18_cassettaghiaia',     nome:'Cassetta Ghiaia',     img:'hidden_6_cassettaghiaia.png',     x:63,  y:470, w:80,  h:65  },
-      { id:'s18_bloccomarmo',        nome:'Blocco di Marmo',     img:'hidden_blocco di marmo.png',      x:332, y:356, w:56,  h:44  },
+      { id:'s18_bloccomarmo',        nome:'Blocco di Marmo',     img:'hidden_blocco di marmo.png',      x:322, y:356, w:56,  h:44  },
 
       { id:'s18_sabbiafine',         nome:'Sabbia Fine',         img:'hidden_sabbiafine.png',           x:80,  y:411, w:70,  h:65  },
       { id:'s18_architetto',         nome:'Architetto',          img:'hidden_architetto.png',           x:212, y:480, w:75,  h:110 },
@@ -2877,6 +2877,13 @@ let cantIntroSeen       = false; // true dopo la prima apertura assoluta del can
 function syncCantLifebar(){
   // La barra Popolarità è già nel #hud principale; nessun aggiornamento locale necessario.
 }
+function setCantCostText(cfg, text){
+  const box = document.getElementById('cant-cost-box');
+  const span = document.getElementById('cant-cost-text');
+  if(!span) return;
+  span.textContent = text;
+  if(box) box.style.top = (cfg && cfg.blockName === 'FRIGIDARIUM') ? '548px' : '558px';
+}
 
 function openCantiere(){
   // Non resettare cantStage: il giocatore riprende dallo stage già sbloccato
@@ -2900,8 +2907,7 @@ function openCantiere(){
   // Mostra icona overlay solo se lo stage la richiede esplicitamente (es. Aranceto)
   const tastoEl = document.getElementById('cant-tasto-lavori');
   if(tastoEl) tastoEl.style.display = (cfg.introBg && cfg.tastoIco) ? 'block' : 'none';
-  const costEl = document.getElementById('cant-cost-text');
-  if(costEl) costEl.textContent = cfg.cost ? 'Costo avvio: ' + cfg.cost + ' 🧱 Laterizi' : '';
+  setCantCostText(cfg, cfg.cost ? 'Costo avvio: ' + cfg.cost + ' 🧱 Laterizi' : '');
   syncCantLifebar();
   renderCantPreview();
   // Prima apertura assoluta: mostra la pergamena introduttiva
@@ -3461,8 +3467,7 @@ function cantResultAction(){
     document.getElementById('cant-bg').style.background =
       "url('" + cfg.completionIntroBg + "') top left/424px 760px no-repeat";
     const nextStageCfg = CANT_STAGES[cantStage + 1];
-    const costEl = document.getElementById('cant-cost-text');
-    if(costEl) costEl.textContent = (nextStageCfg && nextStageCfg.cost) ? 'Costo avvio: ' + nextStageCfg.cost + ' 🧱 Laterizi' : '';
+    setCantCostText(nextStageCfg, (nextStageCfg && nextStageCfg.cost) ? 'Costo avvio: ' + nextStageCfg.cost + ' 🧱 Laterizi' : '');
     const tastoEl = document.getElementById('cant-tasto-lavori');
     if(tastoEl) tastoEl.style.display = (nextStageCfg && nextStageCfg.tastoIco) ? 'block' : 'none';
     if(!nextStageCfg){
@@ -3658,8 +3663,7 @@ function _mostraIntroStage(){
   const _cfgIntro = CANT_STAGES[cantStage];
   const _tastoElIntro = document.getElementById('cant-tasto-lavori');
   if(_tastoElIntro) _tastoElIntro.style.display = (_cfgIntro.introBg && _cfgIntro.tastoIco) ? 'block' : 'none';
-  const costEl = document.getElementById('cant-cost-text');
-  if(costEl) costEl.textContent = _cfgIntro.cost ? 'Costo avvio: ' + _cfgIntro.cost + ' 🧱 Laterizi' : '';
+  setCantCostText(_cfgIntro, _cfgIntro.cost ? 'Costo avvio: ' + _cfgIntro.cost + ' 🧱 Laterizi' : '');
   renderCantPreview();
 }
 const panels = {
