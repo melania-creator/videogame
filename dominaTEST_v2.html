@@ -1613,9 +1613,12 @@ html,body{
           <div id="cant-alert-ico" style="font-size:2rem;margin-bottom:10px;">🪨</div>
           <!-- Testo -->
           <div id="cant-alert-title" style="font-family:'Cinzel Decorative',serif;font-size:.85rem;font-weight:700;
-            color:#E8C060;letter-spacing:.12em;line-height:1.5;margin-bottom:20px;">
+            color:#E8C060;letter-spacing:.12em;line-height:1.5;margin-bottom:10px;">
             COSTRUISCI<br>PAVIMENTO
           </div>
+          <!-- Narrazione -->
+          <div id="cant-alert-desc" style="font-family:'Cinzel',serif;font-size:.65rem;color:#c8a870;
+            line-height:1.55;margin-bottom:14px;font-style:italic;display:none;"></div>
           <!-- Linea -->
           <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.35),transparent);margin-bottom:16px;"></div>
           <!-- Bottone chiudi -->
@@ -2438,6 +2441,7 @@ const CANT_STAGES = [
     blockName: 'INGRESSO',
     bg: 'bg_cantiere.png', introBg: 'bg_cantiereavvio.png',
     cost: 10, alertIco: '🪨', alertTitle: 'COSTRUISCI<br>IL PAVIMENTO',
+    alertDesc: 'Eumachia dà inizio sua pecunia alla costruzione del Portico della Concordia. I primi lavori riguardano la posa del pavimento.',
     objects: [
       { id:'s1_anfore',      nome:'Anfore',      img:'hidden_anfore.png',      x:394, y:535, w:60, h:60 },
       { id:'s1_architetto',  nome:'Architetto',  img:'hidden_architetto.png',  x:245, y:410, w:60, h:60 },
@@ -2449,6 +2453,7 @@ const CANT_STAGES = [
     blockName: 'INGRESSO',
     bg: 'bg_cantiere2.png', introBg: 'bg_cantiere2avvio.png',
     cost: 30, alertIco: '🧱', alertTitle: 'COSTRUISCI<br>LE MURA',
+    alertDesc: 'Le fondamenta sono solide. Eumachia finanzia l\'erezione delle mura che daranno forma al Portico della Concordia.',
     objects: [
       { id:'s2_anfore',       nome:'Anfore',       img:'hidden_anfore.png',       x:394, y:535, w:60, h:60 },
       { id:'s2_architetto',   nome:'Architetto',   img:'hidden_architetto.png',   x:245, y:410, w:60, h:60 },
@@ -2463,6 +2468,7 @@ const CANT_STAGES = [
     blockName: 'INGRESSO',
     bg: 'bg_cantiere3.png', introBg: 'bg_cantiere3avvio.png',
     cost: 40, alertIco: '🏛', alertTitle: 'RIFINITURA<br>DEL PORTICO',
+    alertDesc: 'L\'opera di Eumachia si avvicina al completamento. Le rifiniture renderanno il Portico degno della Concordia Augusta.',
     completionBg: 'bg_cantiere4.png', completionIntroBg: 'bg_cantiere4avvio.png', avanzamentoCell: 1,
     blockEndLabel: 'INGRESSO COMPLETATO!', blockEndMsg: 'Il Portico prende forma. Preparati per la Camera Principale!',
     objects: [
@@ -2483,6 +2489,7 @@ const CANT_STAGES = [
     blockName: 'CAMERA PRINCIPALE',
     bg: 'bg_cantiere5.png', introBg: 'bg_cantiere5avvio.png',
     cost: 50, alertIco: '🏛', alertTitle: 'CAMERA<br>PRINCIPALE',
+    alertDesc: 'Eumachia avvia sua pecunia i lavori della Camera Principale. Le maestranze posano le prime fondamenta del Portico.',
     objects: [
       { id:'s4_altare',        nome:'Altare',          img:'hidden_altare.png',           x:150, y:370, w:55, h:80 },
       { id:'s4_bloccomarmo',   nome:'Blocco di Marmo', img:'hidden_blocco di marmo.png',  x:250, y:440, w:70, h:55 },
@@ -2496,6 +2503,7 @@ const CANT_STAGES = [
     blockName: 'CAMERA PRINCIPALE',
     bg: 'bg_cantiere6.png', introBg: 'bg_cantiere6avvio.png',
     cost: 60, alertIco: '🏛', alertTitle: 'CAMERA<br>PRINCIPALE',
+    alertDesc: 'Le mura si ergono pietra su pietra. L\'opera di Eumachia per la Concordia Augusta prende forma.',
     objects: [
       { id:'s5_altare2',       nome:'Altare',          img:'hidden_altare2.png',          x:150, y:370, w:60, h:80 },
       { id:'s5_bloccomarmo',   nome:'Blocco di Marmo', img:'hidden_blocco di marmo.png',  x:250, y:440, w:70, h:55 },
@@ -2513,6 +2521,7 @@ const CANT_STAGES = [
     blockName: 'CAMERA PRINCIPALE',
     bg: 'bg_cantiere7.png', introBg: 'bg_cantiere7avvio.png',
     cost: 75, alertIco: '🏛', alertTitle: 'CAMERA<br>PRINCIPALE',
+    alertDesc: 'Intonaci, pavimenti e decori: la Camera Principale del Portico della Concordia è quasi pronta.',
     completionBg: 'bg_cantiere8.png', completionIntroBg: 'bg_cantiere8avvio.png', avanzamentoCell: 2,
     blockEndLabel: 'CAMERA PRINCIPALE COMPLETATA!',
     blockEndMsg: 'Gli ambienti principali risplendono. Preparati per il Luogo dei Fullones!',
@@ -2535,6 +2544,7 @@ const CANT_STAGES = [
     blockName: 'LUOGO DEI FULLONES',
     bg: 'bg_cantiere9.png', introBg: 'bg_cantiere8avvio.png',
     cost: 90, alertIco: '🧺', alertTitle: 'LUOGO DEI<br>FULLONES',
+    alertDesc: 'La corporazione dei Fullones è il cuore del Portico. Eumachia, loro protettrice, avvia i lavori in loro onore.',
     objects: [
       { id:'s7_4anfore',       nome:'Anfore',        img:'hidden_4anfore.png',       x:100, y:350, w:70, h:70 },
       { id:'s7_attrezzi',      nome:'Attrezzi',      img:'hidden_attrezzi.png',      x:250, y:290, w:70, h:65 },
@@ -2548,6 +2558,7 @@ const CANT_STAGES = [
     blockName: 'LUOGO DEI FULLONES',
     bg: 'bg_cantiere10.png', introBg: 'bg_cantiere9avvio.png',
     cost: 110, alertIco: '🧺', alertTitle: 'LUOGO DEI<br>FULLONES',
+    alertDesc: 'I lavori avanzano sua pecunia. L\'opera di Eumachia cresce a beneficio dell\'intera corporazione.',
     objects: [
       { id:'s8_4anfore',        nome:'Anfore',          img:'hidden_4anfore.png',        x:100, y:380, w:70, h:70 },
       { id:'s8_attrezzi',       nome:'Attrezzi',        img:'hidden_attrezzi.png',       x:250, y:320, w:70, h:65 },
@@ -2564,6 +2575,7 @@ const CANT_STAGES = [
     blockName: 'LUOGO DEI FULLONES',
     bg: 'bg_cantiere11.png', introBg: 'bg_cantiere10avvio.png',
     cost: 130, alertIco: '🧺', alertTitle: 'LUOGO DEI<br>FULLONES',
+    alertDesc: 'Il Luogo dei Fullones prende forma. La generosità di Eumachia onora chi l\'ha onorata eleggendola patrona.',
     objects: [
       { id:'s9_4anfore',          nome:'Anfore',            img:'hidden_4anfore.png',          x:100, y:365, w:70, h:70 },
       { id:'s9_attrezzi',         nome:'Attrezzi',          img:'hidden_attrezzi.png',         x:250, y:250, w:70, h:65 },
@@ -2582,6 +2594,7 @@ const CANT_STAGES = [
     blockName: 'LUOGO DEI FULLONES',
     bg: 'bg_cantiere12.png', introBg: 'bg_cantiere11avvio.png',
     cost: 150, alertIco: '🧺', alertTitle: 'LUOGO DEI<br>FULLONES',
+    alertDesc: 'Con gli ultimi interventi, il Luogo dei Fullones è degno del nome di Eumachia inciso sull\'architrave.',
     completionBg: 'bg_cantiere13.png', completionIntroBg: 'bg_cantiere13avvio.png', avanzamentoCell: 3,
     blockEndLabel: 'LUOGO DEI FULLONES COMPLETATO!',
     blockEndMsg: 'La Corporazione dei Fullones è splendente. Preparati per l\'Aranceto!',
@@ -2606,6 +2619,7 @@ const CANT_STAGES = [
     blockName: 'ARANCETO',
     bg: 'bg_cantiere14.png', introBg: 'bg_cantiere13avvio.png',
     cost: 170, alertIco: '', alertTitle: 'ARANCETO',
+    alertDesc: 'Eumachia estende la sua munificenza all\'aranceto del Portico. Sua pecunia, i lavori di rimessa a dimora iniziano.',
     objects: [
       { id:'s11_bloccomarmo',      nome:'Blocco di Marmo',  img:'hidden_blocco di marmo.png',       x:115, y:310, w:70, h:55 },
       { id:'s11_cassaconcemento',  nome:'Cassa Cemento',    img:'hidden_cassaconcemento.png',        x:270, y:310, w:91, h:85 },
@@ -2620,6 +2634,7 @@ const CANT_STAGES = [
     blockName: 'ARANCETO',
     bg: 'bg_cantiere15.png', introBg: 'bg_cantiere15avvio.png',
     cost: 190, alertIco: '', alertTitle: 'ARANCETO',
+    alertDesc: 'Il verde del Portico viene rinnovato nel nome di Eumachia. Le aiuole della Concordia si ridisegnano.',
     objects: [
       { id:'s12_bloccomarmo',       nome:'Blocco di Marmo',   img:'hidden_blocco di marmo.png',       x:100, y:230, w:70, h:55 },
       { id:'s12_cassaconcemento',   nome:'Cassa Cemento',     img:'hidden_cassaconcemento.png',        x:270, y:310, w:91, h:85 },
@@ -2636,6 +2651,7 @@ const CANT_STAGES = [
     blockName: 'ARANCETO',
     bg: 'bg_cantiere16.png', introBg: 'bg_cantiere16avvio.png',
     cost: 210, alertIco: '', alertTitle: 'ARANCETO',
+    alertDesc: 'Il pergolato e il cortile vengono curati con attenzione. Il giardino inizia a rispecchiare la gloria di Eumachia.',
     objects: [
       { id:'s13_bloccomarmo',       nome:'Blocco di Marmo',   img:'hidden_blocco di marmo.png',       x:75,  y:290, w:70,  h:55  },
       { id:'s13_cassaconcemento',   nome:'Cassa Cemento',     img:'hidden_cassaconcemento.png',        x:211, y:210, w:91,  h:85  },
@@ -2659,6 +2675,7 @@ const CANT_STAGES = [
     blockEndLabel: 'ARANCETO COMPLETATO!',
     blockEndMsg: 'L\'Aranceto è splendente. Il prossimo cantiere si prepara...',
     cost: 230, alertIco: '', alertTitle: 'ARANCETO',
+    alertDesc: 'Sentieri e rifiniture completano l\'aranceto. Il giardino del Portico della Concordia torna a splendere.',
     objects: [
       { id:'s14_bloccomarmo',       nome:'Blocco di Marmo',   img:'hidden_blocco di marmo.png',       x:75,  y:290, w:70,  h:55  },
       { id:'s14_operaioconcesto',   nome:'Operaio con Cesto', img:'hidden_new_operaioconcesto.png',    x:48,  y:375, w:72,  h:96  },
@@ -2682,6 +2699,7 @@ const CANT_STAGES = [
     blockName: 'FRIGIDARIUM',
     bg: 'bg_cantiere18.png', introBg: 'bg_cantiere17avvio.png',
     cost: 250, alertIco: '', alertTitle: 'FRIGIDARIUM',
+    alertDesc: 'Eumachia dona alla città il Frigidarium del Portico. Sua pecunia, si avviano i primi scavi e le fondamenta.',
     objects: [
       { id:'s15_cassettapiastrelle', nome:'Cassetta Piastrelle', img:'hidden_5_cassettapiastrelle.png', x:100, y:356, w:56,  h:49  },
       { id:'s15_anfore',             nome:'Anfore',              img:'hidden_5_anfore.png',             x:242, y:335, w:70,  h:100 },
@@ -2695,6 +2713,7 @@ const CANT_STAGES = [
     blockName: 'FRIGIDARIUM',
     bg: 'bg_cantiere19.png', introBg: 'bg_cantiere18avvio.png',
     cost: 270, alertIco: '', alertTitle: 'FRIGIDARIUM',
+    alertDesc: 'Le colonne vengono erette a spese di Eumachia. Il marmo arriva dai cantieri della Via Appia.',
     objects: [
       { id:'s16_cassettapiastrelle', nome:'Cassetta Piastrelle', img:'hidden_5_cassettapiastrelle.png', x:100, y:356, w:56,  h:49  },
       { id:'s16_anfore',             nome:'Anfore',              img:'hidden_5_anfore.png',             x:242, y:335, w:70,  h:100 },
@@ -2711,6 +2730,7 @@ const CANT_STAGES = [
     blockName: 'FRIGIDARIUM',
     bg: 'bg_cantiere20.png', introBg: 'bg_cantiere19avvio.png',
     cost: 290, alertIco: '', alertTitle: 'FRIGIDARIUM',
+    alertDesc: 'Le travi vengono posate e le superfici preparate. Il Frigidarium del Portico della Concordia prende forma.',
     objects: [
       { id:'s17_cassettapiastrelle', nome:'Cassetta Piastrelle', img:'hidden_5_cassettapiastrelle.png', x:100, y:356, w:56,  h:49  },
       { id:'s17_anfore',             nome:'Anfore',              img:'hidden_5_anfore.png',             x:242, y:335, w:70,  h:100 },
@@ -2732,6 +2752,7 @@ const CANT_STAGES = [
     blockName: 'FRIGIDARIUM',
     bg: 'bg_cantiere21.png', introBg: 'bg_cantiere20avvio.png',
     cost: 310, alertIco: '', alertTitle: 'FRIGIDARIUM',
+    alertDesc: 'Il cantiere è nel pieno. L\'architetto coordina i lavori voluti e finanziati da Eumachia.',
     objects: [
       { id:'s18_cassettapiastrelle', nome:'Cassetta Piastrelle', img:'hidden_5_cassettapiastrelle.png', x:100, y:356, w:56,  h:49  },
       { id:'s18_anfore',             nome:'Anfore',              img:'hidden_5_anfore.png',             x:242, y:335, w:70,  h:100 },
@@ -2756,6 +2777,7 @@ const CANT_STAGES = [
     blockName: 'FRIGIDARIUM',
     bg: 'bg_cantiere22.png', introBg: 'bg_cantiere21avvio.png',
     cost: 330, alertIco: '', alertTitle: 'FRIGIDARIUM',
+    alertDesc: 'I decori commissionati da Eumachia arrivano. Il Frigidarium si veste di ornamenti degni della sua donatrice.',
     objects: [
       { id:'s19_cassettapiastrelle', nome:'Cassetta Piastrelle', img:'hidden_5_cassettapiastrelle.png', x:100, y:356, w:56,  h:49  },
       { id:'s19_anfore',             nome:'Anfore',              img:'hidden_5_anfore.png',             x:242, y:335, w:70,  h:100 },
@@ -2788,6 +2810,7 @@ const CANT_STAGES = [
     blockEndLabel: 'FRIGIDARIUM COMPLETATO!',
     blockEndMsg: 'Il Frigidarium splende nella sua bellezza. La Sala dei Fullones si prepara ad accogliere le assemblee...',
     cost: 350, alertIco: '', alertTitle: 'FRIGIDARIUM',
+    alertDesc: 'L\'ultimo cantiere del Frigidarium. Il dono di Eumachia alla città del relax e della bellezza è completo.',
     objects: [
       { id:'s20_cassettapiastrelle', nome:'Cassetta Piastrelle', img:'hidden_5_cassettapiastrelle.png', x:100, y:356, w:56,  h:49  },
 
@@ -2944,6 +2967,8 @@ function avviaCantiere(){
   if(icoEl){ icoEl.textContent = cfg.alertIco || '🪨'; icoEl.style.display = cfg.alertIco === '' ? 'none' : ''; }
   const titleEl = document.getElementById('cant-alert-title');
   if(titleEl) titleEl.innerHTML = cfg.alertTitle || 'AVVIA STAGE';
+  const descEl = document.getElementById('cant-alert-desc');
+  if(descEl){ descEl.textContent = cfg.alertDesc || ''; descEl.style.display = cfg.alertDesc ? '' : 'none'; }
   document.getElementById('cant-alert-avvio').style.display = 'flex';
 }
 function chiudiCantAlertAvvio(){
